@@ -1,0 +1,16 @@
+# dependencies
+/node_modules
+
+# production
+/build
+*.zip
+
+# host
+/host
+
+# misc
+/.idea
+
+# package-lock.json
+package-lock.json
+yarn.lock
