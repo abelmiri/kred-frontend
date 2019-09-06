@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Kred",
+  "name": "Kred - Health In Touch",
   "icons": [
     {
       "src": "favicon.ico",
@@ -16,10 +16,15 @@
       "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
-    }	    
+    }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "fa",
+  "description": "سامانه هوشمند کرد",
+  "prefer_related_applications": false
 }
