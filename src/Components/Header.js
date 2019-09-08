@@ -1,0 +1,51 @@
+import React, {Component} from "react"
+import Logo from "../Media/Images/Logo.png"
+
+class Header extends Component
+{
+    constructor(props)
+    {
+        super(props)
+        this.state = {isTransparent: true}
+        this.onScroll = this.onScroll.bind(this)
+    }
+
+    componentDidMount()
+    {
+        document.addEventListener("scroll", this.onScroll)
+    }
+
+    onScroll()
+    {
+        const {isTransparent} = this.state
+        if (window.scrollY >= window.innerHeight)
+        {
+            if (isTransparent) this.setState({...this.state, isTransparent: false})
+        }
+        else
+        {
+            if (!isTransparent) this.setState({...this.state, isTransparent: true})
+        }
+    }
+
+    render()
+    {
+        const {isTransparent} = this.state
+        return (
+            <div style={{backgroundColor: isTransparent ? "transparent" : "white"}} className='header-container'>
+                <div className='header-buttons'>
+                    <div className='header-buttons-title'>ورود</div>
+                    <div className='header-buttons-title'>ثبت نام</div>
+                    <div className='header-buttons-title'>ارتباط با کرد</div>
+                    <div className='header-buttons-title'>درباره ما</div>
+                </div>
+                <div className='header-logo-cont'>
+                    <h1 style={{opacity: isTransparent ? 0 : 1}} className='header-logo-cont-title'>KRED</h1>
+                    <img src={Logo} className='header-logo' alt='kred logo'/>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Header

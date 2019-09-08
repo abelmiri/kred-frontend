@@ -1,3 +1,6 @@
+@import "header";
+@import "home";
+@import "footer";
 @import "Material.css";
 
 @font-face {
@@ -8,15 +11,15 @@
 body {
   margin: 0;
   padding: 0;
+  color: #17252A;
   direction: rtl;
   font-family: "IranSans", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
-  background-color: #F1F2F7;
 }
 
-button, input, textarea {
+button, input, textarea, h4, h3, h2, h1 {
   padding: 0;
   margin: 0;
   border: none;

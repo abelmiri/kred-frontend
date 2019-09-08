@@ -7,6 +7,7 @@ class Material extends React.Component
         className: PropTypes.string,
         onClick: PropTypes.func,
         backgroundColor: PropTypes.string,
+        type: PropTypes.string,
     }
 
     constructor(props)
@@ -115,8 +116,14 @@ class Material extends React.Component
 
     render()
     {
-        const {children, className, onClick} = this.props
-        return (
+        const {children, className, onClick, type} = this.props
+        if (type && type === "button")
+            return (
+                <button ref={e => this.container = e} className={className ? className + " material" : "material"} onMouseDown={this.onMouseDown} onMouseUp={this.handleButtonRelease} onMouseLeave={this.handleLeave} onClick={onClick}>
+                    {children}
+                </button>
+            )
+        else return (
             <div ref={e => this.container = e} className={className ? className + " material" : "material"} onMouseDown={this.onMouseDown} onMouseUp={this.handleButtonRelease} onMouseLeave={this.handleLeave} onClick={onClick}>
                 {children}
             </div>
