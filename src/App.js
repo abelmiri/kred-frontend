@@ -24,22 +24,30 @@ class App extends Component
         const rect = target.getBoundingClientRect()
         target.style.position = "fixed"
         target.style.height = rect.height + "px"
-        target.style.zIndex = "11"
         target.style.left = rect.left + "px"
         target.style.top = rect.top + "px"
+        document.body.clientWidth > 500 ? target.style.zIndex = "2" : target.style.zIndex = "11"
         const shit = target.cloneNode(true)
         target.remove()
         document.body.append(shit)
         setTimeout(() =>
         {
-            shit.style.borderRadius = "50%"
+            shit.style.borderRadius = "100%"
             shit.style.height = rect.width + "px"
-            shit.style.left = `calc((100vw - ${rect.width}px) / 2)`
-            shit.style.top = `calc((100vh - ${rect.width}px) / 2)`
-            if (document.body.clientWidth > 500) shit.style.transform = "scale(2)"
+            shit.style.zIndex = "11"
+            if (document.body.clientWidth > 500)
+            {
+                shit.style.transform = "scale(3)"
+                shit.style.left = `calc((100vw - ${rect.width}px) / 2)`
+                shit.style.top = `calc((100vh - ${rect.width}px) / 2)`
+            }
+            else
+            {
+                shit.style.transform = "scale(7)"
+            }
             setTimeout(() =>
             {
-                document.body.clientWidth > 500 ? shit.style.transform = "scale(18)" : shit.style.transform = "scale(4)"
+                if (document.body.clientWidth > 500) shit.style.transform = "scale(20)"
                 setTimeout(() =>
                 {
                     this.setState({...this.state, redirect: true, page}, () =>
@@ -49,9 +57,9 @@ class App extends Component
                             setTimeout(() => shit.remove(), 800)
                         }),
                     )
-                }, 250)
-            }, 250)
-        }, 150)
+                }, 200)
+            }, 100)
+        }, 20)
     }
 
     render()

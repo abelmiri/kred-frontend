@@ -6,12 +6,13 @@
   top: 0;
   right: 0;
   left: 0;
-  padding: 0 5%;
+  padding: 0 150px 0 5%;
   height: 75px;
   display: flex;
   z-index: 10;
+  transition: all linear $color-animation-duration;
   @media screen and (max-width: 480px) {
-    transition: background-color linear 0.1s;
+    padding: 0 5%;
   }
 }
 
@@ -22,6 +23,7 @@
   align-items: center;
   font-size: $home-regular-font-size;
   font-weight: bold;
+  text-shadow: 0 0 0 3px rgba(255, 255, 255, .4);
 
   @media screen and (max-width: 480px) {
     flex-grow: 1;

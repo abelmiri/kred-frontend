@@ -1,5 +1,8 @@
 import React, {Component} from "react"
 import Logo from "../Media/Images/Logo.png"
+import {Link} from "react-router-dom"
+
+const primaryColor = "#3AAFA9"
 
 class Header extends Component
 {
@@ -18,7 +21,7 @@ class Header extends Component
     onScroll()
     {
         const {isTransparent} = this.state
-        if (window.scrollY >= window.innerHeight)
+        if (window.scrollY >= window.innerHeight - 50)
         {
             if (isTransparent) this.setState({...this.state, isTransparent: false})
         }
@@ -32,7 +35,7 @@ class Header extends Component
     {
         const {isTransparent} = this.state
         return (
-            <div style={{backgroundColor: isTransparent ? "transparent" : "white"}} className='header-container'>
+            <div style={isTransparent ? {backgroundColor: "transparent", borderBottom: `1px solid transparent`} : {backgroundColor: "white", borderBottom: `1px solid ${primaryColor}`}} className='header-container'>
                 <div className='header-buttons'>
                     <div className='header-buttons-title'>ورود</div>
                     <div className='header-buttons-title'>ثبت نام</div>
@@ -41,7 +44,9 @@ class Header extends Component
                 </div>
                 <div className='header-logo-cont'>
                     <h1 style={{opacity: isTransparent ? 0 : 1}} className='header-logo-cont-title'>KRED</h1>
-                    <img src={Logo} className='header-logo' alt='kred logo'/>
+                    <Link to="/" className='header-logo-cont'>
+                        <img src={Logo} className='header-logo' alt='kred logo'/>
+                    </Link>
                 </div>
             </div>
         )

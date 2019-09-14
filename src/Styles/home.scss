@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 200px;
+  width: 160px;
 }
 
 .home-background-img {
@@ -103,7 +103,7 @@
   color: $very-light-color;
   padding: 10px;
   cursor: pointer;
-  transition: all linear 0.2s, opacity linear 0.8s, scale linear 0.8s, color linear 0.1s;
+  transition: all ease $normal-animation-duration, border-radius linear $short-animation-duration, opacity ease $opacity-animation-duration, scale ease $scale-animation-duration, color ease $color-animation-duration;
 
   @media screen and (max-width: 800px) {
     right: 50px;
