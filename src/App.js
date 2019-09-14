@@ -35,19 +35,12 @@ class App extends Component
             shit.style.borderRadius = "100%"
             shit.style.height = rect.width + "px"
             shit.style.zIndex = "11"
-            if (document.body.clientWidth > 500)
-            {
-                shit.style.transform = "scale(3)"
-                shit.style.left = `calc((100vw - ${rect.width}px) / 2)`
-                shit.style.top = `calc((100vh - ${rect.width}px) / 2)`
-            }
-            else
-            {
-                shit.style.transform = "scale(7)"
-            }
+            shit.style.left = `calc((100vw - ${rect.width}px) / 2)`
+            shit.style.top = `calc((100vh - ${rect.width}px) / 2)`
+            document.body.clientWidth > 500 ? shit.style.transform = "scale(3)" : shit.style.transform = "scale(.6)"
             setTimeout(() =>
             {
-                if (document.body.clientWidth > 500) shit.style.transform = "scale(20)"
+                document.body.clientWidth > 500 ? shit.style.transform = "scale(20)" : shit.style.transform = "scale(5)"
                 setTimeout(() =>
                 {
                     this.setState({...this.state, redirect: true, page}, () =>
