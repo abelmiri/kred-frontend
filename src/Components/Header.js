@@ -2,8 +2,6 @@ import React, {Component} from "react"
 import Logo from "../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
 
-const primaryColor = "#3AAFA9"
-
 class Header extends Component
 {
     constructor(props)
@@ -35,7 +33,7 @@ class Header extends Component
     {
         const {isTransparent} = this.state
         return (
-            <div style={isTransparent ? {backgroundColor: "transparent", borderBottom: `1px solid transparent`} : {backgroundColor: "white", borderBottom: `1px solid ${primaryColor}`}} className='header-container'>
+            <div className={`header-container-base ${isTransparent ? "hidden" : "visible"}`}>
                 <div className='header-buttons'>
                     <div className='header-buttons-title'>ورود</div>
                     <div className='header-buttons-title'>ثبت نام</div>

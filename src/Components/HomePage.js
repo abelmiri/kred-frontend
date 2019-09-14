@@ -20,7 +20,6 @@ class HomePage extends Component
 
         return (
             <React.Fragment>
-                <img className='home-background-HIT' src={HIT} alt=''/>
                 <div className='home-background-img'>
                     <h1 className='home-title'>KRED</h1>
                     <h2 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h2>
