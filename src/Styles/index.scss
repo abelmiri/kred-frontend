@@ -1,5 +1,6 @@
 @import "header";
 @import "home";
+@import "exchange";
 @import "footer";
 @import "Material.css";
 
@@ -17,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+  overflow-y: scroll;
 }
 
 button, input, textarea, h4, h3, h2, h1 {
@@ -28,6 +30,12 @@ button, input, textarea, h4, h3, h2, h1 {
   &:focus {
     outline: none;
   }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {

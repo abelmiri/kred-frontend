@@ -103,6 +103,7 @@
   color: $very-light-color;
   padding: 10px;
   cursor: pointer;
+  transition: all linear 0.2s, opacity linear 0.8s, scale linear 0.8s, color linear 0.1s;
 
   @media screen and (max-width: 800px) {
     right: 50px;

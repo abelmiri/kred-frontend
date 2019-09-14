@@ -8,8 +8,16 @@ import Material from "./Material"
 
 class HomePage extends Component
 {
+    changeRoute = (e) =>
+    {
+        const {goToExchangeBook} = this.props
+        const {target} = e
+        goToExchangeBook(target, "/exchange")
+    }
+
     render()
     {
+
         return (
             <React.Fragment>
                 <img className='home-background-HIT' src={HIT} alt=''/>
@@ -22,7 +30,7 @@ class HomePage extends Component
                     <div className='home-exchange-text'>
                         <h3 className='home-exchange-title'>تبادل کتاب</h3>
                         <div className='home-exchange-description'>تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>
-                        <Material type='button' backgroundColor='rgba(255,255,255,0.3)' className='home-exchange-butt'>برو تو تبادل کتاب</Material>
+                        <button type='button' className='home-exchange-butt' onClick={this.changeRoute}>برو تو تبادل کتاب</button>
                     </div>
                 </div>
                 <div className='home-videos'>
