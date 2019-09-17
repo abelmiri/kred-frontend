@@ -26,6 +26,7 @@ class App extends Component
         target.style.height = rect.height + "px"
         target.style.left = rect.left + "px"
         target.style.top = rect.top + "px"
+        target.style.border = "none"
         document.body.clientWidth > 500 ? target.style.zIndex = "2" : target.style.zIndex = "11"
         const shit = target.cloneNode(true)
         target.remove()
