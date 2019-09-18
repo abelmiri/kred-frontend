@@ -36,7 +36,7 @@ class HomePage extends Component
                     <div className='home-videos-text'>
                         <h3 className='home-videos-title'>فیلم های آموزشی</h3>
                         <div className='home-exchange-description'>به دنیای جدید آموزش بیا! دیگه نیازی نیست دغدغه یادگیری درسات رو داشته باشی</div>
-                        <Material type='button' backgroundColor='rgba(58,175,169,0.2)' className='home-videos-butt'>برو تو فیلم های آموزشی</Material>
+                        <button className='home-videos-butt' onClick={this.changeRoute}>برو تو فیلم های آموزشی</button>
                     </div>
                     <img className='home-videos-img' src={Nurses} alt=''/>
                 </div>
@@ -45,7 +45,7 @@ class HomePage extends Component
                     <div className='home-exchange-text'>
                         <h3 className='home-exchange-title'>پاویون</h3>
                         <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
-                        <Material type='button' backgroundColor='rgba(255,255,255,0.3)' className='home-exchange-butt'>برو تو پاویون</Material>
+                        <button className='home-exchange-butt' onClick={this.changeRoute}>برو تو پاویون</button>
                     </div>
                 </div>
                 <div className='home-about'>
@@ -57,14 +57,14 @@ class HomePage extends Component
                     <div className='home-exchange-text'>
                         <h3 className='home-exchange-title'>جزوه ها و خلاصه درس ها</h3>
                         <div className='home-exchange-description'>دیگه سر کلاس جزوه ننویس!</div>
-                        <Material type='button' backgroundColor='rgba(255,255,255,0.3)' className='home-exchange-butt'>برو تو جزوه و خلاصه درس</Material>
+                        <button className='home-exchange-butt' onClick={this.changeRoute}>برو تو جزوه و خلاصه درس</button>
                     </div>
                 </div>
                 <div className='home-questions'>
                     <div className='home-videos-text'>
-                        <h3 className='home-questions-title'>نمونه سوال</h3>
+                        <h3 className='home-videos-title'>نمونه سوال</h3>
                         <div className='home-exchange-description'>نمونه سوال بزنی پاسی!</div>
-                        <Material type='button' backgroundColor='rgba(58,175,169,0.2)' className='home-questions-butt'>برو تو نمونه سوال</Material>
+                        <button className='home-videos-butt' onClick={this.changeRoute}>برو تو نمونه سوال</button>
                     </div>
                     <img className='home-videos-img' src={Doctors} alt=''/>
                 </div>

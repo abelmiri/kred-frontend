@@ -97,6 +97,18 @@
   padding: 10px;
   cursor: pointer;
   transition: all ease $normal-animation-duration, border-radius linear $short-animation-duration, opacity ease $opacity-animation-duration, scale ease $scale-animation-duration, color ease $color-animation-duration;
+  border: 1px solid $primary-color;
+  min-width: 120px;
+
+  &:hover {
+    background-color: $very-light-color;
+    color: $primary-color;
+  }
+
+  &:focus {
+    background-color: $primary-color;
+    color: $very-light-color;
+  }
 
   @media screen and (max-width: 800px) {
     right: 50px;
@@ -166,6 +178,19 @@
   color: $primary-color;
   padding: 10px;
   cursor: pointer;
+  transition: all ease $normal-animation-duration, border-radius linear $short-animation-duration, opacity ease $opacity-animation-duration, scale ease $scale-animation-duration, color ease $color-animation-duration;
+  border: 1px solid $very-light-color;
+  min-width: 120px;
+
+  &:hover {
+    background-color: $primary-color;
+    color: $very-light-color;
+  }
+
+  &:focus {
+    background-color: $very-light-color;
+    color: $primary-color;
+  }
 
   @media screen and (max-width: 800px) {
     right: 50px;
@@ -202,7 +227,7 @@
   @media screen and (min-width: 800px) {
     display: flex;
     padding: 5%;
-    background-color: $light-color;
+    background-color: $primary-color;
   }
   @media screen and (max-width: 800px) {
     position: relative;
@@ -210,26 +235,26 @@
   }
 }
 
-.home-questions-title {
-  font-size: $home-title-font-size;
-  color: $secondary-color;
-}
-
-.home-questions-butt {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  background-color: $very-light-color;
-  color: $secondary-color;
-  padding: 10px;
-  cursor: pointer;
-
-  @media screen and (max-width: 800px) {
-    right: 50px;
-    left: 50px;
-    width: calc(100% - 100px);
-  }
-}
+//.home-questions-title {
+//  font-size: $home-title-font-size;
+//  color: $secondary-color;
+//}
+//
+//.home-questions-butt {
+//  position: absolute;
+//  right: 0;
+//  bottom: 0;
+//  background-color: $very-light-color;
+//  color: $secondary-color;
+//  padding: 10px;
+//  cursor: pointer;
+//
+//  @media screen and (max-width: 800px) {
+//    right: 50px;
+//    left: 50px;
+//    width: calc(100% - 100px);
+//  }
+//}
 
 .home-collab {
   width: 90%;
