@@ -24,30 +24,30 @@ class App extends Component
         const rect = target.getBoundingClientRect()
         target.style.position = "fixed"
         target.style.height = rect.height + "px"
-        target.style.left = rect.left + "px"
         target.style.top = rect.top + "px"
+        target.style.left = rect.left + "px"
+        target.style.right = "auto"
         document.body.clientWidth > 500 ? target.style.zIndex = "2" : target.style.zIndex = "11"
-        const shit = target.cloneNode(true)
         target.remove()
-        document.body.append(shit)
+        document.body.append(target)
         setTimeout(() =>
         {
-            shit.style.borderRadius = "100%"
-            shit.style.height = rect.width + "px"
-            shit.style.zIndex = "11"
-            shit.style.left = `calc((100vw - ${rect.width}px) / 2)`
-            shit.style.top = `calc((100vh - ${rect.width}px) / 2)`
-            document.body.clientWidth > 500 ? shit.style.transform = "scale(3)" : shit.style.transform = "scale(.6)"
+            target.style.borderRadius = "100%"
+            target.style.height = rect.width + "px"
+            target.style.zIndex = "11"
+            target.style.left = `calc((100vw - ${rect.width}px) / 2)`
+            target.style.top = `calc((100vh - ${rect.width}px) / 2)`
+            document.body.clientWidth > 500 ? target.style.transform = "scale(3)" : target.style.transform = "scale(.6)"
             setTimeout(() =>
             {
-                document.body.clientWidth > 500 ? shit.style.transform = "scale(20)" : shit.style.transform = "scale(5)"
+                document.body.clientWidth > 500 ? target.style.transform = "scale(20)" : target.style.transform = "scale(5)"
                 setTimeout(() =>
                 {
                     this.setState({...this.state, redirect: true, page}, () =>
                         this.setState({...this.state, redirect: false, page: "/"}, () =>
                         {
-                            shit.style.opacity = 0
-                            setTimeout(() => shit.remove(), 800)
+                            target.style.opacity = 0
+                            setTimeout(() => target.remove(), 800)
                         }),
                     )
                 }, 200)
