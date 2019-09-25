@@ -15,8 +15,8 @@ class ExchangeBookPage extends PureComponent
                     </div>
                 </div>
                 <div className='exchange-slider'>
-                    <div onClick={() => this.container.scrollLeft = this.container.scrollLeft + 1000}><Arrow className="exchange-slider-arrow exchange-slider-right-arrow"/></div>
-                    <div onClick={() => this.container.scrollLeft = this.container.scrollLeft - 1000}><Arrow className="exchange-slider-arrow exchange-slider-left-arrow"/></div>
+                    <div onClick={() => this.container.scrollTo({left: this.container.scrollLeft + 1000, behavior: "smooth"})}><Arrow className="exchange-slider-arrow exchange-slider-right-arrow"/></div>
+                    <div onClick={() => this.container.scrollTo({left: this.container.scrollLeft - 1000, behavior: "smooth"})}><Arrow className="exchange-slider-arrow exchange-slider-left-arrow"/></div>
                     <div className='exchange-slider-title'>جدید ترین ها</div>
                     <div className='exchange-slider-container' ref={e => this.container = e}>
                         <ExchangeItem/>
