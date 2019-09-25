@@ -1,12 +1,11 @@
-import React, {Component} from "react"
-import HIT from "../Media/Images/HIT.png"
+import React, {PureComponent} from "react"
 import Library from "../Media/Images/Library.jpg"
 import Nurses from "../Media/Images/Nurses.png"
 import Pavion from "../Media/Images/Pavion.jpg"
 import Doctors from "../Media/Images/Doctors.png"
 import Material from "./Material"
 
-class HomePage extends Component
+class HomePage extends PureComponent
 {
     changeRoute = (e) =>
     {
@@ -21,8 +20,8 @@ class HomePage extends Component
         return (
             <React.Fragment>
                 <div className='home-background-img'>
-                    <h1 className='home-title'>KRED</h1>
-                    <h2 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h2>
+                    <h2 className='home-title'>K<span>RED</span></h2>
+                    <h3 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h3>
                 </div>
                 <div className='home-exchange'>
                     <img className='home-exchange-img' src={Library} alt=''/>

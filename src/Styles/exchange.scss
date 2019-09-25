@@ -1,4 +1,109 @@
-.exchange-container {
+@import "variables";
+
+.exchange-background-img {
   margin-top: 80px;
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+  background-image: url("../Media/Images/Exchange.jpg");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.exchange-des-cont {
+  max-width: 270px;
   text-align: center;
+
+  @media screen and (max-width: 650px) {
+    margin: 0 0 250px 0;
+  }
+  @media screen and (min-width: 650px) {
+    margin: 0 0 200px 300px;
+  }
+}
+
+.exchange-desc {
+  display: block;
+  border-bottom: 1px solid black;
+  font-size: 60px;
+  color: $secondary-color;
+
+  @media screen and (max-width: 650px) {
+    font-size: 40px;
+  }
+}
+
+.exchange-text {
+  font-size: 20px;
+  text-align: justify;
+  text-align-last: center;
+
+  @media screen and (max-width: 650px) {
+    font-size: 15px;
+  }
+}
+
+.exchange-slider {
+  padding: 5%;
+  background-color: $light-color;
+  text-align: center;
+}
+
+.exchange-slider-title {
+  display: inline-block;
+  font-size: 20px;
+  border-bottom: 1px solid black;
+  margin-bottom: 5%;
+}
+
+.exchange-slider-container {
+  white-space: nowrap;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    display: none;
+    width: 0;
+  }
+}
+
+.exchange-item-cont {
+  display: inline-block;
+  background-color: #F5F5F5;
+  width: 280px;
+  padding: 20px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+
+  @media screen and (max-width: 480px) {
+    max-width: calc(100% - 60px);
+  }
+}
+
+.exchange-item-img {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+}
+
+.exchange-item-border {
+  width: 100%;
+  height: 1px;
+  background-color: grey;
+  margin: 10px 0;
+}
+
+.exchange-item-title {
+  font-size: $regular-font-size;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

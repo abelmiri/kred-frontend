@@ -16,6 +16,10 @@
   font-size: 150px;
   margin: 0 0 -40px 0;
 
+  span {
+    color: #4B0404;
+  }
+
   @media screen and (max-width: 800px) {
     font-size: 85px;
     margin: 0 0 -10px 0;
@@ -227,34 +231,13 @@
   @media screen and (min-width: 800px) {
     display: flex;
     padding: 5%;
-    background-color: $primary-color;
+    background-color: #F39C12;
   }
   @media screen and (max-width: 800px) {
     position: relative;
     margin: 20px 0;
   }
 }
-
-//.home-questions-title {
-//  font-size: $home-title-font-size;
-//  color: $secondary-color;
-//}
-//
-//.home-questions-butt {
-//  position: absolute;
-//  right: 0;
-//  bottom: 0;
-//  background-color: $very-light-color;
-//  color: $secondary-color;
-//  padding: 10px;
-//  cursor: pointer;
-//
-//  @media screen and (max-width: 800px) {
-//    right: 50px;
-//    left: 50px;
-//    width: calc(100% - 100px);
-//  }
-//}
 
 .home-collab {
   width: 90%;

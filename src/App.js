@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, {PureComponent} from "react"
 import LoginPage from "./Components/LoginPage"
 import Header from "./Components/Header"
 import HomePage from "./Components/HomePage"
@@ -6,7 +6,7 @@ import Footer from "./Components/Footer"
 import {Switch, Route, Redirect} from "react-router-dom"
 import ExchangeBookPage from "./Components/ExchangeBookPage"
 
-class App extends Component
+class App extends PureComponent
 {
     constructor(props)
     {
@@ -59,6 +59,7 @@ class App extends Component
     render()
     {
         const {redirect, page} = this.state
+        const {location} = this.props
         return (
             <React.Fragment>
                 {redirect && <Redirect push to={page}/>}
@@ -66,7 +67,7 @@ class App extends Component
                     <Route exact path='/Login' render={() => <LoginPage/>}/>
                     <React.Fragment>
                         <main className='main'>
-                            <Header/>
+                            <Header location={location.pathname}/>
                             <Switch>
                                 <Route path='/exchange' render={() => <ExchangeBookPage/>}/>
                                 <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
