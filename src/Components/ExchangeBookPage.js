@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react"
 import ExchangeItem from "./ExchangeItem"
+import Arrow from "../Media/Svgs/Arrow"
 
 class ExchangeBookPage extends PureComponent
 {
@@ -14,8 +15,10 @@ class ExchangeBookPage extends PureComponent
                     </div>
                 </div>
                 <div className='exchange-slider'>
+                    <div onClick={() => this.container.scrollLeft = this.container.scrollLeft + 1000}><Arrow className="exchange-slider-arrow exchange-slider-right-arrow"/></div>
+                    <div onClick={() => this.container.scrollLeft = this.container.scrollLeft - 1000}><Arrow className="exchange-slider-arrow exchange-slider-left-arrow"/></div>
                     <div className='exchange-slider-title'>جدید ترین ها</div>
-                    <div className='exchange-slider-container'>
+                    <div className='exchange-slider-container' ref={e => this.container = e}>
                         <ExchangeItem/>
                         <ExchangeItem/>
                         <ExchangeItem/>

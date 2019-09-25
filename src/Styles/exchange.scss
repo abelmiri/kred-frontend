@@ -47,9 +47,46 @@
 }
 
 .exchange-slider {
-  padding: 5%;
+  padding: 5% 12%;
   background-color: $light-color;
   text-align: center;
+  position: relative;
+}
+
+.exchange-slider-arrow {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  fill: $light-color;
+  top: 400px;
+  background-color: $almost-dark-color;
+  padding: 15px 40px;
+  opacity: .5;
+  transition-duration: $short-animation-duration;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #3AAFA9;
+    opacity: .7;
+    transition-duration: $short-animation-duration;
+  }
+
+  &:active {
+    background-color: #3AAFA9;
+    opacity: 1;
+    transition-duration: $short-animation-duration;
+  }
+
+}
+
+.exchange-slider-right-arrow {
+  transform: rotate(90deg);
+  right: 11.5%;
+}
+
+.exchange-slider-left-arrow {
+  transform: rotate(-90deg);
+  left: 11.5%;
 }
 
 .exchange-slider-title {
@@ -81,6 +118,14 @@
   padding: 20px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
   margin: 10px;
+
+  &:first-child {
+    margin-right: 0;
+  }
+
+  &:last-child {
+    margin-left: 0;
+  }
 
   @media screen and (max-width: 480px) {
     max-width: calc(100% - 60px);
