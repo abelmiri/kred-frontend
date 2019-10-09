@@ -68,6 +68,8 @@
   height: 100%;
   display: inline-flex;
   align-items: center;
+  color: $dark-color;
+  text-decoration: none;
 
   @media screen and (min-width: 480px) {
     &:first-child {

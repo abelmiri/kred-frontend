@@ -1,0 +1,200 @@
+@import "variables";
+
+.login-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: $login-page-background-color;
+  text-align: center;
+}
+
+.login-square {
+  width: 700px;
+  height: 1100px;
+  position: absolute;
+  background-color: white;
+  top: -50px;
+  right: -200px;
+  transform: rotate(-45deg);
+  transition: width linear 0.3s, opacity linear 0.3s;
+
+  @media screen and (max-width: 1380px) {
+    width: 550px;
+    top: 50px;
+  }
+
+  @media screen and (max-width: 1250px) {
+    width: 450px;
+  }
+
+  @media screen and (max-width: 1080px) {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
+.login-title {
+  position: absolute;
+  white-space: nowrap;
+  top: 80px;
+  right: 50%;
+  transform: translateX(50%);
+  color: $primary-color;
+  z-index: 1;
+
+  @media screen and (max-width: 480px) {
+    top: 90px;
+    font-size: 17px;
+  }
+}
+
+.login-input-cont {
+  text-align: center;
+  position: absolute;
+  right: 200px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $dark-color;
+  transition: right linear 0.3s;
+
+  @media screen and (max-width: 1250px) {
+    right: 100px;
+  }
+
+  @media screen and (max-width: 890px) {
+    position: static;
+    width: 400px;
+    transform: none;
+    margin: 160px auto 50px auto;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }
+
+}
+
+.login-slider-cont {
+  position: absolute;
+  left: 200px;
+  top: calc(50% - 190px);
+  transition: left linear 0.3s;
+  height: 380px;
+  width: 400px;
+
+  @media screen and (max-width: 1250px) {
+    left: 100px;
+  }
+
+  @media screen and (max-width: 890px) {
+    position: static;
+    margin: 0 auto 50px auto;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }
+}
+
+.login-input-cont-title {
+  margin-bottom: 30px;
+  font-size: $title-font-size;
+}
+
+.login-input-field {
+  display: flex;
+  margin: 15px 0;
+  align-items: center;
+}
+
+.login-input-label {
+  width: 80px;
+  white-space: nowrap;
+  text-align: right;
+  font-size: $regular-font-size;
+}
+
+.login-input-input {
+  border: 1px solid $text-light-color;
+  color: $text-light-color;
+  font-size: $regular-font-size;
+  padding: 5px;
+  width: 180px;
+
+  @media screen and (max-width: 480px) {
+    flex-grow: 1;
+  }
+}
+
+.login-slider-cont-relative {
+  position: relative;
+  text-align: center;
+}
+
+.login-slider-item {
+  position: absolute;
+  top: 0;
+  transition: opacity linear 0.3s, left linear 0.3s;
+}
+
+.login-slider-dots {
+  position: absolute;
+  top: 370px;
+  left: 180px;
+  display: flex;
+
+  @media screen and (max-width: 480px) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.login-slider-dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  transition: background-color linear 0.3s;
+  border-radius: 50%;
+  border: 1px solid $dark-color;
+  cursor: pointer;
+}
+
+.login-slider-text {
+  color: $text-light-color;
+  margin-top: 10px;
+  white-space: nowrap;
+  font-size: $title-font-size;
+}
+
+.login-slider-img {
+  width: 400px;
+  height: 300px;
+  object-fit: contain;
+
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }
+}
+
+.login-kred-logo {
+  position: absolute;
+  top: 15px;
+  left: 46px;
+  display: inline-flex;
+  align-items: center;
+
+  @media screen and (max-width: 480px) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.login-input-submit {
+  width: 100%;
+  padding: 5px 0;
+  background-color: $primary-color;
+  color: white;
+  margin-top: 15px;
+  cursor: pointer;
+}

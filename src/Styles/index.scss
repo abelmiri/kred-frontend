@@ -1,5 +1,6 @@
 @import "header";
 @import "home";
+@import "login";
 @import "exchange";
 @import "footer";
 @import "Material.css";
@@ -18,7 +19,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
-  overflow-y: scroll;
 }
 
 button, input, textarea, h4, h3, h2, h1 {
@@ -30,6 +30,12 @@ button, input, textarea, h4, h3, h2, h1 {
   &:focus {
     outline: none;
   }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .main {
@@ -55,4 +61,14 @@ button, input, textarea, h4, h3, h2, h1 {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #2A3542;
+}
+
+::-moz-selection { /* Code for Firefox */
+  color: white;
+  background: #3AAFA9;
+}
+
+::selection {
+  color: white;
+  background: #3AAFA9;
 }

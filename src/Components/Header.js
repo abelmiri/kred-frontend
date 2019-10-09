@@ -46,7 +46,7 @@ class Header extends PureComponent
                         </Material>
                     }
                     <div className='header-buttons-title'>ورود</div>
-                    <div className='header-buttons-title'>ثبت نام</div>
+                    <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
                     <div className='header-buttons-title'>ارتباط با کرد</div>
                     <div className='header-buttons-title'>درباره ما</div>
                 </div>

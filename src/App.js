@@ -64,7 +64,7 @@ class App extends PureComponent
             <React.Fragment>
                 {redirect && <Redirect push to={page}/>}
                 <Switch>
-                    <Route exact path='/Login' render={() => <LoginPage/>}/>
+                    <Route exact path='/sign-up' render={() => <LoginPage/>}/>
                     <React.Fragment>
                         <main className='main'>
                             <Header location={location.pathname}/>
