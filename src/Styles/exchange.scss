@@ -50,7 +50,10 @@
   padding: 5% 12%;
   background-color: $light-color;
   text-align: center;
-  position: relative;
+
+  @media screen and (max-width: 480px) {
+    padding: 5% 2%;
+  }
 }
 
 .exchange-slider-arrow {
@@ -58,7 +61,7 @@
   width: 30px;
   height: 30px;
   fill: $light-color;
-  top: 400px;
+  top: 45%;
   background-color: $almost-dark-color;
   padding: 15px 40px;
   opacity: .5;
@@ -77,16 +80,20 @@
     transition-duration: $short-animation-duration;
   }
 
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+
 }
 
 .exchange-slider-right-arrow {
   transform: rotate(90deg);
-  right: 11.5%;
+  right: -25px;
 }
 
 .exchange-slider-left-arrow {
   transform: rotate(-90deg);
-  left: 11.5%;
+  left: -25px;
 }
 
 .exchange-slider-title {
@@ -96,9 +103,13 @@
   margin-bottom: 5%;
 }
 
+.exchange-slider-container-relative {
+  position: relative;
+}
+
 .exchange-slider-container {
-  white-space: nowrap;
   overflow-x: auto;
+  white-space: nowrap;
 
   &::-webkit-scrollbar {
     display: none;
@@ -111,23 +122,29 @@
   }
 }
 
+.exchange-item-cont-hide {
+  flex-grow: 1;
+  padding: 0 20px;
+  height: 0;
+  overflow: hidden;
+  margin: 0 10px;
+  width: 280px;
+}
+
 .exchange-item-cont {
+  flex-grow: 1;
   display: inline-block;
   background-color: #F5F5F5;
+  min-width: 280px;
   width: 280px;
   padding: 20px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
   margin: 10px;
-
-  &:first-child {
-    margin-right: 0;
-  }
-
-  &:last-child {
-    margin-left: 0;
-  }
+  text-align: center;
+  white-space: normal;
 
   @media screen and (max-width: 480px) {
+    min-width: calc(100% - 60px);
     max-width: calc(100% - 60px);
   }
 }
@@ -151,4 +168,224 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: bold;
+}
+
+.exchange-item-description {
+  font-size: $small-font-size;
+  width: 100%;
+  margin-top: 10px;
+
+  &.in-slide {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.exchange-item-price {
+  color: red;
+  font-size: $title-font-size;
+  white-space: nowrap;
+  margin-top: 10px;
+  width: 100%;
+
+  span {
+    color: blue;
+  }
+}
+
+.exchange-item-city {
+  background-color: white;
+  border: 1px solid $text-light-color;
+  margin-top: 10px;
+  border-radius: 15px;
+  padding: 3px 15px;
+  display: inline-block;
+  font-size: $title-font-size;
+}
+
+.create-exchange-button {
+  display: inline-block;
+  margin: 20px 12% 10px 12%;
+  border-radius: 40px;
+  padding: 15px;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    margin: 20px 3% 10px 3%;
+  }
+}
+
+.exchange-list {
+  padding: 0 calc(12% - 10px);
+  display: flex;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 480px) {
+    padding: 0 1%;
+  }
+}
+
+.create-exchange-cont {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background-color: white;
+  width: 800px;
+  border: 1px solid $text-light-color;
+  text-align: center;
+  padding: 15px;
+
+  &.login {
+    width: 500px;
+
+    @media screen and (max-width: 480px) {
+      width: 85%;
+    }
+  }
+
+  &.show {
+    z-index: 5;
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+    transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0s;
+  }
+
+  &.hide {
+    z-index: -1;
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0.9);
+    transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0.3s;
+  }
+}
+
+.create-exchange-title {
+  font-size: $home-regular-font-size;
+  font-weight: bold;
+  padding: 5px 0 20px 0;
+  border-bottom: 1px solid $text-light-color;
+}
+
+.create-exchange-main {
+  white-space: nowrap;
+}
+
+.create-exchange-part {
+  width: calc(50% - 20px);
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.create-exchange-section {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+
+  &.relative {
+    position: relative;
+  }
+}
+
+.create-exchange-section-input {
+  flex-grow: 1;
+  border: 1px solid $text-light-color;
+  padding: 15px;
+  resize: none;
+}
+
+.create-exchange-section-label {
+  width: 100px;
+  text-align: right;
+
+  span {
+    color: red;
+  }
+}
+
+.create-exchange-price {
+  position: absolute;
+  left: 10px;
+  color: $text-light-color;
+}
+
+.create-exchange-back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  &.show {
+    z-index: 4;
+    opacity: 1;
+    transition: opacity linear 0.3s, z-index linear 0s 0s;
+  }
+
+  &.hide {
+    z-index: -1;
+    opacity: 0;
+    transition: opacity linear 0.3s, z-index linear 0s 0.4s;
+  }
+}
+
+.create-exchange-image {
+  margin: 20px 0;
+
+  span {
+    color: red;
+  }
+}
+
+.create-exchange-city {
+  margin: 20px 0 8.5px 0;
+
+  span {
+    color: red;
+  }
+}
+
+.create-exchange-img {
+  height: 200px;
+  width: 100%;
+  border: 1px dashed $text-light-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.create-exchange-svg {
+  width: 60px;
+  fill: $text-light-color;
+}
+
+.create-exchange-selected-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.create-exchange-select {
+  width: 100%;
+  border: 1px solid $text-light-color;
+  padding: 15px;
+}
+
+.create-exchange-submit {
+  background-color: $primary-color;
+  padding: 15px 0;
+  color: white;
+  margin: 0 10px 5px 10px;
+  cursor: pointer;
+
+  &.hide {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }

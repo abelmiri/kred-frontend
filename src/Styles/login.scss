@@ -104,7 +104,8 @@
 
 .login-input-field {
   display: flex;
-  margin: 15px 0;
+  flex-wrap: wrap;
+  margin: 7px 0;
   align-items: center;
 }
 
@@ -113,17 +114,27 @@
   white-space: nowrap;
   text-align: right;
   font-size: $regular-font-size;
+
+  span {
+    color: $primary-color;
+  }
 }
 
 .login-input-input {
-  border: 1px solid $text-light-color;
+  border-bottom: 1px solid $text-light-color;
   color: $text-light-color;
   font-size: $regular-font-size;
   padding: 5px;
   width: 180px;
+  transition: all linear 0.3s;
+  background-color: transparent;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 890px) {
     flex-grow: 1;
+  }
+
+  &:focus {
+    border-bottom: 1px solid $primary-color;
   }
 }
 
@@ -197,4 +208,18 @@
   color: white;
   margin-top: 15px;
   cursor: pointer;
+
+  &.loading {
+    padding: 6.5px 0 1.5px 0;
+    cursor: not-allowed;
+  }
+}
+
+.login-input-error {
+  height: 0;
+  overflow: hidden;
+  color: red;
+  transition: height linear 0.2s;
+  font-size: $small-font-size;
+  text-align: right;
 }

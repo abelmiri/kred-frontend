@@ -4,7 +4,9 @@ import Slider1 from "../Media/Images/login-slider1.jpg"
 import Slider2 from "../Media/Images/login-slider2.jpg"
 import Slider3 from "../Media/Images/login-slider3.jpg"
 import Material from "./Material"
-import {Link} from "react-router-dom"
+import {Link, Redirect} from "react-router-dom"
+import {BeatLoader} from "react-spinners"
+import api from "../Functions/api"
 
 const slides = [
     {img: Slider1, text: "دیگه لازم نیست پول زیادی برای کتاب‌هات خرج کنی!"},
@@ -12,19 +14,31 @@ const slides = [
     {img: Slider3, text: "توی KRED از حال و هوای دانشجوهای موفق باخبر شو!"},
 ]
 
+let phoneValid = false
+let passwordValid = false
+
 class LoginPage extends PureComponent
 {
     constructor(props)
     {
         super(props)
         this.state = {
+            redirectHome: false,
+            loading: false,
             previousSlider: slides.length - 1,
             sliderIndex: 0,
         }
+        this.changePhone = this.changePhone.bind(this)
+        this.blurPassword = this.blurPassword.bind(this)
+        this.blurPhone = this.blurPhone.bind(this)
+        this.changePassword = this.changePassword.bind(this)
+        this.submit = this.submit.bind(this)
     }
 
     componentDidMount()
     {
+        if (localStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
+
         this.sliderInterval = setInterval(() =>
         {
             const {sliderIndex} = this.state
@@ -54,11 +68,90 @@ class LoginPage extends PureComponent
         }
     }
 
+    changePhone(e)
+    {
+        phoneValid = false
+        const {value} = e.target
+        if (value.length === 11)
+        {
+            api.post("user/phone_check", {phone: value}, "", true)
+                .then((data) =>
+                {
+                    if (data.count > 0)
+                    {
+                        this.phoneInput.style.borderBottom = "1px solid red"
+                        this.phoneError.style.height = "20px"
+                        phoneValid = false
+                    }
+                    else
+                    {
+                        this.phoneInput.style.borderBottom = ""
+                        this.phoneError.style.height = ""
+                        phoneValid = true
+                    }
+                })
+        }
+        else phoneValid = false
+    }
+
+    blurPhone(e)
+    {
+        if (e.target.value.length < 11) this.phoneInput.style.borderBottom = "1px solid red"
+    }
+
+    changePassword(e)
+    {
+        const {value} = e.target
+        if (value.length >= 6 && value.length <= 30)
+        {
+            passwordValid = true
+            this.passwordInput.style.borderBottom = ""
+            this.passwordError.style.height = ""
+        }
+        else passwordValid = false
+    }
+
+    blurPassword(e)
+    {
+        const {value} = e.target
+        if (value.length === 0)
+        {
+            this.passwordInput.style.borderBottom = "1px solid red"
+        }
+        else if (!(value.length >= 6 && value.length <= 30))
+        {
+            this.passwordInput.style.borderBottom = "1px solid red"
+            this.passwordError.style.height = "20px"
+        }
+    }
+
+    submit()
+    {
+        const {loading} = this.state
+        const {setUser} = this.props
+        if (!loading && phoneValid && passwordValid)
+        {
+            this.setState({...this.state, loading: true}, () =>
+            {
+                api.post("user", {phone: this.phoneInput.value, name: this.nameInput.value, password: this.passwordInput.value}, "", true)
+                    .then((data) =>
+                    {
+                        setUser(data)
+                        this.setState({...this.state, redirectHome: true})
+                    })
+                    .catch(() => alert("سیستم با خطا مواجه شد!"))
+            })
+        }
+    }
+
     render()
     {
-        const {sliderIndex, previousSlider} = this.state
+        const {sliderIndex, previousSlider, redirectHome, loading} = this.state
         return (
             <div className='login-container'>
+
+                {redirectHome && <Redirect to="/"/>}
+
                 <div className='login-square'/>
 
                 <div className='login-kred-logo'>
@@ -73,18 +166,20 @@ class LoginPage extends PureComponent
                 <div className='login-input-cont'>
                     <div className='login-input-cont-title'> میشه اطلاعات زیر رو کامل کنی؟</div>
                     <div className='login-input-field'>
-                        <label className='login-input-label'>شماره موبایل</label>
-                        <input name='phone' type='number' className='login-input-input' placeholder="مثال: 09123456789" onInput={e => e.target.value = e.target.value.slice(0, 11)}/>
+                        <label className='login-input-label'>شماره موبایل <span>*</span></label>
+                        <input name='phone' type='number' className='login-input-input' placeholder="مثال: 09123456789" ref={e => this.phoneInput = e} onChange={this.changePhone} onBlur={this.blurPhone} onInput={e => e.target.value = e.target.value.slice(0, 11)}/>
                     </div>
+                    <div className='login-input-error' ref={e => this.phoneError = e}>شماره وارد شده قبلا استفاده شده است!</div>
                     <div className='login-input-field'>
                         <label className='login-input-label'>نام کامل</label>
-                        <input name='full_name' type='text' className='login-input-input' placeholder="مثال: سید عرفان وهابی میری"/>
+                        <input name='full_name' type='text' className='login-input-input' placeholder="مثال: سید عرفان وهابی میری" ref={e => this.nameInput = e}/>
                     </div>
                     <div className='login-input-field'>
-                        <label className='login-input-label'>رمز عبور</label>
-                        <input name='password' type='password' className='login-input-input' placeholder="******"/>
+                        <label className='login-input-label'>رمز عبور <span>*</span></label>
+                        <input name='password' type='password' className='login-input-input' placeholder="******" ref={e => this.passwordInput = e} onChange={this.changePassword} onBlur={this.blurPassword} maxLength={30}/>
                     </div>
-                    <Material type='button' className="login-input-submit">ثبت</Material>
+                    <div className='login-input-error' ref={e => this.passwordError = e}>طول پسورد باید حداقل 6 و حداکثر 30 کاراکتر باشد!</div>
+                    <Material type='button' className={loading ? "login-input-submit loading" : "login-input-submit"} onClick={this.submit}>{loading ? <BeatLoader size={12} color="white"/> : "ثبت"}</Material>
                 </div>
 
                 <div className='login-slider-cont'>

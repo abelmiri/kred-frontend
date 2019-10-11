@@ -3,19 +3,41 @@ import Logo from "../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
 import Hamburger from "../Media/Svgs/Hamburger"
 import Material from "./Material"
+import api from "../Functions/api"
 
 class Header extends PureComponent
 {
     constructor(props)
     {
         super(props)
-        this.state = {isTransparent: true}
+        this.state = {
+            isTransparent: true,
+            showLoginModal: false,
+            displayShowLoginModal: false,
+        }
         this.onScroll = this.onScroll.bind(this)
+        this.login = this.login.bind(this)
     }
 
     componentDidMount()
     {
         document.addEventListener("scroll", this.onScroll)
+    }
+
+    componentDidUpdate()
+    {
+        window.onpopstate = () =>
+        {
+            if (document.body.clientWidth <= 480)
+            {
+                if (this.state.showLoginModal)
+                {
+                    document.body.style.overflow = "auto"
+                    this.setState({...this.state, showLoginModal: false})
+                    setTimeout(() => this.setState({...this.state, displayShowLoginModal: false}), 150)
+                }
+            }
+        }
     }
 
     onScroll()
@@ -31,10 +53,50 @@ class Header extends PureComponent
         }
     }
 
+    hideLoginModal = () =>
+    {
+        if (document.body.clientWidth <= 480) window.history.back()
+        else
+        {
+            document.body.style.overflow = "auto"
+            this.setState({...this.state, showLoginModal: false})
+            setTimeout(() => this.setState({...this.state, displayShowLoginModal: false}), 150)
+        }
+    }
+
+    showLoginModal = () =>
+    {
+        const {location} = this.props
+        if (document.body.clientWidth <= 480) window.history.pushState("", "", `${location === "/" ? "" : location}/login`)
+        document.body.style.overflow = "hidden"
+        setTimeout(() => this.setState({...this.state, showLoginModal: true}), 150)
+        this.setState({...this.state, displayShowLoginModal: true})
+    }
+
+    login()
+    {
+        const phone = this.phoneInput.value.trim()
+        const password = this.passwordInput.value
+        if (phone.length > 0 && password.length >= 6 && password.length <= 30)
+        {
+            api.post("user/login", {phone, password}, "", true)
+                .then((data) =>
+                {
+                    this.props.setUser(data)
+                    this.hideLoginModal()
+                })
+                .catch((e) =>
+                {
+                    if (e.message === "Request failed with status code 404") alert("کاربری با اطلاعات وارد شده یافت نشد.")
+                })
+        }
+        else alert("اطلاعات ورود را به درستی وارد کنید.")
+    }
+
     render()
     {
-        const {isTransparent} = this.state
-        const {location} = this.props
+        const {location, user} = this.props
+        const {isTransparent, showLoginModal, displayShowLoginModal} = this.state
         return (
             <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                 <div className='header-buttons'>
@@ -45,8 +107,17 @@ class Header extends PureComponent
                             <span>تبادل کتاب</span>
                         </Material>
                     }
-                    <div className='header-buttons-title'>ورود</div>
-                    <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
+                    {
+                        user ?
+                            <div className='header-buttons-title'>
+                                سلام {user.name || user.phone}
+                            </div>
+                            :
+                            <React.Fragment>
+                                <div className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
+                                <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
+                            </React.Fragment>
+                    }
                     <div className='header-buttons-title'>ارتباط با کرد</div>
                     <div className='header-buttons-title'>درباره ما</div>
                 </div>
@@ -56,6 +127,34 @@ class Header extends PureComponent
                         <img src={Logo} className='header-logo' alt='kred logo'/>
                     </Link>
                 </div>
+                {
+                    displayShowLoginModal &&
+                    <React.Fragment>
+                        <div className={`create-exchange-back ${showLoginModal ? "show" : "hide"}`} onClick={this.hideLoginModal}/>
+                        <div className={`create-exchange-cont login ${showLoginModal ? "show" : "hide"}`}>
+                            <div className='create-exchange-title'>ورود به KRED</div>
+                            <div className='create-exchange-section'>
+                                <input type='text'
+                                       ref={e => this.phoneInput = e}
+                                       className='create-exchange-section-input'
+                                       placeholder="ایمیل، شمار یا موبایل"
+                                       maxLength={60}
+                                       name="phone"
+                                />
+                            </div>
+                            <div className='create-exchange-section'>
+                                <input type='password'
+                                       ref={e => this.passwordInput = e}
+                                       className='create-exchange-section-input'
+                                       placeholder="رمز عبور"
+                                       maxLength={30}
+                                       name="password"
+                                />
+                            </div>
+                            <Material className='header-login-submit' onClick={this.login}>ورود</Material>
+                        </div>
+                    </React.Fragment>
+                }
             </div>
         )
     }

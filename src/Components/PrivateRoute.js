@@ -3,7 +3,7 @@ import {Route, Redirect} from "react-router-dom"
 
 const PrivateRoute = ({component, ...rest}) =>
     <Route {...rest} render={routeProps =>
-        localStorage.hasOwnProperty("token") ?
+        localStorage.hasOwnProperty("user") ?
             React.createElement(component, {...routeProps, ...rest})
             :
             <Redirect to="/"/>

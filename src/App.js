@@ -14,8 +14,16 @@ class App extends PureComponent
         this.state = {
             redirect: false,
             page: "/",
+            user: null,
+            exchanges: [],
+            cities: {},
         }
         this.goToExchangeBook = this.goToExchangeBook.bind(this)
+    }
+
+    componentDidMount()
+    {
+        if (localStorage.hasOwnProperty("user")) this.setState({...this.state, user: JSON.parse(localStorage.getItem("user"))})
     }
 
     goToExchangeBook(target, page)
@@ -56,20 +64,30 @@ class App extends PureComponent
         }, 20)
     }
 
+    setUser = (user) =>
+    {
+        localStorage.setItem("user", JSON.stringify(user))
+        this.setState({...this.state, user})
+    }
+
+    setExchanges = (exchanges) => this.setState({...this.state, exchanges})
+
+    setCities = (cities) => this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})})
+
     render()
     {
-        const {redirect, page} = this.state
+        const {redirect, page, user, cities, exchanges} = this.state
         const {location} = this.props
         return (
             <React.Fragment>
                 {redirect && <Redirect push to={page}/>}
                 <Switch>
-                    <Route exact path='/sign-up' render={() => <LoginPage/>}/>
+                    <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
                     <React.Fragment>
                         <main className='main'>
-                            <Header location={location.pathname}/>
+                            <Header user={user} location={location.pathname} setUser={this.setUser}/>
                             <Switch>
-                                <Route path='/exchange' render={() => <ExchangeBookPage/>}/>
+                                <Route path='/exchange' render={() => <ExchangeBookPage cities={cities} defaultPhone={user ? user.phone : ""} exchanges={exchanges} setExchanges={this.setExchanges} setCities={this.setCities}/>}/>
                                 <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                             </Switch>
                             <Footer/>

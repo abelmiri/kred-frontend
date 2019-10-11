@@ -7,7 +7,7 @@
   right: 0;
   left: 0;
   display: flex;
-  z-index: 10;
+  z-index: 3;
   height: 80px;
   transition: all ease $color-animation-duration;
 
@@ -107,4 +107,37 @@
 .header-logo {
   width: 50px;
   height: 50px;
+}
+
+.header-login-cont {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background-color: white;
+  width: 500px;
+  border: 1px solid $text-light-color;
+  text-align: center;
+  padding: 15px;
+
+  &.show {
+    z-index: 5;
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+    transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0s;
+  }
+
+  &.hide {
+    z-index: -1;
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0.9);
+    transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0.3s;
+  }
+}
+
+.header-login-submit {
+  background-color: $primary-color;
+  padding: 15px 0;
+  color: white;
+  margin: 10px 0;
+  cursor: pointer;
 }
