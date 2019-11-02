@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage"
 import Footer from "./Components/Footer"
 import {Switch, Route, Redirect} from "react-router-dom"
 import ExchangeBookPage from "./Components/ExchangeBookPage"
+import api from "./Functions/api"
 
 class App extends PureComponent
 {
@@ -23,7 +24,23 @@ class App extends PureComponent
 
     componentDidMount()
     {
-        if (localStorage.hasOwnProperty("user")) this.setState({...this.state, user: JSON.parse(localStorage.getItem("user"))})
+        if (localStorage.hasOwnProperty("user"))
+        {
+            const user = JSON.parse(localStorage.getItem("user"))
+            this.setState({...this.state, user}, () =>
+            {
+                api.post("user/login", {phone: user.phone, password: user.password}, "", true)
+                    .then((data) => this.setUser(data))
+                    .catch((e) =>
+                    {
+                        if (e.message === "Request failed with status code 404")
+                        {
+                            localStorage.clear()
+                            this.setState({...this.state, user: null})
+                        }
+                    })
+            })
+        }
     }
 
     goToExchangeBook(target, page)

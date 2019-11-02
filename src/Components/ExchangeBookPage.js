@@ -1,8 +1,6 @@
 import React, {PureComponent} from "react"
 import ExchangeItem from "./ExchangeItem"
-import Arrow from "../Media/Svgs/Arrow"
 import api from "../Functions/api"
-import {ClipLoader} from "react-spinners"
 import Material from "./Material"
 import CreateExchangeModal from "./CreateExchangeModal"
 
@@ -73,33 +71,15 @@ class ExchangeBookPage extends PureComponent
                         <h3 className='exchange-text'>تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست </h3>
                     </div>
                 </div>
-                <div className='exchange-slider'>
-                    <div className='exchange-slider-title'>جدید ترین ها</div>
-                    <div className='exchange-slider-container-relative'>
-                        <div className='exchange-slider-container' ref={e => this.container = e}>
-                            {
-                                exchanges.length > 0 ?
-                                    exchanges.slice(0, 4).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
-                                    :
-                                    <ClipLoader/>
-                            }
-                        </div>
-                        {
-                            exchanges.length > 0 &&
-                            <React.Fragment>
-                                <Arrow className="exchange-slider-arrow exchange-slider-right-arrow" onClick={() => this.container.scrollTo({left: this.container.scrollLeft + 1000, behavior: "smooth"})}/>
-                                <Arrow className="exchange-slider-arrow exchange-slider-left-arrow" onClick={() => this.container.scrollTo({left: this.container.scrollLeft - 1000, behavior: "smooth"})}/>
-                            </React.Fragment>
-                        }
-                    </div>
-                </div>
 
                 {defaultPhone && <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>}
 
-                <div className='exchange-list'>
+                <div style={{paddingTop: defaultPhone ? "0" : "5px"}} className='exchange-list'>
                     {
-                        exchanges.slice(4, exchanges.length).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
+                        exchanges.map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
                     }
+                    <div className='exchange-item-cont-hide'/>
+                    <div className='exchange-item-cont-hide'/>
                     <div className='exchange-item-cont-hide'/>
                     <div className='exchange-item-cont-hide'/>
                 </div>

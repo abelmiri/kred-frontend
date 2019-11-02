@@ -23,6 +23,11 @@
   @media screen and (min-width: 650px) {
     margin: 0 0 200px 300px;
   }
+  @media screen and (max-width: 480px) {
+    margin: 0 5%;
+    width: 90%;
+    max-width: 90%;
+  }
 }
 
 .exchange-desc {
@@ -46,82 +51,6 @@
   }
 }
 
-.exchange-slider {
-  padding: 5% 12%;
-  background-color: $light-color;
-  text-align: center;
-
-  @media screen and (max-width: 480px) {
-    padding: 5% 2%;
-  }
-}
-
-.exchange-slider-arrow {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  fill: $light-color;
-  top: 45%;
-  background-color: $almost-dark-color;
-  padding: 15px 40px;
-  opacity: .5;
-  transition-duration: $short-animation-duration;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #3AAFA9;
-    opacity: .7;
-    transition-duration: $short-animation-duration;
-  }
-
-  &:active {
-    background-color: #3AAFA9;
-    opacity: 1;
-    transition-duration: $short-animation-duration;
-  }
-
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-
-}
-
-.exchange-slider-right-arrow {
-  transform: rotate(90deg);
-  right: -25px;
-}
-
-.exchange-slider-left-arrow {
-  transform: rotate(-90deg);
-  left: -25px;
-}
-
-.exchange-slider-title {
-  display: inline-block;
-  font-size: 20px;
-  border-bottom: 1px solid black;
-  margin-bottom: 5%;
-}
-
-.exchange-slider-container-relative {
-  position: relative;
-}
-
-.exchange-slider-container {
-  overflow-x: auto;
-  white-space: nowrap;
-
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-  }
-
-  &::-webkit-scrollbar-track {
-    display: none;
-    width: 0;
-  }
-}
-
 .exchange-item-cont-hide {
   flex-grow: 1;
   padding: 0 20px;
@@ -129,13 +58,17 @@
   overflow: hidden;
   margin: 0 10px;
   width: 280px;
+
+  @media screen and (max-width: 480px) {
+    width: calc(100% - 40px);
+    margin: 0;
+  }
 }
 
 .exchange-item-cont {
   flex-grow: 1;
   display: inline-block;
   background-color: #F5F5F5;
-  min-width: 280px;
   width: 280px;
   padding: 20px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -144,8 +77,8 @@
   white-space: normal;
 
   @media screen and (max-width: 480px) {
-    min-width: calc(100% - 60px);
-    max-width: calc(100% - 60px);
+    width: calc(100% - 40px);
+    margin: 10px 0;
   }
 }
 
@@ -175,13 +108,9 @@
   font-size: $small-font-size;
   width: 100%;
   margin-top: 10px;
-
-  &.in-slide {
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .exchange-item-price {
@@ -208,25 +137,20 @@
 
 .create-exchange-button {
   display: inline-block;
-  margin: 20px 12% 10px 12%;
+  margin: 20px 5% 10px 5%;
   border-radius: 40px;
   padding: 15px;
   border: 1px solid $primary-color;
   color: $primary-color;
   cursor: pointer;
-
-  @media screen and (max-width: 480px) {
-    margin: 20px 3% 10px 3%;
-  }
 }
 
 .exchange-list {
-  padding: 0 calc(12% - 10px);
+  padding: 0 calc(5% - 10px);
   display: flex;
   flex-wrap: wrap;
-
   @media screen and (max-width: 480px) {
-    padding: 0 1%;
+    padding: 0 5%;
   }
 }
 
@@ -273,6 +197,16 @@
   font-weight: bold;
   padding: 5px 0 20px 0;
   border-bottom: 1px solid $text-light-color;
+}
+
+.login-modal-sign-up {
+  font-size: $home-regular-font-size;
+  font-weight: bold;
+  padding: 20px 0 5px 0;
+  border-top: 1px solid $text-light-color;
+  text-decoration: none;
+  color: $secondary-color;
+  display: block;
 }
 
 .create-exchange-main {

@@ -128,10 +128,15 @@ class Header extends PureComponent
                     <div className='header-buttons-title'>درباره ما</div>
                 </div>
                 <div className='header-logo-cont'>
+                    <Hamburger className='header-hamburger-mobile'/>
                     <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
-                    <Link to="/" className='header-logo-cont'>
-                        <img src={Logo} className='header-logo' alt='kred logo'/>
-                    </Link>
+                    <Link to="/" className='header-logo-link'><img src={Logo} className='header-logo' alt='kred logo'/></Link>
+                    {
+                        user ?
+                            <div className="header-mobile-name">{user.name ? user.name.split(" ")[0] : user.phone}</div>
+                            :
+                            <Material className="header-mobile-login" onClick={this.showLoginModal}>ورود</Material>
+                    }
                 </div>
                 {
                     displayShowLoginModal &&
@@ -158,6 +163,7 @@ class Header extends PureComponent
                                 />
                             </div>
                             <Material className='header-login-submit' onClick={this.login}>ورود</Material>
+                            <Link onClick={this.hideLoginModal} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
                         </div>
                     </React.Fragment>
                 }
