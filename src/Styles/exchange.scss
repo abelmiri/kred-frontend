@@ -235,14 +235,13 @@
   left: 50%;
   top: 50%;
   background-color: white;
-  width: 800px;
+  width: 400px;
   border: 1px solid $text-light-color;
   text-align: center;
   padding: 15px;
 
   &.login {
     width: 500px;
-
     @media screen and (max-width: 480px) {
       width: 85%;
     }
@@ -253,6 +252,9 @@
     opacity: 1;
     transform: translate3d(-50%, -50%, 0) scale(1);
     transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0s;
+    @media screen and (max-width: 480px) {
+      width: 85%;
+    }
   }
 
   &.hide {
@@ -260,6 +262,9 @@
     opacity: 0;
     transform: translate3d(-50%, -50%, 0) scale(0.9);
     transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0.3s;
+    @media screen and (max-width: 480px) {
+      width: 85%;
+    }
   }
 }
 
@@ -272,13 +277,14 @@
 
 .create-exchange-main {
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .create-exchange-part {
-  width: calc(50% - 20px);
+  width: 100%;
   display: inline-block;
   vertical-align: top;
-  padding: 10px;
+  margin-left: 30px;
 }
 
 .create-exchange-section {
@@ -352,7 +358,7 @@
 
 .create-exchange-img {
   height: 200px;
-  width: 100%;
+  width: calc(100% - 2px);
   border: 1px dashed $text-light-color;
   display: flex;
   align-items: center;
@@ -381,11 +387,46 @@
   background-color: $primary-color;
   padding: 15px 0;
   color: white;
-  margin: 0 10px 5px 10px;
+  margin-bottom: 5px;
   cursor: pointer;
+  display: inline-block;
+  width: 100%;
+  transition: width linear 0.2s, margin-left linear 0.2s, margin-right linear 0.2s;
+}
 
-  &.hide {
-    opacity: 0.5;
-    cursor: not-allowed;
+.create-exchange-hide-submit {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.create-exchange-half-width-right {
+  width: calc(50% - 7.5px);
+  margin-left: 7.5px;
+  background-color: #C62828;
+}
+
+.create-exchange-half-width-left {
+  width: calc(50% - 7.5px);
+  margin-right: 7.5px;
+}
+
+.create-exchange-hide-width {
+  width: 0;
+  background-color: #C62828;
+}
+
+.create-exchange-rol {
+  transition: transform linear 0.2s;
+
+  &.level-one {
+    transform: translateX(0);
+  }
+
+  &.level-two {
+    transform: translateX(calc(100% + 30px));
+  }
+
+  &.level-three {
+    transform: translateX(calc(200% + 60px));
   }
 }

@@ -79,7 +79,7 @@ class ExchangeBookPage extends PureComponent
                         <div className='exchange-slider-container' ref={e => this.container = e}>
                             {
                                 exchanges.length > 0 ?
-                                    exchanges.slice(0, 4).map(exchange => <ExchangeItem key={exchange._id} inSlide={true} exchange={exchange} city={cities[exchange.city_id]}/>)
+                                    exchanges.slice(0, 4).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
                                     :
                                     <ClipLoader/>
                             }

@@ -24,7 +24,7 @@ class Header extends PureComponent
         document.addEventListener("scroll", this.onScroll)
     }
 
-    componentDidUpdate()
+    componentDidUpdate(prevProps, prevState, snapshot)
     {
         window.onpopstate = () =>
         {
@@ -55,7 +55,13 @@ class Header extends PureComponent
 
     hideLoginModal = () =>
     {
-        if (document.body.clientWidth <= 480) window.history.back()
+        if (document.body.clientWidth <= 480)
+        {
+            window.history.back()
+            document.body.style.overflow = "auto"
+            this.setState({...this.state, showLoginModal: false})
+            setTimeout(() => this.setState({...this.state, displayShowLoginModal: false}), 150)
+        }
         else
         {
             document.body.style.overflow = "auto"
@@ -110,7 +116,7 @@ class Header extends PureComponent
                     {
                         user ?
                             <div className='header-buttons-title'>
-                                سلام {user.name || user.phone}
+                                سلام {user.name ? user.name.split(" ")[0] : user.phone}
                             </div>
                             :
                             <React.Fragment>
