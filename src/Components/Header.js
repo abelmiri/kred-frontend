@@ -1,7 +1,8 @@
 import React, {PureComponent} from "react"
 import Logo from "../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
-import Hamburger from "../Media/Svgs/Hamburger"
+import HamburgerSvg from "../Media/Svgs/Hamburger"
+import Hamburger from "./Hamburger"
 import Material from "./Material"
 import api from "../Functions/api"
 
@@ -14,6 +15,8 @@ class Header extends PureComponent
             isTransparent: true,
             showLoginModal: false,
             displayShowLoginModal: false,
+            collapseSidebar: true,
+            displaySidebar: false,
         }
         this.onScroll = this.onScroll.bind(this)
         this.login = this.login.bind(this)
@@ -21,6 +24,12 @@ class Header extends PureComponent
 
     componentDidMount()
     {
+        const {location} = this.props
+        if (location.includes("loginModal") || location.includes("openSidebar") || location.includes("addExchangeModal"))
+        {
+            let shit = location.replace("/openSidebar", "").replace("/loginModal", "").replace("/addExchangeModal", "")
+            window.history.replaceState("", "", shit ? shit : "/")
+        }
         document.addEventListener("scroll", this.onScroll)
     }
 
@@ -36,9 +45,17 @@ class Header extends PureComponent
                     this.setState({...this.state, showLoginModal: false})
                     setTimeout(() => this.setState({...this.state, displayShowLoginModal: false}), 150)
                 }
+                if (!this.state.collapseSidebar)
+                {
+                    document.body.style.overflow = "auto"
+                    this.setState({...this.state, collapseSidebar: true})
+                    setTimeout(() => this.setState({...this.state, displaySidebar: false}), 150)
+                }
             }
         }
     }
+
+    setOverflowAuto = () => document.body.style.overflow = "auto"
 
     onScroll()
     {
@@ -70,13 +87,19 @@ class Header extends PureComponent
         }
     }
 
+    showLoginModalOnSide = () =>
+    {
+        this.hideSidebar()
+        setTimeout(() => this.showLoginModal(), 150)
+    }
+
     showLoginModal = () =>
     {
-        const {location} = this.props
-        if (document.body.clientWidth <= 480) window.history.pushState("", "", `${location === "/" ? "" : location}/login`)
-        document.body.style.overflow = "hidden"
         setTimeout(() => this.setState({...this.state, showLoginModal: true}), 150)
         this.setState({...this.state, displayShowLoginModal: true})
+        const {location} = this.props
+        if (document.body.clientWidth <= 480) window.history.pushState("", "", `${location === "/" ? "" : location.replace("/loginModal", "")}/loginModal`)
+        document.body.style.overflow = "hidden"
     }
 
     login()
@@ -99,17 +122,47 @@ class Header extends PureComponent
         else alert("اطلاعات ورود را به درستی وارد کنید.")
     }
 
+    showSidebar = () =>
+    {
+        setTimeout(() => this.setState({...this.state, collapseSidebar: false}), 150)
+        this.setState({...this.state, displaySidebar: true})
+        const {location} = this.props
+        window.history.pushState("", "", `${location === "/" ? "" : location.replace("/openSidebar", "")}/openSidebar`)
+        document.body.style.overflow = "hidden"
+    }
+
+    hideSidebar = () =>
+    {
+        window.history.back()
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, collapseSidebar: true})
+        setTimeout(() => this.setState({...this.state, displaySidebar: false}), 150)
+    }
+
+    hideSidebarAfterLink = () =>
+    {
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, collapseSidebar: true})
+        setTimeout(() => this.setState({...this.state, displaySidebar: false}), 150)
+    }
+
+    logout = () =>
+    {
+        this.props.logout()
+        if (!this.state.collapseSidebar && document.body.clientWidth > 480) this.hideSidebar()
+    }
+
     render()
     {
         const {location, user} = this.props
-        const {isTransparent, showLoginModal, displayShowLoginModal} = this.state
+        const {isTransparent, showLoginModal, displayShowLoginModal, collapseSidebar, displaySidebar} = this.state
         return (
             <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                 <div className='header-buttons'>
                     {
                         location === "/exchange" &&
                         <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu'>
-                            <Hamburger className='header-buttons-hamburger'/>
+                            <HamburgerSvg className='header-buttons-hamburger'/>
                             <span>تبادل کتاب</span>
                         </Material>
                     }
@@ -126,16 +179,19 @@ class Header extends PureComponent
                     }
                     <div className='header-buttons-title'>ارتباط با کرد</div>
                     <div className='header-buttons-title'>درباره ما</div>
+                    {user && <div className='header-buttons-title' onClick={this.logout}>خروج</div>}
                 </div>
                 <div className='header-logo-cont'>
-                    <Hamburger className='header-hamburger-mobile'/>
+                    <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
+                        <Hamburger className="header-hamburger-mobile" collapse={collapseSidebar} onClick={collapseSidebar ? this.showSidebar : this.hideSidebar}/>
+                    </Material>
                     <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
-                    <Link to="/" className='header-logo-link'><img src={Logo} className='header-logo' alt='kred logo'/></Link>
+                    <Link to="/" className='header-logo-link'><img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/></Link>
                     {
                         user ?
-                            <div className="header-mobile-name">{user.name ? user.name.split(" ")[0] : user.phone}</div>
+                            <div className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</div>
                             :
-                            <Material className="header-mobile-login" onClick={this.showLoginModal}>ورود</Material>
+                            <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`} onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
                     }
                 </div>
                 {
@@ -163,10 +219,24 @@ class Header extends PureComponent
                                 />
                             </div>
                             <Material className='header-login-submit' onClick={this.login}>ورود</Material>
-                            <Link onClick={this.hideLoginModal} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
+                            <Link onClick={this.setOverflowAuto} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
                         </div>
                     </React.Fragment>
                 }
+
+                {
+                    displaySidebar &&
+                    <React.Fragment>
+                        <div className={`create-exchange-back ${!collapseSidebar ? "show" : "hide"}`} onClick={this.hideSidebar}/>
+                        <div className={`header-sidebar-container ${collapseSidebar ? "" : "show"}`}>
+                            <div className="header-sidebar-buttons">
+                                <Link replace to="/exchange" className="header-sidebar-link" onClick={this.hideSidebarAfterLink}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
+                                {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
+                            </div>
+                        </div>
+                    </React.Fragment>
+                }
+
             </div>
         )
     }

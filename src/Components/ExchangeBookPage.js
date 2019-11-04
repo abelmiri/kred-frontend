@@ -42,7 +42,7 @@ class ExchangeBookPage extends PureComponent
     {
         if (bool)
         {
-            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchange/add")
+            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchange/addExchangeModal")
             document.body.style.overflow = "hidden"
             this.setState({...this.state, displayShowModal: bool})
             setTimeout(() => this.setState({...this.state, showModal: bool}), 150)
@@ -68,7 +68,7 @@ class ExchangeBookPage extends PureComponent
                 <div className='exchange-background-img'>
                     <div className='exchange-des-cont'>
                         <h2 className='exchange-desc'>تبادل کتاب</h2>
-                        <h3 className='exchange-text'>تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست </h3>
+                        {/*<h3 className='exchange-text'>تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست </h3>*/}
                     </div>
                 </div>
 

@@ -87,6 +87,12 @@ class App extends PureComponent
         this.setState({...this.state, user})
     }
 
+    logout = () =>
+    {
+        localStorage.removeItem("user")
+        this.setState({...this.state, user: null})
+    }
+
     setExchanges = (exchanges) => this.setState({...this.state, exchanges})
 
     setCities = (cities) => this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})})
@@ -102,7 +108,7 @@ class App extends PureComponent
                     <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
                     <React.Fragment>
                         <main className='main'>
-                            <Header user={user} location={location.pathname} setUser={this.setUser}/>
+                            <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                             <Switch>
                                 <Route path='/exchange' render={() => <ExchangeBookPage cities={cities} defaultPhone={user ? user.phone : ""} exchanges={exchanges} setExchanges={this.setExchanges} setCities={this.setCities}/>}/>
                                 <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
