@@ -62,9 +62,13 @@ class Header extends PureComponent
                 {
                     document.body.style.overflow = "auto"
                     this.setState({...this.state, collapseSidebar: true})
-                    this.sidebar.style.transition = "transform linear 0.2s"
+                    this.sidebar.style.transition = "transform linear 0.1s"
                     this.sidebar.style.transform = `translateX(${this.sidebar.clientWidth}px)`
+                    this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
+                    this.sidebarBack.style.opacity = `0`
+                    this.sidebarBack.style.height = `0`
                     setTimeout(() => this.sidebar.style.transition = "initial", 250)
+                    setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
                 }
             }
         }
@@ -120,7 +124,11 @@ class Header extends PureComponent
                 {
                     this.sidebar.style.transition = "transform linear 0.1s"
                     this.sidebar.style.transform = `translateX(${this.prevX}px)`
+                    this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
+                    this.sidebarBack.style.opacity = `0`
+                    this.sidebarBack.style.height = `0`
                     setTimeout(() => this.sidebar.style.transition = "initial", 250)
+                    setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
                 }
             }
             else
@@ -130,8 +138,12 @@ class Header extends PureComponent
                 else
                 {
                     this.sidebar.style.transition = "transform linear 0.2s"
-                    this.sidebar.style.transform = `translateX(${this.prevX}px)`
+                    this.sidebar.style.transform = `translateX(0px)`
+                    this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
+                    this.sidebarBack.style.opacity = `1`
+                    this.sidebarBack.style.height = `100vh`
                     setTimeout(() => this.sidebar.style.transition = "initial", 250)
+                    setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
                 }
             }
             document.body.style.overflow = "auto"
