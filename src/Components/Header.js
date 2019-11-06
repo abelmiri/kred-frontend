@@ -70,6 +70,14 @@ class Header extends PureComponent
         }
     }
 
+    componentWillUnmount()
+    {
+        document.removeEventListener("scroll", this.onScroll)
+        document.removeEventListener("touchstart", this.onTouchStart)
+        document.removeEventListener("touchmove", this.onTouchMove)
+        document.removeEventListener("touchend", this.onTouchEnd)
+    }
+
     onTouchStart(e)
     {
         this.prevX = this.state.collapseSidebar ? this.sidebar.clientWidth : 0
