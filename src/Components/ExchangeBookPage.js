@@ -17,6 +17,16 @@ class ExchangeBookPage extends PureComponent
 
     componentDidMount()
     {
+        const scrollToTop = () =>
+        {
+            const scs = document.documentElement.scrollTop || document.body.scrollTop
+            if (scs > 0)
+            {
+                window.requestAnimationFrame(scrollToTop)
+                window.scrollTo(0, scs - scs / 16)
+            }
+        }
+        scrollToTop()
         const {setExchanges, setCities} = this.props
         api.get("exchange", "?limit=20&skip=0", true).then((data) => setExchanges(data)) // TODO add pagination
         api.get("city", "?limit=100", true).then((data) => setCities(data))
@@ -76,7 +86,7 @@ class ExchangeBookPage extends PureComponent
 
                 <div style={{paddingTop: defaultPhone ? "0" : "5px"}} className='exchange-list'>
                     {
-                        exchanges.map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
+                        exchanges && exchanges.map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
                     }
                     <div className='exchange-item-cont-hide'/>
                     <div className='exchange-item-cont-hide'/>

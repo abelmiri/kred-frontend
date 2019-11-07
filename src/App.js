@@ -6,6 +6,7 @@ import Footer from "./Components/Footer"
 import {Switch, Route, Redirect} from "react-router-dom"
 import ExchangeBookPage from "./Components/ExchangeBookPage"
 import api from "./Functions/api"
+import ProfilePage from "./Components/ProfilePage"
 
 class App extends PureComponent
 {
@@ -24,6 +25,10 @@ class App extends PureComponent
 
     componentDidMount()
     {
+        setTimeout(() =>
+        {
+            console.log("state", this.state)
+        }, 2500)
         if (localStorage.hasOwnProperty("user"))
         {
             const user = JSON.parse(localStorage.getItem("user"))
@@ -110,7 +115,9 @@ class App extends PureComponent
                         <main className='main'>
                             <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                             <Switch>
-                                <Route path='/exchange' render={() => <ExchangeBookPage cities={cities} defaultPhone={user ? user.phone : ""} exchanges={exchanges} setExchanges={this.setExchanges} setCities={this.setCities}/>}/>
+                                <Route exact path='/profile' render={() => <ProfilePage user={user}/>}/>
+                                <Route path='/exchange' render={
+                                    () => <ExchangeBookPage cities={cities} defaultPhone={user ? user.phone : ""} exchanges={exchanges} setExchanges={this.setExchanges} setCities={this.setCities}/>}/>
                                 <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                             </Switch>
                             <Footer/>

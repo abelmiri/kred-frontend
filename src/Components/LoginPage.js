@@ -10,7 +10,7 @@ import api from "../Functions/api"
 
 const slides = [
     {img: Slider1, text: "دیگه لازم نیست پول زیادی برای کتاب‌هات خرج کنی!"},
-    {img: Slider2, text: "دیگه وقتشه مثل حرفه ای درس بخونی!"},
+    {img: Slider2, text: "دیگه وقتشه حرفه ای درس بخونی!"},
     {img: Slider3, text: "توی KRED از حال و هوای دانشجوهای موفق باخبر شو!"},
 ]
 

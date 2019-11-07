@@ -286,9 +286,9 @@ class Header extends PureComponent
                     }
                     {
                         user ?
-                            <div className='header-buttons-title'>
+                            <Link to="/profile" className='header-buttons-title'>
                                 سلام {user.name ? user.name.split(" ")[0] : user.phone}
-                            </div>
+                            </Link>
                             :
                             <React.Fragment>
                                 <div className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
