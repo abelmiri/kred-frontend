@@ -11,7 +11,7 @@ class CreateExchangeModal extends Component
         this.state = {
             selectedImagePreview: null,
             loading: false,
-            level: 1,
+            level: 2,
         }
         this.phoneValid = true
         this.selectedImage = false
@@ -198,7 +198,15 @@ class CreateExchangeModal extends Component
                             </div>
 
                             <div className="create-exchange-part">
-                                انتخاب دسته بندی
+                                <div className="create-exchange-category-btn-cont">
+                                    <div>دسته‌بندی</div>
+                                    <div className="create-exchange-category-btn">
+                                        <div className='slideThree'>
+                                            <input type='checkbox' id='category' checked={this.state.is_long} onChange={this.handleLong}/>
+                                            <label htmlFor='category'/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="create-exchange-part">

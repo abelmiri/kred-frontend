@@ -36,9 +36,9 @@ class Header extends PureComponent
     componentDidMount()
     {
         const {location} = this.props
-        if (location.includes("loginModal") || location.includes("openSidebar") || location.includes("addExchangeModal"))
+        if (location.includes("loginModal") || location.includes("addExchangeModal"))
         {
-            let shit = location.replace("/openSidebar", "").replace("/loginModal", "").replace("/addExchangeModal", "")
+            let shit = location.replace("/loginModal", "").replace("/addExchangeModal", "")
             window.history.replaceState("", "", shit ? shit : "/")
         }
         document.addEventListener("scroll", this.onScroll)
@@ -57,18 +57,6 @@ class Header extends PureComponent
                 {
                     document.body.style.overflow = "auto"
                     this.setState({...this.state, showLoginModal: false})
-                }
-                if (!this.state.collapseSidebar)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, collapseSidebar: true})
-                    this.sidebar.style.transition = "transform linear 0.1s"
-                    this.sidebar.style.transform = `translateX(${this.sidebar.clientWidth}px)`
-                    this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
-                    this.sidebarBack.style.opacity = `0`
-                    this.sidebarBack.style.height = `0`
-                    setTimeout(() => this.sidebar.style.transition = "initial", 250)
-                    setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
                 }
             }
         }
@@ -119,32 +107,12 @@ class Header extends PureComponent
             if (this.prevX >= this.sidebar.clientWidth / 2)
             {
                 this.prevX = this.sidebar.clientWidth
-                if (!this.state.collapseSidebar) this.hideSidebar()
-                else
-                {
-                    this.sidebar.style.transition = "transform linear 0.1s"
-                    this.sidebar.style.transform = `translateX(${this.prevX}px)`
-                    this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
-                    this.sidebarBack.style.opacity = `0`
-                    this.sidebarBack.style.height = `0`
-                    setTimeout(() => this.sidebar.style.transition = "initial", 250)
-                    setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
-                }
+                this.hideSidebar()
             }
             else
             {
                 this.prevX = 0
-                if (this.state.collapseSidebar) this.showSidebar()
-                else
-                {
-                    this.sidebar.style.transition = "transform linear 0.2s"
-                    this.sidebar.style.transform = `translateX(0px)`
-                    this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
-                    this.sidebarBack.style.opacity = `1`
-                    this.sidebarBack.style.height = `100vh`
-                    setTimeout(() => this.sidebar.style.transition = "initial", 250)
-                    setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
-                }
+                this.showSidebar()
             }
             document.body.style.overflow = "auto"
             this.changing = false
@@ -228,26 +196,24 @@ class Header extends PureComponent
 
     showSidebar = () =>
     {
-        this.setState({...this.state, collapseSidebar: false})
-        const {location} = this.props
-        window.history.pushState("", "", `${location === "/" ? "" : location.replace("/openSidebar", "")}/openSidebar`)
-        document.body.style.overflow = "hidden"
-        this.sidebar.style.transition = "transform linear 0.2s"
-        this.sidebar.style.transform = `translateX(0px)`
-        this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
-        this.sidebarBack.style.opacity = `1`
-        this.sidebarBack.style.height = `100vh`
-        setTimeout(() => this.sidebar.style.transition = "initial", 250)
-        setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
+        this.setState({...this.state, collapseSidebar: false}, () =>
+        {
+            document.body.style.overflow = "hidden"
+            this.sidebar.style.transition = "transform linear 0.2s"
+            this.sidebar.style.transform = `translateX(0px)`
+            this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
+            this.sidebarBack.style.opacity = `1`
+            this.sidebarBack.style.height = `100vh`
+            setTimeout(() => this.sidebar.style.transition = "initial", 250)
+            setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
+        })
     }
 
     hideSidebar = () =>
     {
-        window.history.back()
-        setTimeout(() =>
+        this.setState({...this.state, collapseSidebar: true}, () =>
         {
             document.body.style.overflow = "auto"
-            this.setState({...this.state, collapseSidebar: true})
             this.sidebar.style.transition = "transform linear 0.1s"
             this.sidebar.style.transform = `translateX(${this.sidebar.clientWidth}px)`
             this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
@@ -255,13 +221,7 @@ class Header extends PureComponent
             this.sidebarBack.style.height = `0`
             setTimeout(() => this.sidebar.style.transition = "initial", 250)
             setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
-        }, 100)
-    }
-
-    hideSidebarAfterLink = () =>
-    {
-        document.body.style.overflow = "auto"
-        this.setState({...this.state, collapseSidebar: true})
+        })
     }
 
     logout = () =>
@@ -286,17 +246,17 @@ class Header extends PureComponent
                     }
                     {
                         user ?
-                            <Link to="/profile" className='header-buttons-title'>
+                            <div className='header-buttons-title'>
                                 سلام {user.name ? user.name.split(" ")[0] : user.phone}
-                            </Link>
+                            </div>
                             :
                             <React.Fragment>
-                                <div className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
+                                <div id="header-login" className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
                                 <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
                             </React.Fragment>
                     }
-                    <div className='header-buttons-title'>ارتباط با کرد</div>
-                    <div className='header-buttons-title'>درباره ما</div>
+                    {/*<div className='header-buttons-title'>ارتباط با کرد</div>*/}
+                    {/*<div className='header-buttons-title'>درباره ما</div>*/}
                     {user && <div className='header-buttons-title' onClick={this.logout}>خروج</div>}
                 </div>
                 <div className='header-logo-cont'>
@@ -347,7 +307,7 @@ class Header extends PureComponent
                 <div ref={e => this.sidebarBack = e} className="header-sidebar-back" style={{opacity: "0", height: "0"}} onClick={this.hideSidebar}/>
                 <div ref={e => this.sidebar = e} style={{transform: "translateX(100%)"}} className="header-sidebar-container">
                     <div className="header-sidebar-buttons">
-                        <Link replace to="/exchange" className="header-sidebar-link" onClick={this.hideSidebarAfterLink}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
+                        {/*<Link replace to="/exchange" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>*/}
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
                 </div>

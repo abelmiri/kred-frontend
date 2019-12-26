@@ -37,7 +37,6 @@ class ProfilePage extends PureComponent
             const {sliderIndex} = this.state
             this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === slides.length ? 0 : sliderIndex + 1})
         }, 5000)
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)

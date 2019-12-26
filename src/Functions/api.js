@@ -1,7 +1,6 @@
 import axios from "axios"
 
-// const REST_URL = "http://localhost:1435"
-//
+// export const REST_URL = "http://localhost:1435"
 export const REST_URL = "https://restful.kred.ir"
 
 function get(url, param = "", noToken)

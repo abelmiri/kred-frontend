@@ -10,26 +10,18 @@ class ExchangeBookPage extends PureComponent
     {
         super(props)
         this.state = {
-            displayShowModal: false,
-            showModal: false,
+            displayShowModal: true,
+            showModal: true,
         }
     }
 
     componentDidMount()
     {
-        const scrollToTop = () =>
-        {
-            const scs = document.documentElement.scrollTop || document.body.scrollTop
-            if (scs > 0)
-            {
-                window.requestAnimationFrame(scrollToTop)
-                window.scrollTo(0, scs - scs / 16)
-            }
-        }
-        scrollToTop()
-        const {setExchanges, setCities} = this.props
-        api.get("exchange", "?limit=20&skip=0", true).then((data) => setExchanges(data)) // TODO add pagination
+        window.scroll({top: 0})
+        const {setExchanges, setCities, setCategories} = this.props
+        api.get("exchange", "?limit=100&skip=0", true).then((data) => setExchanges(data)) // TODO add pagination
         api.get("city", "?limit=100", true).then((data) => setCities(data))
+        api.get("category", "?limit=100", true).then((data) => setCategories(data))
     }
 
     componentDidUpdate()
@@ -50,28 +42,35 @@ class ExchangeBookPage extends PureComponent
 
     changeModalState = (bool) =>
     {
-        if (bool)
+        if (this.props.defaultPhone)
         {
-            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchange/addExchangeModal")
-            document.body.style.overflow = "hidden"
-            this.setState({...this.state, displayShowModal: bool})
-            setTimeout(() => this.setState({...this.state, showModal: bool}), 150)
-        }
-        else
-        {
-            if (document.body.clientWidth <= 480) window.history.back()
+            if (bool)
+            {
+                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchange/addExchangeModal")
+                document.body.style.overflow = "hidden"
+                this.setState({...this.state, displayShowModal: bool})
+                setTimeout(() => this.setState({...this.state, showModal: bool}), 150)
+            }
             else
             {
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, showModal: bool})
-                setTimeout(() => this.setState({...this.state, displayShowModal: bool}), 150)
+                if (document.body.clientWidth <= 480) window.history.back()
+                else
+                {
+                    document.body.style.overflow = "auto"
+                    this.setState({...this.state, showModal: bool})
+                    setTimeout(() => this.setState({...this.state, displayShowModal: bool}), 150)
+                }
             }
+        }
+        else if (document.getElementById("header-login"))
+        {
+            document.getElementById("header-login").click()
         }
     }
 
     render()
     {
-        const {exchanges, cities, defaultPhone} = this.props
+        const {exchanges, cities, defaultPhone, categories} = this.props
         const {showModal, displayShowModal} = this.state
         return (
             <div>
@@ -82,7 +81,7 @@ class ExchangeBookPage extends PureComponent
                     </div>
                 </div>
 
-                {defaultPhone && <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>}
+                <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
 
                 <div style={{paddingTop: defaultPhone ? "0" : "5px"}} className='exchange-list'>
                     {
@@ -94,8 +93,7 @@ class ExchangeBookPage extends PureComponent
                     <div className='exchange-item-cont-hide'/>
                 </div>
 
-                {displayShowModal && <CreateExchangeModal showModal={showModal} hideModal={() => this.changeModalState(false)} cities={cities} defaultPhone={defaultPhone}/>}
-
+                {displayShowModal && <CreateExchangeModal showModal={showModal} hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
 
             </div>
         )

@@ -3,7 +3,7 @@
 .exchange-background-img {
   margin-top: 80px;
   width: 100%;
-  height: 550px;
+  height: calc(100vh - 80px);
   object-fit: cover;
   background-image: url("../Media/Images/Exchange.jpg");
   background-size: cover;
@@ -311,7 +311,7 @@
 .create-exchange-selected-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .create-exchange-select {
@@ -366,4 +366,14 @@
   &.level-three {
     transform: translateX(calc(200% + 60px));
   }
+}
+
+.create-exchange-category-btn-cont {
+  padding-top: 10px;
+  display: flex;
+}
+
+.create-exchange-category-btn {
+  flex-grow: 1;
+  text-align: left;
 }

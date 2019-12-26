@@ -6,6 +6,8 @@
 @import "login";
 @import "Material.css";
 @import "profile";
+@import "showVideo";
+@import "Checkbox.css";
 
 @font-face {
   font-family: "IranSans";
@@ -23,7 +25,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-button, input, textarea, h4, h3, h2, h1, select {
+button, input, textarea, h4, h3, h2, h1, select, video, track {
   padding: 0;
   margin: 0;
   border: none;
@@ -34,10 +36,23 @@ button, input, textarea, h4, h3, h2, h1, select {
   }
 }
 
+video::-webkit-media-text-track-display {
+  font-family: "IranSans", serif;
+  font-size: 20px;
+
+  @media screen and (max-width: 480px) {
+    font-size: 13px;
+  }
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+video::cue {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .main {
