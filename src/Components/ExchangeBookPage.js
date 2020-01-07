@@ -19,7 +19,7 @@ class ExchangeBookPage extends PureComponent
     {
         window.scroll({top: 0})
         const {setExchanges, setCities, setCategories} = this.props
-        api.get("exchange", "?limit=100&skip=0", true).then((data) => setExchanges(data)) // TODO add pagination
+        api.get("exchange", "?limit=100", true).then((data) => setExchanges(data)) // TODO add pagination
         api.get("city", "?limit=100", true).then((data) => setCities(data))
         api.get("category", "?limit=100", true).then((data) => setCategories(data))
     }

@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react"
+import Library from "../Media/Images/Library.jpg"
 
 class HomePage extends PureComponent
 {
@@ -23,14 +24,14 @@ class HomePage extends PureComponent
                     <h2 className='home-title'>K<span>RED</span></h2>
                     <h3 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h3>
                 </div>
-                {/*<div className='home-exchange'>*/}
-                {/*    <img className='home-exchange-img' src={Library} alt=''/>*/}
-                {/*    <div className='home-exchange-text'>*/}
-                {/*        <h3 className='home-exchange-title'>تبادل کتاب</h3>*/}
-                {/*        <div className='home-exchange-description'>تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>*/}
-                {/*        <button className='home-exchange-butt' onClick={this.changeRoute}>برو تو تبادل کتاب</button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className='home-exchange'>
+                    <img className='home-exchange-img' src={Library} alt=''/>
+                    <div className='home-exchange-text'>
+                        <h3 className='home-exchange-title'>تبادل کتاب</h3>
+                        <div className='home-exchange-description'>تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>
+                        <button className='home-exchange-butt' onClick={this.changeRoute}>برو تو تبادل کتاب</button>
+                    </div>
+                </div>
                 {/*<div className='home-videos'>*/}
                 {/*    <div className='home-videos-text'>*/}
                 {/*        <h3 className='home-videos-title'>فیلم های آموزشی</h3>*/}

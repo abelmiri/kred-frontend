@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage"
 import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
 import ShowVideoPage from "./Components/ShowVideoPage"
+import ExchangeBookPage from "./Components/ExchangeBookPage"
 
 class App extends PureComponent
 {
@@ -101,7 +102,7 @@ class App extends PureComponent
 
     render()
     {
-        const {redirect, page, user, /*cities, exchanges, categories*/} = this.state
+        const {redirect, page, user, cities, exchanges, categories} = this.state
         const {location} = this.props
         return (
             <Switch>
@@ -112,16 +113,16 @@ class App extends PureComponent
                         <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                         <Switch>
                             {/*<Route exact path='/profile' render={() => <ProfilePage user={user}/>}/>*/}
-                            {/*<Route path='/exchange' render={() =>*/}
-                            {/*    <ExchangeBookPage defaultPhone={user ? user.phone : ""}*/}
-                            {/*                      cities={cities}*/}
-                            {/*                      setCities={this.setCities}*/}
-                            {/*                      exchanges={exchanges}*/}
-                            {/*                      setExchanges={this.setExchanges}*/}
-                            {/*                      categories={categories}*/}
-                            {/*                      setCategories={this.setCategories}*/}
-                            {/*    />*/}
-                            {/*}/>*/}
+                            <Route path='/exchange' render={() =>
+                                <ExchangeBookPage defaultPhone={user ? user.phone : ""}
+                                                  cities={cities}
+                                                  setCities={this.setCities}
+                                                  exchanges={exchanges}
+                                                  setExchanges={this.setExchanges}
+                                                  categories={categories}
+                                                  setCategories={this.setCategories}
+                                />
+                            }/>
                             <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
                             <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                         </Switch>

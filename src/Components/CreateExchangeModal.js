@@ -12,6 +12,8 @@ class CreateExchangeModal extends Component
             selectedImagePreview: null,
             loading: false,
             level: 2,
+            selectedParent: "5dcbff32d39b3ba7e9c38f9f",
+            selectedCategories: [],
         }
         this.phoneValid = true
         this.selectedImage = false
@@ -114,6 +116,22 @@ class CreateExchangeModal extends Component
         if (this.state.level > 1 && !this.state.loading) this.setState({...this.state, level: this.state.level - 1})
     }
 
+    handleChangeSelected(selectedParent)
+    {
+        this.setState({...this.state, selectedParent})
+    }
+
+    selectCategory(id)
+    {
+        let {selectedCategories} = this.state
+        if (selectedCategories.indexOf(id) === -1) this.setState({...this.state, selectedCategories: [...selectedCategories, id]})
+        else
+        {
+            selectedCategories.splice(selectedCategories.indexOf(id), 1)
+            this.setState({...this.state, selectedCategories})
+        }
+    }
+
     submit()
     {
         if (!this.state.loading && this.selectedImage && this.phoneValid && this.titleValid && this.descriptionValid && this.priceValid && this.cityValid)
@@ -141,8 +159,8 @@ class CreateExchangeModal extends Component
 
     render()
     {
-        const {showModal, hideModal, cities, defaultPhone} = this.props
-        const {selectedImagePreview, loading, level} = this.state
+        const {showModal, hideModal, cities, defaultPhone, categories} = this.props
+        const {selectedImagePreview, loading, level, selectedParent, selectedCategories} = this.state
         return (
             <React.Fragment>
                 <div className={`create-exchange-cont ${showModal ? "show" : "hide"}`}>
@@ -199,13 +217,38 @@ class CreateExchangeModal extends Component
 
                             <div className="create-exchange-part">
                                 <div className="create-exchange-category-btn-cont">
-                                    <div>دسته‌بندی</div>
+                                    <div>دسته‌بندی <span>*</span></div>
                                     <div className="create-exchange-category-btn">
+                                        <div className="create-exchange-category-item right" onClick={() => this.handleChangeSelected("5dcbff32d39b3ba7e9c38f9f")}>بالین</div>
                                         <div className='slideThree'>
-                                            <input type='checkbox' id='category' checked={this.state.is_long} onChange={this.handleLong}/>
+                                            <input type='checkbox'
+                                                   id='category'
+                                                   checked={selectedParent === "5dcbff32d39b3ba7e9c38f9f"}
+                                                   onChange={() => this.handleChangeSelected(selectedParent === "5dcbff32d39b3ba7e9c38f9f" ? "5dcbfd44d39b3ba7e9c38e68" : "5dcbff32d39b3ba7e9c38f9f")}
+                                            />
                                             <label htmlFor='category'/>
                                         </div>
+                                        <div className="create-exchange-category-item left" onClick={() => this.handleChangeSelected("5dcbfd44d39b3ba7e9c38e68")}>علوم پایه</div>
                                     </div>
+                                </div>
+                                <div className="create-exchange-category-list">
+                                    {
+                                        Object.values(categories).filter(cat => cat.parent_id === selectedParent).map(category =>
+                                            <React.Fragment key={category._id}>
+                                                <Material className={`create-exchange-category-title ${selectedCategories.indexOf(category._id) !== -1 ? "selected" : ""}`}
+                                                          onClick={() => Object.values(categories).filter(cat => cat.parent_id === category._id).length === 0 ? this.selectCategory(category._id) : null}>
+                                                    {category.name}
+                                                </Material>
+                                                {
+                                                    Object.values(categories).filter(cat => cat.parent_id === category._id).map(child =>
+                                                        <Material key={child._id} className={`create-exchange-category-title child ${selectedCategories.indexOf(child._id) !== -1 ? "selected" : ""}`} onClick={() => this.selectCategory(child._id)}>
+                                                            {child.name}
+                                                        </Material>,
+                                                    )
+                                                }
+                                            </React.Fragment>,
+                                        )
+                                    }
                                 </div>
                             </div>
 

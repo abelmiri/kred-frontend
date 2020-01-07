@@ -22,7 +22,7 @@ export default function register() {
         }).catch(error => console.error("Error during service worker registration:", error))
         navigator.serviceWorker.addEventListener("controllerchange", () => {
           console.log("New **controller** found.")
-          window.location.reload(true)
+          localStorage.getItem("user") && window.location.reload(true)
         })
       }
     })

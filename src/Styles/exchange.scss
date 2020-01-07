@@ -369,11 +369,52 @@
 }
 
 .create-exchange-category-btn-cont {
-  padding-top: 10px;
+  padding: 10px 0;
   display: flex;
+
+  span {
+    color: $error-color;
+  }
 }
 
 .create-exchange-category-btn {
   flex-grow: 1;
-  text-align: left;
+  justify-content: flex-end;
+  align-items: center;
+  display: inline-flex;
+}
+
+.create-exchange-category-item {
+  cursor: pointer;
+
+  &.left {
+    margin-right: 5px;
+  }
+
+  &.right {
+    margin-left: 5px;
+  }
+}
+
+.create-exchange-category-list {
+  height: 340px;
+  overflow-y: auto;
+}
+
+.create-exchange-category-title {
+  text-align: right;
+  padding: 10px 5px;
+  margin: 2px 0;
+  cursor: pointer;
+  font-size: $regular-font-size;
+  transition: all linear 0.2s;
+
+  &.selected {
+    background-color: $login-page-background-color;
+  }
+
+  &.child {
+    padding-right: 15px;
+    font-size: $small-font-size;
+  }
 }

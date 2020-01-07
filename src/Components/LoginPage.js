@@ -8,24 +8,22 @@ import {Link, Redirect} from "react-router-dom"
 import {BeatLoader} from "react-spinners"
 import api from "../Functions/api"
 
-const slides = [
-    {img: Slider1, text: "دیگه لازم نیست پول زیادی برای کتاب‌هات خرج کنی!"},
-    {img: Slider2, text: "دیگه وقتشه حرفه ای درس بخونی!"},
-    {img: Slider3, text: "توی KRED از حال و هوای دانشجوهای موفق باخبر شو!"},
-]
-
-let phoneValid = false
-let passwordValid = false
-
 class LoginPage extends PureComponent
 {
     constructor(props)
     {
         super(props)
+        this.slides = [
+            {img: Slider1, text: "دیگه لازم نیست پول زیادی برای کتاب‌هات خرج کنی!"},
+            {img: Slider2, text: "دیگه وقتشه حرفه ای درس بخونی!"},
+            {img: Slider3, text: "توی KRED از حال و هوای دانشجوهای موفق باخبر شو!"},
+        ]
+        this.phoneValid = false
+        this.passwordValid = false
         this.state = {
             redirectHome: false,
             loading: false,
-            previousSlider: slides.length - 1,
+            previousSlider: this.slides.length - 1,
             sliderIndex: 0,
         }
         this.changePhone = this.changePhone.bind(this)
@@ -42,7 +40,7 @@ class LoginPage extends PureComponent
         this.sliderInterval = setInterval(() =>
         {
             const {sliderIndex} = this.state
-            this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === slides.length ? 0 : sliderIndex + 1})
+            this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === this.slides.length ? 0 : sliderIndex + 1})
         }, 5000)
     }
 
@@ -62,7 +60,7 @@ class LoginPage extends PureComponent
                 this.sliderInterval = setInterval(() =>
                 {
                     const {sliderIndex} = this.state
-                    this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === slides.length ? 0 : sliderIndex + 1})
+                    this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === this.slides.length ? 0 : sliderIndex + 1})
                 }, 5000)
             })
         }
@@ -70,7 +68,7 @@ class LoginPage extends PureComponent
 
     changePhone(e)
     {
-        phoneValid = false
+        this.phoneValid = false
         const {value} = e.target
         if (value.length === 11)
         {
@@ -81,17 +79,17 @@ class LoginPage extends PureComponent
                     {
                         this.phoneInput.style.borderBottom = "1px solid red"
                         this.phoneError.style.height = "20px"
-                        phoneValid = false
+                        this.phoneValid = false
                     }
                     else
                     {
                         this.phoneInput.style.borderBottom = ""
                         this.phoneError.style.height = ""
-                        phoneValid = true
+                        this.phoneValid = true
                     }
                 })
         }
-        else phoneValid = false
+        else this.phoneValid = false
     }
 
     blurPhone(e)
@@ -104,11 +102,11 @@ class LoginPage extends PureComponent
         const {value} = e.target
         if (value.length >= 6 && value.length <= 30)
         {
-            passwordValid = true
+            this.passwordValid = true
             this.passwordInput.style.borderBottom = ""
             this.passwordError.style.height = ""
         }
-        else passwordValid = false
+        else this.passwordValid = false
     }
 
     blurPassword(e)
@@ -129,7 +127,7 @@ class LoginPage extends PureComponent
     {
         const {loading} = this.state
         const {setUser} = this.props
-        if (!loading && phoneValid && passwordValid)
+        if (!loading && this.phoneValid && this.passwordValid)
         {
             this.setState({...this.state, loading: true}, () =>
             {
@@ -185,14 +183,14 @@ class LoginPage extends PureComponent
                 <div className='login-slider-cont'>
                     <div className='login-slider-cont-relative'>
                         {
-                            slides.map((item, index) =>
+                            this.slides.map((item, index) =>
                                 <div key={"slide" + index} style={{opacity: sliderIndex === index ? "1" : "0", left: sliderIndex === index ? "0" : previousSlider === index ? "30px" : "-30px"}} className='login-slider-item'>
                                     <img src={item.img} alt='' className='login-slider-img'/>
                                     <div className='login-slider-text'>{item.text}</div>
                                 </div>,
                             )
                         }
-                        <div className='login-slider-dots'>{slides.map((dot, index) => <div onClick={() => this.setSlider(index)} style={{backgroundColor: sliderIndex === index ? "#878787" : "white"}} className='login-slider-dot' key={"dot" + index}/>)}</div>
+                        <div className='login-slider-dots'>{this.slides.map((dot, index) => <div onClick={() => this.setSlider(index)} style={{backgroundColor: sliderIndex === index ? "#878787" : "white"}} className='login-slider-dot' key={"dot" + index}/>)}</div>
                     </div>
                 </div>
 
