@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react"
 import Logo from "../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
-import HamburgerSvg from "../Media/Svgs/Hamburger"
 import Hamburger from "./Hamburger"
 import Material from "./Material"
 import api from "../Functions/api"
@@ -19,17 +18,7 @@ class Header extends PureComponent
             collapseSidebar: true,
             loginLoading: false,
         }
-        this.pos1 = 0
-        this.pos3 = 0
-        this.posY = 0
-        this.prevX = null
-        this.changing = false
-        this.started = false
-        this.deltaY = 0
         this.onScroll = this.onScroll.bind(this)
-        this.onTouchStart = this.onTouchStart.bind(this)
-        this.onTouchMove = this.onTouchMove.bind(this)
-        this.onTouchEnd = this.onTouchEnd.bind(this)
         this.login = this.login.bind(this)
     }
 
@@ -42,9 +31,6 @@ class Header extends PureComponent
             window.history.replaceState("", "", shit ? shit : "/")
         }
         document.addEventListener("scroll", this.onScroll)
-        document.addEventListener("touchstart", this.onTouchStart)
-        document.addEventListener("touchmove", this.onTouchMove)
-        document.addEventListener("touchend", this.onTouchEnd)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)
@@ -65,58 +51,6 @@ class Header extends PureComponent
     componentWillUnmount()
     {
         document.removeEventListener("scroll", this.onScroll)
-        document.removeEventListener("touchstart", this.onTouchStart)
-        document.removeEventListener("touchmove", this.onTouchMove)
-        document.removeEventListener("touchend", this.onTouchEnd)
-    }
-
-    onTouchStart(e)
-    {
-        this.prevX = this.state.collapseSidebar ? this.sidebar.clientWidth : 0
-        this.pos3 = e.touches[0].clientX
-        this.posY = e.touches[0].clientY
-        this.started = true
-    }
-
-    onTouchMove(e)
-    {
-        this.deltaY = e.touches[0].clientY - this.posY
-        this.pos1 = this.pos3 - e.touches[0].clientX
-        if (this.changing || (this.started && this.deltaY < 15 && this.deltaY > -15 && (this.pos1 > 5 || this.pos1 < -5)))
-        {
-            this.pos3 = e.touches[0].clientX
-            this.prevX = this.prevX - this.pos1 >= 0 ? this.prevX - this.pos1 : 0
-            this.sidebar.style.transform = `translateX(${this.prevX}px)`
-            this.sidebarBack.style.opacity = `${1 - (this.prevX / this.sidebar.clientWidth)}`
-            this.sidebarBack.style.height = `100vh`
-            if (this.started)
-            {
-                document.body.style.overflow = "hidden"
-                this.changing = true
-                this.posY = e.touches[0].clientY
-            }
-            this.started = false
-        }
-        else this.started = false
-    }
-
-    onTouchEnd()
-    {
-        if (this.changing)
-        {
-            if (this.prevX >= this.sidebar.clientWidth / 2)
-            {
-                this.prevX = this.sidebar.clientWidth
-                this.hideSidebar()
-            }
-            else
-            {
-                this.prevX = 0
-                this.showSidebar()
-            }
-            document.body.style.overflow = "auto"
-            this.changing = false
-        }
     }
 
     onScroll()
@@ -196,32 +130,14 @@ class Header extends PureComponent
 
     showSidebar = () =>
     {
-        this.setState({...this.state, collapseSidebar: false}, () =>
-        {
-            document.body.style.overflow = "hidden"
-            this.sidebar.style.transition = "transform linear 0.2s"
-            this.sidebar.style.transform = `translateX(0px)`
-            this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
-            this.sidebarBack.style.opacity = `1`
-            this.sidebarBack.style.height = `100vh`
-            setTimeout(() => this.sidebar.style.transition = "initial", 250)
-            setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
-        })
+        document.body.style.overflow = "hidden"
+        this.setState({...this.state, collapseSidebar: false})
     }
 
     hideSidebar = () =>
     {
-        this.setState({...this.state, collapseSidebar: true}, () =>
-        {
-            document.body.style.overflow = "auto"
-            this.sidebar.style.transition = "transform linear 0.1s"
-            this.sidebar.style.transform = `translateX(${this.sidebar.clientWidth}px)`
-            this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
-            this.sidebarBack.style.opacity = `0`
-            this.sidebarBack.style.height = `0`
-            setTimeout(() => this.sidebar.style.transition = "initial", 250)
-            setTimeout(() => this.sidebarBack.style.transition = "initial", 250)
-        })
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, collapseSidebar: true})
     }
 
     logout = () =>
@@ -237,13 +153,13 @@ class Header extends PureComponent
         return (
             <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                 <div className='header-buttons'>
-                    {
-                        location === "/exchange" &&
-                        <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu'>
-                            <HamburgerSvg className='header-buttons-hamburger'/>
-                            <span>تبادل کتاب</span>
-                        </Material>
-                    }
+                    {/*{*/}
+                    {/*    location === "/exchange" &&*/}
+                    {/*    <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu'>*/}
+                    {/*        <HamburgerSvg className='header-buttons-hamburger'/>*/}
+                    {/*        <span>تبادل کتاب</span>*/}
+                    {/*    </Material>*/}
+                    {/*}*/}
                     {
                         user ?
                             <div className='header-buttons-title'>
@@ -304,12 +220,10 @@ class Header extends PureComponent
                     </React.Fragment>
                 }
 
-                <div ref={e => this.sidebarBack = e} className="header-sidebar-back" style={{opacity: "0", height: "0"}} onClick={this.hideSidebar}/>
-                <div ref={e => this.sidebar = e} style={{transform: "translateX(100%)"}} className="header-sidebar-container">
-                    <div className="header-sidebar-buttons">
-                        {/*<Link replace to="/exchange" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>*/}
-                        {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
-                    </div>
+                <div className={`header-sidebar-back ${collapseSidebar ? "hide" : ""}`} onClick={this.hideSidebar}/>
+                <div className={`header-sidebar-container ${collapseSidebar ? "hide" : ""}`}>
+                    <Link replace to="/exchange" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
+                    {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                 </div>
 
             </div>

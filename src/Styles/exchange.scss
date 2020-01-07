@@ -32,7 +32,7 @@
 
 .exchange-desc {
   display: block;
-  border-bottom: 1px solid black;
+  //border-bottom: 1px solid black;
   font-size: 60px;
   color: $secondary-color;
 
@@ -53,7 +53,6 @@
 
 .exchange-item-cont-hide {
   flex-grow: 1;
-  padding: 0 20px;
   height: 0;
   overflow: hidden;
   margin: 0 10px;
@@ -67,32 +66,30 @@
 
 .exchange-item-cont {
   flex-grow: 1;
+  color: black;
+  text-decoration: none;
   display: inline-block;
   background-color: #F5F5F5;
   width: 280px;
-  padding: 20px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
   margin: 10px;
   text-align: center;
   white-space: normal;
 
   @media screen and (max-width: 480px) {
-    width: calc(100% - 40px);
-    margin: 10px 0;
+    box-shadow: none;
+    width: 100%;
+    margin: 0;
+    border-top: 3px solid $primary-color;
   }
 }
 
 .exchange-item-img {
   width: 100%;
-  height: 350px;
-  object-fit: contain;
-}
-
-.exchange-item-border {
-  width: 100%;
-  height: 1px;
-  background-color: grey;
-  margin: 10px 0;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .exchange-item-title {
@@ -106,11 +103,17 @@
 
 .exchange-item-description {
   font-size: $small-font-size;
-  width: 100%;
+  width: calc(100% - 20px);
   margin-top: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding: 0 10px;
+
+  @media screen and (max-width: 480px) {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 }
 
 .exchange-item-price {
@@ -118,7 +121,7 @@
   font-size: $title-font-size;
   white-space: nowrap;
   margin-top: 10px;
-  width: 100%;
+  padding: 0 10px;
 
   span {
     color: blue;
@@ -133,11 +136,12 @@
   padding: 3px 15px;
   display: inline-block;
   font-size: $title-font-size;
+  margin-bottom: 15px;
 }
 
 .create-exchange-button {
   display: inline-block;
-  margin: 20px 5% 10px 5%;
+  margin: 20px 5%;
   padding: 15px;
   border: 1px solid $primary-color;
   color: $primary-color;
@@ -149,8 +153,10 @@
   padding: 0 calc(5% - 10px);
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+
   @media screen and (max-width: 480px) {
-    padding: 0 5%;
+    padding: 0;
   }
 }
 
@@ -371,6 +377,7 @@
 .create-exchange-category-btn-cont {
   padding: 10px 0;
   display: flex;
+  user-select: none;
 
   span {
     color: $error-color;
@@ -417,4 +424,12 @@
     padding-right: 15px;
     font-size: $small-font-size;
   }
+}
+
+.create-exchange-category-arrow {
+  width: 10px;
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  transform: rotate(180deg);
 }

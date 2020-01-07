@@ -1,9 +1,10 @@
-import React, {Component} from "react"
+import React, {PureComponent} from "react"
 import CameraSvg from "../Media/Svgs/Camera"
 import Material from "./Material"
 import api from "../Functions/api"
+import Arrow from "../Media/Svgs/Arrow"
 
-class CreateExchangeModal extends Component
+class CreateExchangeModal extends PureComponent
 {
     constructor(props)
     {
@@ -11,7 +12,7 @@ class CreateExchangeModal extends Component
         this.state = {
             selectedImagePreview: null,
             loading: false,
-            level: 2,
+            level: 1,
             selectedParent: "5dcbff32d39b3ba7e9c38f9f",
             selectedCategories: [],
         }
@@ -143,7 +144,7 @@ class CreateExchangeModal extends Component
                 form.append("price", this.priceInput.value)
                 form.append("title", this.titleInput.value)
                 form.append("description", this.descriptionInput.value)
-                form.append("categories", JSON.stringify(["5dbd887fd39b3ba7e9bc27c2", "5dbd8ad9d39b3ba7e9bc29c1"]))
+                form.append("categories", JSON.stringify(this.state.selectedCategories))
                 form.append("city_id", this.cityInput.value)
                 form.append("picture", this.selectedImage)
                 api.post("exchange", form)
@@ -238,6 +239,7 @@ class CreateExchangeModal extends Component
                                                 <Material className={`create-exchange-category-title ${selectedCategories.indexOf(category._id) !== -1 ? "selected" : ""}`}
                                                           onClick={() => Object.values(categories).filter(cat => cat.parent_id === category._id).length === 0 ? this.selectCategory(category._id) : null}>
                                                     {category.name}
+                                                    {Object.values(categories).filter(cat => cat.parent_id === category._id).length > 0 && <Arrow className="create-exchange-category-arrow"/>}
                                                 </Material>
                                                 {
                                                     Object.values(categories).filter(cat => cat.parent_id === category._id).map(child =>

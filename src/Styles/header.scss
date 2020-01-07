@@ -240,29 +240,31 @@
     width: 80%;
     background-color: white;
     z-index: 4;
-  }
-}
+    transition: all linear 0.2s;
 
-.header-sidebar-buttons {
-  margin-top: 80px;
-  font-size: $title-font-size;
-  position: relative;
-  height: calc(100vh - 80px);
-  font-weight: bold;
+    &.hide {
+      transform: translateX(100%);
+    }
+  }
 }
 
 .header-sidebar-link {
   text-decoration: none;
   color: black;
+  font-size: $title-font-size;
+  font-weight: bold;
 }
 
 .header-sidebar-btn {
+  margin-top: 80px;
   border-top: 1px solid $login-page-background-color;
   border-bottom: 1px solid $login-page-background-color;
   padding: 20px 15px;
 }
 
 .header-sidebar-log-out {
+  font-size: $title-font-size;
+  font-weight: bold;
   background-color: #ffebee;
   color: $error-color;
   padding: 20px 15px;
@@ -279,4 +281,12 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  transition: all linear 0.2s, height linear 0s;
+
+  &.hide {
+    opacity: 0;
+    height: 0;
+    transition: all linear 0.2s, height linear 0s 0.3s;
+  }
 }

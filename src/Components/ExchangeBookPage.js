@@ -10,8 +10,8 @@ class ExchangeBookPage extends PureComponent
     {
         super(props)
         this.state = {
-            displayShowModal: true,
-            showModal: true,
+            displayShowModal: false,
+            showModal: false,
         }
     }
 
