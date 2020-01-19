@@ -3,6 +3,7 @@ import ExchangeItem from "./ExchangeItem"
 import api from "../Functions/api"
 import Material from "./Material"
 import CreateExchangeModal from "./CreateExchangeModal"
+import {ClipLoader} from "react-spinners"
 
 class ExchangeBookPage extends PureComponent
 {
@@ -12,16 +13,23 @@ class ExchangeBookPage extends PureComponent
         this.state = {
             displayShowModal: false,
             showModal: false,
+            exchangesLoading: true,
         }
+        this.activeScrollHeight = 0
+        this.page = 2
     }
 
     componentDidMount()
     {
         window.scroll({top: 0})
         const {setExchanges, setCities, setCategories} = this.props
-        api.get("exchange", "?limit=100", true).then((data) => setExchanges(data)) // TODO add pagination
-        api.get("city", "?limit=100", true).then((data) => setCities(data))
-        api.get("category", "?limit=100", true).then((data) => setCategories(data))
+        api.get("exchange", `?limit=8&page=1&time=${new Date().toISOString()}`, true).then((data) =>
+            this.setState({...this.state, exchangesLoading: false}, () => setExchanges(data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}))),
+        )
+        api.get("city", `?limit=100&time=${new Date().toISOString()}`, true).then((data) => setCities(data))
+        api.get("category", `?limit=100&time=${new Date().toISOString()}`, true).then((data) => setCategories(data))
+
+        document.addEventListener("scroll", this.onScroll)
     }
 
     componentDidUpdate()
@@ -38,6 +46,38 @@ class ExchangeBookPage extends PureComponent
                 }
             }
         }
+    }
+
+    componentWillUnmount()
+    {
+        document.removeEventListener("scroll", this.onScroll)
+    }
+
+    onScroll = () =>
+    {
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() =>
+        {
+            const {setExchanges, exchanges} = this.props
+            if (Object.values(exchanges).length > 0)
+            {
+                const scrollHeight = document.body ? document.body.scrollHeight : 0
+                if (window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
+                {
+                    this.setState({...this.state, exchangesLoading: true}, () =>
+                    {
+                        api.get("exchange", `?limit=8&page=${this.page}`, true).then((data) =>
+                            this.setState({...this.state, exchangesLoading: false}, () =>
+                            {
+                                this.activeScrollHeight = scrollHeight
+                                this.page = this.page + 1
+                                setExchanges({...exchanges, ...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})})
+                            }),
+                        )
+                    })
+                }
+            }
+        }, 20)
     }
 
     changeModalState = (bool) =>
@@ -71,7 +111,7 @@ class ExchangeBookPage extends PureComponent
     render()
     {
         const {exchanges, cities, defaultPhone, categories} = this.props
-        const {showModal, displayShowModal} = this.state
+        const {showModal, displayShowModal, exchangesLoading} = this.state
         return (
             <div>
                 <div className='exchange-background-img'>
@@ -83,15 +123,20 @@ class ExchangeBookPage extends PureComponent
 
                 <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
 
-                <div style={{paddingTop: defaultPhone ? "0" : "5px"}} className='exchange-list'>
+                <div className='exchange-list'>
                     {
-                        exchanges && exchanges.map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)
+                        exchanges &&
+                        <React.Fragment>
+                            {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
+                            <div className='exchange-item-cont-hide'/>
+                            <div className='exchange-item-cont-hide'/>
+                            <div className='exchange-item-cont-hide'/>
+                            <div className='exchange-item-cont-hide'/>
+                        </React.Fragment>
                     }
-                    <div className='exchange-item-cont-hide'/>
-                    <div className='exchange-item-cont-hide'/>
-                    <div className='exchange-item-cont-hide'/>
-                    <div className='exchange-item-cont-hide'/>
                 </div>
+
+                {exchangesLoading && <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>}
 
                 {displayShowModal && <CreateExchangeModal showModal={showModal} hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
 

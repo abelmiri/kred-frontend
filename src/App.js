@@ -16,7 +16,7 @@ class App extends PureComponent
             redirect: false,
             page: "/",
             user: null,
-            exchanges: [],
+            exchanges: {},
             cities: {},
             categories: {},
         }

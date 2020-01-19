@@ -59,8 +59,7 @@
   width: 280px;
 
   @media screen and (max-width: 480px) {
-    width: calc(100% - 40px);
-    margin: 0;
+    display: none;
   }
 }
 
@@ -72,7 +71,7 @@
   background-color: #F5F5F5;
   width: 280px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-  margin: 10px;
+  margin: 0 10px 20px 10px;
   text-align: center;
   white-space: normal;
 
@@ -80,8 +79,16 @@
     box-shadow: none;
     width: 100%;
     margin: 0;
-    border-top: 3px solid $primary-color;
+    border-top: 1px solid $primary-color;
+    position: relative;
+    height: 110px;
+    padding: 15px 5%;
   }
+}
+
+.exchange-item-link {
+  text-decoration: none;
+  color: black;
 }
 
 .exchange-item-img {
@@ -90,6 +97,14 @@
   object-fit: cover;
   display: block;
   margin-bottom: 10px;
+  @media screen and (max-width: 480px) {
+    position: absolute;
+    width: 40%;
+    top: 15px;
+    height: 110px;
+    left: 5%;
+    margin-bottom: 0;
+  }
 }
 
 .exchange-item-title {
@@ -99,6 +114,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: bold;
+
+  @media screen and (max-width: 480px) {
+    position: absolute;
+    right: 5%;
+    width: 48%;
+    text-align: right;
+    top: 15px;
+    white-space: normal;
+    word-break: break-word;
+  }
 }
 
 .exchange-item-description {
@@ -111,8 +136,7 @@
   padding: 0 10px;
 
   @media screen and (max-width: 480px) {
-    white-space: pre-wrap;
-    word-break: break-word;
+    display: none;
   }
 }
 
@@ -126,6 +150,16 @@
   span {
     color: blue;
   }
+
+  @media screen and (max-width: 480px) {
+    position: absolute;
+    right: 5%;
+    width: 48%;
+    text-align: right;
+    bottom: 50px;
+    padding: 0;
+    margin-top: 0;
+  }
 }
 
 .exchange-item-city {
@@ -137,6 +171,15 @@
   display: inline-block;
   font-size: $title-font-size;
   margin-bottom: 15px;
+
+  @media screen and (max-width: 480px) {
+    position: absolute;
+    right: 5%;
+    text-align: right;
+    bottom: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .create-exchange-button {
@@ -432,4 +475,11 @@
   left: 10px;
   top: 15px;
   transform: rotate(180deg);
+}
+
+.exchange-page-loading {
+  text-align: center;
+  padding: 10px 0;
+  height: 29px;
+  overflow: hidden;
 }

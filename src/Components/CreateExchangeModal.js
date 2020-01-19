@@ -124,7 +124,7 @@ class CreateExchangeModal extends PureComponent
 
     selectCategory(id)
     {
-        let {selectedCategories} = this.state
+        let selectedCategories = [...this.state.selectedCategories]
         if (selectedCategories.indexOf(id) === -1) this.setState({...this.state, selectedCategories: [...selectedCategories, id]})
         else
         {
