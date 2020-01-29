@@ -15,6 +15,8 @@ class CreateExchangeModal extends PureComponent
             level: 1,
             selectedParent: "5dcbff32d39b3ba7e9c38f9f",
             selectedCategories: [],
+            contactType: "phone", //phone || telegram
+            priceType: "fixed", //fixed || agreed || free
         }
         this.phoneValid = true
         this.selectedImage = false
@@ -133,6 +135,33 @@ class CreateExchangeModal extends PureComponent
         }
     }
 
+    selectContactType(contactType)
+    {
+        this.setState({...this.state, contactType}, () =>
+        {
+            if (contactType === "telegram") this.phoneInput.value = ""
+        })
+    }
+
+    selectPriceType(priceType)
+    {
+        this.setState({...this.state, priceType}, () =>
+        {
+            if (priceType === "agreed" || priceType === "free")
+            {
+                this.priceInput.value = ""
+                this.priceInput.disabled = true
+                this.priceValid = true
+                this.priceInput.style.border = ""
+            }
+            else
+            {
+                this.priceInput.value = ""
+                this.priceInput.disabled = false
+            }
+        })
+    }
+
     submit()
     {
         if (!this.state.loading && this.selectedImage && this.phoneValid && this.titleValid && this.descriptionValid && this.priceValid && this.cityValid)
@@ -161,7 +190,7 @@ class CreateExchangeModal extends PureComponent
     render()
     {
         const {showModal, hideModal, cities, defaultPhone, categories} = this.props
-        const {selectedImagePreview, loading, level, selectedParent, selectedCategories} = this.state
+        const {selectedImagePreview, loading, level, selectedParent, selectedCategories, contactType} = this.state
         return (
             <React.Fragment>
                 <div className={`create-exchange-cont ${showModal ? "show" : "hide"}`}>
@@ -180,23 +209,56 @@ class CreateExchangeModal extends PureComponent
                                            onChange={(e) => this.validateInput(e, "title")}
                                     />
                                 </div>
-                                <div className='create-exchange-section'>
-                                    <label className='create-exchange-section-label'>شماره تماس <span>*</span></label>
+                                <div className='create-exchange-section relative-wrap'>
+                                    <label className='create-exchange-section-label'>تماس <span>*</span></label>
+
+                                    <div className="create-exchange-section-checkboxes">
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="phone" defaultChecked onChange={e => e.target.checked ? this.selectContactType("phone") : null}/>
+                                            <span className='check-mark'/>
+                                            شماره
+                                        </label>
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="phone" onChange={e => e.target.checked ? this.selectContactType("telegram") : null}/>
+                                            <span className='check-mark'/>
+                                            آیدی تلگرام
+                                        </label>
+                                    </div>
+
                                     <input defaultValue={defaultPhone}
                                            ref={e => this.phoneInput = e}
-                                           type='number'
-                                           className='create-exchange-section-input'
-                                           placeholder="مثال: 09123456789"
+                                           type={contactType === "phone" ? "number" : "text"}
+                                           className='create-exchange-section-input price'
+                                           placeholder={`مثال: ${contactType === "phone" ? "09123456789" : "telegram@"}`}
                                            onBlur={(e) => this.blurInput(e, "phone")}
                                            onChange={(e) => this.validateInput(e, "phone")}
                                            onInput={e => e.target.value = e.target.value.slice(0, 11)}
                                     />
                                 </div>
-                                <div className='create-exchange-section relative'>
+                                <div className='create-exchange-section relative-wrap'>
                                     <label className='create-exchange-section-label'>قیمت <span>*</span></label>
+
+                                    <div className="create-exchange-section-checkboxes">
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="price" defaultChecked onChange={e => e.target.checked ? this.selectPriceType("fixed") : null}/>
+                                            <span className='check-mark'/>
+                                            مقطوع
+                                        </label>
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="price" onChange={e => e.target.checked ? this.selectPriceType("free") : null}/>
+                                            <span className='check-mark'/>
+                                            رایگان
+                                        </label>
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="price" onChange={e => e.target.checked ? this.selectPriceType("agreed") : null}/>
+                                            <span className='check-mark'/>
+                                            توافقی
+                                        </label>
+                                    </div>
+
                                     <input type='number'
                                            ref={e => this.priceInput = e}
-                                           className='create-exchange-section-input'
+                                           className='create-exchange-section-input price'
                                            placeholder="مثال: 25,000"
                                            onBlur={(e) => this.blurInput(e, "price")}
                                            onChange={(e) => this.validateInput(e, "price")}

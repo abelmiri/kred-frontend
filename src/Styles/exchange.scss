@@ -276,8 +276,9 @@
   align-items: center;
   margin: 15px 0;
 
-  &.relative {
+  &.relative-wrap {
     position: relative;
+    flex-wrap: wrap;
   }
 }
 
@@ -286,6 +287,10 @@
   border: 1px solid $text-light-color;
   padding: 15px;
   resize: none;
+
+  &.price {
+    margin-right: 100px;
+  }
 }
 
 .create-exchange-section-label {
@@ -299,6 +304,7 @@
 
 .create-exchange-price {
   position: absolute;
+  top: 50px;
   left: 10px;
   color: $text-light-color;
 }
@@ -482,4 +488,66 @@
   padding: 10px 0;
   height: 29px;
   overflow: hidden;
+}
+
+.exchange-page-checkbox {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+  padding-right: 23px;
+  cursor: pointer;
+  font-size: 12px;
+  user-select: none;
+
+  .check-mark {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    height: 13px;
+    width: 13px;
+    border-radius: 50%;
+    border: 1px solid $almost-dark-color;
+    background-color: white;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+
+  .check-mark:after {
+    left: 2px;
+    top: 2px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: $almost-dark-color;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked + .check-mark {
+      background-color: white;
+
+      &:after {
+        display: block;
+      }
+    }
+  }
+}
+
+.create-exchange-section-checkboxes {
+  margin: 5px 0 10px 0;
+  white-space: nowrap;
+  flex-grow: 1;
+  text-align: right;
+
+  label {
+    display: inline-block;
+    margin-left: 10px;
+  }
 }
