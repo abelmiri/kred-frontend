@@ -6,6 +6,7 @@
   object-fit: cover;
   background-image: url("../Media/Images/Main.jpg");
   background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +49,11 @@
   }
   @media screen and (max-width: 800px) {
     position: relative;
-    margin: 20px 0;
+    margin: 10px 0;
+
+    &.margin-top {
+      margin: 20px 0 10px 0;
+    }
   }
 }
 
@@ -135,7 +140,7 @@
   }
   @media screen and (max-width: 800px) {
     position: relative;
-    margin: 20px 0;
+    margin: 10px 0;
   }
 }
 
@@ -211,6 +216,7 @@
 .home-about {
   background-image: url("../Media/Images/Group.png");
   background-size: cover;
+  background-position: center;
   height: 250px;
   @media screen and (min-width: 800px) {
     width: 90%;
@@ -218,6 +224,7 @@
   }
   @media screen and (max-width: 800px) {
     padding: 50px 5%;
+    margin: 10px 0;
   }
 }
 
@@ -240,7 +247,7 @@
   }
   @media screen and (max-width: 800px) {
     position: relative;
-    margin: 20px 0;
+    margin: 10px 0;
   }
 }
 
@@ -250,7 +257,12 @@
   padding: 5%;
   background-image: url("../Media/Images/Collab.png");
   background-size: cover;
+  background-position: right;
   text-align: left;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 10px;
+  }
 }
 
 .home-collab-cont {
@@ -271,6 +283,7 @@
 }
 
 .home-collab-butt {
+  display: inline-block;
   white-space: nowrap;
   font-size: $big-title-font-size;
   background-color: $secondary-color;

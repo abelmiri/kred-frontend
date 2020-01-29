@@ -12,7 +12,9 @@ const ExchangeItem = (props) =>
                 <img className='exchange-item-img' src={REST_URL + "/" + exchange.picture} alt=''/>
                 <div className='exchange-item-title'>{exchange.title}</div>
                 <div className="exchange-item-description">{exchange.description}</div>
-                <div className='exchange-item-price'>{exchange.price} <span>تومان</span></div>
+                <div className='exchange-item-price'>
+                    {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{exchange.price} <span>تومان</span></React.Fragment>}
+                </div>
                 {city && <div className='exchange-item-city'>{city && city.name}</div>}
             </Link>
         </Material>

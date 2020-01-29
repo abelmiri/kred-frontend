@@ -11,7 +11,6 @@ class ExchangeBookPage extends PureComponent
     {
         super(props)
         this.state = {
-            displayShowModal: false,
             showModal: false,
             exchangesLoading: true,
         }
@@ -42,7 +41,6 @@ class ExchangeBookPage extends PureComponent
                 {
                     document.body.style.overflow = "auto"
                     this.setState({...this.state, showModal: false})
-                    setTimeout(() => this.setState({...this.state, displayShowModal: false}), 150)
                 }
             }
         }
@@ -88,8 +86,7 @@ class ExchangeBookPage extends PureComponent
             {
                 if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchange/addExchangeModal")
                 document.body.style.overflow = "hidden"
-                this.setState({...this.state, displayShowModal: bool})
-                setTimeout(() => this.setState({...this.state, showModal: bool}), 150)
+                this.setState({...this.state, showModal: bool})
             }
             else
             {
@@ -98,7 +95,6 @@ class ExchangeBookPage extends PureComponent
                 {
                     document.body.style.overflow = "auto"
                     this.setState({...this.state, showModal: bool})
-                    setTimeout(() => this.setState({...this.state, displayShowModal: bool}), 150)
                 }
             }
         }
@@ -111,7 +107,7 @@ class ExchangeBookPage extends PureComponent
     render()
     {
         const {exchanges, cities, defaultPhone, categories} = this.props
-        const {showModal, displayShowModal, exchangesLoading} = this.state
+        const {showModal, exchangesLoading} = this.state
         return (
             <div>
                 <div className='exchange-background-img'>
@@ -138,7 +134,7 @@ class ExchangeBookPage extends PureComponent
 
                 {exchangesLoading && <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>}
 
-                {displayShowModal && <CreateExchangeModal showModal={showModal} hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
+                {showModal && <CreateExchangeModal hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
 
             </div>
         )

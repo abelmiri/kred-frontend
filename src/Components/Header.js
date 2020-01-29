@@ -14,7 +14,6 @@ class Header extends PureComponent
         this.state = {
             isTransparent: true,
             showLoginModal: false,
-            displayShowLoginModal: false,
             collapseSidebar: true,
             loginLoading: false,
         }
@@ -70,19 +69,9 @@ class Header extends PureComponent
 
     hideLoginModal = () =>
     {
-        if (document.body.clientWidth <= 480)
-        {
-            window.history.back()
-            document.body.style.overflow = "auto"
-            this.setState({...this.state, loginLoading: false, showLoginModal: false})
-            setTimeout(() => this.setState({...this.state, displayShowLoginModal: false}), 150)
-        }
-        else
-        {
-            document.body.style.overflow = "auto"
-            this.setState({...this.state, loginLoading: false, showLoginModal: false})
-            setTimeout(() => this.setState({...this.state, displayShowLoginModal: false}), 150)
-        }
+        document.body.clientWidth <= 480 && window.history.back()
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, loginLoading: false, showLoginModal: false})
     }
 
     showLoginModalOnSide = () =>
@@ -93,8 +82,7 @@ class Header extends PureComponent
 
     showLoginModal = () =>
     {
-        setTimeout(() => this.setState({...this.state, showLoginModal: true}), 150)
-        this.setState({...this.state, displayShowLoginModal: true})
+        this.setState({...this.state, showLoginModal: true})
         const {location} = this.props
         if (document.body.clientWidth <= 480) window.history.pushState("", "", `${location === "/" ? "" : location.replace("/loginModal", "")}/loginModal`)
         document.body.style.overflow = "hidden"
@@ -149,7 +137,7 @@ class Header extends PureComponent
     render()
     {
         const {location, user} = this.props
-        const {isTransparent, showLoginModal, displayShowLoginModal, collapseSidebar, loginLoading} = this.state
+        const {isTransparent, showLoginModal, collapseSidebar, loginLoading} = this.state
         return (
             <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                 <div className='header-buttons'>
@@ -189,10 +177,10 @@ class Header extends PureComponent
                     }
                 </div>
                 {
-                    displayShowLoginModal &&
+                    showLoginModal &&
                     <React.Fragment>
-                        <div className={`create-exchange-back ${showLoginModal ? "show" : "hide"}`} onClick={this.hideLoginModal}/>
-                        <div className={`create-exchange-cont login ${showLoginModal ? "show" : "hide"}`}>
+                        <div className="create-exchange-back" onClick={this.hideLoginModal}/>
+                        <div className="create-exchange-cont login">
                             <div className='create-exchange-title'>ورود به KRED</div>
                             <div className='create-exchange-section'>
                                 <input type='text'

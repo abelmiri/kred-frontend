@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react"
 import Library from "../Media/Images/Library.jpg"
 import Nurses from "../Media/Images/Nurses.png"
+import Material from "./Material"
 
 class HomePage extends PureComponent
 {
@@ -25,7 +26,7 @@ class HomePage extends PureComponent
                     <h2 className='home-title'>K<span>RED</span></h2>
                     <h3 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h3>
                 </div>
-                <div className='home-exchange'>
+                <div className='home-exchange margin-top'>
                     <img className='home-exchange-img' src={Library} alt=''/>
                     <div className='home-exchange-text'>
                         <h3 className='home-exchange-title'>تبادل کتاب</h3>
@@ -49,10 +50,10 @@ class HomePage extends PureComponent
                 {/*        <button className='home-exchange-butt' onClick={(e) => this.changeRoute(e, "/exchange")}>برو تو پاویون</button>*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-                {/*<div className='home-about'>*/}
-                {/*    <h3 className='home-about-title'>اینجا چه خبره؟!</h3>*/}
-                {/*    <div className='home-about-description'>سلام خدمت شما... ما از فلان چیزا استفاده می کنیم تا فلان بشه و بهمان داستانا پیش نیاد و حال کنید و حال کنیم</div>*/}
-                {/*</div>*/}
+                <div className='home-about'>
+                    <h3 className='home-about-title'>اینجا چه خبره؟!</h3>
+                    <div className='home-about-description'>سلام! به کرد خوش آمدید.</div>
+                </div>
                 {/*<div className='home-exchange'>*/}
                 {/*    <img className='home-exchange-img' src={Library} alt=''/>*/}
                 {/*    <div className='home-exchange-text'>*/}
@@ -69,12 +70,12 @@ class HomePage extends PureComponent
                 {/*    </div>*/}
                 {/*    <img className='home-videos-img' src={Doctors} alt=''/>*/}
                 {/*</div>*/}
-                {/*<div className='home-collab'>*/}
-                {/*    <div className='home-collab-cont'>*/}
-                {/*        <h3 className='home-collab-title'>تو هم میتونی با کرد همکاری کنی ...</h3>*/}
-                {/*        <Material type='button' backgroundColor='rgba(58,175,169,0.2)' className='home-collab-butt'>همکاری با KRED</Material>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className='home-collab'>
+                    <div className='home-collab-cont'>
+                        <h3 className='home-collab-title'>تو هم میتونی با کرد همکاری کنی ...</h3>
+                        <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type='button' backgroundColor='rgba(58,175,169,0.2)' className='home-collab-butt'>همکاری با KRED</Material></a>
+                    </div>
+                </div>
             </React.Fragment>
         )
     }

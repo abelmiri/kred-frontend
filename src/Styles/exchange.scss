@@ -212,6 +212,15 @@
   border: 1px solid $text-light-color;
   text-align: center;
   padding: 15px;
+  z-index: 5;
+  opacity: 1;
+  animation: show-modal linear 0.2s;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+  transition: all linear 0.2s;
+
+  @media screen and (max-width: 480px) {
+    width: calc(90% - 30px);
+  }
 
   &.login {
     width: 500px;
@@ -219,25 +228,14 @@
       width: calc(90% - 30px);
     }
   }
+}
 
-  &.show {
-    z-index: 5;
-    opacity: 1;
-    transform: translate3d(-50%, -50%, 0) scale(1);
-    transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0s;
-    @media screen and (max-width: 480px) {
-      width: calc(90% - 30px);
-    }
+@keyframes show-modal {
+  from {
+    transform: translate3d(-50%, -50%, 0) scale(0.3);
   }
-
-  &.hide {
-    z-index: -1;
-    opacity: 0;
-    transform: translate3d(-50%, -50%, 0) scale(0.9);
-    transition: opacity linear 0.2s, transform linear 0.2s, z-index linear 0s 0.3s;
-    @media screen and (max-width: 480px) {
-      width: calc(90% - 30px);
-    }
+  to {
+    transform: translate3d(-50%, -50%, 0) scale(1);
   }
 }
 
@@ -316,20 +314,10 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-
-  &.show {
-    z-index: 4;
-    opacity: 1;
-    height: 100vh;
-    transition: opacity linear 0.3s, z-index linear 0s 0s, height linear 0s 0s;
-  }
-
-  &.hide {
-    height: 0;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity linear 0.3s, z-index linear 0s 0.4s, height linear 0s 0.4s;
-  }
+  z-index: 4;
+  opacity: 1;
+  height: 100vh;
+  transition: all linear 0.2s;
 }
 
 .create-exchange-image {
@@ -453,7 +441,7 @@
 }
 
 .create-exchange-category-list {
-  height: 340px;
+  height: 400px;
   overflow-y: auto;
 }
 

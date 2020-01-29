@@ -44,7 +44,8 @@ class CreateExchangeModal extends PureComponent
     {
         if (type === "phone")
         {
-            if (e.target.value.trim().length === 11)
+            const {contactType} = this.state
+            if ((contactType === "phone" && e.target.value.trim().length === 11) || (contactType === "telegram" && e.target.value.trim().length > 2))
             {
                 this.phoneValid = true
                 e.target.style.border = ""
@@ -97,7 +98,8 @@ class CreateExchangeModal extends PureComponent
     {
         if (type === "phone")
         {
-            if (e.target.value.trim().length !== 11) e.target.style.border = "1px solid red"
+            const {contactType} = this.state
+            if ((contactType === "phone" && e.target.value.trim().length !== 11) || (contactType === "telegram" && e.target.value.trim().length < 3)) e.target.style.border = "1px solid red"
         }
         else if (type === "city")
         {
@@ -164,36 +166,38 @@ class CreateExchangeModal extends PureComponent
 
     submit()
     {
-        if (!this.state.loading && this.selectedImage && this.phoneValid && this.titleValid && this.descriptionValid && this.priceValid && this.cityValid)
+        const {loading, selectedCategories, contactType, priceType} = this.state
+        const {hideModal} = this.props
+        if (!loading && this.selectedImage && this.phoneValid && this.titleValid && this.descriptionValid && this.priceValid && this.cityValid)
         {
             this.setState({...this.state, loading: true}, () =>
             {
                 let form = new FormData()
-                form.append("phone", this.phoneInput.value)
-                form.append("price", this.priceInput.value)
+                form.append(contactType, this.phoneInput.value)
+                form.append("price", priceType === "free" ? 0 : priceType === "agreed" ? -1 : this.priceInput.value)
                 form.append("title", this.titleInput.value)
                 form.append("description", this.descriptionInput.value)
-                form.append("categories", JSON.stringify(this.state.selectedCategories))
+                form.append("categories", JSON.stringify(selectedCategories))
                 form.append("city_id", this.cityInput.value)
                 form.append("picture", this.selectedImage)
                 api.post("exchange", form)
                     .then(() =>
                     {
                         alert("آگهی شما ثبت شد و پس از تایید به نمایش در می آید.")
-                        this.props.hideModal()
+                        hideModal()
                     })
-                    .catch(() => this.setState({...this.state}, () => alert("سیستم با خطا مواجه شد!")))
+                    .catch(() => alert("سیستم با خطا مواجه شد!"))
             })
         }
     }
 
     render()
     {
-        const {showModal, hideModal, cities, defaultPhone, categories} = this.props
+        const {hideModal, cities, defaultPhone, categories} = this.props
         const {selectedImagePreview, loading, level, selectedParent, selectedCategories, contactType} = this.state
         return (
             <React.Fragment>
-                <div className={`create-exchange-cont ${showModal ? "show" : "hide"}`}>
+                <div className="create-exchange-cont">
                     <div className='create-exchange-title'>ثبت آگهی تبادل کتاب</div>
                     <div className="create-exchange-main">
                         <div className={`create-exchange-rol ${level === 1 ? "level-one" : level === 2 ? "level-two" : "level-three"}`}>
@@ -344,7 +348,7 @@ class CreateExchangeModal extends PureComponent
                         </Material>
                     </div>
                 </div>
-                <div className={`create-exchange-back ${showModal ? "show" : "hide"}`} onClick={hideModal}/>
+                <div className="create-exchange-back" onClick={loading ? null : hideModal}/>
             </React.Fragment>
         )
     }
