@@ -14,15 +14,18 @@ function get(url, param = "", noToken)
         })
         .catch((err) =>
         {
-            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err)
+            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
             throw err
         })
 }
 
-function post(url, data, param = "", noToken)
+function post(url, data, param = "", noToken, progress)
 {
     const token = noToken || !localStorage.hasOwnProperty("user") ? "" : JSON.parse(localStorage.getItem("user")).token
-    return axios.post(encodeURI(REST_URL + "/" + url + "/" + param), data, {headers: !noToken ? {"Authorization": `${token}`} : null})
+    return axios.post(encodeURI(REST_URL + "/" + url + "/" + param), data, {
+        headers: !noToken ? {"Authorization": `${token}`} : null,
+        onUploadProgress: e => progress ? progress(e) : null,
+    })
         .then((res) =>
         {
             if (res.status === 200 || res.status === 201) return res.data
@@ -30,7 +33,7 @@ function post(url, data, param = "", noToken)
         })
         .catch((err) =>
         {
-            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err)
+            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
             throw err
         })
 }
@@ -47,7 +50,7 @@ function patch(url, data, param = "")
         })
         .catch((err) =>
         {
-            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err)
+            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
             throw err
         })
 }
@@ -64,7 +67,7 @@ function del(url, data, param = "")
         })
         .catch((err) =>
         {
-            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err)
+            console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
             throw err
         })
 }

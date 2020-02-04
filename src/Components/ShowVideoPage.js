@@ -2,6 +2,7 @@ import React, {PureComponent} from "react"
 import axios from "axios"
 import {REST_URL} from "../Functions/api"
 import Material from "./Material"
+import {NotificationManager} from "react-notifications"
 
 class ShowVideoPage extends PureComponent
 {
@@ -17,6 +18,22 @@ class ShowVideoPage extends PureComponent
         }
     }
 
+    componentDidMount()
+    {
+        document.addEventListener("contextmenu", this.osContextMenu)
+        document.addEventListener("keydown", this.onKeyDown)
+    }
+
+    osContextMenu = (e) => e.preventDefault()
+
+    onKeyDown = (e) => e.keyCode === 123 && e.preventDefault()
+
+    componentWillUnmount()
+    {
+        document.removeEventListener("contextmenu", this.osContextMenu)
+        document.removeEventListener("keydown", this.onKeyDown)
+    }
+
     showVideo(url)
     {
         this.setState({...this.state, selected: null, subtitle: null, video: null, loading: true, loadingPercent: null}, () =>
@@ -29,8 +46,8 @@ class ShowVideoPage extends PureComponent
                 .then((subtitleRes) => this.setState({...this.state, loading: false, selected: url, video: `${REST_URL}/videos/${url}`, subtitle: URL.createObjectURL(subtitleRes.data)}))
                 .catch((err) =>
                 {
-                    if (err.message === "Request failed with status code 401") this.setState({...this.state, loading: false, loadingPercent: null}, () => alert("شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@"))
-                    else alert("دانلود فایل با مشکل مواجه شد!")
+                    if (err.message === "Request failed with status code 401") this.setState({...this.state, loading: false, loadingPercent: null}, () => NotificationManager.warning("شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@"))
+                    else NotificationManager.warning("دانلود فایل با مشکل مواجه شد!")
                 })
         })
     }
@@ -40,7 +57,7 @@ class ShowVideoPage extends PureComponent
         const {user} = this.props
         const {video, subtitle, loading, loadingPercent, selected} = this.state
         return (
-            <div className="video-page-cont" onContextMenu={e => e.preventDefault()}>
+            <div className="video-page-cont">
                 <div className={`video-page-loading-dark ${loading ? "show" : ""}`}>
                     {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
                 </div>
@@ -50,7 +67,7 @@ class ShowVideoPage extends PureComponent
                             {
                                 video ?
                                     <div className="video-page-video-container">
-                                        <video className="video-page-video" controls controlsList="nodownload" autoPlay onContextMenu={e => e.preventDefault()}>
+                                        <video className="video-page-video" controls controlsList="nodownload" autoPlay>
                                             <source src={video}/>
                                             {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
                                         </video>

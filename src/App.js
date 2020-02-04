@@ -6,6 +6,9 @@ import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
 import ShowVideoPage from "./Components/ShowVideoPage"
 import ExchangeBookPage from "./Components/ExchangeBookPage"
+import ExchangeBookItemPage from "./Components/ExchangeBookItemPage"
+import ProfilePage from "./Components/ProfilePage"
+import {NotificationContainer} from "react-notifications"
 
 class App extends PureComponent
 {
@@ -94,7 +97,7 @@ class App extends PureComponent
         this.setState({...this.state, user: null})
     }
 
-    setExchanges = (exchanges) => this.setState({...this.state, exchanges})
+    setExchanges = (exchanges) => this.setState({...this.state, exchanges: {...this.state.exchanges, ...exchanges}})
 
     setCities = (cities) => this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})})
 
@@ -105,31 +108,36 @@ class App extends PureComponent
         const {redirect, page, user, cities, exchanges, categories} = this.state
         const {location} = this.props
         return (
-            <Switch>
+            <main className='main'>
                 {redirect && <Redirect push to={page}/>}
-                <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
-                <React.Fragment>
-                    <main className='main'>
-                        <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
-                        <Switch>
-                            {/*<Route exact path='/profile' render={() => <ProfilePage user={user}/>}/>*/}
-                            <Route path='/exchange' render={() =>
-                                <ExchangeBookPage defaultPhone={user ? user.phone : ""}
-                                                  cities={cities}
-                                                  setCities={this.setCities}
-                                                  exchanges={exchanges}
-                                                  setExchanges={this.setExchanges}
-                                                  categories={categories}
-                                                  setCategories={this.setCategories}
-                                />
-                            }/>
-                            <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
-                            <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
-                        </Switch>
-                        {/*<Footer/>*/}
-                    </main>
-                </React.Fragment>
-            </Switch>
+                <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
+                <Switch>
+                    <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
+                    <Route exact path='/profile' render={() => <ProfilePage user={user}/>}/>
+                    <Route path='/exchange/:id' render={(route) =>
+                        <ExchangeBookItemPage exchangeId={route.match.params.id}
+                                              exchange={exchanges[route.match.params.id]}
+                                              setExchanges={this.setExchanges}
+                                              setCities={this.setCities}
+                                              city={cities[exchanges[route.match.params.id]?.city_id]}
+                        />
+                    }/>
+                    <Route path='/exchange' render={() =>
+                        <ExchangeBookPage defaultPhone={user ? user.phone : ""}
+                                          cities={cities}
+                                          setCities={this.setCities}
+                                          exchanges={exchanges}
+                                          setExchanges={this.setExchanges}
+                                          categories={categories}
+                                          setCategories={this.setCategories}
+                        />
+                    }/>
+                    <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
+                    <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
+                </Switch>
+                {/*<Footer/>*/}
+                <NotificationContainer/>
+            </main>
         )
     }
 }

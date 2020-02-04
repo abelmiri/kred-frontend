@@ -3,6 +3,11 @@ import CameraSvg from "../Media/Svgs/Camera"
 import Material from "./Material"
 import api from "../Functions/api"
 import Arrow from "../Media/Svgs/Arrow"
+import imageCompression from "browser-image-compression"
+import Constant from "../Constant/Constant"
+import {NotificationManager} from "react-notifications"
+import addCommaPrice from "../Helpers/addCommaPrice"
+import PencilSvg from "../Media/Svgs/Pencil"
 
 class CreateExchangeModal extends PureComponent
 {
@@ -17,6 +22,7 @@ class CreateExchangeModal extends PureComponent
             selectedCategories: [],
             contactType: "phone", //phone || telegram
             priceType: "fixed", //fixed || agreed || free
+            loadingPercent: 0,
         }
         this.phoneValid = true
         this.selectedImage = false
@@ -71,6 +77,7 @@ class CreateExchangeModal extends PureComponent
             {
                 this.priceValid = true
                 e.target.style.border = ""
+                e.target.value = addCommaPrice(e.target.value.replace(/,/g, ""))
             }
             else this.priceValid = false
         }
@@ -167,34 +174,47 @@ class CreateExchangeModal extends PureComponent
     submit()
     {
         const {loading, selectedCategories, contactType, priceType} = this.state
-        const {hideModal} = this.props
         if (!loading && this.selectedImage && this.phoneValid && this.titleValid && this.descriptionValid && this.priceValid && this.cityValid)
         {
             this.setState({...this.state, loading: true}, () =>
             {
                 let form = new FormData()
-                form.append(contactType, this.phoneInput.value)
-                form.append("price", priceType === "free" ? 0 : priceType === "agreed" ? -1 : this.priceInput.value)
+                form.append(contactType, this.phoneInput.value.replace(/@/g, ""))
+                form.append("price", priceType === "free" ? 0 : priceType === "agreed" ? -1 : this.priceInput.value.replace(/,/g, ""))
                 form.append("title", this.titleInput.value)
                 form.append("description", this.descriptionInput.value)
                 form.append("categories", JSON.stringify(selectedCategories))
                 form.append("city_id", this.cityInput.value)
-                form.append("picture", this.selectedImage)
-                api.post("exchange", form)
-                    .then(() =>
-                    {
-                        alert("آگهی شما ثبت شد و پس از تایید به نمایش در می آید.")
-                        hideModal()
-                    })
-                    .catch(() => alert("سیستم با خطا مواجه شد!"))
+                if (this.selectedImage.type.includes("svg") || this.selectedImage.type.includes("gif"))
+                {
+                    form.append("picture", this.selectedImage)
+                    this.postData(form)
+                }
+                else imageCompression(this.selectedImage, Constant.COMPRESSION).then(compressedFile =>
+                {
+                    form.append("picture", new File([compressedFile], compressedFile.name))
+                    this.postData(form)
+                })
             })
         }
+    }
+
+    postData(form)
+    {
+        api.post("exchange", form, "", false, (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
+            .then(() =>
+            {
+                const {hideModal} = this.props
+                NotificationManager.success("آگهی شما ثبت و پس از تایید به نمایش در می آید.")
+                hideModal()
+            })
+            .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد!")))
     }
 
     render()
     {
         const {hideModal, cities, defaultPhone, categories} = this.props
-        const {selectedImagePreview, loading, level, selectedParent, selectedCategories, contactType} = this.state
+        const {selectedImagePreview, loading, level, selectedParent, selectedCategories, contactType, loadingPercent} = this.state
         return (
             <React.Fragment>
                 <div className="create-exchange-cont">
@@ -260,13 +280,14 @@ class CreateExchangeModal extends PureComponent
                                         </label>
                                     </div>
 
-                                    <input type='number'
+                                    <input type='text'
                                            ref={e => this.priceInput = e}
                                            className='create-exchange-section-input price'
                                            placeholder="مثال: 25,000"
                                            onBlur={(e) => this.blurInput(e, "price")}
                                            onChange={(e) => this.validateInput(e, "price")}
-                                           onInput={e => e.target.value = e.target.value.slice(0, 8)}
+                                           maxLength="8"
+                                           onInput={e => !isNaN(e.target.value.replace(/,/g, "")) ? null : e.target.value = ""}
                                     />
                                     <div className="create-exchange-price">تومان</div>
                                 </div>
@@ -324,14 +345,15 @@ class CreateExchangeModal extends PureComponent
                                 <div className='create-exchange-image'>تصویر: <span>*</span></div>
                                 <label className='create-exchange-img'>
                                     {
-                                        selectedImagePreview ?
+                                        selectedImagePreview &&
+                                        <React.Fragment>
                                             <img src={selectedImagePreview} className='create-exchange-selected-img' alt=''/>
-                                            :
-                                            <React.Fragment>
-                                                <CameraSvg className="create-exchange-svg"/>
-                                                <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
-                                            </React.Fragment>
+                                            {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <PencilSvg className="create-exchange-edit-svg"/>}
+                                        </React.Fragment>
                                     }
+                                    <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
+                                    <CameraSvg className="create-exchange-svg"/>
+                                    <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
                                 </label>
                                 <div className='create-exchange-city'>شهر: <span>*</span></div>
                                 <select disabled={loading} className='create-exchange-select' ref={e => this.cityInput = e} onBlur={(e) => this.blurInput(e, "city")} onChange={(e) => this.validateInput(e, "city")}>

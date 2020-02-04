@@ -22,7 +22,7 @@ class ExchangeBookPage extends PureComponent
     {
         window.scroll({top: 0})
         const {setExchanges, setCities, setCategories} = this.props
-        api.get("exchange", `?limit=8&page=1&time=${new Date().toISOString()}`, true).then((data) =>
+        api.get("exchange", `?limit=12&page=1&time=${new Date().toISOString()}`, true).then((data) =>
             this.setState({...this.state, exchangesLoading: false}, () => setExchanges(data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}))),
         )
         api.get("city", `?limit=100&time=${new Date().toISOString()}`, true).then((data) => setCities(data))
@@ -64,12 +64,12 @@ class ExchangeBookPage extends PureComponent
                 {
                     this.setState({...this.state, exchangesLoading: true}, () =>
                     {
-                        api.get("exchange", `?limit=8&page=${this.page}`, true).then((data) =>
+                        api.get("exchange", `?limit=12&page=${this.page}`, true).then((data) =>
                             this.setState({...this.state, exchangesLoading: false}, () =>
                             {
                                 this.activeScrollHeight = scrollHeight
                                 this.page = this.page + 1
-                                setExchanges({...exchanges, ...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})})
+                                setExchanges(data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}))
                             }),
                         )
                     })
@@ -117,20 +117,27 @@ class ExchangeBookPage extends PureComponent
                     </div>
                 </div>
 
-                <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
-
-                <div className='exchange-list'>
-                    {
-                        exchanges &&
+                {
+                    exchanges && Object.values(exchanges).length > 0 ?
                         <React.Fragment>
-                            {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
-                            <div className='exchange-item-cont-hide'/>
-                            <div className='exchange-item-cont-hide'/>
-                            <div className='exchange-item-cont-hide'/>
-                            <div className='exchange-item-cont-hide'/>
+                            <div className="exchange-list-new">
+                                <div className="exchange-list-new-title">جـدیـدتـریـن ‌ها</div>
+                                {Object.values(exchanges).slice(0, 5).map(exchange => <ExchangeItem key={exchange._id} inSlide={true} exchange={exchange} city={cities[exchange.city_id]}/>)}
+                            </div>
+                            <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
+                            <div className='exchange-list'>
+                                {Object.values(exchanges).slice(5, Object.values(exchanges).length).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                            </div>
                         </React.Fragment>
-                    }
-                </div>
+                        :
+                        <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
+                }
 
                 {exchangesLoading && <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>}
 

@@ -134,88 +134,96 @@ class Header extends PureComponent
         if (!this.state.collapseSidebar && document.body.clientWidth <= 480) this.hideSidebar()
     }
 
+    submitOnEnter = (e) => e.keyCode === 13 && this.login()
+
     render()
     {
         const {location, user} = this.props
-        const {isTransparent, showLoginModal, collapseSidebar, loginLoading} = this.state
-        return (
-            <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
-                <div className='header-buttons'>
-                    {/*{*/}
-                    {/*    location === "/exchange" &&*/}
-                    {/*    <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu'>*/}
-                    {/*        <HamburgerSvg className='header-buttons-hamburger'/>*/}
-                    {/*        <span>تبادل کتاب</span>*/}
-                    {/*    </Material>*/}
-                    {/*}*/}
+        if (location !== "/sign-up")
+        {
+            const {isTransparent, showLoginModal, collapseSidebar, loginLoading} = this.state
+            return (
+                <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
+                    <div className='header-buttons'>
+                        {/*{*/}
+                        {/*    location === "/exchange" &&*/}
+                        {/*    <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu'>*/}
+                        {/*        <HamburgerSvg className='header-buttons-hamburger'/>*/}
+                        {/*        <span>تبادل کتاب</span>*/}
+                        {/*    </Material>*/}
+                        {/*}*/}
+                        {
+                            user ?
+                                <Link to="/profile" className='header-buttons-title'>
+                                    سلام {user.name ? user.name.split(" ")[0] : user.phone}
+                                </Link>
+                                :
+                                <React.Fragment>
+                                    <div id="header-login" className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
+                                    <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
+                                </React.Fragment>
+                        }
+                        {/*<div className='header-buttons-title'>ارتباط با کرد</div>*/}
+                        {/*<div className='header-buttons-title'>درباره ما</div>*/}
+                        {user && <div className='header-buttons-title' onClick={this.logout}>خروج</div>}
+                    </div>
+                    <div className='header-logo-cont'>
+                        <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
+                            <Hamburger className="header-hamburger-mobile" collapse={collapseSidebar} onClick={collapseSidebar ? this.showSidebar : this.hideSidebar}/>
+                        </Material>
+                        <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
+                        <Link to="/" className='header-logo-link'><img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/></Link>
+                        {
+                            user ?
+                                <Link to="/profile" className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>
+                                :
+                                <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`} onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
+                        }
+                    </div>
                     {
-                        user ?
-                            <div className='header-buttons-title'>
-                                سلام {user.name ? user.name.split(" ")[0] : user.phone}
+                        showLoginModal &&
+                        <React.Fragment>
+                            <div className="create-exchange-back" onClick={this.hideLoginModal}/>
+                            <div className="create-exchange-cont login">
+                                <div className='create-exchange-title'>ورود به KRED</div>
+                                <div className='create-exchange-section'>
+                                    <input type='text'
+                                           ref={e => this.phoneInput = e}
+                                           className='create-exchange-section-input'
+                                           placeholder="ایمیل یا شماره موبایل"
+                                           maxLength={60}
+                                           name="phone"
+                                           onKeyDown={this.submitOnEnter}
+                                    />
+                                </div>
+                                <div className='create-exchange-section'>
+                                    <input type='password'
+                                           ref={e => this.passwordInput = e}
+                                           className='create-exchange-section-input'
+                                           placeholder="رمز عبور"
+                                           maxLength={30}
+                                           name="password"
+                                           onKeyDown={this.submitOnEnter}
+                                    />
+                                </div>
+                                <Material className={`header-login-submit ${loginLoading ? "loading" : ""}`} onClick={this.login}>
+                                    {loginLoading ? <ClipLoader color="white" size={15}/> : "ورود"}
+                                </Material>
+                                <Link onClick={this.setOverflowAuto} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
                             </div>
-                            :
-                            <React.Fragment>
-                                <div id="header-login" className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
-                                <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
-                            </React.Fragment>
+                        </React.Fragment>
                     }
-                    {/*<div className='header-buttons-title'>ارتباط با کرد</div>*/}
-                    {/*<div className='header-buttons-title'>درباره ما</div>*/}
-                    {user && <div className='header-buttons-title' onClick={this.logout}>خروج</div>}
-                </div>
-                <div className='header-logo-cont'>
-                    <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
-                        <Hamburger className="header-hamburger-mobile" collapse={collapseSidebar} onClick={collapseSidebar ? this.showSidebar : this.hideSidebar}/>
-                    </Material>
-                    <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
-                    <Link to="/" className='header-logo-link'><img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/></Link>
-                    {
-                        user ?
-                            <div className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</div>
-                            :
-                            <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`} onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
-                    }
-                </div>
-                {
-                    showLoginModal &&
-                    <React.Fragment>
-                        <div className="create-exchange-back" onClick={this.hideLoginModal}/>
-                        <div className="create-exchange-cont login">
-                            <div className='create-exchange-title'>ورود به KRED</div>
-                            <div className='create-exchange-section'>
-                                <input type='text'
-                                       ref={e => this.phoneInput = e}
-                                       className='create-exchange-section-input'
-                                       placeholder="ایمیل یا شماره موبایل"
-                                       maxLength={60}
-                                       name="phone"
-                                />
-                            </div>
-                            <div className='create-exchange-section'>
-                                <input type='password'
-                                       ref={e => this.passwordInput = e}
-                                       className='create-exchange-section-input'
-                                       placeholder="رمز عبور"
-                                       maxLength={30}
-                                       name="password"
-                                />
-                            </div>
-                            <Material className={`header-login-submit ${loginLoading ? "loading" : ""}`} onClick={this.login}>
-                                {loginLoading ? <ClipLoader color="white" size={15}/> : "ورود"}
-                            </Material>
-                            <Link onClick={this.setOverflowAuto} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
-                        </div>
-                    </React.Fragment>
-                }
 
-                <div className={`header-sidebar-back ${collapseSidebar ? "hide" : ""}`} onClick={this.hideSidebar}/>
-                <div className={`header-sidebar-container ${collapseSidebar ? "hide" : ""}`}>
-                    <Link to="/exchange" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
-                    {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
-                </div>
+                    <div className={`header-sidebar-back ${collapseSidebar ? "hide" : ""}`} onClick={this.hideSidebar}/>
+                    <div className={`header-sidebar-container ${collapseSidebar ? "hide" : ""}`}>
+                        <Link to="/exchange" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
+                        {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
+                    </div>
 
-            </div>
-        )
+                </div>
+            )
+        }
+        else return null
     }
 }
 
