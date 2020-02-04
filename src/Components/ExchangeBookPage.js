@@ -160,7 +160,7 @@ class ExchangeBookPage extends PureComponent
                 <div className="exchange-list-new">
                     <div className="exchange-list-new-title">جـدیـدتـریـن ‌ها</div>
                     {
-                        exchanges && Object.values(exchanges).length > 0 ?
+                        newExchanges && Object.values(newExchanges).length > 0 ?
                             Object.values(newExchanges).map(exchange => <ExchangeItem key={exchange._id} inSlide={true} exchange={exchange} city={cities[exchange.city_id]}/>)
                             :
                             <div className="exchange-page-loading"><ClipLoader size={24} color="#FFF"/></div>
@@ -180,15 +180,22 @@ class ExchangeBookPage extends PureComponent
                 </div>
 
                 {
-                    exchanges && Object.values(exchanges).length > 0 &&
                     <div className='exchange-list'>
-                        {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
-                        <div className='exchange-item-cont-hide'/>
-                        <div className='exchange-item-cont-hide'/>
-                        <div className='exchange-item-cont-hide'/>
-                        <div className='exchange-item-cont-hide'/>
-                        <div className='exchange-item-cont-hide'/>
-                        <div className='exchange-item-cont-hide'/>
+                        {
+                            exchanges && Object.values(exchanges).length > 0 ?
+                            <React.Fragment>
+                                {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                                <div className='exchange-item-cont-hide'/>
+                            </React.Fragment>
+                                :
+                                exchangesLoading !== true && <div className="exchange-page-loading not-found">موردی یافت نشد!</div>
+                        }
+
                     </div>
                 }
 

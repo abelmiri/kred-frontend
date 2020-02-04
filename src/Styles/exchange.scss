@@ -274,6 +274,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  min-height: 100vh;
 
   @media screen and (max-width: 480px) {
     padding: 0;
@@ -605,6 +606,12 @@
   &.hide {
     opacity: 0;
   }
+
+  &.not-found {
+    margin-top: 15px;
+    font-size: $title-font-size;
+  }
+
 }
 
 .exchange-page-checkbox {
