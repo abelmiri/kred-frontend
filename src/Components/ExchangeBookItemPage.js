@@ -11,22 +11,24 @@ class ExchangeBookItemPage extends PureComponent
         super(props)
         this.state = {
             showContact: false,
+            exchange: null,
         }
     }
 
     componentDidMount()
     {
-        const {exchangeId, setExchanges, setCities} = this.props
-        api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`, true).then((data) => setExchanges({[data._id]: {...data}}))
-        api.get("city", `?limit=100&time=${new Date().toISOString()}`, true).then((data) => setCities(data))
+        window.scroll({top: 0})
+        const {exchangeId, getCities} = this.props
+        api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`, true).then((exchange) => this.setState({...this.state, exchange}))
+        getCities()
     }
 
     toggleContact = () => this.setState({...this.state, showContact: !this.state.showContact})
 
     render()
     {
-        const {exchange, city} = this.props
-        const {showContact} = this.state
+        const {cities} = this.props
+        const {showContact, exchange} = this.state
         return (
             <div className="exchange-show-cont">
                 {
@@ -35,7 +37,7 @@ class ExchangeBookItemPage extends PureComponent
                             <div className="exchange-show-content">
                                 <h1 className="exchange-show-title">{exchange.title}</h1>
                                 <h2 className="exchange-show-desc">{exchange.description}</h2>
-                                {city && <div className='exchange-show-city'>{city.name}</div>}
+                                {cities[exchange.city_id] && <div className='exchange-show-city'>{cities[exchange.city_id].name}</div>}
                                 <div className='exchange-show-price'>
                                     {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}
                                 </div>

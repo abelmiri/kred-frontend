@@ -4,6 +4,8 @@ import api from "../Functions/api"
 import Material from "./Material"
 import CreateExchangeModal from "./CreateExchangeModal"
 import {ClipLoader} from "react-spinners"
+import SearchSvg from "../Media/Svgs/SearchSvg"
+import Arrow from "../Media/Svgs/Arrow"
 
 class ExchangeBookPage extends PureComponent
 {
@@ -13,6 +15,9 @@ class ExchangeBookPage extends PureComponent
         this.state = {
             showModal: false,
             exchangesLoading: true,
+            searchTitle: "",
+            exchanges: {},
+            newExchanges: {},
         }
         this.activeScrollHeight = 0
         this.page = 2
@@ -21,13 +26,16 @@ class ExchangeBookPage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
-        const {setExchanges, setCities, setCategories} = this.props
-        api.get("exchange", `?limit=12&page=1&time=${new Date().toISOString()}`, true).then((data) =>
-            this.setState({...this.state, exchangesLoading: false}, () => setExchanges(data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}))),
-        )
-        api.get("city", `?limit=100&time=${new Date().toISOString()}`, true).then((data) => setCities(data))
-        api.get("category", `?limit=100&time=${new Date().toISOString()}`, true).then((data) => setCategories(data))
-
+        const {getCities, getCategories} = this.props
+        api.get("exchange", `?limit=11&page=1&time=${new Date().toISOString()}`, true)
+            .then((data) =>
+                this.setState({...this.state, exchangesLoading: false}, () =>
+                    this.setState({...this.state, newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}), exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}),
+                ),
+            )
+            .catch(() => this.setState({...this.state, error: true}))
+        getCities()
+        getCategories()
         document.addEventListener("scroll", this.onScroll)
     }
 
@@ -56,22 +64,20 @@ class ExchangeBookPage extends PureComponent
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() =>
         {
-            const {setExchanges, exchanges} = this.props
-            if (Object.values(exchanges).length > 0)
+            const {exchangesLoading, searchTitle, exchanges} = this.state
+            if (!exchangesLoading)
             {
                 const scrollHeight = document.body ? document.body.scrollHeight : 0
                 if (window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
                 {
                     this.setState({...this.state, exchangesLoading: true}, () =>
                     {
-                        api.get("exchange", `?limit=12&page=${this.page}`, true).then((data) =>
-                            this.setState({...this.state, exchangesLoading: false}, () =>
-                            {
-                                this.activeScrollHeight = scrollHeight
-                                this.page = this.page + 1
-                                setExchanges(data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}))
-                            }),
-                        )
+                        api.get("exchange", `?limit=12&page=${this.page}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+                        {
+                            this.setState({...this.state, exchangesLoading: false, exchanges: {...exchanges, ...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}})
+                            this.activeScrollHeight = scrollHeight
+                            this.page += 1
+                        })
                     })
                 }
             }
@@ -104,10 +110,44 @@ class ExchangeBookPage extends PureComponent
         }
     }
 
+    searchInput = (e) =>
+    {
+        const value = e.target.value.trim()
+        clearTimeout(this.searchTimeout)
+        this.searchTimeout = setTimeout(() =>
+        {
+            this.setState({...this.state, searchTitle: value, exchangesLoading: true}, () =>
+            {
+                api.get("exchange", `?limit=12&page=1${value ? `&searchTitle=${value}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+                {
+                    if (value)
+                    {
+                        this.setState({
+                            ...this.state,
+                            exchangesLoading: false,
+                            exchanges: {...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})},
+                        })
+                    }
+                    else
+                    {
+                        this.setState({
+                            ...this.state,
+                            exchangesLoading: false,
+                            newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
+                            exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
+                        })
+                    }
+                    this.activeScrollHeight = 0
+                    this.page = 2
+                })
+            })
+        }, 350)
+    }
+
     render()
     {
-        const {exchanges, cities, defaultPhone, categories} = this.props
-        const {showModal, exchangesLoading} = this.state
+        const {cities, defaultPhone, categories} = this.props
+        const {exchanges, showModal, exchangesLoading, newExchanges} = this.state
         return (
             <div>
                 <div className='exchange-background-img'>
@@ -117,29 +157,42 @@ class ExchangeBookPage extends PureComponent
                     </div>
                 </div>
 
+                <div className="exchange-list-new">
+                    <div className="exchange-list-new-title">جـدیـدتـریـن ‌ها</div>
+                    {
+                        exchanges && Object.values(exchanges).length > 0 ?
+                            Object.values(newExchanges).map(exchange => <ExchangeItem key={exchange._id} inSlide={true} exchange={exchange} city={cities[exchange.city_id]}/>)
+                            :
+                            <div className="exchange-page-loading"><ClipLoader size={24} color="#FFF"/></div>
+                    }
+                </div>
+
+                <div className="create-exchange-button-search-add-container">
+                    <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
+                    <div className="create-exchange-button-search-cont">
+                        <input type="text" className="create-exchange-button-search" placeholder="دنبال چی میگردی؟" onChange={this.searchInput}/>
+                        <SearchSvg className="create-exchange-button-search-svg"/>
+                    </div>
+                    <Material className="create-exchange-button-search-categories">
+                        دسته‌بندی‌ها
+                        <Arrow className="create-exchange-button-search-categories-arrow"/>
+                    </Material>
+                </div>
+
                 {
-                    exchanges && Object.values(exchanges).length > 0 ?
-                        <React.Fragment>
-                            <div className="exchange-list-new">
-                                <div className="exchange-list-new-title">جـدیـدتـریـن ‌ها</div>
-                                {Object.values(exchanges).slice(0, 5).map(exchange => <ExchangeItem key={exchange._id} inSlide={true} exchange={exchange} city={cities[exchange.city_id]}/>)}
-                            </div>
-                            <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
-                            <div className='exchange-list'>
-                                {Object.values(exchanges).slice(5, Object.values(exchanges).length).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                            </div>
-                        </React.Fragment>
-                        :
-                        <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
+                    exchanges && Object.values(exchanges).length > 0 &&
+                    <div className='exchange-list'>
+                        {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
+                        <div className='exchange-item-cont-hide'/>
+                        <div className='exchange-item-cont-hide'/>
+                        <div className='exchange-item-cont-hide'/>
+                        <div className='exchange-item-cont-hide'/>
+                        <div className='exchange-item-cont-hide'/>
+                        <div className='exchange-item-cont-hide'/>
+                    </div>
                 }
 
-                {exchangesLoading && <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>}
+                <div className={`exchange-page-loading ${exchangesLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
 
                 {showModal && <CreateExchangeModal hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
 

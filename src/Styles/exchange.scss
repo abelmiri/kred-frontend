@@ -201,12 +201,72 @@
 
 .create-exchange-button {
   display: inline-block;
-  margin: 20px 5%;
   padding: 15px;
   border: 1px solid $primary-color;
   color: $primary-color;
   cursor: pointer;
   font-size: $home-regular-font-size;
+
+  @media screen and (max-width: 480px) {
+    order: 0;
+  }
+}
+
+.create-exchange-button-search-add-container {
+  margin: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.create-exchange-button-search-cont {
+  display: inline-block;
+  position: relative;
+
+  @media screen and (max-width: 480px) {
+    order: 3;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+.create-exchange-button-search {
+  width: 250px;
+  border: none;
+  border-bottom: 1px solid $almost-dark-color;
+  padding: 16px;
+  vertical-align: top;
+
+  @media screen and (max-width: 480px) {
+    width: calc(100% - 32px);
+  }
+}
+
+.create-exchange-button-search-svg {
+  width: 30px;
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+
+.create-exchange-button-search-categories-arrow {
+  transform: rotate(180deg);
+  width: 10px;
+  margin-right: 5px;
+  margin-bottom: -2px;
+}
+
+.create-exchange-button-search-categories {
+  display: inline-block;
+  vertical-align: top;
+  font-size: $home-regular-font-size;
+  border: 1px solid $almost-dark-color;
+  padding: 15px 20px;
+  cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    order: 1;
+  }
 }
 
 .exchange-list {
@@ -539,6 +599,12 @@
   padding: 10px 0;
   height: 29px;
   overflow: hidden;
+  min-width: 100%;
+  transition: all linear 0.2s;
+
+  &.hide {
+    opacity: 0;
+  }
 }
 
 .exchange-page-checkbox {
@@ -656,6 +722,8 @@
   line-height: 25px;
   font-size: $title-font-size;
   min-height: 200px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .exchange-show-city {

@@ -19,7 +19,6 @@ class App extends PureComponent
             redirect: false,
             page: "/",
             user: null,
-            exchanges: {},
             cities: {},
             categories: {},
         }
@@ -97,15 +96,23 @@ class App extends PureComponent
         this.setState({...this.state, user: null})
     }
 
-    setExchanges = (exchanges) => this.setState({...this.state, exchanges: {...this.state.exchanges, ...exchanges}})
+    getCities = () =>
+    {
+        api.get("city", `?limit=100&time=${new Date().toISOString()}`, true).then((cities) =>
+            this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})}),
+        )
+    }
 
-    setCities = (cities) => this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})})
-
-    setCategories = (categories) => this.setState({...this.state, categories: categories.reduce((sum, category) => ({...sum, [category._id]: {...category}}), {})})
+    getCategories = () =>
+    {
+        api.get("category", `?limit=100&time=${new Date().toISOString()}`, true).then((categories) =>
+            this.setState({...this.state, categories: categories.reduce((sum, category) => ({...sum, [category._id]: {...category}}), {})}),
+        )
+    }
 
     render()
     {
-        const {redirect, page, user, cities, exchanges, categories} = this.state
+        const {redirect, page, user, cities, categories} = this.state
         const {location} = this.props
         return (
             <main className='main'>
@@ -116,20 +123,16 @@ class App extends PureComponent
                     <Route exact path='/profile' render={() => <ProfilePage user={user}/>}/>
                     <Route path='/exchange/:id' render={(route) =>
                         <ExchangeBookItemPage exchangeId={route.match.params.id}
-                                              exchange={exchanges[route.match.params.id]}
-                                              setExchanges={this.setExchanges}
-                                              setCities={this.setCities}
-                                              city={cities[exchanges[route.match.params.id]?.city_id]}
+                                              getCities={this.getCities}
+                                              cities={cities}
                         />
                     }/>
                     <Route path='/exchange' render={() =>
                         <ExchangeBookPage defaultPhone={user ? user.phone : ""}
                                           cities={cities}
-                                          setCities={this.setCities}
-                                          exchanges={exchanges}
-                                          setExchanges={this.setExchanges}
+                                          getCities={this.getCities}
                                           categories={categories}
-                                          setCategories={this.setCategories}
+                                          getCategories={this.getCategories}
                         />
                     }/>
                     <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>

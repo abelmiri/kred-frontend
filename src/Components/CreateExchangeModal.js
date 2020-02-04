@@ -18,7 +18,7 @@ class CreateExchangeModal extends PureComponent
             selectedImagePreview: null,
             loading: false,
             level: 1,
-            selectedParent: "5dcbff32d39b3ba7e9c38f9f",
+            selectedParent: "5dcbfd44d39b3ba7e9c38e68",
             selectedCategories: [],
             contactType: "phone", //phone || telegram
             priceType: "fixed", //fixed || agreed || free
