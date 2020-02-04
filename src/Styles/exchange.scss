@@ -269,12 +269,15 @@
   }
 }
 
+.exchange-page-content {
+  min-height: 100vh;
+}
+
 .exchange-list {
   padding: 0 calc(5% - 10px);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  min-height: 100vh;
 
   @media screen and (max-width: 480px) {
     padding: 0;

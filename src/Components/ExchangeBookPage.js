@@ -179,25 +179,24 @@ class ExchangeBookPage extends PureComponent
                     </Material>
                 </div>
 
-                {
+                <div className='exchange-page-content'>
                     <div className='exchange-list'>
                         {
                             exchanges && Object.values(exchanges).length > 0 ?
-                            <React.Fragment>
-                                {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                            </React.Fragment>
+                                <React.Fragment>
+                                    {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
+                                    <div className='exchange-item-cont-hide'/>
+                                    <div className='exchange-item-cont-hide'/>
+                                    <div className='exchange-item-cont-hide'/>
+                                    <div className='exchange-item-cont-hide'/>
+                                    <div className='exchange-item-cont-hide'/>
+                                    <div className='exchange-item-cont-hide'/>
+                                </React.Fragment>
                                 :
                                 exchangesLoading !== true && <div className="exchange-page-loading not-found">موردی یافت نشد!</div>
                         }
-
                     </div>
-                }
+                </div>
 
                 <div className={`exchange-page-loading ${exchangesLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
 
