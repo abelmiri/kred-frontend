@@ -8,8 +8,8 @@ const ExchangeItem = (props) =>
 {
     const {exchange, city, inSlide} = props
     return (
-        <Material className="exchange-item-cont">
-            <Link to={`/exchange/${exchange._id}`} className="exchange-item-link">
+        <Link to={`/exchange/${exchange._id}`} className="exchange-item-cont">
+            <Material className={`exchange-item-cont-material ${inSlide ? "in-slide" : ""}`}>
                 <img className={`exchange-item-img ${inSlide ? "in-slide" : ""}`} src={REST_URL + "/" + exchange.picture} alt={exchange.title}/>
                 <div className='exchange-item-title'>{exchange.title}</div>
                 <div className="exchange-item-description">{exchange.description}</div>
@@ -17,8 +17,8 @@ const ExchangeItem = (props) =>
                     {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}
                 </div>
                 {city && <div className='exchange-item-city'>{city.name}</div>}
-            </Link>
-        </Material>
+            </Material>
+        </Link>
     )
 }
 

@@ -5,6 +5,7 @@ import Hamburger from "./Hamburger"
 import Material from "./Material"
 import api from "../Functions/api"
 import {ClipLoader} from "react-spinners"
+import {NotificationManager} from "react-notifications"
 
 class Header extends PureComponent
 {
@@ -107,12 +108,12 @@ class Header extends PureComponent
                         .catch((e) =>
                         {
                             this.setState({...this.state, loginLoading: false}, () =>
-                                e.message === "Request failed with status code 404" && alert("کاربری با اطلاعات وارد شده یافت نشد."),
+                                e.message === "Request failed with status code 404" && NotificationManager.error("کاربری با اطلاعات وارد شده یافت نشد."),
                             )
                         })
                 })
             }
-            else alert("اطلاعات ورود را به درستی وارد کنید.")
+            else NotificationManager.warning("اطلاعات ورود را به درستی وارد کنید.")
         }
     }
 

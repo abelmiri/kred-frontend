@@ -64,12 +64,11 @@
 }
 
 .exchange-item-cont {
-  flex-grow: 1;
-  color: black;
   text-decoration: none;
-  display: inline-block;
-  background-color: rgba(245, 245, 245, 0.5);
+  color: black;
+  flex-grow: 1;
   width: 185px;
+  background-color: rgba(245, 245, 245, 0.5);
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
   margin: 0 10px 20px 10px;
   text-align: center;
@@ -84,20 +83,23 @@
 
   @media screen and (max-width: 480px) {
     box-shadow: none;
-    width: 100%;
+    width: 90%;
     margin: 0;
     border-top: 1px solid $primary-color;
     position: relative;
-    height: 110px;
-    padding: 15px 5%;
   }
 }
 
-.exchange-item-link {
-  text-decoration: none;
-  color: black;
-  width: 100%;
-  height: 100%;
+.exchange-item-cont-material {
+  @media screen and (max-width: 480px) {
+    height: 110px;
+    padding: 15px 5%;
+    background-color: rgba(245, 245, 245, 0.5);
+
+    &.in-slide {
+      border: 1px solid $primary-color;
+    }
+  }
 }
 
 .exchange-item-img {
@@ -256,16 +258,57 @@
   margin-bottom: -2px;
 }
 
-.create-exchange-button-search-categories {
+.create-exchange-button-search-categories-list {
+  position: absolute;
+  top: 51.7px;
+  left: 0;
+  width: 300px;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid $almost-dark-color;
+  overflow: hidden;
+  height: 308px;
+  opacity: 1;
+  transition: all linear 0.2s, border linear 0s;
+
+  &.hide {
+    height: 0;
+    opacity: 0;
+    border: 1px solid transparent;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: calc(90vw - 2px);
+  }
+}
+
+.create-exchange-button-search-cats {
+  margin: 5px;
+  padding: 0 10px;
+  height: 250px;
+  overflow: auto;
+}
+
+.create-exchange-button-search-categories-cont {
+  position: relative;
   display: inline-block;
   vertical-align: top;
   font-size: $home-regular-font-size;
-  border: 1px solid $almost-dark-color;
-  padding: 15px 20px;
   cursor: pointer;
 
   @media screen and (max-width: 480px) {
     order: 1;
+  }
+}
+
+.create-exchange-button-search-categories {
+  padding: 15px 20px;
+  border: 1px solid $almost-dark-color;
+  z-index: 2;
+  background-color: white;
+
+  &.bottom-none {
+    border-bottom: none;
   }
 }
 
@@ -286,13 +329,31 @@
 
 .exchange-list-new {
   padding: 0 calc(5% - 10px) 30px calc(5% - 10px);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   background-color: $primary-color;
+  display: inline-block;
+  width: calc(90% + 20px);
 
   @media screen and (max-width: 480px) {
     padding: 0;
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.exchange-list-new-cont-mobile {
+  display: none;
+  @media screen and (max-width: 480px) {
+    display: block;
+  }
+}
+
+.exchange-list-new-cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media screen and (max-width: 480px) {
+    display: none;
   }
 }
 
@@ -553,6 +614,11 @@
   justify-content: flex-end;
   align-items: center;
   display: inline-flex;
+
+  &.search {
+    font-size: $regular-font-size;
+    margin: 10px;
+  }
 }
 
 .create-exchange-category-item {

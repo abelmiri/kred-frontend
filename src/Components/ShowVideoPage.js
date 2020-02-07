@@ -20,6 +20,7 @@ class ShowVideoPage extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
         document.addEventListener("contextmenu", this.osContextMenu)
         document.addEventListener("keydown", this.onKeyDown)
     }
