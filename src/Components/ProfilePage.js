@@ -24,7 +24,7 @@ class ProfilePage extends PureComponent
     {
         super(props)
         this.state = {
-            selected: "profile",
+            selected: "dashboard",
             sliderIndex: 0,
             previousSlider: slides.length - 1,
             redirectHome: false,
@@ -79,10 +79,11 @@ class ProfilePage extends PureComponent
     renderContent = () =>
     {
         const {selected, sliderIndex, previousSlider} = this.state
+        const {setUser} = this.props
         switch (selected)
         {
             case "profile":
-                return <ProfilePageUserInfo/>
+                return <ProfilePageUserInfo setUser={setUser}/>
             default:
                 return <div className="profile-introduction">
                     <div className="profile-introduction-content">

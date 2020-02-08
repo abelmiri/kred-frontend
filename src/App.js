@@ -86,8 +86,18 @@ class App extends PureComponent
 
     setUser = (user) =>
     {
-        localStorage.setItem("user", JSON.stringify(user))
-        this.setState({...this.state, user})
+        if (localStorage.hasOwnProperty("user"))
+        {
+            const token = JSON.parse(localStorage.getItem("user")).token
+            let userWT = {...user, token}
+            localStorage.setItem("user", JSON.stringify(userWT))
+            this.setState({...this.state, userWT})
+        }
+        else
+        {
+            localStorage.setItem("user", JSON.stringify(user))
+            this.setState({...this.state, user})
+        }
     }
 
     logout = () =>
@@ -120,7 +130,7 @@ class App extends PureComponent
                 <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                 <Switch>
                     <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
-                    <Route exact path='/profile' render={() => <ProfilePage user={user}/>}/>
+                    <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
                     <Route path='/exchange/:id' render={(route) =>
                         <ExchangeBookItemPage exchangeId={route.match.params.id}
                                               getCities={this.getCities}
