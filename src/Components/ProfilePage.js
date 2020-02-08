@@ -9,6 +9,8 @@ import Bookmark from "../Media/Svgs/Bookmark"
 import Slider1 from "../Media/Images/login-slider1.jpg"
 import Slider2 from "../Media/Images/login-slider2.jpg"
 import Slider3 from "../Media/Images/login-slider3.jpg"
+import Profile from "../Media/Svgs/Profile"
+import ProfilePageUserInfo from "./ProfilePageUserInfo"
 
 const slides = [
     {img: Slider1, text: "دیگه لازم نیست پول زیادی برای کتاب‌هات خرج کنی!"},
@@ -22,7 +24,7 @@ class ProfilePage extends PureComponent
     {
         super(props)
         this.state = {
-            selected: "dashboard",
+            selected: "profile",
             sliderIndex: 0,
             previousSlider: slides.length - 1,
             redirectHome: false,
@@ -73,9 +75,57 @@ class ProfilePage extends PureComponent
         }
     }
 
+    renderContent = () =>
+    {
+        const {selected, sliderIndex, previousSlider} = this.state
+        switch (selected)
+        {
+            case "profile":
+                return <ProfilePageUserInfo/>
+            default:
+                return <div className="profile-introduction">
+                    <div className="profile-introduction-content">
+                        <div className="profile-introduction-title">
+                            سلام!
+                        </div>
+                        <div className="profile-introduction-description">
+                            <p>به KRED خوش اومدی <span role="img" aria-label=''>😊</span></p>
+                            <p>اینجا برای نتیجه گیریه! یک جمع صمیمی از دانشجوهای علوم پزشکی با کلی تجربه و محتوا و اتفاق جالب... خوشحال میشیم تو هم بیای.</p>
+                            <p>کرِد یک کلمه باستانیه که ریشه‌ی تمام کلماتی حساب میشه که معنیشون قلبه... <span role="img" aria-label=''>🧡</span></p>
+                            <p>حالا بیا با قسمت های مختلف سایت آشنا بشیم:</p>
+                            <div className="profile-introduction-links">
+                                <Link to="/profile" className="link">فیلم های آموزشی</Link>
+                                <Link to="/profile" className="link">گپ و گفت</Link>
+                                <Link to="/exchange" className="link">تبادل کتاب</Link>
+                                <Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>
+                                <Link to="/profile" className="link">نمونه سوالات</Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="profile-introduction-slider">
+                        {
+                            slides.map((item, index) =>
+                                <div key={"slide" + index}
+                                     style={{opacity: sliderIndex === index ? "1" : "0", left: sliderIndex === index ? "0" : previousSlider === index ? "30px" : "-30px"}}
+                                     className='login-slider-item'>
+                                    <img src={item.img} alt='' className='login-slider-img'/>
+                                    <div className='login-slider-text'>{item.text}</div>
+                                </div>,
+                            )
+                        }
+                        <div className='login-slider-dots'>
+                            {slides.map((dot, index) =>
+                                <div onClick={() => this.setSlider(index)} style={{backgroundColor: sliderIndex === index ? "#878787" : "white"}}
+                                     className='login-slider-dot' key={"dot" + index}/>)}
+                        </div>
+                    </div>
+                </div>
+        }
+    }
+
     render()
     {
-        const {selected, sliderIndex, previousSlider, redirectHome} = this.state
+        const {selected, redirectHome} = this.state
         return (
             <div className='profile-container'>
                 {redirectHome && <Redirect to="/"/>}
@@ -106,46 +156,18 @@ class ProfilePage extends PureComponent
                             <Bookmark className="dashboard-svg"/>
                             علاقه‌مندی های من
                         </Material>
+                        <Material backgroundColor={selected === "profile" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("profile")}
+                                  className={selected === "profile" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                            <Profile className="dashboard-svg"/>
+                            اطلاعات حساب
+                        </Material>
                     </div>
                 </div>
                 <div className="profile-content">
-                    <div className="profile-introduction">
-                        <div className="profile-introduction-content">
-                            <div className="profile-introduction-title">
-                                سلام!
-                            </div>
-                            <div className="profile-introduction-description">
-                                <p>به KRED خوش اومدی <span role="img" aria-label=''>😊</span></p>
-                                <p>اینجا برای نتیجه گیریه! یک جمع صمیمی از دانشجوهای علوم پزشکی با کلی تجربه و محتوا و اتفاق جالب... خوشحال میشیم تو هم بیای.</p>
-                                <p>کرِد یک کلمه باستانیه که ریشه‌ی تمام کلماتی حساب میشه که معنیشون قلبه... <span role="img" aria-label=''>🧡</span></p>
-                                <p>حالا بیا با قسمت های مختلف سایت آشنا بشیم:</p>
-                                <div className="profile-introduction-links">
-                                    <Link to="/profile" className="link">فیلم های آموزشی</Link>
-                                    <Link to="/profile" className="link">گپ و گفت</Link>
-                                    <Link to="/exchange" className="link">تبادل کتاب</Link>
-                                    <Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>
-                                    <Link to="/profile" className="link">نمونه سوالات</Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="profile-introduction-slider">
-                            {
-                                slides.map((item, index) =>
-                                    <div key={"slide" + index}
-                                         style={{opacity: sliderIndex === index ? "1" : "0", left: sliderIndex === index ? "0" : previousSlider === index ? "30px" : "-30px"}}
-                                         className='login-slider-item'>
-                                        <img src={item.img} alt='' className='login-slider-img'/>
-                                        <div className='login-slider-text'>{item.text}</div>
-                                    </div>,
-                                )
-                            }
-                            <div className='login-slider-dots'>
-                                {slides.map((dot, index) =>
-                                    <div onClick={() => this.setSlider(index)} style={{backgroundColor: sliderIndex === index ? "#878787" : "white"}}
-                                         className='login-slider-dot' key={"dot" + index}/>)}
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        this.renderContent()
+                    }
+
                 </div>
                 <div className="profile-left-menus">
                     <div className="profile-left-menus">

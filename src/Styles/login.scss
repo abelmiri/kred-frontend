@@ -208,10 +208,12 @@
   color: white;
   margin-top: 15px;
   cursor: pointer;
+  text-align: center;
 
   &.loading {
     padding: 6.5px 0 1.5px 0;
     cursor: not-allowed;
+    background-color: $secondary-color;
   }
 }
 

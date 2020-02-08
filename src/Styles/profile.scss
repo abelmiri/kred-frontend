@@ -69,6 +69,7 @@
   border: 1px solid $border-color;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 25px;
 }
 
 .profile-introduction-slider {
@@ -95,6 +96,30 @@
 
   p {
     text-align: justify;
+  }
+}
+
+.profile-info-description {
+  font-size: $home-title-font-size;
+  padding: 0 50px;
+
+  input {
+    border-bottom: 1px solid $border-color;
+    background-color: transparent;
+    font-size: $menu-title-font-size;
+    transition-duration: $short-animation-duration;
+    width: 350px;
+    margin-bottom: 15px;
+
+    &:focus {
+      border-bottom: 1px solid $primary-color;
+      transition-duration: $short-animation-duration;
+    }
+  }
+
+  p {
+    text-align: justify;
+    margin: 7px auto;
   }
 }
 
@@ -151,4 +176,25 @@
 .profile-forum-left-menu {
   width: 100%;
   border: 1px solid $border-color;
+}
+
+.profile-info-submit-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-info-submit-button {
+  width: 165px;
+  padding: 5px 0;
+  background-color: $primary-color;
+  color: white;
+  margin-top: 15px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 20px;
+
+  &.loading {
+    cursor: not-allowed;
+    background-color: $secondary-color;
+  }
 }
