@@ -1,4 +1,5 @@
 import axios from "axios"
+import {NotificationManager} from "react-notifications"
 
 // export const REST_URL = "http://localhost:1435"
 export const REST_URL = "https://restful.kred.ir"
@@ -10,11 +11,16 @@ function get(url, param = "", noToken)
         .then((res) =>
         {
             if (res.status === 200) return res.data
-            else throw res.data
+            else
+            {
+                NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+                throw res.data
+            }
         })
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
+            NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
             throw err
         })
 }
@@ -29,11 +35,16 @@ function post(url, data, param = "", noToken, progress)
         .then((res) =>
         {
             if (res.status === 200 || res.status === 201) return res.data
-            else throw res.data
+            else
+            {
+                NotificationManager.error("سایت در ارسال اطلاعات با خطا مواجه شد!")
+                throw res.data
+            }
         })
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
+            NotificationManager.error("سایت در ارسال اطلاعات با خطا مواجه شد!")
             throw err
         })
 }
@@ -46,11 +57,16 @@ function patch(url, data, param = "")
         .then((res) =>
         {
             if (res.status === 200) return res.data
-            else throw res.data
+            else
+            {
+                NotificationManager.error("سایت در آپدیت اطلاعات با خطا مواجه شد!")
+                throw res.data
+            }
         })
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
+            NotificationManager.error("سایت در آپدیت اطلاعات با خطا مواجه شد!")
             throw err
         })
 }
@@ -63,11 +79,16 @@ function del(url, data, param = "")
         .then((res) =>
         {
             if (res.status === 200 || res.status === 204) return res.data
-            else throw res.data
+            else
+            {
+                NotificationManager.error("سایت در حذف اطلاعات با خطا مواجه شد!")
+                throw res.data
+            }
         })
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
+            NotificationManager.error("سایت در حذف اطلاعات با خطا مواجه شد!")
             throw err
         })
 }

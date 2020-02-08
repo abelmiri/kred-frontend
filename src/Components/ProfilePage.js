@@ -33,6 +33,7 @@ class ProfilePage extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
         if (!localStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
         this.sliderInterval = setInterval(() =>
         {

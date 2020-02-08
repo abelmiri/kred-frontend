@@ -1,0 +1,72 @@
+@import "variables";
+
+.my-slider-component {
+  position: relative;
+}
+
+.my-slider-container {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.my-slider-scroll {
+  cursor: pointer;
+}
+
+.my-slider-node {
+  display: inline-block;
+  width: 100%;
+}
+
+.my-slider-dots {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.my-slider-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: $secondary-color;
+  margin: 0 20px;
+  cursor: pointer;
+
+  &.colored_dot {
+    background-color: white;
+  }
+}
+
+.my-slider-arrow {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
+  top: calc(50% - 25px);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  &.right {
+    right: 0;
+    transform: translateY(-50%) translateX(100%);
+
+    svg {
+      width: 6px;
+      fill: grey;
+    }
+  }
+
+  &.left {
+    left: 0;
+    transform: translateY(-50%) translateX(-100%);
+
+    svg {
+      width: 6px;
+      fill: grey;
+      transform: rotate(180deg);
+    }
+  }
+}

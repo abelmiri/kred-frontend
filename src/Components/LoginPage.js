@@ -7,6 +7,7 @@ import Material from "./Material"
 import {Link, Redirect} from "react-router-dom"
 import {BeatLoader} from "react-spinners"
 import api from "../Functions/api"
+import {NotificationManager} from "react-notifications"
 
 class LoginPage extends PureComponent
 {
@@ -35,6 +36,7 @@ class LoginPage extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
         if (localStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
 
         this.sliderInterval = setInterval(() =>
@@ -137,7 +139,7 @@ class LoginPage extends PureComponent
                         setUser(data)
                         this.setState({...this.state, redirectHome: true})
                     })
-                    .catch(() => alert("سیستم با خطا مواجه شد!"))
+                    .catch(() => NotificationManager.error("سیستم با خطا مواجه شد!"))
             })
         }
     }
