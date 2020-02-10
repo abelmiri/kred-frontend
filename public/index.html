@@ -2,20 +2,47 @@
 <html dir="rtl" lang="fa-IR">
 <head>
     <meta charset="utf-8"/>
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"/>
-    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/icon-192x192.png">
-    <meta name="theme-color" content="#17252A">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#17252A">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="apple-touch-icon" href="logo192.png"/>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/logo192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#FEFFFF">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#FEFFFF">
+    <meta name="keywords" content="کرد,kred,kred.ir,ویدیو آموزشی,کنهاب,آناتومی,پزشکی,دانشجوی پزشکی,جزوه,خلاصه درص"/>
     <title>کرد؛ گام هایی جذاب در دنیای پزشکی</title>
+    <meta property="og:title" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/>
+    <meta name="twitter:title" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/>
     <meta name="description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/>
     <meta property="og:description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/>
     <meta name="twitter:description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/>
+    <meta property="og:image" content="%PUBLIC_URL%/logo512.png"/>
+    <meta name="twitter:image" content="%PUBLIC_URL%/logo512.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="root"></div>
+<div id="root">
+    <style>
+        @keyframes loading {
+            0% {
+                stroke-dashoffset: 187;
+                transform: rotate(0);
+            }
+            50% {
+                stroke-dashoffset: 45;
+                transform: rotate(360deg);
+            }
+            100% {
+                stroke-dashoffset: 187;
+                transform: rotate(0);
+            }
+        }
+    </style>
+    <div style="height:90vh; display: flex; align-items: center;  justify-content: center;">
+        <svg width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle style="stroke-dasharray: 187; stroke-dashoffset: 0; transform-origin: center;animation: loading 1.4s ease-in-out infinite;stroke: #3AAFA9;" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"/>
+        </svg>
+    </div>
+</div>
 </body>
 </html>
