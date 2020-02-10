@@ -129,7 +129,7 @@ class ExchangeBookPage extends PureComponent
         this.setState({...this.state, selectedCategories, exchangesLoading: true}, () =>
         {
             const {searchTitle} = this.state
-            api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+            api.get("exchange", `?limit=${searchTitle || selectedCategories.length > 0 ? "12" : "11"}&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
             {
                 if (searchTitle || selectedCategories.length > 0)
                 {
@@ -171,7 +171,7 @@ class ExchangeBookPage extends PureComponent
             this.setState({...this.state, searchTitle, exchangesLoading: true}, () =>
                 {
                     const {selectedCategories} = this.state
-                    api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+                    api.get("exchange", `?limit=${searchTitle || selectedCategories.length > 0 ? "12" : "11"}&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
                     {
                         if (searchTitle || selectedCategories.length > 0)
                         {

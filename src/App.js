@@ -91,7 +91,7 @@ class App extends PureComponent
             const token = JSON.parse(localStorage.getItem("user")).token
             let userWT = {...user, token}
             localStorage.setItem("user", JSON.stringify(userWT))
-            this.setState({...this.state, userWT})
+            this.setState({...this.state, user: userWT})
         }
         else
         {
