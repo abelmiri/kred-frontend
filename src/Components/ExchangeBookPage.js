@@ -212,7 +212,11 @@ class ExchangeBookPage extends PureComponent
                 <div className='exchange-background-img'>
                     <div className='exchange-des-cont'>
                         <h2 className='exchange-desc'>تبادل کتاب</h2>
-                        {/*<h3 className='exchange-text'>تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست تست </h3>*/}
+                        <h3 className='exchange-text'>
+                            اینجا میتونی کتابای ترم های قبلت رو، به ترم پایینی‌ها بدی
+                            <br/>
+                            اینجوری هم کتابخونه‌ت خلوت‌تر میشه، هم درختای کمتری قطع میشن
+                        </h3>
                     </div>
                 </div>
 
@@ -251,11 +255,11 @@ class ExchangeBookPage extends PureComponent
                                 <div className="create-exchange-category-item right" onClick={() => this.handleChangeSelected("5dcbff32d39b3ba7e9c38f9f")}>بالین</div>
                                 <div className='slideThree'>
                                     <input type='checkbox'
-                                           id='category'
+                                           id='categories'
                                            checked={selectedParent === "5dcbff32d39b3ba7e9c38f9f"}
                                            onChange={() => this.handleChangeSelected(selectedParent === "5dcbff32d39b3ba7e9c38f9f" ? "5dcbfd44d39b3ba7e9c38e68" : "5dcbff32d39b3ba7e9c38f9f")}
                                     />
-                                    <label htmlFor='category'/>
+                                    <label htmlFor='categories'/>
                                 </div>
                                 <div className="create-exchange-category-item left" onClick={() => this.handleChangeSelected("5dcbfd44d39b3ba7e9c38e68")}>علوم پایه</div>
                             </div>

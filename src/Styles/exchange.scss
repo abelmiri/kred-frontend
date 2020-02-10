@@ -14,17 +14,14 @@
 }
 
 .exchange-des-cont {
-  max-width: 270px;
+  max-width: 570px;
   text-align: center;
 
-  @media screen and (max-width: 650px) {
-    margin: 0 0 250px 0;
-  }
   @media screen and (min-width: 650px) {
-    margin: 0 0 200px 300px;
+    margin: 0 0 250px 550px;
   }
   @media screen and (max-width: 480px) {
-    margin: 0 5%;
+    margin: 0 5% 350px 5%;
     width: 90%;
     max-width: 90%;
   }
@@ -33,9 +30,10 @@
 .exchange-desc {
   display: block;
   white-space: nowrap;
-  //border-bottom: 1px solid black;
+  border-bottom: 1px solid black;
   font-size: 60px;
   color: $secondary-color;
+  margin-bottom: 20px;
 
   @media screen and (max-width: 650px) {
     font-size: 40px;
@@ -45,10 +43,11 @@
 .exchange-text {
   font-size: 20px;
   text-align: justify;
-  text-align-last: center;
+  text-align-last: right;
+  width: 100%;
 
   @media screen and (max-width: 650px) {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
@@ -494,6 +493,7 @@
   flex-grow: 1;
   border: 1px solid $text-light-color;
   padding: 15px;
+  white-space: pre-wrap;
   resize: none;
 
   &.price {

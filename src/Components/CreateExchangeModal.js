@@ -227,7 +227,7 @@ class CreateExchangeModal extends PureComponent
                                     <input type='text'
                                            ref={e => this.titleInput = e}
                                            className='create-exchange-section-input'
-                                           placeholder="مثال: کتاب زمین شناسی"
+                                           placeholder="مثال: آناتومی اسنل"
                                            maxLength={60}
                                            onBlur={(e) => this.blurInput(e, "title")}
                                            onChange={(e) => this.validateInput(e, "title")}
@@ -296,7 +296,7 @@ class CreateExchangeModal extends PureComponent
                                     <textarea rows={6}
                                               ref={e => this.descriptionInput = e}
                                               className='create-exchange-section-input'
-                                              placeholder="مثال: نوشته استاد میری"
+                                              placeholder="مثال: چند صفحه خط کشی شده"
                                               onBlur={(e) => this.blurInput(e, "desc")}
                                               onChange={(e) => this.validateInput(e, "desc")}
                                     />

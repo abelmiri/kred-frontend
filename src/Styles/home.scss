@@ -255,6 +255,7 @@
   @media screen and (max-width: 800px) {
     padding: 50px 5%;
     margin: 10px 0;
+    height: auto;
   }
 }
 
@@ -265,7 +266,11 @@
 .home-about-description {
   margin-top: 5px;
   font-weight: bold;
-  font-size: $title-font-size;
+  font-size: $menu-title-font-size;
+  line-height: 25px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: inline-block;
+  padding: 10px;
 }
 
 .home-questions {

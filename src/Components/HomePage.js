@@ -55,7 +55,18 @@ class HomePage extends PureComponent
                 {/*</div>*/}
                 <div className='home-about'>
                     <h3 className='home-about-title'>اینجا چه خبره؟!</h3>
-                    <div className='home-about-description'>سلام! به کرد خوش آمدید.</div>
+                    <div className='home-about-description'>
+                        سلام! اینجا KRED عه...
+                        <br/>
+                        یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم
+                        <br/>
+                        <br/>
+                        اینجا چه فرقی با جاهای دیگه داره؟
+                        <br/>
+                        توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم
+                        <br/>
+                        و کلی کارای جالب و جدید دیگه که باید بیای و ببینی!!!
+                    </div>
                 </div>
                 {/*<div className='home-exchange'>*/}
                 {/*    <img className='home-exchange-img' src={Library} alt=''/>*/}
