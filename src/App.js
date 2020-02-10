@@ -9,6 +9,7 @@ import ExchangeBookPage from "./Components/ExchangeBookPage"
 import ExchangeBookItemPage from "./Components/ExchangeBookItemPage"
 import ProfilePage from "./Components/ProfilePage"
 import {NotificationContainer} from "react-notifications"
+import StatisticsPage from "./Components/StatisticsPage"
 
 class App extends PureComponent
 {
@@ -86,7 +87,7 @@ class App extends PureComponent
 
     setUser = (user) =>
     {
-        if (localStorage.hasOwnProperty("user"))
+        if (localStorage.hasOwnProperty("user") && !user.token)
         {
             const token = JSON.parse(localStorage.getItem("user")).token
             let userWT = {...user, token}
@@ -131,21 +132,10 @@ class App extends PureComponent
                 <Switch>
                     <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
                     <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
-                    <Route path='/exchange/:id' render={(route) =>
-                        <ExchangeBookItemPage exchangeId={route.match.params.id}
-                                              getCities={this.getCities}
-                                              cities={cities}
-                        />
-                    }/>
-                    <Route path='/exchange' render={() =>
-                        <ExchangeBookPage defaultPhone={user ? user.phone : ""}
-                                          cities={cities}
-                                          getCities={this.getCities}
-                                          categories={categories}
-                                          getCategories={this.getCategories}
-                        />
-                    }/>
+                    <Route path='/exchange/:id' render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={this.getCities} cities={cities}/>}/>
+                    <Route path='/exchange' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
                     <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
+                    <Route path='/statistics' render={() => <StatisticsPage user={user}/>}/>
                     <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                 </Switch>
                 {/*<Footer/>*/}
