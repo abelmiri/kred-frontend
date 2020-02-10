@@ -44,6 +44,9 @@ class LoginPage extends PureComponent
             const {sliderIndex} = this.state
             this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === this.slides.length ? 0 : sliderIndex + 1})
         }, 5000)
+
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ثبت نام"}).catch(err => console.log(err))
     }
 
     componentWillUnmount()

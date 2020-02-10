@@ -2,12 +2,15 @@ import React, {PureComponent} from "react"
 import Library from "../Media/Images/Library.jpg"
 import Nurses from "../Media/Images/Nurses.png"
 import Material from "./Material"
+import api from "../Functions/api"
 
 class HomePage extends PureComponent
 {
     componentDidMount()
     {
         window.scroll({top: 0})
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه اصلی"}).catch(err => console.log(err))
     }
 
     changeRoute(e, location)
@@ -26,7 +29,7 @@ class HomePage extends PureComponent
                     <h2 className='home-title'>K<span>RED</span></h2>
                     <h3 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h3>
                 </div>
-                <div className='home-exchange margin-top'>
+                <div className='home-exchange'>
                     <img className='home-exchange-img' src={Library} alt=''/>
                     <div className='home-exchange-text'>
                         <h3 className='home-exchange-title'>تبادل کتاب</h3>

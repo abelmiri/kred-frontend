@@ -32,6 +32,7 @@
 
 .exchange-desc {
   display: block;
+  white-space: nowrap;
   //border-bottom: 1px solid black;
   font-size: 60px;
   color: $secondary-color;
@@ -258,6 +259,27 @@
   margin-bottom: -2px;
 }
 
+.create-exchange-button-search-length {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  font-size: $really-small-font;
+  border: 1px solid $primary-color;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  overflow: hidden;
+  transition: all linear 0.2s;
+
+  &.hide {
+    width: 0;
+    height: 0;
+    font-size: 5px;
+    border: 1px solid transparent;
+  }
+}
+
 .create-exchange-button-search-categories-list {
   position: absolute;
   top: 51.7px;
@@ -269,6 +291,7 @@
   overflow: hidden;
   height: 308px;
   opacity: 1;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
   transition: all linear 0.2s, border linear 0s;
 
   &.hide {
@@ -419,6 +442,14 @@
   font-weight: bold;
   padding: 5px 0 20px 0;
   border-bottom: 1px solid $text-light-color;
+
+  &.login {
+    display: inline-block;
+    border-bottom: none;
+    vertical-align: top;
+    margin-top: 9px;
+    margin-left: 15px;
+  }
 }
 
 .login-modal-sign-up {
@@ -452,6 +483,10 @@
   &.relative-wrap {
     position: relative;
     flex-wrap: wrap;
+  }
+
+  &.margin-top-none {
+    margin-top: 0;
   }
 }
 
@@ -616,8 +651,12 @@
   display: inline-flex;
 
   &.search {
+    width: calc(100% - 20px);
+    justify-content: flex-start;
+    text-align: right;
     font-size: $regular-font-size;
-    margin: 10px;
+    padding: 10px;
+    border-bottom: 1px solid $text-light-color;
   }
 }
 
@@ -797,9 +836,13 @@
   margin-top: 20px;
   line-height: 25px;
   font-size: $title-font-size;
-  min-height: 200px;
   white-space: pre-wrap;
   word-break: break-word;
+  min-height: 200px;
+
+  @media screen and (max-width: 480px) {
+    min-height: auto;
+  }
 }
 
 .exchange-show-city {

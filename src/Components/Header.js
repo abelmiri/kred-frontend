@@ -155,18 +155,18 @@ class Header extends PureComponent
                         {/*}*/}
                         {
                             user ?
-                                <Link to="/profile" className='header-buttons-title'>
+                                <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
                                     سلام {user.name ? user.name.split(" ")[0] : user.phone}
                                 </Link>
                                 :
                                 <React.Fragment>
-                                    <div id="header-login" className='header-buttons-title' onClick={this.showLoginModal}>ورود</div>
-                                    <Link to="/sign-up" className='header-buttons-title'>ثبت نام</Link>
+                                    <div id="header-login" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.showLoginModal}>ورود</div>
+                                    <Link to="/sign-up" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>ثبت نام</Link>
                                 </React.Fragment>
                         }
                         {/*<div className='header-buttons-title'>ارتباط با کرد</div>*/}
                         {/*<div className='header-buttons-title'>درباره ما</div>*/}
-                        {user && <div className='header-buttons-title' onClick={this.logout}>خروج</div>}
+                        {user && <div className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.logout}>خروج</div>}
                     </div>
                     <div className='header-logo-cont'>
                         <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
@@ -186,8 +186,9 @@ class Header extends PureComponent
                         <React.Fragment>
                             <div className="create-exchange-back" onClick={this.hideLoginModal}/>
                             <div className="create-exchange-cont login">
-                                <div className='create-exchange-title'>ورود به KRED</div>
-                                <div className='create-exchange-section'>
+                                <div className='create-exchange-title login'>ورود به KRED</div>
+                                <img className="login-modal-logo" src={Logo} alt="kred"/>
+                                <div className='create-exchange-section margin-top-none'>
                                     <input type='text'
                                            ref={e => this.phoneInput = e}
                                            className='create-exchange-section-input'

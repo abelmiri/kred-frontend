@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react"
 import axios from "axios"
-import {REST_URL} from "../Functions/api"
+import api, {REST_URL} from "../Functions/api"
 import Material from "./Material"
 import {NotificationManager} from "react-notifications"
 
@@ -21,6 +21,10 @@ class ShowVideoPage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
+
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ویدیوها"}).catch(err => console.log(err))
+
         document.addEventListener("contextmenu", this.osContextMenu)
         document.addEventListener("keydown", this.onKeyDown)
     }
@@ -44,7 +48,14 @@ class ShowVideoPage extends PureComponent
                 responseType: "blob",
                 onDownloadProgress: e => this.setState({...this.state, loadingPercent: `در حال دانلود زیرنویس ${Math.floor((e.loaded * 100) / e.total)} %`}),
             })
-                .then((subtitleRes) => this.setState({...this.state, loading: false, selected: url, video: `${REST_URL}/videos/${url}`, subtitle: URL.createObjectURL(subtitleRes.data)}))
+                .then((subtitleRes) =>
+                {
+                    this.setState({...this.state, loading: false, selected: url, video: `${REST_URL}/videos/${url}`, subtitle: URL.createObjectURL(subtitleRes.data)}, () =>
+                    {
+                        // statistics
+                        process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: url}).catch(err => console.log(err))
+                    })
+                })
                 .catch((err) =>
                 {
                     if (err.message === "Request failed with status code 401") this.setState({...this.state, loading: false, loadingPercent: null}, () => NotificationManager.warning("شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@"))

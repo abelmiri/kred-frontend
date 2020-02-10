@@ -11,6 +11,7 @@ import Slider2 from "../Media/Images/login-slider2.jpg"
 import Slider3 from "../Media/Images/login-slider3.jpg"
 import Profile from "../Media/Svgs/Profile"
 import ProfilePageUserInfo from "./ProfilePageUserInfo"
+import api from "../Functions/api"
 
 const slides = [
     {img: Slider1, text: "دیگه لازم نیست پول زیادی برای کتاب‌هات خرج کنی!"},
@@ -40,6 +41,9 @@ class ProfilePage extends PureComponent
             const {sliderIndex} = this.state
             this.setState({...this.state, previousSlider: sliderIndex, sliderIndex: sliderIndex + 1 === slides.length ? 0 : sliderIndex + 1})
         }, 5000)
+
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "پروفایل"}).catch(err => console.log(err))
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)

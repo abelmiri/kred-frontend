@@ -34,12 +34,19 @@ class ExchangeBookPage extends PureComponent
         api.get("exchange", `?limit=11&page=1&time=${new Date().toISOString()}`, true)
             .then((data) =>
                 this.setState({...this.state, exchangesLoading: false}, () =>
-                    this.setState({...this.state, newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}), exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}),
-                ),
+                {
+                    this.setState({...this.state, newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}), exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})})
+                    this.activeScrollHeight = 0
+                    this.page = 2
+                }),
             )
             .catch(() => this.setState({...this.state, error: true}))
         getCities()
         getCategories()
+
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "تبادل کتاب"}).catch(err => console.log(err))
+
         document.addEventListener("scroll", this.onScroll)
         document.addEventListener("click", this.onClick)
     }
@@ -67,10 +74,8 @@ class ExchangeBookPage extends PureComponent
 
     onClick = (e) =>
     {
-        if (this.state.showCategoryMenu && !this.categories.contains(e.target))
-        {
+        if (this.state.showCategoryMenu && this.categories && !this.categories.contains(e.target))
             this.setState({...this.state, showCategoryMenu: false})
-        }
     }
 
     onScroll = () =>
@@ -235,16 +240,13 @@ class ExchangeBookPage extends PureComponent
                         <SearchSvg className="create-exchange-button-search-svg"/>
                     </div>
                     <div className="create-exchange-button-search-categories-cont" ref={e => this.categories = e}>
-                        <Material className={
-                            `create-exchange-button-search-categories ${showCategoryMenu ? "bottom-none" : ""}`
-                        } onClick={this.toggleShowCategories}>
+                        <Material className={`create-exchange-button-search-categories ${showCategoryMenu ? "bottom-none" : ""}`} onClick={this.toggleShowCategories}>
                             دسته‌بندی‌ها
+                            <div className={`create-exchange-button-search-length ${selectedCategories.length === 0 ? "hide" : ""}`}>{selectedCategories.length}</div>
                             <Arrow className="create-exchange-button-search-categories-arrow"/>
                         </Material>
 
-                        <div className={
-                            `create-exchange-button-search-categories-list ${showCategoryMenu ? "" : "hide"}`
-                        }>
+                        <div className={`create-exchange-button-search-categories-list ${showCategoryMenu ? "" : "hide"}`}>
                             <div className="create-exchange-category-btn search">
                                 <div className="create-exchange-category-item right" onClick={() => this.handleChangeSelected("5dcbff32d39b3ba7e9c38f9f")}>بالین</div>
                                 <div className='slideThree'>
