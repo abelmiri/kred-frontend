@@ -22,6 +22,20 @@ class ShowVideoPage extends PureComponent
     {
         window.scroll({top: 0})
 
+        const request = indexedDB.open("videoDb", 1)
+        request.onupgradeneeded = event =>
+        {
+            const db = event.target.result
+            const objectStore = db.createObjectStore("videos", {keyPath: "name"})
+            objectStore.createIndex("name", "name", {unique: true})
+            objectStore.createIndex("blob", "blob", {unique: true})
+            objectStore.transaction.oncomplete = event => console.log("store created", event)
+            const objectStoreSubtitle = db.createObjectStore("subtitles", {keyPath: "name"})
+            objectStoreSubtitle.createIndex("name", "name", {unique: true})
+            objectStoreSubtitle.createIndex("blob", "blob", {unique: true})
+            objectStoreSubtitle.transaction.oncomplete = event => console.log("store created", event)
+        }
+
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ویدیوها"}).catch(err => console.log(err))
 
@@ -29,9 +43,9 @@ class ShowVideoPage extends PureComponent
         document.addEventListener("keydown", this.onKeyDown)
     }
 
-    osContextMenu = (e) => e.preventDefault()
+    osContextMenu = (e) => process.env.NODE_ENV === "production" && e.preventDefault()
 
-    onKeyDown = (e) => e.keyCode === 123 && e.preventDefault()
+    onKeyDown = (e) => e.keyCode === 123 && process.env.NODE_ENV === "production" && e.preventDefault()
 
     componentWillUnmount()
     {
@@ -39,29 +53,140 @@ class ShowVideoPage extends PureComponent
         document.removeEventListener("keydown", this.onKeyDown)
     }
 
-    showVideo(url)
+    getSubtitle(name)
     {
-        this.setState({...this.state, selected: null, subtitle: null, video: null, loading: true, loadingPercent: null}, () =>
+        return new Promise((resolve) =>
         {
-            axios.get(`${REST_URL}/subtitles/${url}?time=${new Date().toISOString()}`, {
-                headers: {"Authorization": JSON.parse(localStorage.getItem("user")).token},
-                responseType: "blob",
-                onDownloadProgress: e => this.setState({...this.state, loadingPercent: `در حال دانلود زیرنویس ${Math.floor((e.loaded * 100) / e.total)} %`}),
-            })
-                .then((subtitleRes) =>
+            const request = indexedDB.open("videoDb", 1)
+            request.onsuccess = event =>
+            {
+                const db = event.target.result
+                const transactionSubtitle = db.transaction(["subtitles"])
+                const objectStoreSubtitle = transactionSubtitle.objectStore("subtitles")
+                const requestGetSubtitle = objectStoreSubtitle.get(`${REST_URL}/subtitles/${name}`)
+
+                requestGetSubtitle.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
+
+                requestGetSubtitle.onsuccess = _ =>
                 {
-                    this.setState({...this.state, loading: false, selected: url, video: `${REST_URL}/videos/${url}`, subtitle: URL.createObjectURL(subtitleRes.data)}, () =>
+                    if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                     {
-                        // statistics
-                        process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: url}).catch(err => console.log(err))
-                    })
-                })
-                .catch((err) =>
-                {
-                    if (err.message === "Request failed with status code 401") this.setState({...this.state, loading: false, loadingPercent: null}, () => NotificationManager.warning("شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@"))
-                    else NotificationManager.warning("دانلود فایل با مشکل مواجه شد!")
-                })
+                        this.setState({...this.state, subtitle: URL.createObjectURL(this.dataURItoBlob(requestGetSubtitle.result.blob))}, () => resolve())
+                    }
+                    else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
+                }
+            }
         })
+    }
+
+    getSubtitleFromServerAndSave(url, resolve)
+    {
+        axios.get(`${url}?time=${new Date().toISOString()}`, {
+            headers: {"Authorization": JSON.parse(localStorage.getItem("user")).token},
+            responseType: "blob",
+            onDownloadProgress: e => this.setState({...this.state, loadingPercent: `در حال دانلود زیرنویس ${Math.floor((e.loaded * 100) / e.total)} %`}),
+        })
+            .then((res) =>
+            {
+                this.setState({...this.state, subtitle: URL.createObjectURL(res.data)}, () =>
+                {
+                    resolve()
+                    const request = indexedDB.open("videoDb", 1)
+                    request.onsuccess = e =>
+                    {
+                        const db = e.target.result
+                        const reader = new FileReader()
+                        reader.onload = event =>
+                        {
+                            const transaction = db.transaction(["subtitles"], "readwrite")
+                            const objectStore = transaction.objectStore("subtitles")
+                            const requestSave = objectStore.add({name: url, blob: event.target.result})
+                            requestSave.onsuccess = event => console.log("saved", event)
+                            requestSave.onerror = err => console.log("error", err)
+                        }
+                        reader.readAsDataURL(res.data)
+                    }
+                })
+            })
+            .catch((err) =>
+            {
+                this.setState({...this.state, loading: false, loadingPercent: null}, () =>
+                    NotificationManager.warning(err.message === "Request failed with status code 401" ? "شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@" : "دانلود فایل با مشکل مواجه شد!"),
+                )
+            })
+    }
+
+    getVideo(name)
+    {
+        const request = indexedDB.open("videoDb", 1)
+        request.onsuccess = event =>
+        {
+            const db = event.target.result
+            const transactionVideo = db.transaction(["videos"])
+            const objectStoreVideo = transactionVideo.objectStore("videos")
+            const requestGetVideo = objectStoreVideo.get(`${REST_URL}/videos/${name}`)
+
+            requestGetVideo.onerror = _ => this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`))
+
+            requestGetVideo.onsuccess = _ =>
+            {
+                if (requestGetVideo.result && requestGetVideo.result.blob)
+                {
+                    this.setState({...this.state, video: URL.createObjectURL(this.dataURItoBlob(requestGetVideo.result.blob)), loading: false, loadingPercent: null, selected: name})
+                }
+                else this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`))
+            }
+
+            // statistics
+            process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: name}).catch(err => console.log(err))
+        }
+    }
+
+    getVideoFromServerAndSave(url)
+    {
+        axios.get(
+            `${url}`,
+            {
+                responseType: "blob",
+                onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
+            },
+        )
+            .then((res) =>
+            {
+                const request = indexedDB.open("videoDb", 1)
+                request.onsuccess = e =>
+                {
+                    const db = e.target.result
+                    const reader = new FileReader()
+                    reader.onload = event =>
+                    {
+                        const transaction = db.transaction(["videos"], "readwrite")
+                        const objectStore = transaction.objectStore("videos")
+                        const requestSave = objectStore.add({name: url, blob: event.target.result})
+                        requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
+                        requestSave.onerror = err => console.log("error", err)
+                    }
+                    reader.readAsDataURL(res.data)
+                }
+            })
+    }
+
+    showVideo(name)
+    {
+        this.setState({...this.state, selected: null, subtitle: null, loading: true, loadingPercent: null, video: null}, () => this.getSubtitle(name).then(() => this.getVideo(name)))
+    }
+
+    dataURItoBlob(dataURI)
+    {
+        const byteString = atob(dataURI.split(",")[1])
+        const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0]
+        const ab = new ArrayBuffer(byteString.length)
+        const ia = new Uint8Array(ab)
+        for (let i = 0; i < byteString.length; i++)
+        {
+            ia[i] = byteString.charCodeAt(i)
+        }
+        return new Blob([ab], {type: mimeString})
     }
 
     render()
