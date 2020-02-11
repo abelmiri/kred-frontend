@@ -9,7 +9,7 @@ class StatisticsPage extends PureComponent
     {
         super(props)
         this.state = {
-            results: [],
+            results: {},
             error: false,
         }
         this.getData = true
@@ -52,52 +52,24 @@ class StatisticsPage extends PureComponent
         if (user && user.role === "admin")
         {
             const {results, error} = this.state
-            let allPagesCount = 0
-            let allPages = {}
-            let allVideosCount = 0
-            let allVideos = {}
-
-            let todayVideosCount = 0
-            let todayVideos = {}
-            let todayPagesCount = 0
-            let todayPages = {}
-
-            results.forEach(item =>
-            {
-                if (item.type === "page")
-                {
-                    allPagesCount++
-                    allPages[item.content] ? allPages[item.content].count++ : allPages[item.content] = {title: item.content, count: 1}
-                    if (item.created_date.split("T")[0] === new Date().toISOString().split("T")[0])
-                    {
-                        todayPagesCount++
-                        todayPages[item.content] ? todayPages[item.content].count++ : todayPages[item.content] = {title: item.content, count: 1}
-                    }
-                }
-                else if (item.type === "video")
-                {
-                    allVideosCount++
-                    allVideos[item.content] ? allVideos[item.content].count++ : allVideos[item.content] = {title: item.content, count: 1}
-                    if (item.created_date.split("T")[0] === new Date().toISOString().split("T")[0])
-                    {
-                        todayVideosCount++
-                        todayVideos[item.content] ? todayVideos[item.content].count++ : todayVideos[item.content] = {title: item.content, count: 1}
-                    }
-                }
-            })
+            const {allSignUpCount, allPagesCount, allPages, allVideosCount, allVideos, todaySignUpCount, todaySignUp, todayPagesCount, todayPages, todayVideosCount, todayVideos} = results
             return (
                 <div className="statistics-page-container">
                     {
                         error ?
                             "خطایی پیش اومد ادمین جان!"
                             :
-                            allPagesCount === 0 ?
+                            !allSignUpCount ?
                                 <ClipLoader/>
                                 :
                                 <React.Fragment>
                                     <Fluent className="statistics-page-btn-fluent" fluentColor="#000000">
                                         <div className="statistics-page-btn">
                                             <div className="statistics-page-btn-title">بازدیدهای کل</div>
+                                            <div className="statistics-page-view-item second">
+                                                <div>ثبت نام کاربران</div>
+                                                <div>{allSignUpCount}</div>
+                                            </div>
                                             <div className="statistics-page-view-item">
                                                 <div>بازدیدهای صفحات</div>
                                                 <div>{allPagesCount}</div>
@@ -132,6 +104,19 @@ class StatisticsPage extends PureComponent
                                     <Fluent className="statistics-page-btn-fluent" fluentColor="#000000">
                                         <div className="statistics-page-btn">
                                             <div className="statistics-page-btn-title">بازدیدهای امروز</div>
+                                            <div className="statistics-page-view-item second">
+                                                <div>ثبت نام کاربران</div>
+                                                <div>{todaySignUpCount}</div>
+                                                <div className="statistics-page-view-item-child">
+                                                    {
+                                                        Object.values(todaySignUp).map(user =>
+                                                            <div key={"user" + user._id} className="statistics-page-view-item-child-item">
+                                                                <div>{user.name}</div>
+                                                            </div>,
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
                                             <div className="statistics-page-view-item">
                                                 <div>بازدیدهای صفحات</div>
                                                 <div>{todayPagesCount}</div>
