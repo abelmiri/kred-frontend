@@ -23,6 +23,7 @@ class CreateExchangeModal extends PureComponent
             contactType: "phone", //phone || telegram
             priceType: "fixed", //fixed || agreed || free
             loadingPercent: 0,
+            lined: "ندارد",
         }
         this.phoneValid = true
         this.selectedImage = false
@@ -171,9 +172,14 @@ class CreateExchangeModal extends PureComponent
         })
     }
 
+    selectLined(lined)
+    {
+        this.setState({...this.state, lined})
+    }
+
     submit()
     {
-        const {loading, selectedCategories, contactType, priceType} = this.state
+        const {loading, selectedCategories, contactType, priceType, lined} = this.state
         if (!loading && this.selectedImage && this.phoneValid && this.titleValid && this.descriptionValid && this.priceValid && this.cityValid)
         {
             this.setState({...this.state, loading: true}, () =>
@@ -181,6 +187,7 @@ class CreateExchangeModal extends PureComponent
                 let form = new FormData()
                 form.append(contactType, this.phoneInput.value.replace(/@/g, ""))
                 form.append("price", priceType === "free" ? 0 : priceType === "agreed" ? -1 : this.priceInput.value.replace(/,/g, ""))
+                form.append("lined", lined)
                 form.append("title", this.titleInput.value)
                 form.append("description", this.descriptionInput.value)
                 form.append("categories", JSON.stringify(selectedCategories))
@@ -196,6 +203,15 @@ class CreateExchangeModal extends PureComponent
                     this.postData(form)
                 })
             })
+        }
+        else
+        {
+            if (!this.titleValid) NotificationManager.warning("فیلد عنوان را پر کنید!")
+            if (!this.phoneValid) NotificationManager.warning("فیلد تماس را به درستی کامل کنید!")
+            if (!this.priceValid) NotificationManager.warning("فیلد قیمت را به درستی کامل کنید!")
+            if (!this.descriptionValid) NotificationManager.warning("فیلد توضیحات را پر کنید!")
+            if (!this.selectedImage) NotificationManager.warning("عکس کتاب را بارگزاری کنید!")
+            if (!this.cityValid) NotificationManager.warning("شهر خود را وارد کنید!")
         }
     }
 
@@ -217,7 +233,7 @@ class CreateExchangeModal extends PureComponent
         const {selectedImagePreview, loading, level, selectedParent, selectedCategories, contactType, loadingPercent} = this.state
         return (
             <React.Fragment>
-                <div className="create-exchange-cont">
+                <div className="create-exchange-cont create-small">
                     <div className='create-exchange-title'>ثبت آگهی تبادل کتاب</div>
                     <div className="create-exchange-main">
                         <div className={`create-exchange-rol ${level === 1 ? "level-one" : level === 2 ? "level-two" : "level-three"}`}>
@@ -291,6 +307,34 @@ class CreateExchangeModal extends PureComponent
                                     />
                                     <div className="create-exchange-price">تومان</div>
                                 </div>
+
+                                <div className='create-exchange-section relative-wrap'>
+                                    <label className='create-exchange-section-label'>خط خوردگی <span>*</span></label>
+
+                                    <div className="create-exchange-section-checkboxes">
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="line" defaultChecked onChange={e => e.target.checked ? this.selectLined("ندارد") : null}/>
+                                            <span className='check-mark'/>
+                                            ندارد
+                                        </label>
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="line" onChange={e => e.target.checked ? this.selectLined("کم") : null}/>
+                                            <span className='check-mark'/>
+                                            کم
+                                        </label>
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="line" onChange={e => e.target.checked ? this.selectLined("متوسط") : null}/>
+                                            <span className='check-mark'/>
+                                            متوسط
+                                        </label>
+                                        <label className='exchange-page-checkbox'>
+                                            <input type="radio" name="line" onChange={e => e.target.checked ? this.selectLined("زیاد") : null}/>
+                                            <span className='check-mark'/>
+                                            زیاد
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <div className='create-exchange-section'>
                                     <label className='create-exchange-section-label'>توضیحات <span>*</span></label>
                                     <textarea rows={6}
@@ -345,14 +389,15 @@ class CreateExchangeModal extends PureComponent
                                 <div className='create-exchange-image'>تصویر: <span>*</span></div>
                                 <label className='create-exchange-img'>
                                     {
-                                        selectedImagePreview &&
-                                        <React.Fragment>
-                                            <img src={selectedImagePreview} className='create-exchange-selected-img' alt=''/>
-                                            {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <PencilSvg className="create-exchange-edit-svg"/>}
-                                        </React.Fragment>
+                                        selectedImagePreview ?
+                                            <React.Fragment>
+                                                <img src={selectedImagePreview} className='create-exchange-selected-img' alt=''/>
+                                                {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <PencilSvg className="create-exchange-edit-svg"/>}
+                                            </React.Fragment>
+                                            :
+                                            <CameraSvg className="create-exchange-svg"/>
                                     }
                                     <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
-                                    <CameraSvg className="create-exchange-svg"/>
                                     <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
                                 </label>
                                 <div className='create-exchange-city'>شهر: <span>*</span></div>
@@ -364,10 +409,12 @@ class CreateExchangeModal extends PureComponent
                                 </select>
                             </div>
                         </div>
-                        <Material className={`create-exchange-submit ${level === 1 ? "create-exchange-hide-width" : "create-exchange-half-width-right"} ${loading ? "create-exchange-hide-submit" : ""}`} onClick={this.goPrevious}>مرحله قبل</Material>
-                        <Material className={`create-exchange-submit ${level !== 1 ? "create-exchange-half-width-left" : ""} ${loading ? "create-exchange-hide-submit" : ""}`} onClick={level === 3 ? this.submit : this.goNext}>
-                            {level === 3 ? "ثبت آگهی" : "مرحله بعد"}
-                        </Material>
+                        <div>
+                            <Material className={`create-exchange-submit ${level === 1 ? "create-exchange-hide-width" : "create-exchange-half-width-right"} ${loading ? "create-exchange-hide-submit" : ""}`} onClick={this.goPrevious}>مرحله قبل</Material>
+                            <Material className={`create-exchange-submit ${level !== 1 ? "create-exchange-half-width-left" : ""} ${loading ? "create-exchange-hide-submit" : ""}`} onClick={level === 3 ? this.submit : this.goNext}>
+                                {level === 3 ? "ثبت آگهی" : "مرحله بعد"}
+                            </Material>
+                        </div>
                     </div>
                 </div>
                 <div className="create-exchange-back" onClick={loading ? null : hideModal}/>

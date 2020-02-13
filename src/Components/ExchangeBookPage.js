@@ -106,7 +106,7 @@ class ExchangeBookPage extends PureComponent
         {
             if (bool)
             {
-                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchange/addExchangeModal")
+                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchanges/addExchangeModal")
                 document.body.style.overflow = "hidden"
                 this.setState({...this.state, showModal: bool})
             }

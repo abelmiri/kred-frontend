@@ -39,7 +39,16 @@ class ExchangeBookItemPage extends PureComponent
                         <React.Fragment>
                             <div className="exchange-show-content">
                                 <h1 className="exchange-show-title">{exchange.title}</h1>
-                                <h2 className="exchange-show-desc">{exchange.description}</h2>
+                                {
+                                    exchange.categories && exchange.categories.length > 0 &&
+                                    <h2 className="exchange-show-categories">
+                                        دسته بندی{exchange.categories.length > 1 ? " ها" : ""}:
+                                        <span> </span>
+                                        {exchange.categories.map((item, index) => <span key={"cat" + item._id}>{item.name}{index === exchange.categories.length - 1 ? "" : "، "}</span>)}
+                                    </h2>
+                                }
+                                <div className="exchange-show-desc">{exchange.description}</div>
+                                {exchange.lined && <div className="exchange-show-lined">خط خوردگی: {exchange.lined}</div>}
                                 {cities[exchange.city_id] && <div className='exchange-show-city'>{cities[exchange.city_id].name}</div>}
                                 <div className='exchange-show-price'>
                                     {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}

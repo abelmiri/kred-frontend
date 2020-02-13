@@ -102,7 +102,7 @@ class ProfilePage extends PureComponent
                             <div className="profile-introduction-links">
                                 <Link to="/profile" className="link">فیلم های آموزشی</Link>
                                 <Link to="/profile" className="link">گپ و گفت</Link>
-                                <Link to="/exchange" className="link">تبادل کتاب</Link>
+                                <Link to="/exchanges" className="link">تبادل کتاب</Link>
                                 <Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>
                                 <Link to="/profile" className="link">نمونه سوالات</Link>
                             </div>

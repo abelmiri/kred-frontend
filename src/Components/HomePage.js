@@ -34,7 +34,7 @@ class HomePage extends PureComponent
                     <div className='home-exchange-text'>
                         <h3 className='home-exchange-title'>تبادل کتاب</h3>
                         <div className='home-exchange-description'>تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>
-                        <button className='home-exchange-butt' onClick={(e) => this.changeRoute(e, "/exchange")}>برو تو تبادل کتاب</button>
+                        <button className='home-exchange-butt' onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</button>
                     </div>
                 </div>
                 <div className='home-videos'>
