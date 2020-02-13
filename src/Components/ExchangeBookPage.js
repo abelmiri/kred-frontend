@@ -31,11 +31,11 @@ class ExchangeBookPage extends PureComponent
     {
         window.scroll({top: 0})
         const {getCities, getCategories} = this.props
-        api.get("exchange", `?limit=11&page=1&time=${new Date().toISOString()}`, true)
+        api.get("exchange", `?limit=12&page=1&time=${new Date().toISOString()}`, true)
             .then((data) =>
                 this.setState({...this.state, exchangesLoading: false}, () =>
                 {
-                    this.setState({...this.state, newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}), exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})})
+                    this.setState({...this.state, newExchanges: data.slice(0, 6).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}), exchanges: data.slice(6, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})})
                     this.activeScrollHeight = 0
                     this.page = 2
                 }),
@@ -134,7 +134,7 @@ class ExchangeBookPage extends PureComponent
         this.setState({...this.state, selectedCategories, exchangesLoading: true}, () =>
         {
             const {searchTitle} = this.state
-            api.get("exchange", `?limit=${searchTitle || selectedCategories.length > 0 ? "12" : "11"}&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+            api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
             {
                 if (searchTitle || selectedCategories.length > 0)
                 {
@@ -149,8 +149,8 @@ class ExchangeBookPage extends PureComponent
                     this.setState({
                         ...this.state,
                         exchangesLoading: false,
-                        newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
-                        exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
+                        newExchanges: data.slice(0, 6).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
+                        exchanges: data.slice(6, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
                     })
                 }
                 this.activeScrollHeight = 0
@@ -176,7 +176,7 @@ class ExchangeBookPage extends PureComponent
             this.setState({...this.state, searchTitle, exchangesLoading: true}, () =>
                 {
                     const {selectedCategories} = this.state
-                    api.get("exchange", `?limit=${searchTitle || selectedCategories.length > 0 ? "12" : "11"}&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+                    api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
                     {
                         if (searchTitle || selectedCategories.length > 0)
                         {
@@ -191,8 +191,8 @@ class ExchangeBookPage extends PureComponent
                             this.setState({
                                 ...this.state,
                                 exchangesLoading: false,
-                                newExchanges: data.slice(0, 5).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
-                                exchanges: data.slice(5, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
+                                newExchanges: data.slice(0, 6).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
+                                exchanges: data.slice(6, data.length).reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {}),
                             })
                         }
                         this.activeScrollHeight = 0
