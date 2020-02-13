@@ -26,6 +26,7 @@ class LoginPage extends PureComponent
             loading: false,
             previousSlider: this.slides.length - 1,
             sliderIndex: 0,
+            phone: "",
         }
         this.changePhone = this.changePhone.bind(this)
         this.blurPassword = this.blurPassword.bind(this)
@@ -74,27 +75,31 @@ class LoginPage extends PureComponent
     changePhone(e)
     {
         this.phoneValid = false
-        const {value} = e.target
-        if (value.length === 11)
+        const value = e.target.value.trim()
+        if (!isNaN(value))
         {
-            api.post("user/phone_check", {phone: value}, "", true)
-                .then((data) =>
-                {
-                    if (data.count > 0)
+            this.setState({...this.state, phone: value})
+            if (value.length === 11)
+            {
+                api.post("user/phone_check", {phone: value}, "", true)
+                    .then((data) =>
                     {
-                        this.phoneInput.style.borderBottom = "1px solid red"
-                        this.phoneError.style.height = "20px"
-                        this.phoneValid = false
-                    }
-                    else
-                    {
-                        this.phoneInput.style.borderBottom = ""
-                        this.phoneError.style.height = ""
-                        this.phoneValid = true
-                    }
-                })
+                        if (data.count > 0)
+                        {
+                            this.phoneInput.style.borderBottom = "1px solid red"
+                            this.phoneError.style.height = "20px"
+                            this.phoneValid = false
+                        }
+                        else
+                        {
+                            this.phoneInput.style.borderBottom = ""
+                            this.phoneError.style.height = ""
+                            this.phoneValid = true
+                        }
+                    })
+            }
+            else this.phoneValid = false
         }
-        else this.phoneValid = false
     }
 
     blurPhone(e)
@@ -142,14 +147,19 @@ class LoginPage extends PureComponent
                         setUser(data)
                         this.setState({...this.state, redirectHome: true})
                     })
-                    .catch(() => NotificationManager.error("سیستم با خطا مواجه شد!"))
+                    .catch(() => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!"))
             })
+        }
+        else
+        {
+            if (!this.phoneValid) this.phoneInput.style.borderBottom = "1px solid red"
+            if (!this.passwordValid) this.passwordInput.style.borderBottom = "1px solid red"
         }
     }
 
     render()
     {
-        const {sliderIndex, previousSlider, redirectHome, loading} = this.state
+        const {sliderIndex, previousSlider, redirectHome, loading, phone} = this.state
         return (
             <div className='login-container'>
 
@@ -170,12 +180,12 @@ class LoginPage extends PureComponent
                     <div className='login-input-cont-title'> میشه اطلاعات زیر رو کامل کنی؟</div>
                     <div className='login-input-field'>
                         <label className='login-input-label'>شماره موبایل <span>*</span></label>
-                        <input name='phone' type='number' className='login-input-input' placeholder="مثال: 09123456789" ref={e => this.phoneInput = e} onChange={this.changePhone} onBlur={this.blurPhone} onInput={e => e.target.value = e.target.value.slice(0, 11)}/>
+                        <input name='phone' value={phone} type='text' maxLength="11" className='login-input-input' placeholder="مثال: 09123456789" ref={e => this.phoneInput = e} onChange={this.changePhone} onBlur={this.blurPhone}/>
                     </div>
                     <div className='login-input-error' ref={e => this.phoneError = e}>شماره وارد شده قبلا استفاده شده است!</div>
                     <div className='login-input-field'>
                         <label className='login-input-label'>نام کامل</label>
-                        <input name='full_name' type='text' className='login-input-input' placeholder="مثال: سید عرفان وهابی میری" ref={e => this.nameInput = e}/>
+                        <input name='name' type='text' className='login-input-input' placeholder="مثال: سید عرفان وهابی میری" ref={e => this.nameInput = e}/>
                     </div>
                     <div className='login-input-field'>
                         <label className='login-input-label'>رمز عبور <span>*</span></label>

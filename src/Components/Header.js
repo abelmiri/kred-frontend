@@ -24,12 +24,6 @@ class Header extends PureComponent
 
     componentDidMount()
     {
-        const {location} = this.props
-        if (location.includes("loginModal") || location.includes("addExchangeModal"))
-        {
-            let shit = location.replace("/loginModal", "").replace("/addExchangeModal", "")
-            window.history.replaceState("", "", shit ? shit : "/")
-        }
         document.addEventListener("scroll", this.onScroll)
     }
 
@@ -66,7 +60,11 @@ class Header extends PureComponent
         }
     }
 
-    setOverflowAuto = () => document.body.style.overflow = "auto"
+    setOverflowAuto = () =>
+    {
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, loginLoading: false, showLoginModal: false})
+    }
 
     hideLoginModal = () =>
     {
@@ -108,7 +106,7 @@ class Header extends PureComponent
                         .catch((e) =>
                         {
                             this.setState({...this.state, loginLoading: false}, () =>
-                                e.message === "Request failed with status code 404" && NotificationManager.error("کاربری با اطلاعات وارد شده یافت نشد."),
+                                NotificationManager.error(e.message === "Request failed with status code 404" ? "کاربری با اطلاعات وارد شده یافت نشد." : "سایت در ارسال اطلاعات با خطا مواجه شد!"),
                             )
                         })
                 })

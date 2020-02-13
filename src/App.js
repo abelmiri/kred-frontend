@@ -45,6 +45,13 @@ class App extends PureComponent
                     })
             })
         }
+
+        const {location} = this.props
+        if (location.pathname.includes("loginModal") || location.pathname.includes("addExchangeModal"))
+        {
+            let shit = location.pathname.replace("/loginModal", "").replace("/addExchangeModal", "")
+            window.history.replaceState("", "", shit ? shit : "/")
+        }
     }
 
     goToExchangeBook(target, page)
