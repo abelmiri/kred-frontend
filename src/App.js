@@ -10,6 +10,7 @@ import ExchangeBookItemPage from "./View/Pages/ExchangeBookItemPage"
 import ProfilePage from "./View/Pages/ProfilePage"
 import {NotificationContainer} from "react-notifications"
 import StatisticsPage from "./View/Pages/StatisticsPage"
+import VideoPacksPage from "./View/Pages/VideoPacksPage"
 
 class App extends PureComponent
 {
@@ -22,6 +23,7 @@ class App extends PureComponent
             user: null,
             cities: {},
             categories: {},
+            videoPacks: {},
         }
         this.goToExchangeBook = this.goToExchangeBook.bind(this)
     }
@@ -128,9 +130,16 @@ class App extends PureComponent
         )
     }
 
+    getVideoPacks = () =>
+    {
+        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`, true).then((videoPacks) =>
+            this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}),
+        )
+    }
+
     render()
     {
-        const {redirect, page, user, cities, categories} = this.state
+        const {redirect, page, user, cities, categories, videoPacks} = this.state
         const {location} = this.props
         return (
             <main className='main'>
@@ -142,7 +151,7 @@ class App extends PureComponent
                     <Route path='/exchange/:id' render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={this.getCities} cities={cities}/>}/>
                     <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
                     <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
-                    {/*<Route path='/videos' render={(route) => <VideoPacksPage user={user}/>}/>*/}
+                    <Route path='/videos' render={() => <VideoPacksPage user={user} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks}/>}/>
                     <Route path='/statistics' render={() => <StatisticsPage user={user}/>}/>
                     <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                 </Switch>

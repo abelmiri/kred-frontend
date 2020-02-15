@@ -52,60 +52,32 @@ class Fluent extends PureComponent
 
                         else if (e.clientX - rect.right > 0) opacity += (e.clientX - rect.right) / 100
 
-
                         if (rect.left - e.clientX > 0)
                         {
-                            if (rect.top + (rect.height / 2) - e.clientY > 0)
-                            {
-                                sign = 2
-                            }
-                            else
-                            {
-                                sign = 4
-                            }
+                            if (rect.top + (rect.height / 2) - e.clientY > 0) sign = 2
+                            else sign = 4
                         }
                         else if (e.clientX - rect.right > 0)
                         {
-                            if (rect.top + (rect.height / 2) - e.clientY > 0)
-                            {
-                                sign = 1
-                            }
-                            else
-                            {
-                                sign = 3
-                            }
+                            if (rect.top + (rect.height / 2) - e.clientY > 0) sign = 1
+                            else sign = 3
                         }
                         ///////////////////////////////////////////////////////////////
                         if (rect.top - e.clientY > 0)
                         {
-                            if (rect.left + (rect.width / 2) - e.clientX > 0)
-                            {
-                                sign = 2
-                            }
-                            else
-                            {
-                                sign = 1
-                            }
+                            if (rect.left + (rect.width / 2) - e.clientX > 0) sign = 2
+                            else sign = 1
                         }
                         else if (e.clientY - rect.bottom > 0)
                         {
-                            if (rect.left + (rect.width / 2) - e.clientX > 0)
-                            {
-                                sign = 4
-                            }
-                            else
-                            {
-                                sign = 3
-                            }
+                            if (rect.left + (rect.width / 2) - e.clientX > 0) sign = 4
+                            else sign = 3
                         }
                         this.setState({...this.state, sign, opacity: 1 - opacity.toFixed(1)}, () =>
                         {
                             if (e.clientX > rect.left && e.clientX < rect.right)
                             {
-                                if (e.clientY > rect.top && e.clientY < rect.bottom)
-                                {
-                                    this.setState({...this.state, sign: 5})
-                                }
+                                if (e.clientY > rect.top && e.clientY < rect.bottom) this.setState({...this.state, sign: 5})
                             }
                         })
                     }

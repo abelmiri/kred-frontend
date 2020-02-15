@@ -2,6 +2,7 @@ import React, {PureComponent} from "react"
 import Fluent from "../Components/Fluent"
 import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
+import Material from "../Components/Material"
 
 class StatisticsPage extends PureComponent
 {
@@ -63,90 +64,96 @@ class StatisticsPage extends PureComponent
                                 <ClipLoader/>
                                 :
                                 <React.Fragment>
-                                    <Fluent className="statistics-page-btn-fluent" fluentColor="#000000">
-                                        <div className="statistics-page-btn">
-                                            <div className="statistics-page-btn-title">بازدیدهای کل</div>
-                                            <div className="statistics-page-view-item second">
-                                                <div>ثبت نام کاربران</div>
-                                                <div>{allSignUpCount}</div>
-                                            </div>
-                                            <div className="statistics-page-view-item">
-                                                <div>بازدیدهای صفحات</div>
-                                                <div>{allPagesCount}</div>
-                                                <div className="statistics-page-view-item-child">
-                                                    {
-                                                        Object.values(allPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                            <div key={"all-pages" + item.title} className="statistics-page-view-item-child-item">
+                                    <div className="statistics-page-btn">
+                                        <div className="statistics-page-btn-title">بازدیدهای کل</div>
+                                        <div className="statistics-page-view-item second">
+                                            <div>ثبت نام کاربران</div>
+                                            <div>{allSignUpCount}</div>
+                                        </div>
+                                        <div className="statistics-page-view-item">
+                                            <div>بازدیدهای صفحات</div>
+                                            <div>{allPagesCount}</div>
+                                            <div className="statistics-page-view-item-child">
+                                                {
+                                                    Object.values(allPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
+                                                        <Fluent key={"all-pages" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent">
+                                                            <Material className="statistics-page-view-item-child-item">
                                                                 <div>{item.title}</div>
                                                                 <div>{item.count}</div>
-                                                            </div>,
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="statistics-page-view-item second">
-                                                <div>بازدیدهای ویدیوها</div>
-                                                <div>{allVideosCount}</div>
-                                                <div className="statistics-page-view-item-child">
-                                                    {
-                                                        Object.values(allVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                            <div key={"all-videos" + item.title} className="statistics-page-view-item-child-item">
-                                                                <div>{item.title}</div>
-                                                                <div>{item.count}</div>
-                                                            </div>,
-                                                        )
-                                                    }
-                                                </div>
+                                                            </Material>
+                                                        </Fluent>,
+                                                    )
+                                                }
                                             </div>
                                         </div>
-                                    </Fluent>
+                                        <div className="statistics-page-view-item second">
+                                            <div>بازدیدهای ویدیوها</div>
+                                            <div>{allVideosCount}</div>
+                                            <div className="statistics-page-view-item-child">
+                                                {
+                                                    Object.values(allVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
+                                                        <Fluent key={"all-videos" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
+                                                            <Material className="statistics-page-view-item-child-item">
+                                                                <div>{item.title}</div>
+                                                                <div>{item.count}</div>
+                                                            </Material>
+                                                        </Fluent>,
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    <Fluent className="statistics-page-btn-fluent" fluentColor="#000000">
-                                        <div className="statistics-page-btn">
-                                            <div className="statistics-page-btn-title">بازدیدهای امروز</div>
-                                            <div className="statistics-page-view-item second">
-                                                <div>ثبت نام کاربران</div>
-                                                <div>{todaySignUpCount}</div>
-                                                <div className="statistics-page-view-item-child">
-                                                    {
-                                                        Object.values(todaySignUp).map(user =>
-                                                            <div key={"user" + user._id} className="statistics-page-view-item-child-item">
+                                    <div className="statistics-page-btn">
+                                        <div className="statistics-page-btn-title">بازدیدهای امروز</div>
+                                        <div className="statistics-page-view-item second">
+                                            <div>ثبت نام کاربران</div>
+                                            <div>{todaySignUpCount}</div>
+                                            <div className="statistics-page-view-item-child">
+                                                {
+                                                    Object.values(todaySignUp).map(user =>
+                                                        <Fluent key={"user" + user._id} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
+                                                            <Material className="statistics-page-view-item-child-item">
                                                                 <div>{user.name}</div>
-                                                            </div>,
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="statistics-page-view-item">
-                                                <div>بازدیدهای صفحات</div>
-                                                <div>{todayPagesCount}</div>
-                                                <div className="statistics-page-view-item-child">
-                                                    {
-                                                        Object.values(todayPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                            <div key={"today-pages" + item.title} className="statistics-page-view-item-child-item">
-                                                                <div>{item.title}</div>
-                                                                <div>{item.count}</div>
-                                                            </div>,
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="statistics-page-view-item second">
-                                                <div>بازدیدهای ویدیوها</div>
-                                                <div>{todayVideosCount}</div>
-                                                <div className="statistics-page-view-item-child">
-                                                    {
-                                                        Object.values(todayVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                            <div key={"today-videos" + item.title} className="statistics-page-view-item-child-item">
-                                                                <div>{item.title}</div>
-                                                                <div>{item.count}</div>
-                                                            </div>,
-                                                        )
-                                                    }
-                                                </div>
+                                                            </Material>
+                                                        </Fluent>,
+                                                    )
+                                                }
                                             </div>
                                         </div>
-                                    </Fluent>
+                                        <div className="statistics-page-view-item">
+                                            <div>بازدیدهای صفحات</div>
+                                            <div>{todayPagesCount}</div>
+                                            <div className="statistics-page-view-item-child">
+                                                {
+                                                    Object.values(todayPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
+                                                        <Fluent key={"today-pages" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent">
+                                                            <Material className="statistics-page-view-item-child-item">
+                                                                <div>{item.title}</div>
+                                                                <div>{item.count}</div>
+                                                            </Material>
+                                                        </Fluent>,
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="statistics-page-view-item second">
+                                            <div>بازدیدهای ویدیوها</div>
+                                            <div>{todayVideosCount}</div>
+                                            <div className="statistics-page-view-item-child">
+                                                {
+                                                    Object.values(todayVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
+                                                        <Fluent key={"today-videos" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
+                                                            <Material className="statistics-page-view-item-child-item">
+                                                                <div>{item.title}</div>
+                                                                <div>{item.count}</div>
+                                                            </Material>
+                                                        </Fluent>,
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 </React.Fragment>
                     }
                 </div>

@@ -12,16 +12,13 @@
   flex-wrap: wrap;
 }
 
-.statistics-page-btn-fluent {
+.statistics-page-btn {
+  padding: 15px;
   flex-grow: 1;
   cursor: pointer;
   margin: 10px;
   background-color: $primary-color;
   color: white;
-}
-
-.statistics-page-btn {
-  padding: 15px;
 }
 
 .statistics-page-btn-title {
@@ -45,13 +42,22 @@
 
 .statistics-page-view-item-child {
   min-width: 100%;
+  margin-top: 10px;
+}
+
+.statistics-page-view-item-child-item-fluent {
+  margin-top: 5px;
+
+  background-color: #61BFBA;
+
+  &.second {
+    background-color: #2E8C87;
+  }
 }
 
 .statistics-page-view-item-child-item {
-  padding: 15px 20px 0 0;
   display: flex;
+  padding: 15px 20px 15px 5px;
   justify-content: space-between;
   font-size: 12px;
-  border-top: 1px solid white;
-  margin-top: 15px;
 }

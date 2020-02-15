@@ -310,9 +310,7 @@ class ExchangeBookPage extends PureComponent
                     </div>
                 </div>
 
-                <div className={
-                    `exchange-page-loading ${exchangesLoading ? "" : "hide"}`
-                }><ClipLoader size={24} color="#3AAFA9"/></div>
+                <div className={`exchange-page-loading ${exchangesLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
 
                 {showModal && <CreateExchangeModal hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
 
