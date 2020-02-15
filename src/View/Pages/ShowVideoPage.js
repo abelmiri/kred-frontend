@@ -71,7 +71,10 @@ class ShowVideoPage extends PureComponent
                 {
                     if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                     {
-                        this.setState({...this.state, subtitle: URL.createObjectURL(this.dataURItoBlob(requestGetSubtitle.result.blob))}, () => resolve())
+                        const blob = requestGetSubtitle.result.blob
+                        const reader = new FileReader()
+                        reader.readAsDataURL(blob)
+                        reader.onload = event => this.setState({...this.state, subtitle: URL.createObjectURL(this.dataURItoBlob(event.target.result))}, () => resolve())
                     }
                     else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
                 }
@@ -95,16 +98,11 @@ class ShowVideoPage extends PureComponent
                     request.onsuccess = e =>
                     {
                         const db = e.target.result
-                        const reader = new FileReader()
-                        reader.onload = event =>
-                        {
-                            const transaction = db.transaction(["subtitles"], "readwrite")
-                            const objectStore = transaction.objectStore("subtitles")
-                            const requestSave = objectStore.add({name: url, blob: event.target.result})
-                            requestSave.onsuccess = event => console.log("saved", event)
-                            requestSave.onerror = err => console.log("error", err)
-                        }
-                        reader.readAsDataURL(res.data)
+                        const transaction = db.transaction(["subtitles"], "readwrite")
+                        const objectStore = transaction.objectStore("subtitles")
+                        const requestSave = objectStore.add({name: url, blob: res.data})
+                        requestSave.onsuccess = event => console.log("saved", event)
+                        requestSave.onerror = err => console.log("error", err)
                     }
                 })
             })
@@ -132,7 +130,10 @@ class ShowVideoPage extends PureComponent
             {
                 if (requestGetVideo.result && requestGetVideo.result.blob)
                 {
-                    this.setState({...this.state, video: URL.createObjectURL(this.dataURItoBlob(requestGetVideo.result.blob)), loading: false, loadingPercent: null, selected: name})
+                    const blob = requestGetVideo.result.blob
+                    const reader = new FileReader()
+                    reader.readAsDataURL(blob)
+                    reader.onload = event => this.setState({...this.state, video: URL.createObjectURL(this.dataURItoBlob(event.target.result)), loading: false, loadingPercent: null, selected: name})
                 }
                 else this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`))
             }
@@ -145,7 +146,7 @@ class ShowVideoPage extends PureComponent
     getVideoFromServerAndSave(url)
     {
         axios.get(
-            `${url}`,
+            url,
             {
                 responseType: "blob",
                 onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
@@ -157,16 +158,11 @@ class ShowVideoPage extends PureComponent
                 request.onsuccess = e =>
                 {
                     const db = e.target.result
-                    const reader = new FileReader()
-                    reader.onload = event =>
-                    {
-                        const transaction = db.transaction(["videos"], "readwrite")
-                        const objectStore = transaction.objectStore("videos")
-                        const requestSave = objectStore.add({name: url, blob: event.target.result})
-                        requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
-                        requestSave.onerror = err => console.log("error", err)
-                    }
-                    reader.readAsDataURL(res.data)
+                    const transaction = db.transaction(["videos"], "readwrite")
+                    const objectStore = transaction.objectStore("videos")
+                    const requestSave = objectStore.add({name: url, blob: res.data})
+                    requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
+                    requestSave.onerror = err => console.log("error", err)
                 }
             })
     }
