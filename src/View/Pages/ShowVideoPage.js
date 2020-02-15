@@ -71,10 +71,9 @@ class ShowVideoPage extends PureComponent
                 {
                     if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                     {
-                        const blob = requestGetSubtitle.result.blob
-                        const reader = new FileReader()
-                        reader.readAsDataURL(blob)
-                        reader.onload = event => this.setState({...this.state, subtitle: URL.createObjectURL(this.dataURItoBlob(event.target.result))}, () => resolve())
+                        requestGetSubtitle.result.blob.arrayBuffer().then((buffer) =>
+                            this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve()),
+                        )
                     }
                     else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
                 }
@@ -130,10 +129,9 @@ class ShowVideoPage extends PureComponent
             {
                 if (requestGetVideo.result && requestGetVideo.result.blob)
                 {
-                    const blob = requestGetVideo.result.blob
-                    const reader = new FileReader()
-                    reader.readAsDataURL(blob)
-                    reader.onload = event => this.setState({...this.state, video: URL.createObjectURL(this.dataURItoBlob(event.target.result)), loading: false, loadingPercent: null, selected: name})
+                    requestGetVideo.result.blob.arrayBuffer().then((buffer) =>
+                        this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: name}),
+                    )
                 }
                 else this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`))
             }
