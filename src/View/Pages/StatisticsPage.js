@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react"
-import Fluent from "./Fluent"
-import api from "../Functions/api"
+import Fluent from "../Components/Fluent"
+import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
 
 class StatisticsPage extends PureComponent

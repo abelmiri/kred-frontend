@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import Material from "./Material"
-import api from "../Functions/api"
+import api from "../../Functions/api"
 
 class ProfilePageUserInfo extends Component
 {

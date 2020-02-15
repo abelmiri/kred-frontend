@@ -1,12 +1,12 @@
 import React, {PureComponent} from "react"
-import Logo from "../Media/Images/Logo.png"
-import Slider1 from "../Media/Images/login-slider1.jpg"
-import Slider2 from "../Media/Images/login-slider2.jpg"
-import Slider3 from "../Media/Images/login-slider3.jpg"
-import Material from "./Material"
+import Logo from "../../Media/Images/Logo.png"
+import Slider1 from "../../Media/Images/login-slider1.jpg"
+import Slider2 from "../../Media/Images/login-slider2.jpg"
+import Slider3 from "../../Media/Images/login-slider3.jpg"
+import Material from "../Components/Material"
 import {Link, Redirect} from "react-router-dom"
 import {BeatLoader} from "react-spinners"
-import api from "../Functions/api"
+import api from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
 
 class LoginPage extends PureComponent

@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react"
-import RightArrow from "../Media/Svgs/RightArrow"
+import RightArrow from "../../Media/Svgs/RightArrow"
 import Material from "./Material"
 
 class MySlider extends PureComponent

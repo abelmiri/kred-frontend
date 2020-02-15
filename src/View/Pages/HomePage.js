@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react"
-import Library from "../Media/Images/Library.jpg"
-import Nurses from "../Media/Images/Nurses.png"
-import Material from "./Material"
-import api from "../Functions/api"
+import Library from "../../Media/Images/Library.jpg"
+import Nurses from "../../Media/Images/Nurses.png"
+import Material from "../Components/Material"
+import api from "../../Functions/api"
 
 class HomePage extends PureComponent
 {

@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react"
-import Logo from "../Media/Images/Logo.png"
+import Logo from "../../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
 import Hamburger from "./Hamburger"
 import Material from "./Material"
-import api from "../Functions/api"
+import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
 import {NotificationManager} from "react-notifications"
 

@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react"
-import api, {REST_URL} from "../Functions/api"
+import api, {REST_URL} from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
-import Material from "./Material"
-import addCommaPrice from "../Helpers/addCommaPrice"
+import Material from "../Components/Material"
+import addCommaPrice from "../../Helpers/addCommaPrice"
 
 class ExchangeBookItemPage extends PureComponent
 {

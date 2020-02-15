@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react"
 import axios from "axios"
-import api, {REST_URL} from "../Functions/api"
-import Material from "./Material"
+import api, {REST_URL} from "../../Functions/api"
+import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 
 class ShowVideoPage extends PureComponent

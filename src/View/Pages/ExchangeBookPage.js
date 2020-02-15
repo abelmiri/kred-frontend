@@ -1,12 +1,12 @@
 import React, {PureComponent} from "react"
-import ExchangeItem from "./ExchangeItem"
-import api from "../Functions/api"
-import Material from "./Material"
-import CreateExchangeModal from "./CreateExchangeModal"
+import ExchangeItem from "../Components/ExchangeItem"
+import api from "../../Functions/api"
+import Material from "../Components/Material"
+import CreateExchangeModal from "../Components/CreateExchangeModal"
 import {ClipLoader} from "react-spinners"
-import SearchSvg from "../Media/Svgs/SearchSvg"
-import Arrow from "../Media/Svgs/Arrow"
-import MySlider from "./MySlider"
+import SearchSvg from "../../Media/Svgs/SearchSvg"
+import Arrow from "../../Media/Svgs/Arrow"
+import MySlider from "../Components/MySlider"
 
 class ExchangeBookPage extends PureComponent
 {

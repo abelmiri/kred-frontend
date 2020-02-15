@@ -1,15 +1,15 @@
 import React, {PureComponent} from "react"
-import LoginPage from "./Components/LoginPage"
-import Header from "./Components/Header"
-import HomePage from "./Components/HomePage"
+import LoginPage from "./View/Pages/LoginPage"
+import Header from "./View/Components/Header"
+import HomePage from "./View/Pages/HomePage"
 import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
-import ShowVideoPage from "./Components/ShowVideoPage"
-import ExchangeBookPage from "./Components/ExchangeBookPage"
-import ExchangeBookItemPage from "./Components/ExchangeBookItemPage"
-import ProfilePage from "./Components/ProfilePage"
+import ShowVideoPage from "./View/Pages/ShowVideoPage"
+import ExchangeBookPage from "./View/Pages/ExchangeBookPage"
+import ExchangeBookItemPage from "./View/Pages/ExchangeBookItemPage"
+import ProfilePage from "./View/Pages/ProfilePage"
 import {NotificationContainer} from "react-notifications"
-import StatisticsPage from "./Components/StatisticsPage"
+import StatisticsPage from "./View/Pages/StatisticsPage"
 
 class App extends PureComponent
 {
@@ -142,6 +142,7 @@ class App extends PureComponent
                     <Route path='/exchange/:id' render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={this.getCities} cities={cities}/>}/>
                     <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
                     <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
+                    {/*<Route path='/videos' render={(route) => <VideoPacksPage user={user}/>}/>*/}
                     <Route path='/statistics' render={() => <StatisticsPage user={user}/>}/>
                     <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                 </Switch>

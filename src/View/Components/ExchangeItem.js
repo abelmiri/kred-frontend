@@ -1,8 +1,8 @@
 import React from "react"
-import {REST_URL} from "../Functions/api"
+import {REST_URL} from "../../Functions/api"
 import {Link} from "react-router-dom"
 import Material from "./Material"
-import addCommaPrice from "../Helpers/addCommaPrice"
+import addCommaPrice from "../../Helpers/addCommaPrice"
 
 const ExchangeItem = (props) =>
 {
