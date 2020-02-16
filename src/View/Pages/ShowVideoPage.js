@@ -74,7 +74,7 @@ class ShowVideoPage extends PureComponent
                         if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                         {
                             requestGetSubtitle.result.blob.arrayBuffer().then((buffer) =>
-                                this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve()),
+                                this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)),
                             )
                         }
                         else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
@@ -103,16 +103,19 @@ class ShowVideoPage extends PureComponent
             {
                 this.setState({...this.state, subtitle: URL.createObjectURL(res.data)}, () =>
                 {
-                    resolve()
-                    const request = indexedDB.open("videoDb", 1)
-                    request.onsuccess = e =>
+                    resolve(res.status === 200)
+                    if (res.status === 200)
                     {
-                        const db = e.target.result
-                        const transaction = db.transaction(["subtitles"], "readwrite")
-                        const objectStore = transaction.objectStore("subtitles")
-                        const requestSave = objectStore.add({name: url, blob: res.data})
-                        requestSave.onsuccess = event => console.log("saved", event)
-                        requestSave.onerror = err => console.log("error", err)
+                        const request = indexedDB.open("videoDb", 1)
+                        request.onsuccess = e =>
+                        {
+                            const db = e.target.result
+                            const transaction = db.transaction(["subtitles"], "readwrite")
+                            const objectStore = transaction.objectStore("subtitles")
+                            const requestSave = objectStore.add({name: url, blob: res.data})
+                            requestSave.onsuccess = event => console.log("saved", event)
+                            requestSave.onerror = err => console.log("error", err)
+                        }
                     }
                 })
             })
@@ -124,7 +127,7 @@ class ShowVideoPage extends PureComponent
             })
     }
 
-    getVideo(name)
+    getVideo(name, save)
     {
         const request = indexedDB.open("videoDb", 1)
         request.onsuccess = event =>
@@ -134,7 +137,7 @@ class ShowVideoPage extends PureComponent
             const objectStoreVideo = transactionVideo.objectStore("videos")
             const requestGetVideo = objectStoreVideo.get(`${REST_URL}/videos/${name}`)
 
-            requestGetVideo.onerror = _ => this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`))
+            requestGetVideo.onerror = _ => this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`, save))
 
             requestGetVideo.onsuccess = _ =>
             {
@@ -144,7 +147,7 @@ class ShowVideoPage extends PureComponent
                         this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: name}),
                     )
                 }
-                else this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`))
+                else this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`, save))
             }
 
             // statistics
@@ -152,33 +155,36 @@ class ShowVideoPage extends PureComponent
         }
     }
 
-    getVideoFromServerAndSave(url)
+    getVideoFromServerAndSave(url, save)
     {
-        axios.get(
-            url,
-            {
-                responseType: "blob",
-                onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
-            },
-        )
-            .then((res) =>
-            {
-                const request = indexedDB.open("videoDb", 1)
-                request.onsuccess = e =>
+        if (save)
+        {
+            axios.get(
+                url,
                 {
-                    const db = e.target.result
-                    const transaction = db.transaction(["videos"], "readwrite")
-                    const objectStore = transaction.objectStore("videos")
-                    const requestSave = objectStore.add({name: url, blob: res.data})
-                    requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
-                    requestSave.onerror = err => console.log("error", err)
-                }
-            })
+                    responseType: "blob",
+                    onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
+                },
+            )
+                .then((res) =>
+                {
+                    const request = indexedDB.open("videoDb", 1)
+                    request.onsuccess = e =>
+                    {
+                        const db = e.target.result
+                        const transaction = db.transaction(["videos"], "readwrite")
+                        const objectStore = transaction.objectStore("videos")
+                        const requestSave = objectStore.add({name: url, blob: res.data})
+                        requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
+                        requestSave.onerror = err => console.log("error", err)
+                    }
+                })
+        }
     }
 
     showVideo(name)
     {
-        this.setState({...this.state, selected: null, subtitle: null, loading: true, loadingPercent: null, video: null}, () => this.getSubtitle(name).then(() => this.getVideo(name)))
+        this.setState({...this.state, selected: null, subtitle: null, loading: true, loadingPercent: null, video: null}, () => this.getSubtitle(name).then((save) => this.getVideo(name, save)))
     }
 
     render()

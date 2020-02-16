@@ -39,14 +39,12 @@ class VideoPacksPage extends PureComponent
                                             <img className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
                                         </div>
                                     </div>
-                                    <div className="company-item-desc">
-                                        فیلم‌های آموزشی کنهاب، یکی از بهترین منابع آموزش آناتومی در دنیا به شمار می‌روند و دانشجویان زیادی در سراسر دنیا، به منظور شرکت در آزمون USMLE، از این فیلم‌ها استفاده می‌کنند.
-                                    </div>
+                                    <div className="company-item-desc">{company.description}</div>
                                     {
                                         Object.values(videoPacks).length > 0 ?
                                             Object.values(videoPacks).map(pack =>
-                                                <Link to={`/videos/${pack._id}`}>
-                                                    <Material key={pack._id} className="video-pack-item">
+                                                <Link key={pack._id} to={`/videos/${pack._id}`}>
+                                                    <Material className="video-pack-item">
                                                         <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
                                                         <div className="video-pack-item-title">{pack.title}</div>
                                                     </Material>
