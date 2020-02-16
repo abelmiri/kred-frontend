@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react"
 import {ClipLoader} from "react-spinners"
-import {REST_URL} from "../../Functions/api"
+import api, {REST_URL} from "../../Functions/api"
 import Material from "../Components/Material"
 import {Link} from "react-router-dom"
 
@@ -11,6 +11,9 @@ class VideoPacksPage extends PureComponent
         window.scroll({top: 0})
         this.props.getCompanies()
         this.props.getVideoPacks()
+
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ویدیوها"}).catch(err => console.log(err))
     }
 
     render()

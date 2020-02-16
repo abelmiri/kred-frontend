@@ -37,7 +37,7 @@ class ShowVideoPage extends PureComponent
         }
 
         // statistics
-        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ویدیوها"}).catch(err => console.log(err))
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "مجموعه فیلم‌های آموزشی سر و گردن کنهاب"}).catch(err => console.log(err))
 
         document.addEventListener("contextmenu", this.osContextMenu)
         document.addEventListener("keydown", this.onKeyDown)
