@@ -57,26 +57,37 @@ class ShowVideoPage extends PureComponent
     {
         return new Promise((resolve) =>
         {
-            const request = indexedDB.open("videoDb", 1)
-            request.onsuccess = event =>
+            if (this.props.user)
             {
-                const db = event.target.result
-                const transactionSubtitle = db.transaction(["subtitles"])
-                const objectStoreSubtitle = transactionSubtitle.objectStore("subtitles")
-                const requestGetSubtitle = objectStoreSubtitle.get(`${REST_URL}/subtitles/${name}`)
-
-                requestGetSubtitle.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
-
-                requestGetSubtitle.onsuccess = _ =>
+                const request = indexedDB.open("videoDb", 1)
+                request.onsuccess = event =>
                 {
-                    if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
+                    const db = event.target.result
+                    const transactionSubtitle = db.transaction(["subtitles"])
+                    const objectStoreSubtitle = transactionSubtitle.objectStore("subtitles")
+                    const requestGetSubtitle = objectStoreSubtitle.get(`${REST_URL}/subtitles/${name}`)
+
+                    requestGetSubtitle.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
+
+                    requestGetSubtitle.onsuccess = _ =>
                     {
-                        requestGetSubtitle.result.blob.arrayBuffer().then((buffer) =>
-                            this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve()),
-                        )
+                        if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
+                        {
+                            requestGetSubtitle.result.blob.arrayBuffer().then((buffer) =>
+                                this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve()),
+                            )
+                        }
+                        else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
                     }
-                    else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
                 }
+            }
+            else
+            {
+                this.setState({...this.state, loading: false}, () =>
+                {
+                    if (document.getElementById("header-login")) document.getElementById("header-login").click()
+                    NotificationManager.error("برای استفاده از فیلم ها، در سایت ثبت نام و یا وارد شوید.")
+                })
             }
         })
     }
@@ -170,22 +181,8 @@ class ShowVideoPage extends PureComponent
         this.setState({...this.state, selected: null, subtitle: null, loading: true, loadingPercent: null, video: null}, () => this.getSubtitle(name).then(() => this.getVideo(name)))
     }
 
-    dataURItoBlob(dataURI)
-    {
-        const byteString = atob(dataURI.split(",")[1])
-        const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0]
-        const ab = new ArrayBuffer(byteString.length)
-        const ia = new Uint8Array(ab)
-        for (let i = 0; i < byteString.length; i++)
-        {
-            ia[i] = byteString.charCodeAt(i)
-        }
-        return new Blob([ab], {type: mimeString})
-    }
-
     render()
     {
-        const {user} = this.props
         const {video, subtitle, loading, loadingPercent, selected} = this.state
         return (
             <div className="video-page-cont">
@@ -193,119 +190,115 @@ class ShowVideoPage extends PureComponent
                     {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
                 </div>
                 {
-                    user ?
-                        <React.Fragment>
-                            {
-                                video ?
-                                    <div className="video-page-video-container">
-                                        <video className="video-page-video" controls controlsList="nodownload" autoPlay>
-                                            <source src={video}/>
-                                            {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
-                                        </video>
-                                        {selected}
-                                    </div>
-                                    :
-                                    <div className="video-page-video-container pre">
-                                        لطفا یک ویدئو انتخاب کنید
-                                    </div>
-                            }
-                            <div className="video-page-aside">
-                                <div className="video-page-aside-title">List of videos</div>
-                                <div className="video-page-aside-videos">
-                                    <div className="video-page-aside-videos-title">Skull</div>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Superior view of base of the skull")}>
-                                        Superior view of base of the skull
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Inferior view of base of the skull")}>
-                                        Inferior view of base of the skull
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Anterior and lateral views of the skull")}>
-                                        Anterior and lateral views of the skull
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Posterior and lateral views of the skull")}>
-                                        Posterior and lateral views of the skull
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Midsagittal skull")}>
-                                        Midsagittal skull
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Calvaria")}>
-                                        Calvaria
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Ethmoid bone")}>
-                                        Ethmoid bone
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Mandible")}>
-                                        Mandible
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Sphenoid bone")}>
-                                        Sphenoid bone
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Temporal bone")}>
-                                        Temporal bone
-                                    </Material>
-
-                                    <div className="video-page-aside-videos-title">Head</div>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Muscles of facial expression")}>
-                                        Muscles of facial expression
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Maxillary artery")}>
-                                        Maxillary artery
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Salivary glands")}>
-                                        Salivary glands
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Superficial nerves of the head")}>
-                                        Superficial nerves of the head
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Superficial blood vessels of the head")}>
-                                        Superficial blood vessels of the head
-                                    </Material>
-
-                                    <div className="video-page-aside-videos-title">Neck</div>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Suprahyoid muscles")}>
-                                        Suprahyoid muscles
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Infrahyoid muscles")}>
-                                        Infrahyoid muscles
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Muscles of anterior neck")}>
-                                        Muscles of anterior neck
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Scalene muscles")}>
-                                        Scalene muscles
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Triangles of the neck")}>
-                                        Triangles of the neck
-                                    </Material>
-
-                                    <div className="video-page-aside-videos-title">Nasal region</div>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Lateral wall of nasal cavity")}>
-                                        Lateral wall of nasal cavity
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Medial wall of nasal cavity")}>
-                                        Medial wall of nasal cavity
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Blood vessels of the nasal cavity")}>
-                                        Blood vessels of the nasal cavity
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Nerves of the nasal cavity")}>
-                                        Nerves of the nasal cavity
-                                    </Material>
-
-                                    <div className="video-page-aside-videos-title">Neurovasculature of head and neck</div>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Cervical plexus")}>
-                                        Cervical plexus
-                                    </Material>
-                                    <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Neurovasculature of head and neck")}>
-                                        Neurovasculature of head and neck
-                                    </Material>
-
-                                </div>
-                            </div>
-                        </React.Fragment>
+                    video ?
+                        <div className="video-page-video-container">
+                            <video className="video-page-video" controls controlsList="nodownload" autoPlay>
+                                <source src={video}/>
+                                {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
+                            </video>
+                            {selected}
+                        </div>
                         :
-                        <div className="video-page-video-not-login">برای استفاده از محتوا لطفا لاگین کنید</div>
+                        <div className="video-page-video-container pre">
+                            لطفا یک ویدئو انتخاب کنید
+                        </div>
                 }
+                <div className="video-page-aside">
+                    <div className="video-page-aside-title">List of videos</div>
+                    <div className="video-page-aside-videos">
+                        <div className="video-page-aside-videos-title">Skull</div>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Superior view of base of the skull")}>
+                            Superior view of base of the skull
+                            <div className="video-page-aside-videos-free">Free</div>
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Inferior view of base of the skull")}>
+                            Inferior view of base of the skull
+                            <div className="video-page-aside-videos-free">Free</div>
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Anterior and lateral views of the skull")}>
+                            Anterior and lateral views of the skull
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Posterior and lateral views of the skull")}>
+                            Posterior and lateral views of the skull
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Midsagittal skull")}>
+                            Midsagittal skull
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Calvaria")}>
+                            Calvaria
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Ethmoid bone")}>
+                            Ethmoid bone
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Mandible")}>
+                            Mandible
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Sphenoid bone")}>
+                            Sphenoid bone
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Temporal bone")}>
+                            Temporal bone
+                        </Material>
+
+                        <div className="video-page-aside-videos-title">Head</div>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Muscles of facial expression")}>
+                            Muscles of facial expression
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Maxillary artery")}>
+                            Maxillary artery
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Salivary glands")}>
+                            Salivary glands
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Superficial nerves of the head")}>
+                            Superficial nerves of the head
+                            <div className="video-page-aside-videos-free">Free</div>
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Superficial blood vessels of the head")}>
+                            Superficial blood vessels of the head
+                        </Material>
+
+                        <div className="video-page-aside-videos-title">Neck</div>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Suprahyoid muscles")}>
+                            Suprahyoid muscles
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Infrahyoid muscles")}>
+                            Infrahyoid muscles
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Muscles of anterior neck")}>
+                            Muscles of anterior neck
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Scalene muscles")}>
+                            Scalene muscles
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Triangles of the neck")}>
+                            Triangles of the neck
+                        </Material>
+
+                        <div className="video-page-aside-videos-title">Nasal region</div>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Lateral wall of nasal cavity")}>
+                            Lateral wall of nasal cavity
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Medial wall of nasal cavity")}>
+                            Medial wall of nasal cavity
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Blood vessels of the nasal cavity")}>
+                            Blood vessels of the nasal cavity
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Nerves of the nasal cavity")}>
+                            Nerves of the nasal cavity
+                        </Material>
+
+                        <div className="video-page-aside-videos-title">Neurovasculature of head and neck</div>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Cervical plexus")}>
+                            Cervical plexus
+                            <div className="video-page-aside-videos-free">Free</div>
+                        </Material>
+                        <Material className="video-page-aside-videos-item" onClick={() => this.showVideo("Neurovasculature of head and neck")}>
+                            Neurovasculature of head and neck
+                        </Material>
+                    </div>
+                </div>
             </div>
         )
     }

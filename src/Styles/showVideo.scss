@@ -30,8 +30,23 @@
 }
 
 .video-page-aside-videos-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   padding: 5px 0 5px 5px;
+}
+
+.video-page-aside-videos-free {
+  border: 1px solid $primary-color;
+  color: $secondary-color;
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8px;
 }
 
 .video-page-aside-title {

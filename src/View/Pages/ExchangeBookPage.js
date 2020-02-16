@@ -120,10 +120,7 @@ class ExchangeBookPage extends PureComponent
                 }
             }
         }
-        else if (document.getElementById("header-login"))
-        {
-            document.getElementById("header-login").click()
-        }
+        else if (document.getElementById("header-login")) document.getElementById("header-login").click()
     }
 
     selectCategory(id)

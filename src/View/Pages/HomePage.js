@@ -41,8 +41,7 @@ class HomePage extends PureComponent
                     <div className='home-videos-text'>
                         <h3 className='home-videos-title'>فیلم‌های آموزشی</h3>
                         <div className='home-exchange-description'>به دنیای جدید آموزش بیا! دیگه نیازی نیست دغدغه یادگیری درسات رو داشته باشی</div>
-                        {/*<button className='home-videos-butt' onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</button>*/}
-                        <button className='home-videos-butt' onClick={(e) => this.changeRoute(e, "/videos/anatomy")}>برو تو پک آناتومی</button>
+                        <button className='home-videos-butt' onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</button>
                     </div>
                     <img className='home-videos-img' src={Nurses} alt=''/>
                 </div>
