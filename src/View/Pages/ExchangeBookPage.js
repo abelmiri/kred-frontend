@@ -305,9 +305,8 @@ class ExchangeBookPage extends PureComponent
                                 exchangesLoading !== true && <div className="exchange-page-loading not-found">موردی یافت نشد!</div>
                         }
                     </div>
+                    <div className={`exchange-page-loading ${exchangesLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                 </div>
-
-                <div className={`exchange-page-loading ${exchangesLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
 
                 {showModal && <CreateExchangeModal hideModal={() => this.changeModalState(false)} cities={cities} categories={categories} defaultPhone={defaultPhone}/>}
 
