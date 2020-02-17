@@ -34,6 +34,7 @@ class ProfilePageUserInfo extends Component
                 entrance: user.entrance && user.entrance,
                 major: user.major && user.major,
                 grade: user.grade && user.grade,
+                // password: user.password && user.password,
             })
         }
     }
@@ -91,6 +92,29 @@ class ProfilePageUserInfo extends Component
         })
     }
 
+    // handlePassChange = () =>
+    // {
+    //     const {email, name, major, grade, entrance, birth_date, university} = this.state
+    //     const {setUser} = this.props
+    //
+    //     this.setState({...this.state, loading: true, done: false}, () =>
+    //     {
+    //         api.patch("user", {email, name, major, grade, entrance, birth_date, university}, "")
+    //             .then((res) =>
+    //             {
+    //                 this.setState({...this.state, loading: false, done: true}, () => setUser(res))
+    //             })
+    //             .catch((e) =>
+    //             {
+    //                 if (e.message === "Request failed with status code 404")
+    //                 {
+    //                     localStorage.clear()
+    //                     this.setState({...this.state, loading: false})
+    //                 }
+    //             })
+    //     })
+    // }
+
     render()
     {
         const {email, name, major, grade, entrance, birth_date, university, loading, done} = this.state
@@ -121,7 +145,7 @@ class ProfilePageUserInfo extends Component
                             <Material type='button' onClick={!loading ? this.handleSubmit : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
                                 ثبت
                             </Material>
-                            <Material type='button' className={"profile-info-submit-button loading"}>
+                            <Material type='button' onClick={!loading ? this.handleSubmit : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
                                 تغییر رمز
                             </Material>
                         </div>
