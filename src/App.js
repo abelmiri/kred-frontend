@@ -159,10 +159,8 @@ class App extends PureComponent
                 <Switch>
                     <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
                     <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
-                    <Route path='/exchange/:id' render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={this.getCities} cities={cities}/>}/>
-                    <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                    <Route path='/videos/:pack' render={(route) => <ShowVideoPage user={user} route={route}/>}/>
-                    <Route path='/videos' render={() => <VideoPacksPage user={user} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks} getCompanies={this.getCompanies} companies={companies}/>}/>
+                    <Route path='/exchanges' render={(route) => <ExchangeBookPage route={route} defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
+                    <Route path='/videos' render={(route) => <VideoPacksPage route={route} user={user} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks} getCompanies={this.getCompanies} companies={companies}/>}/>
                     <Route path='/statistics' render={() => <StatisticsPage user={user}/>}/>
                     <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                 </Switch>
