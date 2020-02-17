@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import Material from "./Material"
-import api from "../Functions/api"
+import api from "../../Functions/api"
 
 class ProfilePageUserInfo extends Component
 {
@@ -85,7 +85,7 @@ class ProfilePageUserInfo extends Component
                 {
                     if (e.message === "Request failed with status code 404")
                     {
-                        localStorage.clear()
+                        localStorage.removeItem("user")
                         this.setState({...this.state, loading: false})
                     }
                 })

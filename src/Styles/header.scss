@@ -273,10 +273,14 @@
 }
 
 .header-sidebar-btn {
-  margin-top: 80px;
   border-top: 1px solid $login-page-background-color;
   border-bottom: 1px solid $login-page-background-color;
   padding: 20px 15px;
+  margin-top: -1px;
+
+  &.margin-top {
+    margin-top: 80px;
+  }
 }
 
 .header-sidebar-log-out {

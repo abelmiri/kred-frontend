@@ -1,14 +1,14 @@
 import React from "react"
-import {REST_URL} from "../Functions/api"
+import {REST_URL} from "../../Functions/api"
 import {Link} from "react-router-dom"
 import Material from "./Material"
-import addCommaPrice from "../Helpers/addCommaPrice"
+import addCommaPrice from "../../Helpers/addCommaPrice"
 
 const ExchangeItem = (props) =>
 {
     const {exchange, city, inSlide} = props
     return (
-        <Link to={`/exchange/${exchange._id}`} className="exchange-item-cont">
+        <Link to={`/exchanges/${exchange._id}`} className="exchange-item-cont">
             <Material className={`exchange-item-cont-material ${inSlide ? "in-slide" : ""}`}>
                 <img className={`exchange-item-img ${inSlide ? "in-slide" : ""}`} src={REST_URL + "/" + exchange.picture} alt={exchange.title}/>
                 <div className='exchange-item-title'>{exchange.title}</div>

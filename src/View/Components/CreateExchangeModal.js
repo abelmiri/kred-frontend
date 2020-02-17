@@ -1,13 +1,13 @@
 import React, {PureComponent} from "react"
-import CameraSvg from "../Media/Svgs/Camera"
+import CameraSvg from "../../Media/Svgs/Camera"
 import Material from "./Material"
-import api from "../Functions/api"
-import Arrow from "../Media/Svgs/Arrow"
+import api from "../../Functions/api"
+import Arrow from "../../Media/Svgs/Arrow"
 import imageCompression from "browser-image-compression"
-import Constant from "../Constant/Constant"
+import Constant from "../../Constant/Constant"
 import {NotificationManager} from "react-notifications"
-import addCommaPrice from "../Helpers/addCommaPrice"
-import PencilSvg from "../Media/Svgs/Pencil"
+import addCommaPrice from "../../Helpers/addCommaPrice"
+import PencilSvg from "../../Media/Svgs/Pencil"
 
 class CreateExchangeModal extends PureComponent
 {
@@ -272,7 +272,7 @@ class CreateExchangeModal extends PureComponent
                                            placeholder={`مثال: ${contactType === "phone" ? "09123456789" : "telegram@"}`}
                                            onBlur={(e) => this.blurInput(e, "phone")}
                                            onChange={(e) => this.validateInput(e, "phone")}
-                                           onInput={e => e.target.value = e.target.value.slice(0, 11)}
+                                           onInput={e => contactType === "phone" ? e.target.value = e.target.value.slice(0, 11) : null}
                                     />
                                 </div>
                                 <div className='create-exchange-section relative-wrap'>
@@ -340,7 +340,7 @@ class CreateExchangeModal extends PureComponent
                                     <textarea rows={6}
                                               ref={e => this.descriptionInput = e}
                                               className='create-exchange-section-input'
-                                              placeholder="مثال: چند صفحه خط کشی شده"
+                                              placeholder="مثال: نوشته دکتر حسن زاده، انتشارات تیمورزاده"
                                               onBlur={(e) => this.blurInput(e, "desc")}
                                               onChange={(e) => this.validateInput(e, "desc")}
                                     />
