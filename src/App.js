@@ -11,6 +11,7 @@ import ProfilePage from "./View/Pages/ProfilePage"
 import {NotificationContainer} from "react-notifications"
 import StatisticsPage from "./View/Pages/StatisticsPage"
 import VideoPacksPage from "./View/Pages/VideoPacksPage"
+import versionMigrations from "./Functions/verstionMigration"
 
 class App extends PureComponent
 {
@@ -31,6 +32,8 @@ class App extends PureComponent
 
     componentDidMount()
     {
+        versionMigrations("1")
+
         if (localStorage.hasOwnProperty("user"))
         {
             const user = JSON.parse(localStorage.getItem("user"))
@@ -42,7 +45,7 @@ class App extends PureComponent
                     {
                         if (e.message === "Request failed with status code 404")
                         {
-                            localStorage.clear()
+                            localStorage.removeItem("user")
                             this.setState({...this.state, user: null})
                         }
                     })

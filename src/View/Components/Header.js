@@ -216,7 +216,8 @@ class Header extends PureComponent
 
                     <div className={`header-sidebar-back ${collapseSidebar ? "hide" : ""}`} onClick={this.hideSidebar}/>
                     <div className={`header-sidebar-container ${collapseSidebar ? "hide" : ""}`}>
-                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
+                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">تبادل کتاب</Material></Link>
+                        <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
 

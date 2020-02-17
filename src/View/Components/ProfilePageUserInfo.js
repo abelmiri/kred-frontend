@@ -84,7 +84,7 @@ class ProfilePageUserInfo extends Component
                 {
                     if (e.message === "Request failed with status code 404")
                     {
-                        localStorage.clear()
+                        localStorage.removeItem("user")
                         this.setState({...this.state, loading: false})
                     }
                 })
