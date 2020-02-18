@@ -179,14 +179,15 @@ class LoginPage extends PureComponent
                 <div className='login-input-cont'>
                     <div className='login-input-cont-title'> میشه اطلاعات زیر رو کامل کنی؟</div>
                     <div className='login-input-field'>
+                        <label className='login-input-label'>نام کامل</label>
+                        <input name='name' type='text' className='login-input-input' placeholder="مثال: محمد شریفی" ref={e => this.nameInput = e}/>
+                    </div>
+                    <div className="login-input-error"/>
+                    <div className='login-input-field'>
                         <label className='login-input-label'>شماره موبایل <span>*</span></label>
                         <input name='phone' value={phone} type='text' maxLength="11" className='login-input-input' placeholder="مثال: 09123456789" ref={e => this.phoneInput = e} onChange={this.changePhone} onBlur={this.blurPhone}/>
                     </div>
                     <div className='login-input-error' ref={e => this.phoneError = e}>شماره وارد شده قبلا استفاده شده است!</div>
-                    <div className='login-input-field'>
-                        <label className='login-input-label'>نام کامل</label>
-                        <input name='name' type='text' className='login-input-input' placeholder="مثال: سید عرفان وهابی میری" ref={e => this.nameInput = e}/>
-                    </div>
                     <div className='login-input-field'>
                         <label className='login-input-label'>رمز عبور <span>*</span></label>
                         <input name='password' type='password' className='login-input-input' placeholder="******" ref={e => this.passwordInput = e} onChange={this.changePassword} onBlur={this.blurPassword} maxLength={30}/>

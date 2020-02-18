@@ -4,14 +4,12 @@ import Header from "./View/Components/Header"
 import HomePage from "./View/Pages/HomePage"
 import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
-import ShowVideoPage from "./View/Pages/ShowVideoPage"
 import ExchangeBookPage from "./View/Pages/ExchangeBookPage"
-import ExchangeBookItemPage from "./View/Pages/ExchangeBookItemPage"
 import ProfilePage from "./View/Pages/ProfilePage"
 import {NotificationContainer} from "react-notifications"
 import StatisticsPage from "./View/Pages/StatisticsPage"
 import VideoPacksPage from "./View/Pages/VideoPacksPage"
-import versionMigrations from "./Functions/verstionMigration"
+import versionMigrations from "./Functions/versionMigration"
 
 class App extends PureComponent
 {
