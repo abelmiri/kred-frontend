@@ -414,6 +414,7 @@
   animation: show-modal linear 0.2s;
   transform: translate3d(-50%, -50%, 0) scale(1);
   transition: all linear 0.2s;
+  border-radius: 3px;
 
   &.create-small {
     @media screen and (max-width: 480px) {
@@ -625,6 +626,11 @@
   display: inline-block;
   width: 100%;
   transition: width linear 0.2s, margin-left linear 0.2s, margin-right linear 0.2s;
+
+  &.loading {
+    cursor: not-allowed;
+    background-color: $secondary-color;
+  }
 }
 
 .create-exchange-hide-submit {

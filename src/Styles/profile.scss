@@ -203,3 +203,24 @@
   font-size: $home-regular-font-size;
   color: $success-color;
 }
+
+.profile-info-submit-error-text {
+  font-size: $home-regular-font-size;
+  color: $error-color;
+}
+
+.change-password-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  background-color: white;
+  width: 430px;
+  border: 1px solid $text-light-color;
+  text-align: center;
+  z-index: 5;
+  opacity: 1;
+  animation: show-modal linear 0.2s;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+  transition: all linear 0.2s;
+  border-radius: 3px;
+}
