@@ -27,14 +27,6 @@ class MySlider extends PureComponent
         this.slider.onmousemove = this.elementDrag
     }
 
-    onTouchStart = (e) =>
-    {
-        this.posX = e.touches[0].clientX
-        this.posY = e.touches[0].clientY
-        this.slider.ontouchmove = this.onTouchMove
-        this.slider.ontouchend = this.closeDragElement
-    }
-
     elementDrag = (e) =>
     {
         e.preventDefault()
@@ -42,6 +34,14 @@ class MySlider extends PureComponent
         this.posX = e.clientX
         this.prevX = this.prevX - this.deltaX > 0 && this.prevX - this.deltaX <= this.slider.scrollWidth - this.slider.clientWidth ? this.prevX - this.deltaX : this.prevX
         this.slider.style.transform = `translateX(${this.prevX}px)`
+    }
+
+    onTouchStart = (e) =>
+    {
+        this.posX = e.touches[0].clientX
+        this.posY = e.touches[0].clientY
+        this.slider.ontouchmove = this.onTouchMove
+        this.slider.ontouchend = this.closeDragElement
     }
 
     onTouchMove = (e) =>

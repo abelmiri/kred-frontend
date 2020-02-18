@@ -257,11 +257,6 @@
     width: 80%;
     background-color: white;
     z-index: 4;
-    transition: all linear 0.2s;
-
-    &.hide {
-      transform: translateX(100%);
-    }
   }
 }
 
@@ -303,11 +298,4 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   height: 100vh;
-  transition: all linear 0.2s, height linear 0s;
-
-  &.hide {
-    opacity: 0;
-    height: 0;
-    transition: all linear 0.2s, height linear 0s 0.3s;
-  }
 }

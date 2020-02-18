@@ -225,7 +225,7 @@ class ExchangeBookPage extends PureComponent
                         </div>
                     </div>
 
-                    <div className="exchange-list-new">
+                    <div className="exchange-list-new dont-gesture">
                         <div className="exchange-list-new-title">جـدیـدتـریـن ‌ها</div>
                         {
                             newExchanges && Object.values(newExchanges).length > 0 ?

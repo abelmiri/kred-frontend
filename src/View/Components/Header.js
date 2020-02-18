@@ -18,6 +18,16 @@ class Header extends PureComponent
             collapseSidebar: true,
             loginLoading: false,
         }
+        this.deltaX = 0
+        this.posX = 0
+        this.posY = 0
+        this.prevX = null
+        this.changing = false
+        this.started = false
+        this.deltaY = 0
+        this.onTouchStart = this.onTouchStart.bind(this)
+        this.onTouchMove = this.onTouchMove.bind(this)
+        this.onTouchEnd = this.onTouchEnd.bind(this)
         this.onScroll = this.onScroll.bind(this)
         this.login = this.login.bind(this)
     }
@@ -25,6 +35,9 @@ class Header extends PureComponent
     componentDidMount()
     {
         document.addEventListener("scroll", this.onScroll)
+        document.addEventListener("touchstart", this.onTouchStart)
+        document.addEventListener("touchmove", this.onTouchMove)
+        document.addEventListener("touchend", this.onTouchEnd)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)
@@ -45,6 +58,97 @@ class Header extends PureComponent
     componentWillUnmount()
     {
         document.removeEventListener("scroll", this.onScroll)
+        document.removeEventListener("touchstart", this.onTouchStart)
+        document.removeEventListener("touchmove", this.onTouchMove)
+        document.removeEventListener("touchend", this.onTouchEnd)
+    }
+
+    checkParentClass(element, classname)
+    {
+        if (element.className && element.className.toString().split(" ").indexOf(classname) >= 0) return true
+        return element.parentNode && this.checkParentClass(element.parentNode, classname)
+    }
+
+    onTouchStart(e)
+    {
+        if (!this.checkParentClass(e.target, "dont-gesture"))
+        {
+            this.prevX = !this.state.collapseSidebar ? 0 : this.sidebar ? this.sidebar.clientWidth : 0
+            this.posX = e.touches[0].clientX
+            this.posY = e.touches[0].clientY
+            this.started = true
+        }
+    }
+
+    onTouchMove(e)
+    {
+        this.deltaY = this.posY - e.touches[0].clientY
+        this.deltaX = this.posX - e.touches[0].clientX
+        if (this.changing || (this.started && this.deltaY < 5 && this.deltaY > -5 && (this.deltaX > 5 || this.deltaX < -5)))
+        {
+            this.posX = e.touches[0].clientX
+            this.prevX = this.prevX - this.deltaX >= 0 ? this.prevX - this.deltaX <= this.sidebar.clientWidth ? this.prevX - this.deltaX : this.sidebar.clientWidth : 0
+            this.sidebar.style.transform = `translateX(${this.prevX}px)`
+            this.sidebarBack.style.opacity = `${1 - (this.prevX / this.sidebar.clientWidth)}`
+            this.sidebarBack.style.height = `100vh`
+            if (this.started)
+            {
+                document.body.style.overflow = "hidden"
+                this.changing = true
+            }
+            this.started = false
+        }
+        else this.started = false
+    }
+
+    onTouchEnd()
+    {
+        if (this.changing)
+        {
+            if (!(this.deltaX > 3) && (this.deltaX < -3 || this.prevX >= this.sidebar.clientWidth / 2))
+            {
+                this.prevX = this.sidebar.clientWidth
+                this.hideSidebar()
+            }
+            else
+            {
+                this.prevX = 0
+                this.showSidebar()
+            }
+            this.changing = false
+        }
+    }
+
+    showSidebar = () =>
+    {
+        this.setState({...this.state, collapseSidebar: false})
+        this.sidebar.style.transition = "transform linear 0.2s"
+        this.sidebar.style.transform = `translateX(0px)`
+        this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
+        this.sidebarBack.style.opacity = `1`
+        this.sidebarBack.style.height = `100vh`
+        document.body.style.overflow = "hidden"
+        setTimeout(() =>
+        {
+            if (this.sidebar) this.sidebar.style.transition = "initial"
+            if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
+        }, 250)
+    }
+
+    hideSidebar = () =>
+    {
+        this.setState({...this.state, collapseSidebar: true})
+        this.sidebar.style.transition = "transform linear 0.1s"
+        this.sidebar.style.transform = `translateX(100%)`
+        this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0.4s"
+        this.sidebarBack.style.opacity = `0`
+        this.sidebarBack.style.height = `0`
+        document.body.style.overflow = "auto"
+        setTimeout(() =>
+        {
+            if (this.sidebar) this.sidebar.style.transition = "initial"
+            if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
+        }, 250)
     }
 
     onScroll()
@@ -115,18 +219,6 @@ class Header extends PureComponent
         }
     }
 
-    showSidebar = () =>
-    {
-        document.body.style.overflow = "hidden"
-        this.setState({...this.state, collapseSidebar: false})
-    }
-
-    hideSidebar = () =>
-    {
-        document.body.style.overflow = "auto"
-        this.setState({...this.state, collapseSidebar: true})
-    }
-
     logout = () =>
     {
         this.props.logout()
@@ -174,11 +266,19 @@ class Header extends PureComponent
                         <Link to="/" className='header-logo-link'><img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/></Link>
                         {
                             user ?
-                                <Link to="/profile" className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>
+                                <Link to="/profile" onClick={this.hideSidebar} className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>
                                 :
                                 <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`} onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
                         }
                     </div>
+
+                    <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>
+                    <div className="header-sidebar-container" style={{transform: "translateX(100%)"}} ref={e => this.sidebar = e}>
+                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">تبادل کتاب</Material></Link>
+                        <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
+                        {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
+                    </div>
+
                     {
                         showLoginModal &&
                         <React.Fragment>
@@ -213,13 +313,6 @@ class Header extends PureComponent
                             </div>
                         </React.Fragment>
                     }
-
-                    <div className={`header-sidebar-back ${collapseSidebar ? "hide" : ""}`} onClick={this.hideSidebar}/>
-                    <div className={`header-sidebar-container ${collapseSidebar ? "hide" : ""}`}>
-                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">تبادل کتاب</Material></Link>
-                        <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
-                        {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
-                    </div>
 
                 </div>
             )
