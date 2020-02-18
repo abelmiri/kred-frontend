@@ -173,7 +173,6 @@ class ProfilePage extends PureComponent
                     {
                         this.renderContent()
                     }
-
                 </div>
                 <div className="profile-left-menus">
                     <div className="profile-left-menus">
