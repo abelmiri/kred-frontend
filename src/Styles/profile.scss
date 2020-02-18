@@ -1,7 +1,7 @@
 @import "variables";
 
 .profile-container {
-  padding: 110px calc(5% + 270px) 0 5%;
+  padding: 110px calc(5% + 270px) 50px 5%;
   display: flex;
 
   @media screen and (max-width: 480px) {
