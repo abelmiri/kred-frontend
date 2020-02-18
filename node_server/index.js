@@ -10,6 +10,7 @@ app.route("/static/:folder/:file").get((req, res) =>
         if (req.params.file.includes(".js")) res.setHeader("Content-Type", "application/javascript")
         else if (req.params.file.includes(".css")) res.setHeader("Content-Type", "text/css")
         res.setHeader("Content-Encoding", "gzip")
+        res.setHeader("Vary", "Accept-Encoding")
         res.setHeader("Cache-Control", "max-age=31536000")
         res.sendFile(path.join(__dirname, `/static/${req.params.folder}/${req.params.file}.gz`))
     }
