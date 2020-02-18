@@ -170,7 +170,7 @@ class ProfilePageUserInfo extends Component
                         </div>
                         {pass_modal ?
                             <React.Fragment>
-                                <div className={"create-exchange-cont create-small"}>
+                                <div className="exchange-show-contact password">
                                     <div className='create-exchange-title'>تغییر رمز پروفایل</div>
                                     <div className="create-exchange-main">
                                         <div className="create-exchange-part">

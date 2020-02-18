@@ -940,6 +940,14 @@
   border: 5px solid $secondary-color;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
   animation: show-modal linear 0.2s;
+
+  &.password {
+    border: none;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: calc(95% - 50px);
+  }
 }
 
 .exchange-show-contact-link {
