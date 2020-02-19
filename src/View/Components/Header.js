@@ -276,6 +276,7 @@ class Header extends PureComponent
                     <div className="header-sidebar-container" style={{transform: "translateX(100%)"}} ref={e => this.sidebar = e}>
                         <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">تبادل کتاب</Material></Link>
                         <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
+                        {user && user.role === "admin" && <Link to="/statistics" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">آمارها</Material></Link>}
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
 

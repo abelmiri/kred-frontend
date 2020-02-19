@@ -114,7 +114,7 @@ class StatisticsPage extends PureComponent
                                                     Object.values(todaySignUp).map(user =>
                                                         <Fluent key={"user" + user._id} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
                                                             <Material className="statistics-page-view-item-child-item">
-                                                                <div>{user.name}</div>
+                                                                <div>{user.name || user.phone}</div>
                                                             </Material>
                                                         </Fluent>,
                                                     )
