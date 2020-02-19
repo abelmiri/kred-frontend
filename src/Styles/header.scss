@@ -87,24 +87,25 @@
 .header-buttons-menu-drop-link {
   color: whitesmoke;
   text-decoration: none;
-}
-
-.header-buttons-menu-drop-item {
-  padding: 15px 0;
-  cursor: pointer;
   transition: all linear 0.2s;
 
   &:hover {
     background-color: $third-color;
   }
 
-  &.odd {
+  &:nth-child(odd) {
     background-color: rgba(255, 255, 255, 0.2);
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.4);
     }
   }
+}
+
+.header-buttons-menu-drop-item {
+  padding: 15px 0;
+  cursor: pointer;
+  background-color: inherit;
 }
 
 .header-hamburger-mobile-material {

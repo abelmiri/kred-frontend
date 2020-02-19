@@ -280,25 +280,37 @@ class Header extends PureComponent
                                 </Material>
                                 <div className="header-buttons-menu-drop" ref={e => this.dropDown = e} style={{height: "0"}}>
                                     <Link className="header-buttons-menu-drop-link" to="/">
-                                        <Material className="header-buttons-menu-drop-item odd" onClick={this.toggleDropDown}>صفحه اصلی</Material>
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>صفحه اصلی</Material>
                                     </Link>
-                                    <Link className="header-buttons-menu-drop-link" to="/profile">
-                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پروفایل من</Material>
-                                    </Link>
-                                    <Link className="header-buttons-menu-drop-link" to="/exchanges">
-                                        <Material className="header-buttons-menu-drop-item odd" onClick={this.toggleDropDown}>تبادل کتاب</Material>
-                                    </Link>
+                                    {
+                                        user &&
+                                        <Link className="header-buttons-menu-drop-link" to="/profile">
+                                            <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پروفایل من</Material>
+                                        </Link>
+                                    }
                                     <Link className="header-buttons-menu-drop-link" to="/videos">
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>فیلم‌های آموزشی</Material>
                                     </Link>
+                                    <Link className="header-buttons-menu-drop-link" to="/exchanges">
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>تبادل کتاب</Material>
+                                    </Link>
+                                    {
+                                        user && user.role === "admin" &&
+                                        <Link className="header-buttons-menu-drop-link" to="/statistics">
+                                            <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>آمارها</Material>
+                                        </Link>
+                                    }
                                 </div>
                             </div>
                         }
                         {
                             user ?
-                                <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
-                                    سلام {user.name ? user.name.split(" ")[0] : user.phone}
-                                </Link>
+                                <React.Fragment>
+                                    <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
+                                        سلام {user.name ? user.name.split(" ")[0] : user.phone}
+                                    </Link>
+                                    <div className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.logout}>خروج</div>
+                                </React.Fragment>
                                 :
                                 <React.Fragment>
                                     <div id="header-login" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.showLoginModal}>ورود</div>
@@ -307,7 +319,6 @@ class Header extends PureComponent
                         }
                         {/*<div className='header-buttons-title'>ارتباط با کرد</div>*/}
                         {/*<div className='header-buttons-title'>درباره ما</div>*/}
-                        {user && <div className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.logout}>خروج</div>}
                     </div>
                     <div className='header-logo-cont'>
                         <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
@@ -325,8 +336,10 @@ class Header extends PureComponent
 
                     <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>
                     <div className="header-sidebar-container" style={{transform: "translateX(100%)"}} ref={e => this.sidebar = e}>
-                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">تبادل کتاب</Material></Link>
+                        <Link to="/" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">صفحه اصلی</Material></Link>
+                        {user && <Link to="/profile" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></Link>}
                         <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
+                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
                         {user && user.role === "admin" && <Link to="/statistics" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">آمارها</Material></Link>}
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
