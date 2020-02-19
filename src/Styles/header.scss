@@ -34,7 +34,6 @@
 .header-buttons {
   display: inline-flex;
   height: 100%;
-  overflow: hidden;
   align-items: center;
   font-size: $home-regular-font-size;
   font-weight: bold;
@@ -45,26 +44,67 @@
   }
 }
 
-.header-buttons-menu {
+.header-buttons-menu-cont {
   @media screen and (min-width: 750px) {
-    cursor: pointer;
-    background-color: $primary-color;
-    height: 100%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    width: 130px;
-    font-weight: bold;
     margin-left: 20px;
+    height: 100%;
+    position: relative;
   }
   @media screen and (max-width: 750px) {
     display: none;
   }
 }
 
-.header-buttons-hamburger {
-  width: 40px;
+.header-buttons-menu {
+  height: 100%;
+  cursor: pointer;
+  background-color: $primary-color;
+  color: whitesmoke;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  font-weight: bold;
+}
+
+.header-buttons-menu-drop {
+  @media screen and (min-width: 750px) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: $primary-color;
+    text-align: center;
+    color: whitesmoke;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: all linear 0.2s;
+  }
+  @media screen and (max-width: 750px) {
+    display: none;
+  }
+}
+
+.header-buttons-menu-drop-link {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.header-buttons-menu-drop-item {
+  padding: 15px 0;
+  cursor: pointer;
+  transition: all linear 0.2s;
+
+  &:hover {
+    background-color: $third-color;
+  }
+
+  &.odd {
+    background-color: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+  }
 }
 
 .header-hamburger-mobile-material {
@@ -83,6 +123,17 @@
       transition: all linear 0.2s, background-color linear 0.2s 0.2s;
       background-color: rgba(0, 0, 0, 0.08);
     }
+  }
+}
+
+.header-hamburger-desktop {
+  position: relative;
+  width: 36px;
+  height: 25px;
+  margin-left: 20px;
+
+  .hamburger-line {
+    background-color: whitesmoke;
   }
 }
 

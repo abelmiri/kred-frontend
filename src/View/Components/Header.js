@@ -17,6 +17,7 @@ class Header extends PureComponent
             showLoginModal: false,
             collapseSidebar: true,
             loginLoading: false,
+            hideDropDown: true,
         }
         this.deltaX = 0
         this.posX = 0
@@ -28,12 +29,14 @@ class Header extends PureComponent
         this.onTouchStart = this.onTouchStart.bind(this)
         this.onTouchMove = this.onTouchMove.bind(this)
         this.onTouchEnd = this.onTouchEnd.bind(this)
+        this.onClick = this.onClick.bind(this)
         this.onScroll = this.onScroll.bind(this)
         this.login = this.login.bind(this)
     }
 
     componentDidMount()
     {
+        document.addEventListener("click", this.onClick)
         document.addEventListener("scroll", this.onScroll)
         document.addEventListener("touchstart", this.onTouchStart)
         document.addEventListener("touchmove", this.onTouchMove)
@@ -57,6 +60,7 @@ class Header extends PureComponent
 
     componentWillUnmount()
     {
+        document.removeEventListener("click", this.onClick)
         document.removeEventListener("scroll", this.onScroll)
         document.removeEventListener("touchstart", this.onTouchStart)
         document.removeEventListener("touchmove", this.onTouchMove)
@@ -151,9 +155,14 @@ class Header extends PureComponent
         }, 250)
     }
 
+    onClick(e)
+    {
+        if (!this.state.hideDropDown && this.dropDownCont && !this.dropDownCont.contains(e.target)) this.toggleDropDown()
+    }
+
     onScroll()
     {
-        const {isTransparent} = this.state
+        const {isTransparent, hideDropDown} = this.state
         if (window.scrollY >= window.innerHeight - 50)
         {
             if (isTransparent) this.setState({...this.state, isTransparent: false})
@@ -162,6 +171,8 @@ class Header extends PureComponent
         {
             if (!isTransparent) this.setState({...this.state, isTransparent: true})
         }
+
+        if (!hideDropDown) this.toggleDropDown()
     }
 
     setOverflowAuto = () =>
@@ -227,22 +238,62 @@ class Header extends PureComponent
 
     submitOnEnter = (e) => e.keyCode === 13 && this.login()
 
+    toggleDropDown = () =>
+    {
+        const hideDropDown = !this.state.hideDropDown
+        this.setState({...this.state, hideDropDown}, () =>
+        {
+            if (hideDropDown)
+            {
+                if (this.dropDown) this.dropDown.style.height = "0"
+            }
+            else
+            {
+                if (this.dropDown) this.dropDown.style.height = this.dropDown.scrollHeight + "px"
+            }
+        })
+    }
+
     render()
     {
         const {location, user} = this.props
         if (location !== "/sign-up")
         {
-            const {isTransparent, showLoginModal, collapseSidebar, loginLoading} = this.state
+            const {isTransparent, showLoginModal, collapseSidebar, loginLoading, hideDropDown} = this.state
             return (
                 <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                     <div className='header-buttons'>
-                        {/*{*/}
-                        {/*    location === "/exchange" &&*/}
-                        {/*    <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu'>*/}
-                        {/*        <HamburgerSvg className='header-buttons-hamburger'/>*/}
-                        {/*        <span>تبادل کتاب</span>*/}
-                        {/*    </Material>*/}
-                        {/*}*/}
+                        {
+                            (location.slice(0, 10) === "/exchanges" || location.slice(0, 7) === "/videos" || location.slice(0, 8) === "/profile") &&
+                            <div className='header-buttons-menu-cont' ref={e => this.dropDownCont = e}>
+                                <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu' onClick={this.toggleDropDown}>
+                                    <Hamburger className='header-hamburger-desktop' collapse={hideDropDown}/>
+                                    <span>
+                                        {
+                                            location.slice(0, 10) === "/exchanges" ? "تبادل کتاب"
+                                                :
+                                                location.slice(0, 7) === "/videos" ? "فیلم‌های آموزشی"
+                                                    :
+                                                    location.slice(0, 8) === "/profile" && "پروفایل من"
+                                        }
+                                    </span>
+                                </Material>
+                                <div className="header-buttons-menu-drop" ref={e => this.dropDown = e} style={{height: "0"}}>
+                                    <Link className="header-buttons-menu-drop-link" to="/">
+                                        <Material className="header-buttons-menu-drop-item odd" onClick={this.toggleDropDown}>صفحه اصلی</Material>
+                                    </Link>
+                                    <Link className="header-buttons-menu-drop-link" to="/profile">
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پروفایل من</Material>
+                                    </Link>
+                                    <Link className="header-buttons-menu-drop-link" to="/exchanges">
+                                        <Material className="header-buttons-menu-drop-item odd" onClick={this.toggleDropDown}>تبادل کتاب</Material>
+                                    </Link>
+                                    <Link className="header-buttons-menu-drop-link" to="/videos">
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>فیلم‌های آموزشی</Material>
+                                    </Link>
+                                </div>
+                            </div>
+                        }
                         {
                             user ?
                                 <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
