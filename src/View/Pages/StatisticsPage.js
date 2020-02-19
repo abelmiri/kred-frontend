@@ -65,7 +65,7 @@ class StatisticsPage extends PureComponent
                                 :
                                 <React.Fragment>
                                     <div className="statistics-page-btn">
-                                        <div className="statistics-page-btn-title">بازدیدهای کل</div>
+                                        <div className="statistics-page-btn-title">آمار کل</div>
                                         <div className="statistics-page-view-item second">
                                             <div>ثبت نام کاربران</div>
                                             <div>{allSignUpCount}</div>
@@ -105,7 +105,7 @@ class StatisticsPage extends PureComponent
                                     </div>
 
                                     <div className="statistics-page-btn">
-                                        <div className="statistics-page-btn-title">بازدیدهای امروز</div>
+                                        <div className="statistics-page-btn-title">آمار 24 ساعت اخیر</div>
                                         <div className="statistics-page-view-item second">
                                             <div>ثبت نام کاربران</div>
                                             <div>{todaySignUpCount}</div>
