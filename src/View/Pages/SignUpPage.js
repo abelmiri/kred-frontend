@@ -27,7 +27,7 @@ class SignUpPage extends PureComponent
             previousSlider: this.slides.length - 1,
             sliderIndex: 0,
             phone: "",
-            level: 2,
+            level: 1,
         }
         this.changePhone = this.changePhone.bind(this)
         this.blurPassword = this.blurPassword.bind(this)
