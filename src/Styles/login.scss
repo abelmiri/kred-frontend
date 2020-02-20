@@ -54,6 +54,8 @@
   position: absolute;
   right: 200px;
   top: 50%;
+  overflow: hidden;
+  width: 270px;
   transform: translateY(-50%);
   color: $dark-color;
   transition: right linear 0.3s;
@@ -72,7 +74,29 @@
   @media screen and (max-width: 480px) {
     width: 90%;
   }
+}
 
+.login-input-cont-slide {
+  width: 100%;
+  display: flex;
+  transform: translateX(0);
+  transition: all linear 0.2s;
+
+  &.level-two {
+    transform: translateX(100%);
+  }
+}
+
+.login-input-cont-slide-child {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 100%;
+}
+
+.login-input-cont-slide-child-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .login-slider-cont {
@@ -100,6 +124,10 @@
 .login-input-cont-title {
   margin-bottom: 30px;
   font-size: $title-font-size;
+
+  &.no-margin {
+    margin-bottom: 0;
+  }
 }
 
 .login-input-field {
@@ -199,6 +227,14 @@
     left: 50%;
     transform: translateX(-50%);
   }
+}
+
+.login-input-back {
+  padding: 2px 5px 5px 0;
+  color: $error-color;
+  cursor: pointer;
+  vertical-align: top;
+  font-size: $small-font-size;
 }
 
 .login-input-submit {

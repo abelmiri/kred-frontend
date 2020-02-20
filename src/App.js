@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react"
-import LoginPage from "./View/Pages/LoginPage"
+import SignUpPage from "./View/Pages/SignUpPage"
 import Header from "./View/Components/Header"
 import HomePage from "./View/Pages/HomePage"
 import {Redirect, Route, Switch} from "react-router-dom"
@@ -155,7 +155,7 @@ class App extends PureComponent
                 {redirect && <Redirect push to={page}/>}
                 <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                 <Switch>
-                    <Route exact path='/sign-up' render={() => <LoginPage setUser={this.setUser}/>}/>
+                    <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                     <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
                     <Route path='/exchanges' render={(route) => <ExchangeBookPage route={route} defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
                     <Route path='/videos' render={(route) => <VideoPacksPage route={route} user={user} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks} getCompanies={this.getCompanies} companies={companies}/>}/>

@@ -302,7 +302,7 @@ class CreateExchangeModal extends PureComponent
                                            placeholder="مثال: 25,000"
                                            onBlur={(e) => this.blurInput(e, "price")}
                                            onChange={(e) => this.validateInput(e, "price")}
-                                           maxLength="8"
+                                           maxLength={8}
                                            onInput={e => !isNaN(e.target.value.replace(/,/g, "")) ? null : e.target.value = ""}
                                     />
                                     <div className="create-exchange-price">تومان</div>
