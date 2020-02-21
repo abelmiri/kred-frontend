@@ -264,7 +264,12 @@ class Header extends PureComponent
                 <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                     <div className='header-buttons'>
                         {
-                            (location.slice(0, 10) === "/exchanges" || location.slice(0, 7) === "/videos" || location.slice(0, 8) === "/profile") &&
+                            (
+                                location.slice(0, 10) === "/exchanges" ||
+                                location.slice(0, 7) === "/videos" ||
+                                location.slice(0, 8) === "/profile" ||
+                                (location.slice(0, 12) === "/statistics" && user && user.role === "admin")
+                            ) &&
                             <div className='header-buttons-menu-cont' ref={e => this.dropDownCont = e}>
                                 <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu' onClick={this.toggleDropDown}>
                                     <Hamburger className='header-hamburger-desktop' collapse={hideDropDown}/>
@@ -274,7 +279,9 @@ class Header extends PureComponent
                                                 :
                                                 location.slice(0, 7) === "/videos" ? "فیلم‌های آموزشی"
                                                     :
-                                                    location.slice(0, 8) === "/profile" && "پروفایل من"
+                                                    location.slice(0, 8) === "/profile" ? "پروفایل من"
+                                                        :
+                                                        location.slice(0, 12) === "/statistics" && user && user.role === "admin" && "آمارها"
                                         }
                                     </span>
                                 </Material>
