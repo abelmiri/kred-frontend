@@ -16,6 +16,7 @@ class ShowVideoPage extends PureComponent
             loading: false,
             loadingPercent: null,
         }
+        this.canecl = null
     }
 
     componentDidMount()
@@ -73,13 +74,14 @@ class ShowVideoPage extends PureComponent
                     {
                         if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                         {
-                            requestGetSubtitle.result.blob.arrayBuffer().then((buffer) =>
-                                this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)),
-                            )
+                            requestGetSubtitle.result.blob.arrayBuffer()
+                                .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)))
+                                .catch(() => this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve))
                         }
                         else this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
                     }
                 }
+                request.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}/subtitles/${name}`, resolve)
             }
             else
             {
@@ -143,42 +145,54 @@ class ShowVideoPage extends PureComponent
             {
                 if (requestGetVideo.result && requestGetVideo.result.blob)
                 {
-                    requestGetVideo.result.blob.arrayBuffer().then((buffer) =>
-                        this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: name}),
-                    )
+                    requestGetVideo.result.blob.arrayBuffer()
+                        .then((buffer) => this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: name}))
+                        .catch(() => this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`, save)))
                 }
                 else this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`, save))
             }
-
-            // statistics
-            process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: name}).catch(err => console.log(err))
         }
+        request.onerror = _ => this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`, save))
+        
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: name}).catch(err => console.log(err))
     }
 
     getVideoFromServerAndSave(url, save)
     {
         if (save)
         {
-            axios.get(
-                url,
-                {
-                    responseType: "blob",
-                    onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
-                },
-            )
-                .then((res) =>
-                {
-                    const request = indexedDB.open("videoDb", 1)
-                    request.onsuccess = e =>
+            if (this.canecl)
+            {
+                this.canecl()
+                this.canecl = null
+            }
+
+            clearTimeout(this.getVideoTimeout)
+            this.getVideoTimeout = setTimeout(() =>
+            {
+                axios.get(
+                    url,
                     {
-                        const db = e.target.result
-                        const transaction = db.transaction(["videos"], "readwrite")
-                        const objectStore = transaction.objectStore("videos")
-                        const requestSave = objectStore.add({name: url, blob: res.data})
-                        requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
-                        requestSave.onerror = err => console.log("error", err)
-                    }
-                })
+                        responseType: "blob",
+                        onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
+                        cancelToken: new axios.CancelToken(c => this.canecl = c),
+                    },
+                )
+                    .then((res) =>
+                    {
+                        const request = indexedDB.open("videoDb", 1)
+                        request.onsuccess = e =>
+                        {
+                            const db = e.target.result
+                            const transaction = db.transaction(["videos"], "readwrite")
+                            const objectStore = transaction.objectStore("videos")
+                            const requestSave = objectStore.add({name: url, blob: res.data})
+                            requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
+                            requestSave.onerror = err => console.log("error", err)
+                        }
+                    })
+            }, 5000)
         }
     }
 
