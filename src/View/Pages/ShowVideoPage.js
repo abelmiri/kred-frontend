@@ -153,7 +153,7 @@ class ShowVideoPage extends PureComponent
             }
         }
         request.onerror = _ => this.setState({...this.state, video: `${REST_URL}/videos/${name}`, loading: false, loadingPercent: null, selected: name}, () => this.getVideoFromServerAndSave(`${REST_URL}/videos/${name}`, save))
-        
+
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: name}).catch(err => console.log(err))
     }
