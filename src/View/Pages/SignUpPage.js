@@ -184,7 +184,7 @@ class SignUpPage extends PureComponent
                 <div className='login-square'/>
 
                 <div className='login-kred-logo'>
-                    <h1 className='header-logo-cont-title'>K<span>RED</span></h1>
+                    <h1 className='header-logo-cont-title no-margin-top'>K<span>RED</span></h1>
                     <Link to="/">
                         <img src={Logo} className='header-logo' alt='kred logo'/>
                     </Link>

@@ -265,23 +265,26 @@ class Header extends PureComponent
                     <div className='header-buttons'>
                         {
                             (
+                                location === "/" ||
                                 location.slice(0, 10) === "/exchanges" ||
                                 location.slice(0, 7) === "/videos" ||
                                 location.slice(0, 8) === "/profile" ||
                                 (location.slice(0, 12) === "/statistics" && user && user.role === "admin")
                             ) &&
-                            <div className='header-buttons-menu-cont' ref={e => this.dropDownCont = e}>
-                                <Material backgroundColor='rgba(255,255,255,0.3)' className='header-buttons-menu' onClick={this.toggleDropDown}>
+                            <div className={`header-buttons-menu-cont ${isTransparent && location === "/" ? `styled ${hideDropDown ? "" : "open-drop"}` : ""}`} ref={e => this.dropDownCont = e}>
+                                <Material backgroundColor='rgba(255,255,255,0.3)' className="header-buttons-menu" onClick={this.toggleDropDown}>
                                     <Hamburger className='header-hamburger-desktop' collapse={hideDropDown}/>
                                     <span>
                                         {
-                                            location.slice(0, 10) === "/exchanges" ? "تبادل کتاب"
+                                            location === "/" ? "صفحه اصلی"
                                                 :
-                                                location.slice(0, 7) === "/videos" ? "فیلم‌های آموزشی"
+                                                location.slice(0, 10) === "/exchanges" ? "تبادل کتاب"
                                                     :
-                                                    location.slice(0, 8) === "/profile" ? "پروفایل من"
+                                                    location.slice(0, 7) === "/videos" ? "فیلم‌های آموزشی"
                                                         :
-                                                        location.slice(0, 12) === "/statistics" && user && user.role === "admin" && "آمارها"
+                                                        location.slice(0, 8) === "/profile" ? "پروفایل من"
+                                                            :
+                                                            location.slice(0, 12) === "/statistics" && user && user.role === "admin" && "آمارها"
                                         }
                                     </span>
                                 </Material>
@@ -331,8 +334,10 @@ class Header extends PureComponent
                         <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
                             <Hamburger className="header-hamburger-mobile" collapse={collapseSidebar} onClick={collapseSidebar ? this.showSidebar : this.hideSidebar}/>
                         </Material>
-                        <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
-                        <Link to="/" className='header-logo-link'><img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/></Link>
+                        <Link to="/" className='header-logo-link'>
+                            <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
+                            <img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/>
+                        </Link>
                         {
                             user ?
                                 <Link to="/profile" onClick={this.hideSidebar} className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>

@@ -192,7 +192,7 @@ class ShowVideoPage extends PureComponent
                             requestSave.onerror = err => console.log("error", err)
                         }
                     })
-            }, 5000)
+            }, 10000)
         }
     }
 

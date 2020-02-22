@@ -39,19 +39,19 @@ class Fluent extends PureComponent
             const rect = this.fluent.getBoundingClientRect()
             if (rect.top + rect.height >= 0)
             {
-                if (e.clientX > rect.left - 100 && e.clientX < rect.right + 100 && e.clientY > rect.top - 100 && e.clientY < rect.bottom + 100)
+                if (e.clientX > rect.left - 85 && e.clientX < rect.right + 85 && e.clientY > rect.top - 85 && e.clientY < rect.bottom + 85)
                 {
                     let opacityRight, opacityLeft, opacityBottom, opacityTop
 
-                    opacityTop = 1 - Math.abs((rect.top - e.clientY) / 100)
+                    opacityTop = 1 - Math.abs((rect.top - e.clientY) / 85)
 
-                    opacityBottom = 1 - Math.abs((e.clientY - rect.bottom) / 100)
+                    opacityBottom = 1 - Math.abs((e.clientY - rect.bottom) / 85)
 
-                    opacityLeft = 1 - Math.abs((rect.left - e.clientX) / 100)
+                    opacityLeft = 1 - Math.abs((rect.left - e.clientX) / 85)
 
-                    opacityRight = 1 - Math.abs((e.clientX - rect.right) / 100)
+                    opacityRight = 1 - Math.abs((e.clientX - rect.right) / 85)
 
-                    console.log((rect.top - e.clientY) / 100, opacityTop)
+                    console.log((rect.top - e.clientY) / 85, opacityTop)
 
                     this.setState({...this.state, opacityTop, opacityBottom, opacityLeft, opacityRight})
                 }
