@@ -77,7 +77,6 @@ class ExchangeBookItemPage extends PureComponent
                                     </div>
                                 </React.Fragment>
                             }
-
                         </React.Fragment>
                         :
                         <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>

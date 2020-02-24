@@ -1,0 +1,33 @@
+@import "variables";
+
+.payment-page-cont {
+  text-align: center;
+  padding: 140px 5% 0 5%;
+  font-size: $menu-title-font-size;
+}
+
+.payment-page-success-svg {
+  width: 150px;
+  fill: $primary-color;
+  margin-bottom: 10px;
+}
+
+.payment-page-fail-svg {
+  width: 150px;
+  fill: $error-color;
+  margin-bottom: 10px;
+}
+
+.payment-page-success-back {
+  text-decoration: none;
+  color: black;
+  margin-top: 70px;
+  display: block;
+
+  .material {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: $primary-color;
+    color: whitesmoke;
+  }
+}

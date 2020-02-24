@@ -3,10 +3,21 @@ import {ClipLoader} from "react-spinners"
 import api, {REST_URL} from "../../Functions/api"
 import Material from "../Components/Material"
 import {Link, Route, Switch} from "react-router-dom"
-import ShowVideoPage from "./ShowVideoPage"
+import ShowPackPage from "./ShowPackPage"
+import TickSvg from "../../Media/Svgs/TickSvg"
+import addCommaPrice from "../../Helpers/addCommaPrice"
+import {NotificationManager} from "react-notifications"
 
 class VideoPacksPage extends PureComponent
 {
+    constructor(props)
+    {
+        super(props)
+        this.state = {
+            buyLoading: false,
+        }
+    }
+
     componentDidMount()
     {
         window.scroll({top: 0})
@@ -17,12 +28,41 @@ class VideoPacksPage extends PureComponent
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ویدیوها"}).catch(err => console.log(err))
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        if (this.props.user?._id !== prevProps.user?._id) this.props.getVideoPacks()
+    }
+
+    buyPack(e, pack)
+    {
+        e.preventDefault()
+        if (this.props.user)
+        {
+            this.setState({...this.state, buyLoading: true}, () =>
+            {
+                api.post("buy-video-pack", {video_pack_id: pack._id})
+                    .then(response =>
+                    {
+                        console.log(response.data)
+                        window.location.href = response.data.link
+                    })
+                    .catch(() => this.setState({...this.state, buyLoading: false}, () => NotificationManager.error("مشکلی پیش آمد! بعدا امتحان کنید.")))
+            })
+        }
+        else
+        {
+            if (document.getElementById("header-login")) document.getElementById("header-login").click()
+            NotificationManager.error("برای استفاده از فیلم ها، در سایت ثبت نام و یا وارد شوید.")
+        }
+    }
+
     render()
     {
+        const {buyLoading} = this.state
         const {videoPacks, companies, user, route} = this.props
         return (
             <Switch>
-                <Route path={`${route.match.url}/:pack`} render={(route) => <ShowVideoPage route={route} user={user}/>}/>
+                <Route path={`${route.match.url}/:id`} render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
 
                 <React.Fragment>
                     <div className='video-background-img'>
@@ -51,10 +91,20 @@ class VideoPacksPage extends PureComponent
                                             Object.values(videoPacks).length > 0 ?
                                                 Object.values(videoPacks).map(pack =>
                                                     <Link key={pack._id} to={`/videos/${pack._id}`}>
-                                                        <Material className="video-pack-item">
+                                                        <div className="video-pack-item">
                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
-                                                            <div className="video-pack-item-title">{pack.title}</div>
-                                                        </Material>
+                                                            <div className="video-pack-item-title">
+                                                                <div className="video-pack-item-title-text">{pack.title}</div>
+                                                                {
+                                                                    pack.have_permission ?
+                                                                        <TickSvg className="video-pack-item-title-svg"/>
+                                                                        :
+                                                                        <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
+                                                                            خرید ({addCommaPrice(pack.price)} تومان)
+                                                                        </Material>
+                                                                }
+                                                            </div>
+                                                        </div>
                                                     </Link>,
                                                 )
                                                 :
@@ -66,6 +116,17 @@ class VideoPacksPage extends PureComponent
                                 <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
                         }
                     </div>
+
+                    {
+                        buyLoading &&
+                        <React.Fragment>
+                            <div className="create-exchange-back"/>
+                            <div className="buy-loading">
+                                <ClipLoader size={24} color="#3AAFA9"/>
+                            </div>
+                        </React.Fragment>
+                    }
+
                 </React.Fragment>
             </Switch>
         )

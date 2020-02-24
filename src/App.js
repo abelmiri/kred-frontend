@@ -10,6 +10,7 @@ import {NotificationContainer} from "react-notifications"
 import StatisticsPage from "./View/Pages/StatisticsPage"
 import VideoPacksPage from "./View/Pages/VideoPacksPage"
 import versionMigrations from "./Functions/versionMigration"
+import PaymentPage from "./View/Pages/PaymentPage"
 
 class App extends PureComponent
 {
@@ -134,7 +135,7 @@ class App extends PureComponent
 
     getVideoPacks = () =>
     {
-        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`, true).then((videoPacks) =>
+        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`).then((videoPacks) =>
             this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}),
         )
     }
@@ -160,6 +161,7 @@ class App extends PureComponent
                     <Route path='/exchanges' render={(route) => <ExchangeBookPage route={route} defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
                     <Route path='/videos' render={(route) => <VideoPacksPage route={route} user={user} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks} getCompanies={this.getCompanies} companies={companies}/>}/>
                     <Route path='/statistics' render={() => <StatisticsPage user={user}/>}/>
+                    <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
                     <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                 </Switch>
                 {/*<Footer/>*/}

@@ -151,7 +151,45 @@
 
 .video-pack-item-title {
   margin-top: 10px;
-  font-size: $home-regular-font-size;
+  font-size: $title-font-size;
   font-weight: bold;
   color: $almost-dark-color;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.video-pack-item-title-text {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.video-pack-item-title-svg {
+  width: 20px;
+  fill: $primary-color;
+}
+
+.video-pack-item-title-buy {
+  fill: $primary-color;
+  flex-grow: 1;
+  min-width: 100%;
+  font-size: $regular-font-size;
+  color: white;
+  background-color: $error-color;
+  border: 1px solid $error-color;
+  margin-top: 10px;
+  padding: 5px 0;
+  transition: all linear 0.2s;
+
+  &:hover {
+    color: $error-color;
+    background-color: whitesmoke;
+  }
+}
+
+.buy-loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
 }

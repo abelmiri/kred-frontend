@@ -51,8 +51,6 @@ class Fluent extends PureComponent
 
                     opacityRight = 1 - Math.abs((e.clientX - rect.right) / 85)
 
-                    console.log((rect.top - e.clientY) / 85, opacityTop)
-
                     this.setState({...this.state, opacityTop, opacityBottom, opacityLeft, opacityRight})
                 }
                 else this.setState({...this.state, opacityTop: 0, opacityBottom: 0, opacityLeft: 0, opacityRight: 0})
