@@ -61,9 +61,9 @@ class VideoPacksPage extends PureComponent
             {
                 if (document.body.clientWidth <= 480) window.history.pushState("", "", "/videos/completeProfile")
                 document.body.style.overflow = "hidden"
-                this.setState({...this.state, buyModal: true, buyPack: pack, level: 0})
+                this.setState({...this.state, buyModal: true, buyPack: pack, level: 0, code: null})
             }
-            else this.setState({...this.state, buyModal: true, buyPack: pack, level: 1})
+            else this.setState({...this.state, buyModal: true, buyPack: pack, level: 1, code: null})
         }
         else
         {
@@ -197,58 +197,55 @@ class VideoPacksPage extends PureComponent
                     </div>
 
                     {
-                        buyLoading &&
-                        <React.Fragment>
-                            <div className="create-exchange-back"/>
-                            <div className="buy-loading">
-                                <ClipLoader size={24} color="#3AAFA9"/>
-                            </div>
-                        </React.Fragment>
-                    }
-
-                    {
-                        buyModal &&
+                        (buyLoading || buyModal) &&
                         <React.Fragment>
                             <div className="create-exchange-back" onClick={this.hideCompleteProfile}/>
-                            <div className="buy-loading profile">
-                                <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
-                                    <div className="buy-slide">
-                                        <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
+                            {
+                                buyLoading ?
+                                    <div className="buy-loading">
+                                        <ClipLoader size={24} color="#3AAFA9"/>
                                     </div>
-                                    <div className="buy-slide">
-                                        <div className="profile-introduction-title">تایید خرید</div>
-                                        <div className="profile-info-description">
-                                            <div>
-                                                <p>کد تخفیف</p>
-                                                <input type="text" ref={e => this.offCode = e} onChange={this.changeOffCode}/>
+                                    :
+                                    <div className="buy-loading profile">
+                                        <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
+                                            <div className="buy-slide">
+                                                <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
                                             </div>
-                                            <div className="buy-off-code">
-                                                <div className="buy-off-code-amount-cont">
-                                                    {
-                                                        code && <div className="buy-off-code-amount">تخفیف {code.amount_type === "fix" ? addCommaPrice(code.amount) : code.amount} {code.amount_type === "fix" ? "تومانی" : "درصدی"}</div>
-                                                    }
-                                                </div>
-                                                {
-                                                    buyPack &&
-                                                    <div className="buy-off-code-pay">
-                                                        مبلغ قابل پرداخت:
-                                                        <span> </span>
-                                                        {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
+                                            <div className="buy-slide">
+                                                <div className="profile-introduction-title">تایید خرید</div>
+                                                <div className="profile-info-description">
+                                                    <div>
+                                                        <p>کد تخفیف</p>
+                                                        <input type="text" ref={e => this.offCode = e} onChange={this.changeOffCode}/>
                                                     </div>
-                                                }
-                                            </div>
-                                            <div className="profile-info-submit-buttons-container">
-                                                <Material type='button' style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
-                                                    {code ? "حذف کد تخفیف" : "ثبت"}
-                                                </Material>
-                                                <Material type='button' style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
-                                                    تکمیل خرید
-                                                </Material>
+                                                    <div className="buy-off-code">
+                                                        <div className="buy-off-code-amount-cont">
+                                                            {
+                                                                code && <div className="buy-off-code-amount">تخفیف {code.amount_type === "fix" ? addCommaPrice(code.amount) : code.amount} {code.amount_type === "fix" ? "تومانی" : "درصدی"}</div>
+                                                            }
+                                                        </div>
+                                                        {
+                                                            buyPack &&
+                                                            <div className="buy-off-code-pay">
+                                                                مبلغ قابل پرداخت:
+                                                                <span> </span>
+                                                                {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div className="profile-info-submit-buttons-container">
+                                                        <Material type='button' style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
+                                                            {code ? "حذف کد تخفیف" : "ثبت"}
+                                                        </Material>
+                                                        <Material type='button' style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
+                                                            تکمیل خرید
+                                                        </Material>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                            }
                         </React.Fragment>
                     }
 

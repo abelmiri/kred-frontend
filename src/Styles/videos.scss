@@ -209,7 +209,8 @@
 }
 
 .buy-off-code-amount-cont {
-  height: 50px;
+  height: 35px;
+  margin-top: 15px;
 }
 
 .buy-off-code-amount {
@@ -220,10 +221,10 @@
 
 @keyframes off-code-in {
   from {
-    height: 0
+    opacity: 0
   }
   to {
-    height: 20px
+    opacity: 1
   }
 }
 
