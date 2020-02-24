@@ -172,7 +172,9 @@
   animation: show-modal linear 0.2s;
 
   &.profile {
+    width: 605px;
     @media screen and (max-width: 480px) {
+      width: 100%;
       left: 0;
       right: 0;
       top: 0;
@@ -183,4 +185,50 @@
       animation: show-modal-small linear 0.2s;
     }
   }
+}
+
+.buy-slide-cont {
+  width: 100%;
+  white-space: nowrap;
+}
+
+.buy-slide {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  white-space: normal;
+  min-height: 518px;
+  background-color: white;
+}
+
+.buy-off-code {
+  color: $primary-color;
+  font-size: $title-font-size;
+  text-align: right;
+  position: relative;
+}
+
+.buy-off-code-amount-cont {
+  height: 50px;
+}
+
+.buy-off-code-amount {
+  overflow: hidden;
+  height: 20px;
+  animation: off-code-in linear 0.2s;
+}
+
+@keyframes off-code-in {
+  from {
+    height: 0
+  }
+  to {
+    height: 20px
+  }
+}
+
+.buy-off-code-pay {
+  margin-top: 150px;
+  color: $error-color;
+  font-size: $menu-title-font-size;
 }

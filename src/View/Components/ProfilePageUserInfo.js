@@ -187,7 +187,7 @@ class ProfilePageUserInfo extends Component
 
                         {done && <p className="profile-info-submit-success-text">تغییرات با موفقیت ثبت شد.</p>}
                         <div className="profile-info-submit-buttons-container">
-                            <Material type='button' style={dontShowPasswordBtn ? {flexGrow: 1} : {}} onClick={!loading ? this.handleSubmit : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
+                            <Material type='button' style={dontShowPasswordBtn ? {flexGrow: 1} : {}} onClick={!loading ? this.handleSubmit : null} className={`profile-info-submit-button ${loading ? "loading" : ""}`}>
                                 ثبت
                             </Material>
                             {

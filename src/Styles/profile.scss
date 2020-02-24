@@ -254,6 +254,7 @@
   padding: 5px 0;
   background-color: $primary-color;
   color: white;
+  font-size: $home-regular-font-size;
   margin-top: 25px;
   cursor: pointer;
   text-align: center;
@@ -281,6 +282,7 @@
 .profile-info-submit-success-text {
   font-size: $home-regular-font-size;
   color: $success-color;
+  white-space: nowrap;
 }
 
 .profile-info-submit-error-text {

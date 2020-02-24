@@ -16,8 +16,11 @@ class VideoPacksPage extends PureComponent
         super(props)
         this.state = {
             buyLoading: false,
-            profileModal: false,
-            buyPackId: null,
+            buyModal: false,
+            buyPack: null,
+            level: 0,
+            offCodeLoading: false,
+            code: null,
         }
     }
 
@@ -39,10 +42,10 @@ class VideoPacksPage extends PureComponent
         {
             if (document.body.clientWidth <= 480)
             {
-                if (this.state.profileModal)
+                if (this.state.buyModal)
                 {
                     document.body.style.overflow = "auto"
-                    this.setState({...this.state, profileModal: false})
+                    this.setState({...this.state, buyModal: false})
                 }
             }
         }
@@ -52,25 +55,15 @@ class VideoPacksPage extends PureComponent
     {
         e && e.preventDefault()
         const {user} = this.props
-        const {buyPackId} = this.state
         if (user)
         {
             if (!user.name || !user.university)
             {
                 if (document.body.clientWidth <= 480) window.history.pushState("", "", "/videos/completeProfile")
                 document.body.style.overflow = "hidden"
-                this.setState({...this.state, profileModal: true, buyPackId: pack._id})
+                this.setState({...this.state, buyModal: true, buyPack: pack, level: 0})
             }
-            else
-            {
-                this.hideCompleteProfile()
-                this.setState({...this.state, buyLoading: true}, () =>
-                {
-                    api.post("buy-video-pack", {video_pack_id: pack ? pack._id : buyPackId})
-                        .then(response => window.location.href = response.link)
-                        .catch(() => this.setState({...this.state, buyLoading: false}, () => NotificationManager.error("مشکلی پیش آمد! بعدا امتحان کنید.")))
-                })
-            }
+            else this.setState({...this.state, buyModal: true, buyPack: pack, level: 1})
         }
         else
         {
@@ -79,22 +72,72 @@ class VideoPacksPage extends PureComponent
         }
     }
 
+    submitShop = () =>
+    {
+        this.hideCompleteProfile()
+        setTimeout(() =>
+        {
+            const {buyPack, code} = this.state
+            this.setState({...this.state, buyLoading: true}, () =>
+            {
+                api.post("buy-video-pack", {video_pack_id: buyPack._id, code: code?.code})
+                    .then(response => window.location.href = response.link)
+                    .catch(() => this.setState({...this.state, buyLoading: false}, () => NotificationManager.error("مشکلی پیش آمد! بعدا امتحان کنید.")))
+            })
+        }, 50)
+    }
+
     hideCompleteProfile = () =>
     {
-        if (this.state.profileModal)
+        if (this.state.buyModal)
         {
             if (document.body.clientWidth <= 480) window.history.back()
             else
             {
                 document.body.style.overflow = "auto"
-                this.setState({...this.state, profileModal: false})
+                this.setState({...this.state, buyModal: false, level: 0})
+            }
+        }
+    }
+
+    changeOffCode = (e) => e.target.value = e.target.value.trim()
+
+    validateOffCode = () =>
+    {
+        const {offCodeLoading} = this.state
+        if (this.state.code)
+        {
+            this.setState({...this.state, code: null})
+        }
+        else
+        {
+            const code = this.offCode.value
+            if (code && !offCodeLoading)
+            {
+                this.setState({...this.state, offCodeLoading: true}, () =>
+                {
+                    api.post("off-code-verify", {code})
+                        .then(result =>
+                        {
+                            const {code} = result
+                            this.setState({...this.state, code, offCodeLoading: false})
+                        })
+                        .catch(err =>
+                        {
+                            this.setState({...this.state, offCodeLoading: false}, () =>
+                            {
+                                if (err.response?.data.message) NotificationManager.error(err.response.data.message)
+                                else NotificationManager.error("خطا در برقراری ارتباط با سرور!")
+                            })
+                        })
+                })
             }
         }
     }
 
     render()
     {
-        const {buyLoading, profileModal} = this.state
+        const {buyLoading, buyModal, level, offCodeLoading, code, buyPack} = this.state
         const {videoPacks, companies, user, route, setUser} = this.props
         return (
             <Switch>
@@ -164,11 +207,47 @@ class VideoPacksPage extends PureComponent
                     }
 
                     {
-                        profileModal &&
+                        buyModal &&
                         <React.Fragment>
                             <div className="create-exchange-back" onClick={this.hideCompleteProfile}/>
                             <div className="buy-loading profile">
-                                <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
+                                <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
+                                    <div className="buy-slide">
+                                        <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
+                                    </div>
+                                    <div className="buy-slide">
+                                        <div className="profile-introduction-title">تایید خرید</div>
+                                        <div className="profile-info-description">
+                                            <div>
+                                                <p>کد تخفیف</p>
+                                                <input type="text" ref={e => this.offCode = e} onChange={this.changeOffCode}/>
+                                            </div>
+                                            <div className="buy-off-code">
+                                                <div className="buy-off-code-amount-cont">
+                                                    {
+                                                        code && <div className="buy-off-code-amount">تخفیف {code.amount_type === "fix" ? addCommaPrice(code.amount) : code.amount} {code.amount_type === "fix" ? "تومانی" : "درصدی"}</div>
+                                                    }
+                                                </div>
+                                                {
+                                                    buyPack &&
+                                                    <div className="buy-off-code-pay">
+                                                        مبلغ قابل پرداخت:
+                                                        <span> </span>
+                                                        {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div className="profile-info-submit-buttons-container">
+                                                <Material type='button' style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
+                                                    {code ? "حذف کد تخفیف" : "ثبت"}
+                                                </Material>
+                                                <Material type='button' style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
+                                                    تکمیل خرید
+                                                </Material>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </React.Fragment>
                     }
