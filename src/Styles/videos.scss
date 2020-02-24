@@ -232,4 +232,8 @@
   margin-top: 150px;
   color: $error-color;
   font-size: $menu-title-font-size;
+
+  @media screen and (max-width: 480px) {
+    margin-top: 40px;
+  }
 }

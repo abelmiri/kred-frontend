@@ -31,16 +31,18 @@ class ProfilePageUserInfo extends Component
         {
             const user = JSON.parse(localStorage.getItem("user"))
             this.setState({
-                ...this.state,
-                name: user.name && user.name,
-                email: user.email && user.email,
-                birth_date: user.birth_date && user.birth_date,
-                university: user.university && user.university,
-                entrance: user.entrance && user.entrance,
-                major: user.major && user.major,
-                grade: user.grade && user.grade,
-                password: user.password && user.password,
-            }, () => this.name.focus())
+                    ...this.state,
+                    name: user.name && user.name,
+                    email: user.email && user.email,
+                    birth_date: user.birth_date && user.birth_date,
+                    university: user.university && user.university,
+                    entrance: user.entrance && user.entrance,
+                    major: user.major && user.major,
+                    grade: user.grade && user.grade,
+                    password: user.password && user.password,
+                },
+                () => document.body.clientWidth > 480 && this.name.focus(),
+            )
         }
     }
 
