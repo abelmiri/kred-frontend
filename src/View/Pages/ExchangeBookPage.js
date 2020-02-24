@@ -214,8 +214,8 @@ class ExchangeBookPage extends PureComponent
                 <Route path={`${route.match.url}/:id`} render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={getCities} cities={cities}/>}/>
 
                 <React.Fragment>
-                    <div className='exchange-background-img'>
-                        <div className='exchange-des-cont'>
+                    <div className='page-background-img exchange'>
+                        <div className='page-des-cont'>
                             <h2 className='exchange-desc'>تبادل کتاب</h2>
                             <h3 className='exchange-text'>
                                 اینجا میتونی کتابای ترم های قبلت رو، به ترم پایینی‌ها بدی

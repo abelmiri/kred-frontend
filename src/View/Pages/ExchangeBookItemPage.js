@@ -17,13 +17,16 @@ class ExchangeBookItemPage extends PureComponent
 
     componentDidMount()
     {
-        window.scroll({top: 0})
         const {exchangeId, getCities} = this.props
-        api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`, true).then((exchange) => this.setState({...this.state, exchange}))
-        getCities()
+        if (exchangeId !== "addExchangeModal")
+        {
+            window.scroll({top: 0})
+            api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`, true).then((exchange) => this.setState({...this.state, exchange}))
+            getCities()
 
-        // statistics
-        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "تبادل کتاب | صفحه کتاب", content_id: exchangeId}).catch(err => console.log(err))
+            // statistics
+            process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "تبادل کتاب | صفحه کتاب", content_id: exchangeId}).catch(err => console.log(err))
+        }
     }
 
     toggleContact = () => this.setState({...this.state, showContact: !this.state.showContact})

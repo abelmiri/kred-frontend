@@ -1,34 +1,5 @@
 @import "variables";
 
-.video-background-img {
-  margin-top: 80px;
-  width: 100%;
-  height: calc(100vh - 80px);
-  object-fit: cover;
-  background-image: url("../Media/Images/VideoPage.jpg");
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  @media screen and (max-width: 480px) {
-    align-items: center;
-  }
-}
-
-.video-des-cont {
-  max-width: 550px;
-  text-align: center;
-  margin: 50px 5% 0 0;
-
-  @media screen and (max-width: 480px) {
-    margin: 15px 0 0 0;
-    width: 90%;
-    max-width: 90%;
-  }
-}
-
 .video-page-desc {
   display: block;
   white-space: nowrap;
@@ -192,4 +163,21 @@
   left: 50%;
   top: 50%;
   z-index: 5;
+  transform: translate(-50%, -50%);
+  max-height: 80vh;
+  overflow: hidden;
+  overflow-y: auto;
+  animation: show-modal linear 0.2s;
+
+  &.profile {
+    @media screen and (max-width: 480px) {
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      transform: translate(0, 0);
+      max-height: initial;
+      animation: show-modal-small linear 0.2s;
+    }
+  }
 }

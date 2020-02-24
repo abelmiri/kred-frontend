@@ -52,10 +52,14 @@ class App extends PureComponent
         }
 
         const {location} = this.props
-        if (location.pathname.includes("loginModal") || location.pathname.includes("addExchangeModal"))
+        if (location.pathname.includes("loginModal") || location.pathname.includes("addExchangeModal") || location.pathname.includes("completeProfile"))
         {
-            let shit = location.pathname.replace("/loginModal", "").replace("/addExchangeModal", "")
+            let shit = location.pathname
+                .replace("/loginModal", "")
+                .replace("/addExchangeModal", "")
+                .replace("/completeProfile", "")
             window.history.replaceState("", "", shit ? shit : "/")
+            document.location.reload()
         }
     }
 
@@ -159,7 +163,16 @@ class App extends PureComponent
                     <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                     <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
                     <Route path='/exchanges' render={(route) => <ExchangeBookPage route={route} defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                    <Route path='/videos' render={(route) => <VideoPacksPage route={route} user={user} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks} getCompanies={this.getCompanies} companies={companies}/>}/>
+                    <Route path='/videos' render={(route) =>
+                        <VideoPacksPage route={route}
+                                        user={user}
+                                        getVideoPacks={this.getVideoPacks}
+                                        videoPacks={videoPacks}
+                                        getCompanies={this.getCompanies}
+                                        companies={companies}
+                                        setUser={this.setUser}
+                        />
+                    }/>
                     <Route path='/statistics' render={() => <StatisticsPage user={user}/>}/>
                     <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
                     <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>

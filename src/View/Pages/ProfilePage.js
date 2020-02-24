@@ -63,32 +63,32 @@ class ProfilePage extends PureComponent
                 <div className="profile-right-menus">
                     <div className="profile-main-right-menu">
                         <Material backgroundColor={selected === "dashboard" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("dashboard")}
-                                  className={selected === "dashboard" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                                  className={`profile-main-right-menu-element ${selected === "dashboard" ? "selected" : ""}`}>
                             <Dashboard className="dashboard-svg"/>
-                            داشبور من
+                            داشبورد من
                         </Material>
                         <Material backgroundColor={selected === "profile" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("profile")}
-                                  className={selected === "profile" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                                  className={`profile-main-right-menu-element ${selected === "profile" ? "selected" : ""}`}>
                             <Profile className="dashboard-svg"/>
                             اطلاعات حساب
                         </Material>
                         <Material backgroundColor={selected === "videoPlayer" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("videoPlayer")}
-                                  className={selected === "videoPlayer" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                                  className={`profile-main-right-menu-element ${selected === "videoPlayer" ? "selected" : ""}`}>
                             <VideoPlayer className="dashboard-svg"/>
                             فیلم های آموزشی من
                         </Material>
                         <Material backgroundColor={selected === "booklet" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("booklet")}
-                                  className={selected === "booklet" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                                  className={`profile-main-right-menu-element ${selected === "booklet" ? "selected" : ""}`}>
                             <Booklet className="dashboard-svg"/>
                             جزوات و خلاصه های من
                         </Material>
                         <Material backgroundColor={selected === "questions" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("questions")}
-                                  className={selected === "questions" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                                  className={`profile-main-right-menu-element ${selected === "questions" ? "selected" : ""}`}>
                             <Questions className="dashboard-svg"/>
                             نمونه سوال های من
                         </Material>
                         <Material backgroundColor={selected === "bookmark" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("bookmark")}
-                                  className={selected === "bookmark" ? "profile-main-right-menu-element-selected" : "profile-main-right-menu-element"}>
+                                  className={`profile-main-right-menu-element ${selected === "bookmark" ? "selected" : ""}`}>
                             <Bookmark className="dashboard-svg"/>
                             علاقه‌مندی های من
                         </Material>

@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import Material from "./Material"
 import api from "../../Functions/api"
+import {NotificationManager} from "react-notifications"
 
 class ProfilePageUserInfo extends Component
 {
@@ -76,24 +77,36 @@ class ProfilePageUserInfo extends Component
     handleSubmit = () =>
     {
         const {email, name, major, grade, entrance, birth_date, university} = this.state
-        const {setUser} = this.props
+        const {setUser, resolve} = this.props
 
-        this.setState({...this.state, loading: true, done: false}, () =>
+        if (!name || !university)
         {
-            api.patch("user", {email, name, major, grade, entrance, birth_date, university}, "")
-                .then((res) =>
-                {
-                    this.setState({...this.state, loading: false, done: true}, () => setUser(res))
-                })
-                .catch((e) =>
-                {
-                    if (e.message === "Request failed with status code 404")
+            if (!name) NotificationManager.error("لطفا اسم خودتون رو وارد کنید!")
+            if (!university) NotificationManager.error("لطفا دانشگاه خودتون رو وارد کنید!")
+        }
+        else
+        {
+            this.setState({...this.state, loading: true, done: false}, () =>
+            {
+                api.patch("user", {email, name, major, grade, entrance, birth_date, university}, "")
+                    .then((res) =>
                     {
-                        localStorage.removeItem("user")
-                        this.setState({...this.state, loading: false})
-                    }
-                })
-        })
+                        this.setState({...this.state, loading: false, done: true}, () =>
+                        {
+                            setUser(res)
+                            setTimeout(() => resolve && resolve(), 150)
+                        })
+                    })
+                    .catch((e) =>
+                    {
+                        if (e.message === "Request failed with status code 404")
+                        {
+                            localStorage.removeItem("user")
+                            this.setState({...this.state, loading: false})
+                        }
+                    })
+            })
+        }
     }
 
     handlePassModal = () =>
@@ -137,36 +150,52 @@ class ProfilePageUserInfo extends Component
     render()
     {
         const {email, name, major, grade, entrance, birth_date, university, pass_modal, loading, done, done_pass, wrong_pass} = this.state
+        const {showPrompt, dontShowPasswordBtn} = this.props
         return (
             <div className="profile-introduction">
                 <div className="profile-introduction-content">
-                    <div className="profile-introduction-title">
-                        اطلاعات شخصی
-                    </div>
+                    {showPrompt && <div className="profile-introduction-title">میشه اطلاعات پروفایلت رو کامل کنی؟</div>}
                     <div className="profile-info-description">
-                        <p>نام کامل</p>
-                        <input type="text" placeholder="نام و نام خانوادگی" defaultValue={name ? name : ""} onBlur={(e) => this.setUserData(e, "name")}/>
-                        <p>ایمیل</p>
-                        <input type="email" placeholder="name@provider.dom" defaultValue={email ? email : ""} dir="ltr" onBlur={(e) => this.setUserData(e, "email")}/>
-                        <p>تاریخ تولد</p>
-                        <input type="text" placeholder="1375/05/15" defaultValue={birth_date ? birth_date : ""} onBlur={(e) => this.setUserData(e, "birth_date")}/>
-                        <p>نام دانشگاه</p>
-                        <input type="text" placeholder="صنعتی شریف" defaultValue={university ? university : ""} onBlur={(e) => this.setUserData(e, "university")}/>
-                        <p>سال ورودی دانشگاه</p>
-                        <input type="text" placeholder="971" defaultValue={entrance ? entrance : ""} onBlur={(e) => this.setUserData(e, "entrance")}/>
-                        <p>رشته تحصیلی</p>
-                        <input type="text" placeholder="پزشکی" defaultValue={major ? major : ""} onBlur={(e) => this.setUserData(e, "major")}/>
-                        <p>مقطع تحصیلی</p>
-                        <input type="text" placeholder="دکترا" defaultValue={grade ? grade : ""} onBlur={(e) => this.setUserData(e, "grade")}/>
+                        <div>
+                            <p>نام کامل <span>*</span></p>
+                            <input type="text" placeholder="نام و نام خانوادگی" defaultValue={name ? name : ""} onBlur={(e) => this.setUserData(e, "name")}/>
+                        </div>
+                        <div>
+                            <p>ایمیل</p>
+                            <input type="email" placeholder="name@provider.dom" defaultValue={email ? email : ""} dir="ltr" onBlur={(e) => this.setUserData(e, "email")}/>
+                        </div>
+                        <div>
+                            <p>تاریخ تولد</p>
+                            <input type="text" placeholder="1375/05/15" defaultValue={birth_date ? birth_date : ""} onBlur={(e) => this.setUserData(e, "birth_date")}/>
+                        </div>
+                        <div>
+                            <p>نام دانشگاه <span>*</span></p>
+                            <input type="text" placeholder="علوم پزشکی ایران" defaultValue={university ? university : ""} onBlur={(e) => this.setUserData(e, "university")}/>
+                        </div>
+                        <div>
+                            <p>سال ورودی دانشگاه</p>
+                            <input type="text" placeholder="971" defaultValue={entrance ? entrance : ""} onBlur={(e) => this.setUserData(e, "entrance")}/>
+                        </div>
+                        <div>
+                            <p>رشته تحصیلی</p>
+                            <input type="text" placeholder="پزشکی" defaultValue={major ? major : ""} onBlur={(e) => this.setUserData(e, "major")}/>
+                        </div>
+                        <div>
+                            <p>مقطع تحصیلی</p>
+                            <input type="text" placeholder="دکترا" defaultValue={grade ? grade : ""} onBlur={(e) => this.setUserData(e, "grade")}/>
+                        </div>
 
                         {done && <p className="profile-info-submit-success-text">تغییرات با موفقیت ثبت شد.</p>}
                         <div className="profile-info-submit-buttons-container">
-                            <Material type='button' onClick={!loading ? this.handleSubmit : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
+                            <Material type='button' style={dontShowPasswordBtn ? {flexGrow: 1} : {}} onClick={!loading ? this.handleSubmit : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
                                 ثبت
                             </Material>
-                            <Material type='button' onClick={!loading ? this.handlePassModal : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
-                                تغییر رمز
-                            </Material>
+                            {
+                                !dontShowPasswordBtn &&
+                                <Material type='button' onClick={!loading ? this.handlePassModal : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
+                                    تغییر رمز
+                                </Material>
+                            }
                         </div>
                         {pass_modal ?
                             <React.Fragment>

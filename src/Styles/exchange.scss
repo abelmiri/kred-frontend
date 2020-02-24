@@ -1,27 +1,36 @@
 @import "variables";
 
-.exchange-background-img {
+.page-background-img {
   margin-top: 80px;
   width: 100%;
   height: calc(100vh - 80px);
   object-fit: cover;
-  background-image: url("../Media/Images/Exchange.jpg");
   background-size: cover;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  &.exchange {
+    background-image: url("../Media/Images/Exchange.jpg");
+  }
+
+  &.video {
+    background-image: url("../Media/Images/VideoPage.jpg");
+  }
+
+  @media screen and (max-width: 480px) {
+    align-items: center;
+  }
 }
 
-.exchange-des-cont {
-  max-width: 570px;
+.page-des-cont {
+  max-width: 550px;
   text-align: center;
+  margin: 50px 5% 0 0;
 
-  @media screen and (min-width: 650px) {
-    margin: 0 0 250px 550px;
-  }
   @media screen and (max-width: 480px) {
-    margin: 0 5% 350px 5%;
+    margin: 15px 0 0 0;
     width: 90%;
     max-width: 90%;
   }
