@@ -57,13 +57,14 @@ class VideoPacksPage extends PureComponent
         const {user} = this.props
         if (user)
         {
+            const {buyPack} = this.state
             if (!user.name || !user.university)
             {
                 if (document.body.clientWidth <= 480) window.history.pushState("", "", "/videos/completeProfile")
                 document.body.style.overflow = "hidden"
-                this.setState({...this.state, buyModal: true, buyPack: pack, level: 0, code: null})
+                this.setState({...this.state, buyModal: true, buyPack: pack ? pack : buyPack, level: 0, code: null})
             }
-            else this.setState({...this.state, buyModal: true, buyPack: pack, level: 1, code: null})
+            else this.setState({...this.state, buyModal: true, buyPack: pack ? pack : buyPack, level: 1, code: null}, () => this.offCode.focus())
         }
         else
         {
@@ -230,6 +231,8 @@ class VideoPacksPage extends PureComponent
                                                                 مبلغ قابل پرداخت:
                                                                 <span> </span>
                                                                 {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
+                                                                <span> </span>
+                                                                تومان
                                                             </div>
                                                         }
                                                     </div>

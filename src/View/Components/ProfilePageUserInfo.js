@@ -40,7 +40,7 @@ class ProfilePageUserInfo extends Component
                 major: user.major && user.major,
                 grade: user.grade && user.grade,
                 password: user.password && user.password,
-            })
+            }, () => this.name.focus())
         }
     }
 
@@ -88,13 +88,13 @@ class ProfilePageUserInfo extends Component
         {
             this.setState({...this.state, loading: true, done: false}, () =>
             {
-                api.patch("user", {email, name, major, grade, entrance, birth_date, university}, "")
+                api.patch("user", {email, name, major, grade, entrance, birth_date: birth_date ? birth_date : null, university}, "")
                     .then((res) =>
                     {
-                        this.setState({...this.state, loading: false, done: true}, () =>
+                        this.setState({...this.state, loading: false, done: !resolve}, () =>
                         {
                             setUser(res)
-                            setTimeout(() => resolve && resolve(), 150)
+                            setTimeout(() => resolve && resolve(), 50)
                         })
                     })
                     .catch((e) =>
@@ -158,7 +158,7 @@ class ProfilePageUserInfo extends Component
                     <div className="profile-info-description">
                         <div>
                             <p>نام کامل <span>*</span></p>
-                            <input type="text" placeholder="نام و نام خانوادگی" defaultValue={name ? name : ""} onBlur={(e) => this.setUserData(e, "name")}/>
+                            <input ref={e => this.name = e} type="text" placeholder="نام و نام خانوادگی" defaultValue={name ? name : ""} onBlur={(e) => this.setUserData(e, "name")}/>
                         </div>
                         <div>
                             <p>ایمیل</p>
