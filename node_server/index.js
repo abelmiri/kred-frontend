@@ -1,6 +1,7 @@
 const app = require("express")()
 const fs = require("fs")
 const path = require("path")
+const request = require("request")
 
 app.route("/static/:folder/:file").get((req, res) =>
 {
@@ -26,11 +27,11 @@ app.route("/static/:folder/:file").get((req, res) =>
 
 app.route("/site-map").get((req, res) =>
 {
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
-  res.setHeader("Pragma", "no-cache") // HTTP 1.0.
-  res.setHeader("Expires", "0") // Proxies.
-  res.send("https://www.kred.ir/\nhttps://www.kred.ir/sign-up\nhttps://www.kred.ir/exchanges\nhttps://www.kred.ir/videos\nhttps://www.kred.ir/videos/5e480095ac00841b52a27ee1")
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
+    res.setHeader("Pragma", "no-cache") // HTTP 1.0.
+    res.setHeader("Expires", "0") // Proxies.
+    res.send("https://www.kred.ir/\nhttps://www.kred.ir/sign-up\nhttps://www.kred.ir/exchanges\nhttps://www.kred.ir/videos\nhttps://www.kred.ir/videos/5e480095ac00841b52a27ee1")
 })
 
 app.route("/:file").get((req, res) =>
@@ -42,6 +43,41 @@ app.route("/:file").get((req, res) =>
     if (fs.existsSync(path.join(__dirname, `/${req.params.file}`))) res.sendFile(path.join(__dirname, `/${req.params.file}`))
     else res.sendFile(path.join(__dirname, "index.html"))
 })
+
+app.route("/exchanges/:id").get((req, res) => fs.readFile("./index.html", null, (err, data) => sendExchangeHtml(req.params.id, res, data, err)))
+
+function sendExchangeHtml(id, res, html, err)
+{
+    if (err) res.sendFile(path.join(__dirname, "index.html"))
+    else request(`https://restful.kred.ir/exchange/${id}`, (error, response, body) =>
+    {
+        try
+        {
+            const exchange = JSON.parse(body)
+            if (exchange && exchange._id)
+            {
+                res.send(html.toString().replace(
+                    `<title>کرد؛ گام هایی جذاب در دنیای پزشکی</title><meta property="og:title" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta name="twitter:title" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta name="description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta property="og:description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta name="twitter:description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta property="og:image" content="/logo512.png"/><meta name="twitter:image" content="/logo512.png"/><meta name="twitter:card" content="summary_large_image"/>`,
+                    `<title>تبادل کتاب ${exchange.title} | کرد</title>
+                                 <meta property="og:title" content="تبادل کتاب ${exchange.title} | کرد"/>
+                                 <meta name="twitter:title" content="تبادل کتاب ${exchange.title} | کرد"/>
+                                 <meta name="description" content="${exchange.description}"/>
+                                 <meta property="og:description" content="${exchange.description}"/>
+                                 <meta name="twitter:description" content="${exchange.description}"/>
+                                 <meta property="og:image" content="https://restful.kred.ir/${exchange.picture}"/>
+                                 <meta name="twitter:image" content="https://restful.kred.ir/${exchange.picture}"/>
+                                 <meta name="twitter:card" content="summary_large_image"/>`,
+                ))
+            }
+            else res.sendFile(path.join(__dirname, "index.html"))
+        }
+        catch (e)
+        {
+            console.log(e.message)
+            res.sendFile(path.join(__dirname, "index.html"))
+        }
+    })
+}
 
 app.route("*").get((req, res) =>
 {

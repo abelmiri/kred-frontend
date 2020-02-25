@@ -53,7 +53,10 @@ class StatisticsPage extends PureComponent
         if (user && user.role === "admin")
         {
             const {results, error} = this.state
-            const {allSignUpCount, allPagesCount, allPages, allVideosCount, allVideos, todaySignUpCount, todaySignUp, todayPagesCount, todayPages, todayVideosCount, todayVideos} = results
+            const {
+                allSignUpCount, allPagesCount, allPages, allVideosCount, allVideos, allBuyCount,
+                todaySignUpCount, todaySignUp, todayPagesCount, todayPages, todayVideosCount, todayVideos, todayBuyCount,
+            } = results
             return (
                 <div className="statistics-page-container">
                     {
@@ -71,12 +74,16 @@ class StatisticsPage extends PureComponent
                                             <div>{allSignUpCount}</div>
                                         </div>
                                         <div className="statistics-page-view-item">
+                                            <div>فروش پک</div>
+                                            <div>{allBuyCount}</div>
+                                        </div>
+                                        <div className="statistics-page-view-item second">
                                             <div>بازدیدهای صفحات</div>
                                             <div>{allPagesCount}</div>
                                             <div className="statistics-page-view-item-child">
                                                 {
                                                     Object.values(allPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                        <Fluent key={"all-pages" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent">
+                                                        <Fluent key={"all-pages" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
                                                             <Material className="statistics-page-view-item-child-item">
                                                                 <div>{item.title}</div>
                                                                 <div>{item.count}</div>
@@ -86,13 +93,13 @@ class StatisticsPage extends PureComponent
                                                 }
                                             </div>
                                         </div>
-                                        <div className="statistics-page-view-item second">
+                                        <div className="statistics-page-view-item">
                                             <div>بازدیدهای ویدیوها</div>
                                             <div>{allVideosCount}</div>
                                             <div className="statistics-page-view-item-child">
                                                 {
                                                     Object.values(allVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                        <Fluent key={"all-videos" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
+                                                        <Fluent key={"all-videos" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent">
                                                             <Material className="statistics-page-view-item-child-item">
                                                                 <div>{item.title}</div>
                                                                 <div>{item.count}</div>
@@ -111,7 +118,7 @@ class StatisticsPage extends PureComponent
                                             <div>{todaySignUpCount}</div>
                                             <div className="statistics-page-view-item-child">
                                                 {
-                                                    Object.values(todaySignUp).map(user =>
+                                                    Object.values(todaySignUp).reverse().map(user =>
                                                         <Fluent key={"user" + user._id} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
                                                             <Material className="statistics-page-view-item-child-item">
                                                                 <div>{user.name || user.phone}</div>
@@ -122,12 +129,16 @@ class StatisticsPage extends PureComponent
                                             </div>
                                         </div>
                                         <div className="statistics-page-view-item">
+                                            <div>فروش پک</div>
+                                            <div>{todayBuyCount}</div>
+                                        </div>
+                                        <div className="statistics-page-view-item second">
                                             <div>بازدیدهای صفحات</div>
                                             <div>{todayPagesCount}</div>
                                             <div className="statistics-page-view-item-child">
                                                 {
                                                     Object.values(todayPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                        <Fluent key={"today-pages" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent">
+                                                        <Fluent key={"today-pages" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
                                                             <Material className="statistics-page-view-item-child-item">
                                                                 <div>{item.title}</div>
                                                                 <div>{item.count}</div>
@@ -137,13 +148,13 @@ class StatisticsPage extends PureComponent
                                                 }
                                             </div>
                                         </div>
-                                        <div className="statistics-page-view-item second">
+                                        <div className="statistics-page-view-item">
                                             <div>بازدیدهای ویدیوها</div>
                                             <div>{todayVideosCount}</div>
                                             <div className="statistics-page-view-item-child">
                                                 {
                                                     Object.values(todayVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                        <Fluent key={"today-videos" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent second">
+                                                        <Fluent key={"today-videos" + item.title} fluentColor="#F5F8F8" className="statistics-page-view-item-child-item-fluent">
                                                             <Material className="statistics-page-view-item-child-item">
                                                                 <div>{item.title}</div>
                                                                 <div>{item.count}</div>
