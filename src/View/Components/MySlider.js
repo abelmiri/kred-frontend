@@ -92,7 +92,7 @@ class MySlider extends PureComponent
 
     render()
     {
-        const {className, nodes, dots, marginDots, arrows, marginArrows} = this.props
+        const {className, nodes, dots, marginDots, arrows, marginArrows, dotSelectedColor, dotColor} = this.props
         const {showIndex} = this.state
         return (
             <div className={`my-slider-component ${className}`}>
@@ -123,7 +123,13 @@ class MySlider extends PureComponent
                     {
                         dots &&
                         <div className="my-slider-dots" style={marginDots ? {margin: marginDots} : {}}>{
-                            nodes.map((_, index) => <div className={`my-slider-dot ${showIndex === index ? "colored_dot" : ""}`} key={"dot-slider" + index} onClick={() => this.setIndex(index)}/>)}
+                            nodes.map((_, index) =>
+                                <div key={"dot-slider" + index}
+                                     className={`my-slider-dot ${showIndex === index ? "colored_dot" : ""}`}
+                                     style={showIndex === index && dotSelectedColor ? {backgroundColor: dotSelectedColor} : dotColor ? {backgroundColor: dotColor} : {}}
+                                     onClick={() => this.setIndex(index)}
+                                />,
+                            )}
                         </div>
                     }
                 </div>
