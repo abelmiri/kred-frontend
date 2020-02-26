@@ -321,7 +321,23 @@
   }
 }
 
-.home-videos-item {
+.home-videos-item-cont {
   width: 100%;
   height: 375px;
+}
+
+.home-videos-item {
+  width: 100%;
+  height: 345px;
+  display: block;
+}
+
+.home-videos-item-title {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $title-font-size;
+  background-color: black;
+  color: white;
 }

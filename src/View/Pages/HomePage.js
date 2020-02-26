@@ -73,16 +73,19 @@ class HomePage extends PureComponent
                         <div className="home-videos-img-title">پربازدیدترین فیلم‌ها</div>
                         <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" nodes={
                             freeVideos.map(video =>
-                                <video key={video._id} id={video._id} controls controlsList="nodownload"
-                                       className="home-videos-item"
-                                       poster={REST_URL + video.poster}
-                                       onPlay={this.onVideoPlay}
-                                       onMouseDown={this.onLinkDown}
-                                       onMouseUp={this.onLinkUp}
-                                       onClick={this.onLinkClick}>
-                                    <source src={REST_URL + video.video_url}/>
-                                    <track label="Farsi" kind="subtitles" srcLang="en" src={REST_URL + video.subtitle_url} default/>
-                                </video>,
+                                <div className="home-videos-item-cont">
+                                    <video key={video._id} id={video._id} controls controlsList="nodownload"
+                                           className="home-videos-item"
+                                           poster={REST_URL + video.poster}
+                                           onPlay={this.onVideoPlay}
+                                           onMouseDown={this.onLinkDown}
+                                           onMouseUp={this.onLinkUp}
+                                           onClick={this.onLinkClick}>
+                                        <source src={REST_URL + video.video_url}/>
+                                        <track label="Farsi" kind="subtitles" srcLang="en" src={REST_URL + video.subtitle_url} default/>
+                                    </video>
+                                    <div className="home-videos-item-title">{video.title}</div>
+                                </div>,
                             )
                         }/>
                     </div>
