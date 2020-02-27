@@ -46,7 +46,7 @@
 
 .header-buttons-menu-cont {
   @media screen and (min-width: 750px) {
-    margin-left: 20px;
+    margin-left: 35px;
     height: 100%;
     position: relative;
     transition: all linear 0.2s;
@@ -88,6 +88,10 @@
   padding: 0 20px;
   font-weight: bold;
   transition: all linear 0.2s;
+
+  &.panel {
+    background-color: $secondary-color;
+  }
 }
 
 .header-buttons-menu-drop {
@@ -171,7 +175,7 @@
 
 .header-buttons-title {
   cursor: pointer;
-  margin: 0 20px;
+  margin-left: 35px;
   user-select: none;
   height: 30%;
   display: inline-flex;
@@ -189,7 +193,7 @@
   }
 
   &:first-child {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 35px;
   }
 }
 
@@ -373,11 +377,15 @@
 }
 
 .header-sidebar-back {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100vh;
+  display: none;
+  @media screen and (max-width: 480px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+  }
 }

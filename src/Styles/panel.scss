@@ -1,0 +1,164 @@
+@import "variables";
+
+.panel-page-section {
+  width: calc(100% - 20px);
+  text-align: center;
+}
+
+.panel-0ff-code-scroll {
+  width: 100%;
+  overflow-y: visible;
+  overflow-x: auto;
+}
+
+.panel-0ff-code-cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $regular-font-size;
+  padding: 10px 0;
+
+  &:nth-child(odd) {
+    background-color: $login-page-background-color;
+  }
+
+  &.title {
+    background-color: $secondary-color;
+    padding: 13px 0;
+    color: white;
+    font-weight: bold;
+  }
+
+  &.scroll {
+    @media screen and (max-width: 480px) {
+      width: 120%;
+    }
+  }
+}
+
+.panel-0ff-code-item-small {
+  width: 100px;
+  text-align: center;
+}
+
+.panel-0ff-code-item {
+  width: 200px;
+  text-align: center;
+}
+
+.panel-0ff-main {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+
+.panel-0ff-main-item {
+  background-color: $primary-color;
+  color: white;
+  margin: 10px;
+  width: 200px;
+  flex-grow: 1;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid $secondary-color;
+  text-decoration: none;
+
+  .material {
+    padding: 50px;
+  }
+
+  &:nth-child(odd) {
+    background-color: $secondary-color;
+    border: 1px solid $almost-dark-color;
+  }
+}
+
+.panel-0ff-code-add {
+  width: 55px;
+  height: 53px;
+  padding-top: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 5%;
+  bottom: 5%;
+  background-color: $primary-color;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.panel-add-off-main {
+  padding: 15px;
+  overflow: auto;
+
+  @media screen and (min-width: 480px) {
+    max-height: 80vh;
+  }
+}
+
+.panel-add-off-input-cont {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  height: 35px;
+  position: relative;
+
+  label {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 3px;
+  }
+}
+
+.panel-add-off-input-title {
+  width: 85px;
+  font-size: $regular-font-size;
+  text-align: right;
+  padding-top: 5px;
+}
+
+.panel-add-off-input {
+  flex-grow: 1;
+  padding: 5px 0;
+  border: none;
+  border-bottom: 1px solid $text-light-color;
+  transition: all linear 0.2s;
+
+  &:focus {
+    border-bottom: 1px solid $primary-color;
+  }
+}
+
+.panel-add-off-hint {
+  font-size: $regular-font-size;
+  color: $text-light-color;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.panel-add-off-submit {
+  background-color: $primary-color;
+  color: white;
+  font-size: $title-font-size;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.panel-0ff-code-usage {
+  width: 30px !important;
+  height: 30px;
+  background-color: $third-color;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}

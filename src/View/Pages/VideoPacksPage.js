@@ -135,10 +135,10 @@ class VideoPacksPage extends PureComponent
     render()
     {
         const {buyLoading, buyModal, level, offCodeLoading, code, buyPack} = this.state
-        const {videoPacks, companies, user, route, setUser} = this.props
+        const {videoPacks, companies, user, setUser} = this.props
         return (
             <Switch>
-                <Route path={`${route.match.url}/:id`} render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
+                <Route path="/videos/:id" render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
 
                 <React.Fragment>
                     <div className='page-background-img video'>

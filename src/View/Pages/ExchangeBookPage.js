@@ -207,11 +207,11 @@ class ExchangeBookPage extends PureComponent
 
     render()
     {
-        const {cities, defaultPhone, categories, route, getCities} = this.props
+        const {cities, defaultPhone, categories, getCities} = this.props
         const {exchanges, showModal, exchangesLoading, newExchanges, selectedParent, selectedCategories, showCategoryMenu, searchTitle} = this.state
         return (
             <Switch>
-                <Route path={`${route.match.url}/:id`} render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={getCities} cities={cities}/>}/>
+                <Route path="/exchanges/:id" render={(route) => <ExchangeBookItemPage exchangeId={route.match.params.id} getCities={getCities} cities={cities}/>}/>
 
                 <React.Fragment>
                     <div className='page-background-img exchange'>

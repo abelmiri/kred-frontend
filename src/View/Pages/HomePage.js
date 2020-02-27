@@ -4,6 +4,7 @@ import Nurses from "../../Media/Images/Nurses.png"
 import Material from "../Components/Material"
 import api, {REST_URL} from "../../Functions/api"
 import MySlider from "../Components/MySlider"
+import axios from "axios"
 
 class HomePage extends PureComponent
 {
@@ -11,17 +12,17 @@ class HomePage extends PureComponent
     {
         super(props)
         this.state = {
-            freeVideos: [],
+            freeVideos: {},
         }
     }
-
 
     componentDidMount()
     {
         window.scroll({top: 0})
 
         if (document.body.clientWidth >= 800)
-            api.get("video/free", "", true).then(freeVideos => this.setState({...this.state, freeVideos}))
+            api.get("video/free", "", true)
+                .then(freeVideos => this.setState({...this.state, freeVideos: freeVideos.reduce((sum, video) => ({...sum, [video._id]: {...video}}), {})}, () => this.getSubtitlesFromServer(freeVideos)))
 
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه اصلی"}).catch(err => console.log(err))
@@ -32,6 +33,20 @@ class HomePage extends PureComponent
         const {goToExchangeBook} = this.props
         const {target} = e
         goToExchangeBook(target, location)
+    }
+
+    getSubtitlesFromServer(videos)
+    {
+        videos.forEach(video =>
+        {
+            axios.get(REST_URL + video.subtitle_url, {responseType: "blob"})
+                .then((res) =>
+                {
+                    const freeVideos = {...this.state.freeVideos}
+                    freeVideos[video._id] = {...video, subtitle: URL.createObjectURL(res.data)}
+                    this.setState({...this.state, freeVideos})
+                })
+        })
     }
 
     onLinkClick = (e) =>
@@ -50,7 +65,9 @@ class HomePage extends PureComponent
     onVideoPlay = (e) =>
     {
         const {freeVideos} = this.state
-        freeVideos.forEach(video => video._id !== e.target.id && document.getElementById(video._id).pause())
+        Object.values(freeVideos).forEach(video => video._id !== e.target.id && document.getElementById(video._id).pause())
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: freeVideos[e.target.id].title, content_id: e.target.id}).catch(err => console.log(err))
     }
 
     render()
@@ -72,7 +89,7 @@ class HomePage extends PureComponent
                     <div className="home-videos-img desktop">
                         <div className="home-videos-img-title">پربازدیدترین فیلم‌ها</div>
                         <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" nodes={
-                            freeVideos.map(video =>
+                            (Object.values(freeVideos)).map(video =>
                                 <div className="home-videos-item-cont">
                                     <video key={video._id} id={video._id} controls controlsList="nodownload"
                                            className="home-videos-item"
@@ -82,7 +99,7 @@ class HomePage extends PureComponent
                                            onMouseUp={this.onLinkUp}
                                            onClick={this.onLinkClick}>
                                         <source src={REST_URL + video.video_url}/>
-                                        <track label="Farsi" kind="subtitles" srcLang="en" src={REST_URL + video.subtitle_url} default/>
+                                        <track label="Farsi" kind="subtitles" srcLang="en" src={video.subtitle} default/>
                                     </video>
                                     <div className="home-videos-item-title">{video.title}</div>
                                 </div>,
