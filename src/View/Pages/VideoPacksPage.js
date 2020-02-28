@@ -170,14 +170,20 @@ class VideoPacksPage extends PureComponent
                                                         <div className="video-pack-item">
                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
                                                             <div className="video-pack-item-title">
-                                                                <div className="video-pack-item-title-text">{pack.title}</div>
+                                                                <div className="video-pack-item-title-text">
+                                                                    {pack.title}
+                                                                    {pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>}
+                                                                </div>
                                                                 {
-                                                                    pack.have_permission ?
-                                                                        <TickSvg className="video-pack-item-title-svg"/>
-                                                                        :
+                                                                    !pack.have_permission &&
+                                                                    <React.Fragment>
+                                                                        <Material className="video-pack-item-title-buy view">
+                                                                            مشاهده
+                                                                        </Material>
                                                                         <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
                                                                             خرید ({addCommaPrice(pack.price)} تومان)
                                                                         </Material>
+                                                                    </React.Fragment>
                                                                 }
                                                             </div>
                                                         </div>

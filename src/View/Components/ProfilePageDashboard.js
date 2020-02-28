@@ -66,11 +66,11 @@ class ProfilePageDashboard extends PureComponent
                         <p>کرِد یک کلمه باستانیه که ریشه‌ی تمام کلماتی حساب میشه که معنیشون قلبه... <span role="img" aria-label=''>🧡</span></p>
                         <p>حالا بیا با قسمت های مختلف سایت آشنا بشیم:</p>
                         <div className="profile-introduction-links">
-                            <Link to="/profile" className="link">فیلم های آموزشی</Link>
+                            <Link to="/videos" className="link">فیلم‌های آموزشی</Link>
                             <Link to="/profile" className="link">گپ و گفت</Link>
                             <Link to="/exchanges" className="link">تبادل کتاب</Link>
-                            <Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>
-                            <Link to="/profile" className="link">نمونه سوالات</Link>
+                            {/*<Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>*/}
+                            {/*<Link to="/profile" className="link">نمونه سوالات</Link>*/}
                         </div>
                     </div>
                 </div>

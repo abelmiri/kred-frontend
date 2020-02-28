@@ -3,9 +3,9 @@ import {Redirect} from "react-router-dom"
 import Material from "../Components/Material"
 import Dashboard from "../../Media/Svgs/Dashboard"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
-import Booklet from "../../Media/Svgs/Booklet"
-import Questions from "../../Media/Svgs/Questions"
-import Bookmark from "../../Media/Svgs/Bookmark"
+// import Booklet from "../../Media/Svgs/Booklet"
+// import Questions from "../../Media/Svgs/Questions"
+// import Bookmark from "../../Media/Svgs/Bookmark"
 import Profile from "../../Media/Svgs/Profile"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
 import api from "../../Functions/api"
@@ -75,23 +75,23 @@ class ProfilePage extends PureComponent
                         <Material backgroundColor={selected === "videoPlayer" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("videoPlayer")}
                                   className={`profile-main-right-menu-element ${selected === "videoPlayer" ? "selected" : ""}`}>
                             <VideoPlayer className="dashboard-svg"/>
-                            فیلم های آموزشی من
+                            فیلم‌های آموزشی
                         </Material>
-                        <Material backgroundColor={selected === "booklet" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("booklet")}
-                                  className={`profile-main-right-menu-element ${selected === "booklet" ? "selected" : ""}`}>
-                            <Booklet className="dashboard-svg"/>
-                            جزوات و خلاصه های من
-                        </Material>
-                        <Material backgroundColor={selected === "questions" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("questions")}
-                                  className={`profile-main-right-menu-element ${selected === "questions" ? "selected" : ""}`}>
-                            <Questions className="dashboard-svg"/>
-                            نمونه سوال های من
-                        </Material>
-                        <Material backgroundColor={selected === "bookmark" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("bookmark")}
-                                  className={`profile-main-right-menu-element ${selected === "bookmark" ? "selected" : ""}`}>
-                            <Bookmark className="dashboard-svg"/>
-                            علاقه‌مندی های من
-                        </Material>
+                        {/*<Material backgroundColor={selected === "booklet" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("booklet")}*/}
+                        {/*          className={`profile-main-right-menu-element ${selected === "booklet" ? "selected" : ""}`}>*/}
+                        {/*    <Booklet className="dashboard-svg"/>*/}
+                        {/*    جزوات و خلاصه های من*/}
+                        {/*</Material>*/}
+                        {/*<Material backgroundColor={selected === "questions" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("questions")}*/}
+                        {/*          className={`profile-main-right-menu-element ${selected === "questions" ? "selected" : ""}`}>*/}
+                        {/*    <Questions className="dashboard-svg"/>*/}
+                        {/*    نمونه سوال های من*/}
+                        {/*</Material>*/}
+                        {/*<Material backgroundColor={selected === "bookmark" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("bookmark")}*/}
+                        {/*          className={`profile-main-right-menu-element ${selected === "bookmark" ? "selected" : ""}`}>*/}
+                        {/*    <Bookmark className="dashboard-svg"/>*/}
+                        {/*    علاقه‌مندی های من*/}
+                        {/*</Material>*/}
                     </div>
                 </div>
                 <div className="profile-content">
@@ -101,20 +101,6 @@ class ProfilePage extends PureComponent
                 </div>
                 <div className="profile-left-menus">
                     <div className="profile-left-menus">
-                        <div className="profile-movies-left-menu">
-                            <div className="profile-left-menus-title">
-                                فیلم های آموزشی
-                            </div>
-                            <div className="profile-left-menus-contents">
-                                محتوای اول!
-                            </div>
-                            <div className="profile-left-menus-contents">
-                                محتوای دوم!
-                            </div>
-                            <div className="profile-left-menus-contents">
-                                محتوای سوم!
-                            </div>
-                        </div>
                         <div className="profile-forum-left-menu">
                             <div className="profile-left-menus-title">
                                 گپ و گفت

@@ -1,7 +1,7 @@
 @import "variables";
 
 .profile-container {
-  padding: 110px calc(5% + 270px) 50px 5%;
+  padding: 110px calc(5% + 270px) 50px calc(5% + 270px);
   display: flex;
 
   @media screen and (max-width: 480px) {
@@ -204,9 +204,13 @@
 .profile-left-menus {
   width: 270px;
   background-color: $background-color;
+  position: fixed;
+  left: 5%;
 
   @media screen and (max-width: 480px) {
+    position: static;
     width: 100%;
+    margin-bottom: 20px;
   }
 }
 

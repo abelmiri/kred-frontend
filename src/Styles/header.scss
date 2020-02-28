@@ -45,7 +45,7 @@
 }
 
 .header-buttons-menu-cont {
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 480px) {
     margin-left: 35px;
     height: 100%;
     position: relative;
@@ -72,7 +72,7 @@
       }
     }
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 480px) {
     display: none;
   }
 }
@@ -95,7 +95,7 @@
 }
 
 .header-buttons-menu-drop {
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 480px) {
     position: absolute;
     left: 0;
     right: 0;
@@ -106,7 +106,7 @@
     overflow: hidden;
     transition: all linear 0.2s;
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 480px) {
     display: none;
   }
 }
