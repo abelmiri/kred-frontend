@@ -101,7 +101,7 @@ class ProfilePageUserInfo extends Component
                     })
                     .catch((e) =>
                     {
-                        if (e.message === "Request failed with status code 404")
+                        if (e.response.status === 404)
                         {
                             localStorage.removeItem("user")
                             this.setState({...this.state, loading: false})
@@ -138,7 +138,7 @@ class ProfilePageUserInfo extends Component
                     })
                     .catch((e) =>
                     {
-                        if (e.message === "Request failed with status code 404")
+                        if (e.response.status === 404)
                         {
                             localStorage.clear()
                             this.setState({...this.state, loading: false})

@@ -38,11 +38,11 @@ class App extends PureComponent
             const user = JSON.parse(localStorage.getItem("user"))
             this.setState({...this.state, user}, () =>
             {
-                api.post("user/login", {phone: user.phone, password: user.password}, "", true)
+                api.post("user/verify-token")
                     .then((data) => this.setUser(data))
                     .catch((e) =>
                     {
-                        if (e.message === "Request failed with status code 404")
+                        if (e.response.status === 403)
                         {
                             localStorage.removeItem("user")
                             this.setState({...this.state, user: null})
