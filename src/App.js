@@ -25,6 +25,7 @@ class App extends PureComponent
             categories: {},
             videoPacks: {},
             companies: {},
+            devtoolsOpen: false,
         }
         this.goToExchangeBook = this.goToExchangeBook.bind(this)
     }
@@ -60,6 +61,37 @@ class App extends PureComponent
                 .replace("/completeProfile", "")
             window.history.replaceState("", "", shit ? shit : "/")
             document.location.reload()
+        }
+
+        if (process.env.NODE_ENV === "production")
+        {
+            const element = new Image()
+            let devtoolsOpen = false
+            element.__defineGetter__("id", () => devtoolsOpen = true)
+            setInterval(() =>
+            {
+                devtoolsOpen = false
+                console.log(element)
+                if (devtoolsOpen)
+                {
+                    if (!this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
+                }
+                else
+                {
+                    if (this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
+                }
+            }, 1000)
+            document.addEventListener("keydown", this.onKeyDown)
+        }
+    }
+
+    onKeyDown = (e) => e.keyCode === 123 && e.preventDefault()
+
+    componentWillUnmount()
+    {
+        if (process.env.NODE_ENV === "production")
+        {
+            document.removeEventListener("keydown", this.onKeyDown)
         }
     }
 
@@ -153,33 +185,35 @@ class App extends PureComponent
 
     render()
     {
-        const {redirect, page, user, cities, categories, videoPacks, companies} = this.state
+        const {redirect, page, user, cities, categories, videoPacks, companies, devtoolsOpen} = this.state
         const {location} = this.props
-        return (
-            <main className='main'>
-                {redirect && <Redirect push to={page}/>}
-                <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
-                <Switch>
-                    <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
-                    <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
-                    <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                    <Route path='/videos' render={() =>
-                        <VideoPacksPage user={user}
-                                        getVideoPacks={this.getVideoPacks}
-                                        videoPacks={videoPacks}
-                                        getCompanies={this.getCompanies}
-                                        companies={companies}
-                                        setUser={this.setUser}
-                        />
-                    }/>
-                    <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
-                    <Route path='/panel' render={() => <Panel user={user}/>}/>
-                    <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
-                </Switch>
-                {/*<Footer/>*/}
-                <NotificationContainer/>
-            </main>
-        )
+        if (!devtoolsOpen)
+            return (
+                <main className='main'>
+                    {redirect && <Redirect push to={page}/>}
+                    <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
+                    <Switch>
+                        <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
+                        <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
+                        <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
+                        <Route path='/videos' render={() =>
+                            <VideoPacksPage user={user}
+                                            getVideoPacks={this.getVideoPacks}
+                                            videoPacks={videoPacks}
+                                            getCompanies={this.getCompanies}
+                                            companies={companies}
+                                            setUser={this.setUser}
+                            />
+                        }/>
+                        <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
+                        <Route path='/panel' render={() => <Panel user={user}/>}/>
+                        <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
+                    </Switch>
+                    {/*<Footer/>*/}
+                    <NotificationContainer/>
+                </main>
+            )
+        else return <div style={{textAlign: "center", padding: "20px", direction: "ltr"}}>Please Close Inspect Babe :)</div>
     }
 }
 

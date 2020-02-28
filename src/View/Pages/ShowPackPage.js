@@ -45,13 +45,13 @@ class ShowPackPage extends PureComponent
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه‌ی مجموعه ویدیوها", content_id: packId}).catch(err => console.log(err))
 
-        document.addEventListener("contextmenu", this.osContextMenu)
-        document.addEventListener("keydown", this.onKeyDown)
+        if (process.env.NODE_ENV === "production")
+        {
+            document.addEventListener("contextmenu", this.osContextMenu)
+        }
     }
 
-    osContextMenu = (e) => process.env.NODE_ENV === "production" && e.preventDefault()
-
-    onKeyDown = (e) => e.keyCode === 123 && process.env.NODE_ENV === "production" && e.preventDefault()
+    osContextMenu = (e) => e.preventDefault()
 
     componentWillUnmount()
     {
@@ -63,8 +63,10 @@ class ShowPackPage extends PureComponent
 
         clearTimeout(this.getVideoTimeout)
 
-        document.removeEventListener("contextmenu", this.osContextMenu)
-        document.removeEventListener("keydown", this.onKeyDown)
+        if (process.env.NODE_ENV === "production")
+        {
+            document.removeEventListener("contextmenu", this.osContextMenu)
+        }
     }
 
     getSubtitle(url)
