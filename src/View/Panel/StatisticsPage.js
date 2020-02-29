@@ -190,23 +190,26 @@ class StatisticsPage extends PureComponent
                                             <div className='create-exchange-title'>خریداران پک</div>
                                             <div className="panel-add-off-main">
                                                 <div className="panel-0ff-code-scroll dont-gesture">
-                                                    <div className="panel-0ff-code-cont title">
+                                                    <div className="panel-0ff-code-cont scroll title">
                                                         <div className="panel-0ff-code-item-small">ردیف</div>
-                                                        <div className="panel-0ff-code-item">نام</div>
+                                                        <div className="panel-0ff-code-item-big">نام</div>
                                                         <div className="panel-0ff-code-item">شماره</div>
                                                         <div className="panel-0ff-code-item">مبلغ</div>
                                                         <div className="panel-0ff-code-item">تاریخ</div>
                                                     </div>
                                                     {
-                                                        Object.values(packUsers).reverse().map((pack, index) =>
-                                                            <div key={pack._id} className="panel-0ff-code-cont">
-                                                                <div className="panel-0ff-code-item-small">{Object.values(packUsers).length - index}</div>
-                                                                <div className="panel-0ff-code-item">{pack.user.name || pack.user.phone}</div>
-                                                                <div className="panel-0ff-code-item">{pack.user.phone}</div>
-                                                                <div className="panel-0ff-code-item">{pack.price ? addCommaPrice(pack.price) : "-"}</div>
-                                                                <div className="panel-0ff-code-item">{new Date(pack.created_date).toLocaleDateString("fa-ir")}</div>
-                                                            </div>,
-                                                        )
+                                                        Object.values(packUsers).length > 0 ?
+                                                            Object.values(packUsers).reverse().map((pack, index) =>
+                                                                <div key={pack._id} className="panel-0ff-code-cont scroll">
+                                                                    <div className="panel-0ff-code-item-small">{Object.values(packUsers).length - index}</div>
+                                                                    <div className="panel-0ff-code-item-big">{pack.user.name || pack.user.phone}</div>
+                                                                    <div className="panel-0ff-code-item">{pack.user.phone}</div>
+                                                                    <div className="panel-0ff-code-item">{pack.price ? addCommaPrice(pack.price) : "-"}</div>
+                                                                    <div className="panel-0ff-code-item">{new Date(pack.created_date).toLocaleDateString("fa-ir")}</div>
+                                                                </div>,
+                                                            )
+                                                            :
+                                                            <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
                                                     }
                                                 </div>
                                             </div>

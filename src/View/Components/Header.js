@@ -288,7 +288,7 @@ class Header extends PureComponent
                                 location.slice(0, 10) === "/exchanges" ||
                                 location.slice(0, 7) === "/videos" ||
                                 location.slice(0, 8) === "/profile" ||
-                                (user && user.role === "admin" && (location.slice(0, 12) === "/statistics" || location.slice(0, 6) === "/panel"))
+                                (user && user.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
                             <div className={`header-buttons-menu-cont ${isTransparent && location === "/" ? `styled ${hideDropDown ? "" : "open-drop"}` : ""}`} ref={e => this.dropDownCont = e}>
                                 <Material backgroundColor='rgba(255,255,255,0.3)' className="header-buttons-menu" onClick={this.toggleDropDown}>
@@ -303,12 +303,7 @@ class Header extends PureComponent
                                                         :
                                                         location.slice(0, 8) === "/profile" ? "پروفایل من"
                                                             :
-                                                            user && user.role === "admin" ?
-                                                                location.slice(0, 12) === "/statistics" ? "آمارها"
-                                                                    :
-                                                                    location.slice(0, 6) === "/panel" && "پنل ادمین"
-                                                                :
-                                                                null
+                                                            user && user.role === "admin" && location.slice(0, 6) === "/panel" && "پنل ادمین"
                                         }
                                     </span>
                                 </Material>
@@ -340,12 +335,9 @@ class Header extends PureComponent
                                             <div className={`header-buttons-menu-cont styled ${hidePanelDropDown ? "" : "open-drop"}`} ref={e => this.panelDropDownCont = e}>
                                                 <Material backgroundColor='rgba(255,255,255,0.3)' className="header-buttons-menu panel" onClick={this.togglePanelDropDown}>
                                                     <Hamburger className='header-hamburger-desktop' collapse={hidePanelDropDown}/>
-                                                    <span>{location === "/panel/off-codes" ? "کد تخفیف" : "سلام ادمین!"}</span>
+                                                    <span>{location === "/panel/off-codes" ? "کد تخفیف" : location === "/panel/statistics" ? "آمارها" : "سلام ادمین!"}</span>
                                                 </Material>
                                                 <div className="header-buttons-menu-drop" ref={e => this.panelDropDown = e} style={{height: "0"}}>
-                                                    <Link className="header-buttons-menu-drop-link" to="/panel">
-                                                        <Material className="header-buttons-menu-drop-item" onClick={this.togglePanelDropDown}>پنل ادمین</Material>
-                                                    </Link>
                                                     <Link className="header-buttons-menu-drop-link" to="/panel/statistics">
                                                         <Material className="header-buttons-menu-drop-item" onClick={this.togglePanelDropDown}>آمارها</Material>
                                                     </Link>
