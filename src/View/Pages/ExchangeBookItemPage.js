@@ -3,6 +3,7 @@ import api, {REST_URL} from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
 import Material from "../Components/Material"
 import addCommaPrice from "../../Helpers/addCommaPrice"
+import Footer from "../Components/Footer"
 
 class ExchangeBookItemPage extends PureComponent
 {
@@ -39,59 +40,61 @@ class ExchangeBookItemPage extends PureComponent
         const {cities} = this.props
         const {showContact, exchange, notFound} = this.state
         return (
-            <div className="exchange-show-cont">
-                {
-                    notFound ?
-                        <div className="exchange-page-loading">آگهی مورد نظر یافت نشد!</div>
-                        :
-                        exchange ?
-                            <React.Fragment>
-                                <div className="exchange-show-content">
-                                    <h1 className="exchange-show-title">{exchange.title}</h1>
-                                    {
-                                        exchange.categories && exchange.categories.length > 0 &&
-                                        <h2 className="exchange-show-categories">
-                                            دسته بندی{exchange.categories.length > 1 ? " ها" : ""}:
-                                            <span> </span>
-                                            {exchange.categories.map((item, index) => <span key={"cat" + item._id}>{item.name}{index === exchange.categories.length - 1 ? "" : "، "}</span>)}
-                                        </h2>
-                                    }
-                                    <div className="exchange-show-desc">{exchange.description}</div>
-                                    {exchange.lined && <div className="exchange-show-lined">خط خوردگی: {exchange.lined}</div>}
-                                    {cities[exchange.city_id] && <div className='exchange-show-city'>{cities[exchange.city_id].name}</div>}
-                                    <div className='exchange-show-price'>
-                                        {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}
-                                    </div>
-                                    <Material className="exchange-show-buy" onClick={this.toggleContact}>می‌خوام بخرم</Material>
-                                </div>
-                                <img className="exchange-show-img" src={REST_URL + "/" + exchange.picture} alt=""/>
-
-                                {
-                                    showContact &&
-                                    <React.Fragment>
-                                        <div className="create-exchange-back" onClick={this.toggleContact}/>
-                                        <div className="exchange-show-contact">
-                                            {
-                                                exchange.telegram ?
-                                                    <React.Fragment>
-                                                        آیدی تلگرام
-                                                        <a className="exchange-show-contact-link" target="_blank" rel="noopener noreferrer" href={`https://t.me/${exchange.telegram}`}>{exchange.telegram}@</a>
-                                                    </React.Fragment>
-                                                    :
-                                                    <React.Fragment>
-                                                        شماره تماس:
-                                                        <a className="exchange-show-contact-link" href={`tel:${exchange.phone}`}>{exchange.phone}</a>
-                                                    </React.Fragment>
-                                            }
-                                        </div>
-                                    </React.Fragment>
-                                }
-                            </React.Fragment>
+            <React.Fragment>
+                <div className="exchange-show-cont">
+                    {
+                        notFound ?
+                            <div className="exchange-page-loading">آگهی مورد نظر یافت نشد!</div>
                             :
-                            <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-                }
+                            exchange ?
+                                <React.Fragment>
+                                    <div className="exchange-show-content">
+                                        <h1 className="exchange-show-title">{exchange.title}</h1>
+                                        {
+                                            exchange.categories && exchange.categories.length > 0 &&
+                                            <h2 className="exchange-show-categories">
+                                                دسته بندی{exchange.categories.length > 1 ? " ها" : ""}:
+                                                <span> </span>
+                                                {exchange.categories.map((item, index) => <span key={"cat" + item._id}>{item.name}{index === exchange.categories.length - 1 ? "" : "، "}</span>)}
+                                            </h2>
+                                        }
+                                        <div className="exchange-show-desc">{exchange.description}</div>
+                                        {exchange.lined && <div className="exchange-show-lined">خط خوردگی: {exchange.lined}</div>}
+                                        {cities[exchange.city_id] && <div className='exchange-show-city'>{cities[exchange.city_id].name}</div>}
+                                        <div className='exchange-show-price'>
+                                            {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}
+                                        </div>
+                                        <Material className="exchange-show-buy" onClick={this.toggleContact}>می‌خوام بخرم</Material>
+                                    </div>
+                                    <img className="exchange-show-img" src={REST_URL + "/" + exchange.picture} alt=""/>
 
-            </div>
+                                    {
+                                        showContact &&
+                                        <React.Fragment>
+                                            <div className="create-exchange-back" onClick={this.toggleContact}/>
+                                            <div className="exchange-show-contact">
+                                                {
+                                                    exchange.telegram ?
+                                                        <React.Fragment>
+                                                            آیدی تلگرام
+                                                            <a className="exchange-show-contact-link" target="_blank" rel="noopener noreferrer" href={`https://t.me/${exchange.telegram}`}>{exchange.telegram}@</a>
+                                                        </React.Fragment>
+                                                        :
+                                                        <React.Fragment>
+                                                            شماره تماس:
+                                                            <a className="exchange-show-contact-link" href={`tel:${exchange.phone}`}>{exchange.phone}</a>
+                                                        </React.Fragment>
+                                                }
+                                            </div>
+                                        </React.Fragment>
+                                    }
+                                </React.Fragment>
+                                :
+                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                    }
+                </div>
+                <Footer/>
+            </React.Fragment>
         )
     }
 }

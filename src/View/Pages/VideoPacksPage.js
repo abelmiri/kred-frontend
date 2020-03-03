@@ -102,10 +102,7 @@ class VideoPacksPage extends PureComponent
     validateOffCode = () =>
     {
         const {offCodeLoading} = this.state
-        if (this.state.code)
-        {
-            this.setState({...this.state, code: null})
-        }
+        if (this.state.code) this.setState({...this.state, code: null})
         else
         {
             const code = this.offCode.value

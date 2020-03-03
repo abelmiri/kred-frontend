@@ -4,6 +4,7 @@ import {ClipLoader} from "react-spinners"
 import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import axios from "axios"
+import Footer from "../Components/Footer"
 
 class ShowPackPage extends PureComponent
 {
@@ -231,56 +232,60 @@ class ShowPackPage extends PureComponent
     render()
     {
         const {videoPack, loading, loadingPercent, video, subtitle, selected} = this.state
-        if (videoPack)
-        {
-            return (
+        return (
+            <React.Fragment>
                 <div className="video-page-cont">
-                    <div className={`video-page-loading-dark ${loading ? "show" : ""}`}>
-                        {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
-                    </div>
-                    <h1 className="video-page-h1">
-                        {videoPack.title}
-                    </h1>
                     {
-                        video ?
-                            <div className="video-page-video-container">
-                                <video className="video-page-video" controls controlsList="nodownload" autoPlay>
-                                    <source src={video}/>
-                                    {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
-                                </video>
-                                {selected}
-                            </div>
-                            :
-                            <div className="video-page-video-container pre">
-                                لطفا یک ویدئو انتخاب کنید
-                            </div>
-                    }
-                    <div className="video-page-aside">
-                        <div className="video-page-aside-videos">
-                            {
-                                videoPack.categories.map(category =>
-                                    <React.Fragment key={"cat" + category._id}>
-                                        <div className="video-page-aside-videos-title">{category.title}</div>
+                        videoPack ?
+                            <React.Fragment>
+                                <div className={`video-page-loading-dark ${loading ? "show" : ""}`}>
+                                    {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
+                                </div>
+                                <h1 className="video-page-h1">
+                                    {videoPack.title}
+                                </h1>
+                                {
+                                    video ?
+                                        <div className="video-page-video-container">
+                                            <video className="video-page-video" controls controlsList="nodownload" autoPlay>
+                                                <source src={video}/>
+                                                {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
+                                            </video>
+                                            {selected}
+                                        </div>
+                                        :
+                                        <div className="video-page-video-container pre">
+                                            لطفا یک ویدئو انتخاب کنید
+                                        </div>
+                                }
+                                <div className="video-page-aside">
+                                    <div className="video-page-aside-videos">
                                         {
-                                            category.videos.map(video =>
-                                                <Material key={"video" + video._id} className="video-page-aside-videos-item" onClick={() => this.showVideo(video)}>
-                                                    {video.title}
-                                                    {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
-                                                </Material>,
+                                            videoPack.categories.map(category =>
+                                                <React.Fragment key={"cat" + category._id}>
+                                                    <div className="video-page-aside-videos-title">{category.title}</div>
+                                                    {
+                                                        category.videos.map(video =>
+                                                            <Material key={"video" + video._id} className="video-page-aside-videos-item" onClick={() => this.showVideo(video)}>
+                                                                {video.title}
+                                                                {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
+                                                            </Material>,
+                                                        )
+                                                    }
+                                                </React.Fragment>,
                                             )
                                         }
-                                    </React.Fragment>,
-                                )
-                            }
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                            :
+                            <div className="exchange-show-cont">
+                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                            </div>
+                    }
                 </div>
-            )
-        }
-        else return (
-            <div className="exchange-show-cont">
-                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-            </div>
+                <Footer/>
+            </React.Fragment>
         )
     }
 }

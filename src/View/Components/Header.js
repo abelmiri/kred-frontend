@@ -288,6 +288,7 @@ class Header extends PureComponent
                                 location.slice(0, 10) === "/exchanges" ||
                                 location.slice(0, 7) === "/videos" ||
                                 location.slice(0, 8) === "/profile" ||
+                                location.slice(0, 9) === "/payment/" ||
                                 (user && user.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
                             <div className={`header-buttons-menu-cont ${isTransparent && location === "/" ? `styled ${hideDropDown ? "" : "open-drop"}` : ""}`} ref={e => this.dropDownCont = e}>
@@ -303,7 +304,9 @@ class Header extends PureComponent
                                                         :
                                                         location.slice(0, 8) === "/profile" ? "پروفایل من"
                                                             :
-                                                            user && user.role === "admin" && location.slice(0, 6) === "/panel" && "پنل ادمین"
+                                                            location.slice(0, 9) === "/payment/" ? "پرداخت"
+                                                                :
+                                                                location.slice(0, 6) === "/panel" && "پنل ادمین"
                                         }
                                     </span>
                                 </Material>

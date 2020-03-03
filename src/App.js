@@ -209,7 +209,6 @@ class App extends PureComponent
                         <Route path='/panel' render={() => <Panel user={user}/>}/>
                         <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                     </Switch>
-                    {/*<Footer/>*/}
                     <NotificationContainer/>
                 </main>
             )
