@@ -20,7 +20,7 @@ function get(url, param = "", noToken)
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
-            if (err.response.status !== 404) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+            if (err?.response?.status !== 404) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
             throw err
         })
 }

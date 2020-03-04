@@ -25,7 +25,7 @@ class ExchangeBookItemPage extends PureComponent
             window.scroll({top: 0})
             api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`, true)
                 .then((exchange) => this.setState({...this.state, exchange}))
-                .catch((e) => e.response.status === 404 && this.setState({...this.state, notFound: true}))
+                .catch((e) => e?.response?.status === 404 && this.setState({...this.state, notFound: true}))
             getCities()
 
             // statistics

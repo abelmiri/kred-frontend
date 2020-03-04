@@ -140,7 +140,7 @@ class ShowPackPage extends PureComponent
             .catch((e) =>
             {
                 this.setState({...this.state, loading: false, loadingPercent: null}, () =>
-                    NotificationManager.warning(e.response.status === 403 ? "شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@" : "دانلود فایل با مشکل مواجه شد!"),
+                    NotificationManager.warning(e?.response?.status === 403 ? "شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@" : "دانلود فایل با مشکل مواجه شد!"),
                 )
             })
     }

@@ -105,7 +105,7 @@ class ProfilePageUserInfo extends Component
                     })
                     .catch((e) =>
                     {
-                        if (e.response.status === 404)
+                        if (e?.response?.status === 404)
                         {
                             localStorage.removeItem("user")
                             sessionStorage.removeItem("user")
@@ -138,7 +138,7 @@ class ProfilePageUserInfo extends Component
                     .then((res) => this.setState({...this.state, loading: false, done_pass: true, password: newPass}, () => setUser(res)))
                     .catch((e) =>
                     {
-                        if (e.response.status === 404)
+                        if (e?.response?.status === 404)
                         {
                             localStorage.removeItem("user")
                             sessionStorage.removeItem("user")

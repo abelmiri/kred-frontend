@@ -43,7 +43,7 @@ class LoginModal extends PureComponent
                         .catch((e) =>
                         {
                             this.setState({...this.state, loginLoading: false}, () =>
-                                NotificationManager.error(e.response.status === 404 ? "کاربری با شماره موبایل وارد شده یافت نشد." : "سایت در ارسال اطلاعات با خطا مواجه شد!"),
+                                NotificationManager.error(e?.response?.status === 404 ? "کاربری با شماره موبایل وارد شده یافت نشد." : "سایت در ارسال اطلاعات با خطا مواجه شد!"),
                             )
                         })
                 }
@@ -67,7 +67,7 @@ class LoginModal extends PureComponent
                             .catch((e) =>
                             {
                                 this.setState({...this.state, loginLoading: false}, () =>
-                                    NotificationManager.error(e.response.status === 404 ? "کاربری با اطلاعات وارد شده یافت نشد." : "سایت در ارسال اطلاعات با خطا مواجه شد!"),
+                                    NotificationManager.error(e?.response?.status === 404 ? "کاربری با اطلاعات وارد شده یافت نشد." : "سایت در ارسال اطلاعات با خطا مواجه شد!"),
                                 )
                             })
                     })

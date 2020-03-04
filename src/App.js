@@ -43,7 +43,7 @@ class App extends PureComponent
                     .then((data) => this.setUser(data))
                     .catch((e) =>
                     {
-                        if (e.response.status === 403)
+                        if (e?.response?.status === 403)
                         {
                             localStorage.removeItem("user")
                             sessionStorage.removeItem("user")
