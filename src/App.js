@@ -32,7 +32,7 @@ class App extends PureComponent
 
     componentDidMount()
     {
-        versionMigrations("1")
+        versionMigrations("2")
 
         if (localStorage.hasOwnProperty("user"))
         {
