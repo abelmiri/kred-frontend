@@ -113,7 +113,7 @@ class ShowPackPage extends PureComponent
     getSubtitleFromServerAndSave(url, resolve)
     {
         axios.get(`${url}?time=${new Date().toISOString()}`, {
-            headers: {"Authorization": JSON.parse(localStorage.getItem("user")).token},
+            headers: {"Authorization": JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token},
             responseType: "blob",
             onDownloadProgress: e => this.setState({...this.state, loadingPercent: `در حال دانلود زیرنویس ${Math.floor((e.loaded * 100) / e.total)} %`}),
         })

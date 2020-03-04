@@ -32,9 +32,9 @@ class ProfilePageUserInfo extends Component
             window.scroll({top: 0})
         }
 
-        if (localStorage.hasOwnProperty("user"))
+        if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user"))
         {
-            const user = JSON.parse(localStorage.getItem("user"))
+            const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
             this.setState({
                     ...this.state,
                     name: user.name && user.name,
@@ -108,6 +108,7 @@ class ProfilePageUserInfo extends Component
                         if (e.response.status === 404)
                         {
                             localStorage.removeItem("user")
+                            sessionStorage.removeItem("user")
                             this.setState({...this.state, loading: false})
                         }
                     })
@@ -139,7 +140,8 @@ class ProfilePageUserInfo extends Component
                     {
                         if (e.response.status === 404)
                         {
-                            localStorage.clear()
+                            localStorage.removeItem("user")
+                            sessionStorage.removeItem("user")
                             this.setState({...this.state, loading: false})
                         }
                     })

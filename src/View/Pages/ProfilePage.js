@@ -26,7 +26,9 @@ class ProfilePage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
-        if (!localStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
+        if (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
+
+        document.addEventListener("scroll", this.onScroll)
 
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "پروفایل"}).catch(err => console.log(err))
@@ -34,8 +36,28 @@ class ProfilePage extends PureComponent
 
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        prevProps.user && !this.props.user &&
-        setTimeout(() => !localStorage.hasOwnProperty("user") && this.setState({...this.state, redirectHome: true}), 100)
+        if (prevProps.user && !this.props.user) this.setState({...this.state, redirectHome: true})
+    }
+
+    componentWillUnmount()
+    {
+        document.removeEventListener("scroll", this.onScroll)
+    }
+
+    onScroll = () =>
+    {
+        if (document.body.clientWidth > 480)
+        {
+            this.leftSide.style.top = document.getElementById("footer").offsetTop - this.leftSide.clientHeight - window.scrollY - 50 > 110 ?
+                "110px"
+                :
+                document.getElementById("footer").offsetTop - this.leftSide.clientHeight - window.scrollY - 50 + "px"
+
+            this.rightSide.style.top = document.getElementById("footer").offsetTop - this.rightSide.clientHeight - window.scrollY - 50 > 110 ?
+                "110px"
+                :
+                document.getElementById("footer").offsetTop - this.rightSide.clientHeight - window.scrollY - 50 + "px"
+        }
     }
 
     changeSelected = (selectedName) => this.state.selected !== selectedName && this.setState({...this.state, selected: selectedName})
@@ -48,7 +70,7 @@ class ProfilePage extends PureComponent
             <React.Fragment>
                 <div className='profile-container'>
                     {redirectHome && <Redirect to="/"/>}
-                    <div className="profile-right-menus">
+                    <div className="profile-right-menus"  ref={e => this.rightSide = e}>
                         <Material backgroundColor={selected === "dashboard" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("dashboard")}
                                   className={`profile-main-right-menu-element ${selected === "dashboard" ? "selected" : ""}`}>
                             <Dashboard className="dashboard-svg"/>
@@ -91,7 +113,7 @@ class ProfilePage extends PureComponent
                                     "بزودی..."
                         }
                     </div>
-                    <div className="profile-left-menus">
+                    <div className="profile-left-menus" ref={e => this.leftSide = e}>
                         <div className="profile-left-menus-title">
                             گپ و گفت
                         </div>

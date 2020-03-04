@@ -3,9 +3,7 @@ import Logo from "../../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
 import Hamburger from "./Hamburger"
 import Material from "./Material"
-import api from "../../Functions/api"
-import {ClipLoader} from "react-spinners"
-import {NotificationManager} from "react-notifications"
+import LoginModal from "./LoginModal"
 
 class Header extends PureComponent
 {
@@ -16,7 +14,6 @@ class Header extends PureComponent
             isTransparent: true,
             showLoginModal: false,
             collapseSidebar: true,
-            loginLoading: false,
             hideDropDown: true,
             hidePanelDropDown: true,
         }
@@ -32,7 +29,6 @@ class Header extends PureComponent
         this.onTouchEnd = this.onTouchEnd.bind(this)
         this.onClick = this.onClick.bind(this)
         this.onScroll = this.onScroll.bind(this)
-        this.login = this.login.bind(this)
     }
 
     componentDidMount()
@@ -178,19 +174,6 @@ class Header extends PureComponent
         if (!hidePanelDropDown) this.togglePanelDropDown()
     }
 
-    setOverflowAuto = () =>
-    {
-        document.body.style.overflow = "auto"
-        this.setState({...this.state, loginLoading: false, showLoginModal: false})
-    }
-
-    hideLoginModal = () =>
-    {
-        document.body.clientWidth <= 480 && window.history.back()
-        document.body.style.overflow = "auto"
-        this.setState({...this.state, loginLoading: false, showLoginModal: false})
-    }
-
     showLoginModalOnSide = () =>
     {
         this.hideSidebar()
@@ -205,32 +188,17 @@ class Header extends PureComponent
         document.body.style.overflow = "hidden"
     }
 
-    login()
+    setOverflowAuto = () =>
     {
-        if (!this.state.loginLoading)
-        {
-            const phone = this.phoneInput.value.trim()
-            const password = this.passwordInput.value
-            if (phone.length > 0 && password.length >= 6 && password.length <= 30)
-            {
-                this.setState({...this.state, loginLoading: true}, () =>
-                {
-                    api.post("user/login", {phone, password}, "", true)
-                        .then((data) =>
-                        {
-                            this.props.setUser(data)
-                            this.hideLoginModal()
-                        })
-                        .catch((e) =>
-                        {
-                            this.setState({...this.state, loginLoading: false}, () =>
-                                NotificationManager.error(e.response.status === 404 ? "کاربری با اطلاعات وارد شده یافت نشد." : "سایت در ارسال اطلاعات با خطا مواجه شد!"),
-                            )
-                        })
-                })
-            }
-            else NotificationManager.warning("اطلاعات ورود را به درستی وارد کنید.")
-        }
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, loginLoading: false, showLoginModal: false})
+    }
+
+    hideLoginModal = () =>
+    {
+        document.body.clientWidth <= 480 && window.history.back()
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, showLoginModal: false})
     }
 
     logout = () =>
@@ -238,8 +206,6 @@ class Header extends PureComponent
         this.props.logout()
         if (!this.state.collapseSidebar && document.body.clientWidth <= 480) this.hideSidebar()
     }
-
-    submitOnEnter = (e) => e.keyCode === 13 && this.login()
 
     toggleDropDown = () =>
     {
@@ -275,10 +241,10 @@ class Header extends PureComponent
 
     render()
     {
-        const {location, user} = this.props
+        const {location, user, setUser} = this.props
         if (location !== "/sign-up")
         {
-            const {isTransparent, showLoginModal, collapseSidebar, loginLoading, hideDropDown, hidePanelDropDown} = this.state
+            const {isTransparent, showLoginModal, collapseSidebar, hideDropDown, hidePanelDropDown} = this.state
             return (
                 <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                     <div className='header-buttons'>
@@ -396,40 +362,7 @@ class Header extends PureComponent
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
 
-                    {
-                        showLoginModal &&
-                        <React.Fragment>
-                            <div className="create-exchange-back" onClick={this.hideLoginModal}/>
-                            <div className="create-exchange-cont login">
-                                <div className='create-exchange-title login'>ورود به KRED</div>
-                                <img className="login-modal-logo" src={Logo} alt="kred"/>
-                                <div className='create-exchange-section margin-top-none'>
-                                    <input type='text'
-                                           ref={e => this.phoneInput = e}
-                                           className='create-exchange-section-input'
-                                           placeholder="ایمیل یا شماره موبایل"
-                                           maxLength={60}
-                                           name="phone"
-                                           onKeyDown={this.submitOnEnter}
-                                    />
-                                </div>
-                                <div className='create-exchange-section'>
-                                    <input type='password'
-                                           ref={e => this.passwordInput = e}
-                                           className='create-exchange-section-input'
-                                           placeholder="رمز عبور"
-                                           maxLength={30}
-                                           name="password"
-                                           onKeyDown={this.submitOnEnter}
-                                    />
-                                </div>
-                                <Material className={`header-login-submit ${loginLoading ? "loading" : ""}`} onClick={this.login}>
-                                    {loginLoading ? <ClipLoader color="white" size={15}/> : "ورود"}
-                                </Material>
-                                <Link onClick={this.setOverflowAuto} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
-                            </div>
-                        </React.Fragment>
-                    }
+                    {showLoginModal && <LoginModal setUser={setUser} setOverflowAuto={this.setOverflowAuto} hideLoginModal={this.hideLoginModal}/>}
 
                 </div>
             )

@@ -518,6 +518,8 @@
   display: flex;
   align-items: center;
   margin: 15px 0;
+  overflow: hidden;
+  transition: all linear 0.2s;
 
   &.relative-wrap {
     position: relative;
@@ -526,6 +528,16 @@
 
   &.margin-top-none {
     margin-top: 0;
+  }
+
+  &.show {
+    height: 53px;
+  }
+
+  &.hide {
+    margin: 0 0;
+    height: 0;
+    opacity: 0;
   }
 }
 

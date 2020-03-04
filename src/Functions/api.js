@@ -6,7 +6,7 @@ export const REST_URL = "https://restful.kred.ir"
 
 function get(url, param = "", noToken)
 {
-    const token = noToken || !localStorage.hasOwnProperty("user") ? "" : JSON.parse(localStorage.getItem("user")).token
+    const token = noToken || (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) ? "" : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     return axios.get(encodeURI(REST_URL + "/" + url + "/" + param), {headers: !noToken ? {"Authorization": `${token}`} : null})
         .then((res) =>
         {
@@ -27,7 +27,7 @@ function get(url, param = "", noToken)
 
 function post(url, data, param = "", noToken, progress)
 {
-    const token = noToken || !localStorage.hasOwnProperty("user") ? "" : JSON.parse(localStorage.getItem("user")).token
+    const token = noToken || (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) ? "" : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     return axios.post(encodeURI(REST_URL + "/" + url + "/" + param), data, {
         headers: !noToken ? {"Authorization": `${token}`} : null,
         onUploadProgress: e => progress ? progress(e) : null,
@@ -46,7 +46,7 @@ function post(url, data, param = "", noToken, progress)
 
 function patch(url, data, param = "")
 {
-    const token = JSON.parse(localStorage.getItem("user")).token
+    const token = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     const sendUrl = param === "" ? REST_URL + "/" + url + "/" : REST_URL + "/" + url + "/" + param + "/"
     return axios.patch(encodeURI(sendUrl), data, {headers: {"Authorization": `${token}`}})
         .then((res) =>
@@ -63,7 +63,7 @@ function patch(url, data, param = "")
 
 function del(url, data, param = "")
 {
-    const token = JSON.parse(localStorage.getItem("user")).token
+    const token = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     const sendUrl = param === "" ? REST_URL + "/" + url + "/" : REST_URL + "/" + url + "/" + param + "/"
     return axios.delete(encodeURI(sendUrl), {headers: {"Authorization": `${token}`}, data})
         .then((res) =>

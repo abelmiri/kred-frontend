@@ -11,7 +11,7 @@ import Booklet from "../../Media/Svgs/Booklet"
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
 const Footer = () =>
-    <div className='footer-container'>
+    <div className='footer-container' id="footer">
         <div className="footer-logo-cont">
             <img src={Logo} alt="KRED LOGO" className="footer-logo"/>
             <div className="footer-desc">KRED | گام هایی جذاب در دنیای پزشکی</div>

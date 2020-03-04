@@ -34,9 +34,9 @@ class App extends PureComponent
     {
         versionMigrations("2")
 
-        if (localStorage.hasOwnProperty("user"))
+        if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user"))
         {
-            const user = JSON.parse(localStorage.getItem("user"))
+            const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
             this.setState({...this.state, user}, () =>
             {
                 api.post("user/verify-token")
@@ -46,6 +46,7 @@ class App extends PureComponent
                         if (e.response.status === 403)
                         {
                             localStorage.removeItem("user")
+                            sessionStorage.removeItem("user")
                             this.setState({...this.state, user: null})
                         }
                     })
@@ -133,25 +134,44 @@ class App extends PureComponent
         }, 20)
     }
 
-    setUser = (user) =>
+    setUser = (user, dontRememberMe) =>
     {
-        if (localStorage.hasOwnProperty("user") && !user.token)
+        if (dontRememberMe)
         {
-            const token = JSON.parse(localStorage.getItem("user")).token
-            let userWT = {...user, token}
-            localStorage.setItem("user", JSON.stringify(userWT))
-            this.setState({...this.state, user: userWT})
+            if (sessionStorage.hasOwnProperty("user") && !user.token)
+            {
+                const token = JSON.parse(sessionStorage.getItem("user")).token
+                let userWT = {...user, token}
+                sessionStorage.setItem("user", JSON.stringify(userWT))
+                this.setState({...this.state, user: userWT})
+            }
+            else
+            {
+                sessionStorage.setItem("user", JSON.stringify(user))
+                this.setState({...this.state, user})
+            }
         }
         else
         {
-            localStorage.setItem("user", JSON.stringify(user))
-            this.setState({...this.state, user})
+            if (localStorage.hasOwnProperty("user") && !user.token)
+            {
+                const token = JSON.parse(localStorage.getItem("user")).token
+                let userWT = {...user, token}
+                localStorage.setItem("user", JSON.stringify(userWT))
+                this.setState({...this.state, user: userWT})
+            }
+            else
+            {
+                localStorage.setItem("user", JSON.stringify(user))
+                this.setState({...this.state, user})
+            }
         }
     }
 
     logout = () =>
     {
         localStorage.removeItem("user")
+        sessionStorage.removeItem("user")
         this.setState({...this.state, user: null})
     }
 
