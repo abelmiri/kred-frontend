@@ -79,7 +79,7 @@ function del(url, data, param = "")
 }
 
 const api = {
-    get, post, patch, del, REST_URL
+    get, post, patch, del,
 }
 
 export default api

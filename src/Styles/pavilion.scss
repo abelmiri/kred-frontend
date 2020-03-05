@@ -19,16 +19,35 @@
 .posts-list-con {
   width: 90%;
   padding: 40px 5%;
+  min-height: 70vh;
 }
 
 .post-con {
-  width: 100%;
+  width: calc(100% - 50px);
+  padding: 25px;
   background-color: #DEF2F1;
   display: flex;
+  justify-content: center;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 480px) {
+    flex-wrap: wrap;
+  }
 
   &:nth-child(even) {
     flex-direction: row-reverse;
+    @media screen and (min-width: 480px) {
+      .post-circle-image {
+        margin-right: 0;
+        margin-left: 25px;
+      }
+
+      .post-likes-comment-section {
+        text-align: right;
+        margin-left: 0;
+        margin-right: -10px;
+      }
+    }
   }
 
   &:last-child {
@@ -36,23 +55,15 @@
   }
 }
 
-.post-image-section {
-  width: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .post-info-section {
-  width: 80%;
-  padding: 25px;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   .post-title {
-    font-size: $big-title-font-size;
-    margin-top: 15px;
+    font-size: $menu-title-font-size;
+    font-weight: bold;
     color: $almost-dark-color;
   }
 
@@ -60,18 +71,84 @@
     text-align: justify;
     text-justify: inter-word;
     color: $bold-description-color;
+    font-size: $title-font-size;
+    line-height: 27px;
+    margin: 15px 0;
   }
 
   .post-likes-comment-section {
-    margin-bottom: 15px;
     text-align: left;
     color: $post-like-comment-color;
+    font-size: $regular-font-size;
+    margin-left: -10px;
   }
 }
 
 .post-circle-image {
-  height: 300px;
-  max-width: 300px;
+  height: 200px;
+  width: 200px;
+  min-width: 200px;
   object-fit: cover;
-  clip-path: circle(100px at center);
+  border-radius: 50%;
+  margin-right: 25px;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  @media screen and (max-width: 480px) {
+    margin-bottom: 25px;
+    margin-right: 0;
+    order: -1;
+  }
+}
+
+.post-like-count-cont {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.post-like-count {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 5px;
+  transition: all linear 0.2s;
+
+  &.liked {
+    color: $primary-color;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+}
+
+.post-like-svg {
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  margin-top: -2px;
+  fill: $post-like-comment-color;
+  transition: all linear 0.2s;
+
+  @media screen and (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
+
+  &.liked {
+    fill: $primary-color;
+  }
+}
+
+.post-comment-svg {
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  fill: $post-like-comment-color;
+
+  @media screen and (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 }

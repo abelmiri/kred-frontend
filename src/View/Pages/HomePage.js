@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react"
 import Library from "../../Media/Images/Library.jpg"
 import Nurses from "../../Media/Images/Nurses.png"
+import Pavion from "../../Media/Images/Pavion.jpg"
 import Material from "../Components/Material"
 import api, {REST_URL} from "../../Functions/api"
 import MySlider from "../Components/MySlider"
@@ -116,14 +117,14 @@ class HomePage extends PureComponent
                         <button className='home-section-butt reverse' onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</button>
                     </div>
                 </div>
-                {/*<div className='home-exchange'>*/}
-                {/*    <img className='home-exchange-img' src={Pavion} alt=''/>*/}
-                {/*    <div className='home-exchange-text'>*/}
-                {/*        <h3 className='home-exchange-title'>پاویون</h3>*/}
-                {/*        <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>*/}
-                {/*        <button className='home-exchange-butt' onClick={(e) => this.changeRoute(e, "/exchange")}>برو تو پاویون</button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className='home-videos'>
+                    <div className='home-videos-text'>
+                        <h3 className='home-videos-title'>پاویون</h3>
+                        <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
+                        <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/pavilion")}>برو تو پاویون</button>
+                    </div>
+                    <img className='home-videos-img' src={Pavion} alt=''/>
+                </div>
                 <div className='home-about'>
                     <h3 className='home-about-title'>اینجا چه خبره؟!</h3>
                     <div className='home-about-description'>

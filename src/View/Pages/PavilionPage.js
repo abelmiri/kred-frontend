@@ -1,8 +1,11 @@
 import React, {PureComponent} from "react"
 import {Switch} from "react-router-dom"
-import api from "../../Functions/api"
+import api, {REST_URL} from "../../Functions/api"
 import Mic from "../../Media/Images/PavilionMic.png"
-
+import {ClipLoader} from "react-spinners"
+import LikeSvg from "../../Media/Svgs/LikeSvg"
+import CommentSvg from "../../Media/Svgs/CommentSvg"
+import Material from "../Components/Material"
 
 class PavilionPage extends PureComponent
 {
@@ -11,7 +14,7 @@ class PavilionPage extends PureComponent
         super(props)
         this.state = {
             postsLoading: true,
-            posts: [],
+            posts: {},
             error: false,
         }
         this.activeScrollHeight = 0
@@ -21,18 +24,10 @@ class PavilionPage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
-        api.get("conversation", "?limit=9&page=1", true)
-            .then((data) =>
-                this.setState({...this.state, postsLoading: false}, () =>
-                {
-                    console.log(data)
-                    this.setState({
-                        ...this.state,
-                        posts: data,
-                    })
-                }),
-            )
-            .catch(() => this.setState({...this.state, error: true}))
+        api.get("conversation", `?limit=9&page=1&time=${new Date().toISOString()}`)
+            .then((data) => this.setState({...this.state, postsLoading: false, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
+            .catch(() => this.setState({...this.state, error: true, postsLoading: false}))
+
         document.addEventListener("scroll", this.onScroll)
     }
 
@@ -43,13 +38,13 @@ class PavilionPage extends PureComponent
         {
             const {posts} = this.state
             const scrollHeight = document.body ? document.body.scrollHeight : 0
-            if (posts.length % 9 === 0 && window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
+            if (Object.values(posts).length > 0 && window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
             {
-                this.setState({...this.state, exchangesLoading: true}, () =>
+                this.setState({...this.state, postsLoading: true}, () =>
                 {
-                    api.get("conversation", `?limit=9&page=${this.page}`, true).then((data) =>
+                    api.get("conversation", `?limit=9&page=${this.page}&time=${new Date().toISOString()}`, true).then((data) =>
                     {
-                        this.setState({...this.state, posts: posts.concat(data)})
+                        this.setState({...this.state, postsLoading: false, posts: {...posts, ...data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}})
                         this.activeScrollHeight = scrollHeight
                         this.page += 1
                     })
@@ -58,10 +53,9 @@ class PavilionPage extends PureComponent
         }, 20)
     }
 
-
     render()
     {
-        const {posts} = this.state
+        const {posts, postsLoading} = this.state
         return (
             <Switch>
                 {/*<Route path="/pavilion/:id" render={(route) => null}/>*/}
@@ -81,18 +75,27 @@ class PavilionPage extends PureComponent
 
                     <div className="posts-list-con">
                         {
-                            posts.map((post) => <div className="post-con" key={post._id}>
+                            Object.values(posts).map((post) =>
+                                <div className="post-con" key={post._id}>
                                     <div className="post-info-section">
                                         <div className="post-title">{post.title}</div>
                                         <div className="post-bold-description">{post.bold_description}</div>
-                                        <div className="post-likes-comment-section">{post.likes_count} آیکون لایک {post.comments_count} آیکون کامنت</div>
+                                        <div className="post-likes-comment-section">
+                                            <Material className="post-like-count-cont">
+                                                <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
+                                                <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
+                                            </Material>
+                                            <Material className="post-like-count-cont">
+                                                <div className="post-like-count">{post.comments_count}</div>
+                                                <CommentSvg className="post-comment-svg"/>
+                                            </Material>
+                                        </div>
                                     </div>
-                                    <div className="post-image-section">
-                                        <img className="post-circle-image" src={api.REST_URL + "/" + post.picture} alt="user"/>
-                                    </div>
+                                    <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt="user"/>
                                 </div>,
                             )
                         }
+                        <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                     </div>
                 </React.Fragment>
             </Switch>

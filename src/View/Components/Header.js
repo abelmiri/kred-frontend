@@ -254,6 +254,7 @@ class Header extends PureComponent
                                 location.slice(0, 10) === "/exchanges" ||
                                 location.slice(0, 7) === "/videos" ||
                                 location.slice(0, 8) === "/profile" ||
+                                location.slice(0, 9) === "/pavilion" ||
                                 location.slice(0, 9) === "/payment/" ||
                                 (user && user.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
@@ -270,9 +271,11 @@ class Header extends PureComponent
                                                         :
                                                         location.slice(0, 8) === "/profile" ? "پروفایل من"
                                                             :
-                                                            location.slice(0, 9) === "/payment/" ? "پرداخت"
+                                                            location.slice(0, 9) === "/pavilion" ? "پاویون"
                                                                 :
-                                                                location.slice(0, 6) === "/panel" && "پنل ادمین"
+                                                                location.slice(0, 9) === "/payment/" ? "پرداخت"
+                                                                    :
+                                                                    location.slice(0, 6) === "/panel" && "پنل ادمین"
                                         }
                                     </span>
                                 </Material>
@@ -291,6 +294,9 @@ class Header extends PureComponent
                                     </Link>
                                     <Link className="header-buttons-menu-drop-link" to="/exchanges">
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>تبادل کتاب</Material>
+                                    </Link>
+                                    <Link className="header-buttons-menu-drop-link" to="/pavilion">
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پاویون</Material>
                                     </Link>
                                 </div>
                             </div>
@@ -353,6 +359,7 @@ class Header extends PureComponent
                         {user && <Link to="/profile" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></Link>}
                         <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
                         <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
+                        <Link to="/pavilion" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پاویون</Material></Link>
                         {
                             user && user.role === "admin" &&
                             <React.Fragment>
