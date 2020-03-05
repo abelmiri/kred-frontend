@@ -1,0 +1,77 @@
+@import "variables";
+
+.pavilion-mic {
+  position: absolute;
+  top: calc(10vh - 81px);
+  left: 20%;
+  width: 300px;
+  transform: rotate(20deg);
+  object-fit: cover;
+
+  @media screen and (max-width: 480px) {
+    margin: 15px 0 0 0;
+    width: 150px;
+    left: 25%;
+    top: calc(40vh - 81px);
+  }
+}
+
+.posts-list-con {
+  width: 90%;
+  padding: 40px 5%;
+}
+
+.post-con {
+  width: 100%;
+  background-color: #DEF2F1;
+  display: flex;
+  margin-bottom: 20px;
+
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.post-image-section {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-info-section {
+  width: 80%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .post-title {
+    font-size: $big-title-font-size;
+    margin-top: 15px;
+    color: $almost-dark-color;
+  }
+
+  .post-bold-description {
+    text-align: justify;
+    text-justify: inter-word;
+    color: $bold-description-color;
+  }
+
+  .post-likes-comment-section {
+    margin-bottom: 15px;
+    text-align: left;
+    color: $post-like-comment-color;
+  }
+}
+
+.post-circle-image {
+  height: 300px;
+  max-width: 300px;
+  object-fit: cover;
+  clip-path: circle(100px at center);
+}

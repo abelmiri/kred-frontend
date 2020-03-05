@@ -10,6 +10,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  position: relative;
+  overflow: hidden;
 
   &.exchange {
     background-image: url("../Media/Images/Exchange.jpg");
@@ -17,6 +19,10 @@
 
   &.video {
     background-image: url("../Media/Images/VideoPage.jpg");
+  }
+
+  &.pavilion {
+    background-color: $pavilion-background-color;
   }
 
   @media screen and (max-width: 480px) {
@@ -43,6 +49,10 @@
   font-size: 60px;
   color: $secondary-color;
   margin-bottom: 20px;
+
+  &.pavilion {
+    color: $pavilion-color;
+  }
 
   @media screen and (max-width: 650px) {
     font-size: 40px;
