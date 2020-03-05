@@ -70,7 +70,7 @@ class ProfilePage extends PureComponent
             <React.Fragment>
                 <div className='profile-container'>
                     {redirectHome && <Redirect to="/"/>}
-                    <div className="profile-right-menus"  ref={e => this.rightSide = e}>
+                    <div className="profile-right-menus" ref={e => this.rightSide = e}>
                         <Material backgroundColor={selected === "dashboard" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("dashboard")}
                                   className={`profile-main-right-menu-element ${selected === "dashboard" ? "selected" : ""}`}>
                             <Dashboard className="dashboard-svg"/>
@@ -110,7 +110,7 @@ class ProfilePage extends PureComponent
                                 selected === "dashboard" ?
                                     <ProfilePageDashboard user={user}/>
                                     :
-                                    "بزودی..."
+                                    <div style={{minHeight: "60vh"}}>بزودی...</div>
                         }
                     </div>
                     <div className="profile-left-menus" ref={e => this.leftSide = e}>
