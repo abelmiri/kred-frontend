@@ -4,6 +4,7 @@ import {ClipLoader} from "react-spinners"
 import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import axios from "axios"
+import Footer from "../Components/Footer"
 
 class ShowPackPage extends PureComponent
 {
@@ -45,13 +46,13 @@ class ShowPackPage extends PureComponent
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه‌ی مجموعه ویدیوها", content_id: packId}).catch(err => console.log(err))
 
-        document.addEventListener("contextmenu", this.osContextMenu)
-        document.addEventListener("keydown", this.onKeyDown)
+        if (process.env.NODE_ENV === "production")
+        {
+            document.addEventListener("contextmenu", this.osContextMenu)
+        }
     }
 
-    osContextMenu = (e) => process.env.NODE_ENV === "production" && e.preventDefault()
-
-    onKeyDown = (e) => e.keyCode === 123 && process.env.NODE_ENV === "production" && e.preventDefault()
+    osContextMenu = (e) => e.preventDefault()
 
     componentWillUnmount()
     {
@@ -63,8 +64,10 @@ class ShowPackPage extends PureComponent
 
         clearTimeout(this.getVideoTimeout)
 
-        document.removeEventListener("contextmenu", this.osContextMenu)
-        document.removeEventListener("keydown", this.onKeyDown)
+        if (process.env.NODE_ENV === "production")
+        {
+            document.removeEventListener("contextmenu", this.osContextMenu)
+        }
     }
 
     getSubtitle(url)
@@ -110,7 +113,7 @@ class ShowPackPage extends PureComponent
     getSubtitleFromServerAndSave(url, resolve)
     {
         axios.get(`${url}?time=${new Date().toISOString()}`, {
-            headers: {"Authorization": JSON.parse(localStorage.getItem("user")).token},
+            headers: {"Authorization": JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token},
             responseType: "blob",
             onDownloadProgress: e => this.setState({...this.state, loadingPercent: `در حال دانلود زیرنویس ${Math.floor((e.loaded * 100) / e.total)} %`}),
         })
@@ -134,10 +137,10 @@ class ShowPackPage extends PureComponent
                     }
                 })
             })
-            .catch((err) =>
+            .catch((e) =>
             {
                 this.setState({...this.state, loading: false, loadingPercent: null}, () =>
-                    NotificationManager.warning(err.message === "Request failed with status code 403" ? "شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@" : "دانلود فایل با مشکل مواجه شد!"),
+                    NotificationManager.warning(e?.response?.status === 403 ? "شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@" : "دانلود فایل با مشکل مواجه شد!"),
                 )
             })
     }
@@ -229,56 +232,60 @@ class ShowPackPage extends PureComponent
     render()
     {
         const {videoPack, loading, loadingPercent, video, subtitle, selected} = this.state
-        if (videoPack)
-        {
-            return (
+        return (
+            <React.Fragment>
                 <div className="video-page-cont">
-                    <div className={`video-page-loading-dark ${loading ? "show" : ""}`}>
-                        {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
-                    </div>
-                    <h1 className="video-page-h1">
-                        {videoPack.title}
-                    </h1>
                     {
-                        video ?
-                            <div className="video-page-video-container">
-                                <video className="video-page-video" controls controlsList="nodownload" autoPlay>
-                                    <source src={video}/>
-                                    {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
-                                </video>
-                                {selected}
-                            </div>
-                            :
-                            <div className="video-page-video-container pre">
-                                لطفا یک ویدئو انتخاب کنید
-                            </div>
-                    }
-                    <div className="video-page-aside">
-                        <div className="video-page-aside-videos">
-                            {
-                                videoPack.categories.map(category =>
-                                    <React.Fragment key={"cat" + category._id}>
-                                        <div className="video-page-aside-videos-title">{category.title}</div>
+                        videoPack ?
+                            <React.Fragment>
+                                <div className={`video-page-loading-dark ${loading ? "show" : ""}`}>
+                                    {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
+                                </div>
+                                <h1 className="video-page-h1">
+                                    {videoPack.title}
+                                </h1>
+                                {
+                                    video ?
+                                        <div className="video-page-video-container">
+                                            <video className="video-page-video" controls controlsList="nodownload" autoPlay>
+                                                <source src={video}/>
+                                                {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
+                                            </video>
+                                            {selected}
+                                        </div>
+                                        :
+                                        <div className="video-page-video-container pre">
+                                            لطفا یک ویدئو انتخاب کنید
+                                        </div>
+                                }
+                                <div className="video-page-aside">
+                                    <div className="video-page-aside-videos">
                                         {
-                                            category.videos.map(video =>
-                                                <Material key={"video" + video._id} className="video-page-aside-videos-item" onClick={() => this.showVideo(video)}>
-                                                    {video.title}
-                                                    {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
-                                                </Material>,
+                                            videoPack.categories.map(category =>
+                                                <React.Fragment key={"cat" + category._id}>
+                                                    <div className="video-page-aside-videos-title">{category.title}</div>
+                                                    {
+                                                        category.videos.map(video =>
+                                                            <Material key={"video" + video._id} className="video-page-aside-videos-item" onClick={() => this.showVideo(video)}>
+                                                                {video.title}
+                                                                {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
+                                                            </Material>,
+                                                        )
+                                                    }
+                                                </React.Fragment>,
                                             )
                                         }
-                                    </React.Fragment>,
-                                )
-                            }
-                        </div>
-                    </div>
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                            :
+                            <div className="exchange-show-cont">
+                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                            </div>
+                    }
                 </div>
-            )
-        }
-        else return (
-            <div className="exchange-show-cont">
-                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-            </div>
+                <Footer/>
+            </React.Fragment>
         )
     }
 }

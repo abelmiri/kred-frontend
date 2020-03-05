@@ -231,14 +231,17 @@ class OffCodes extends Component
                                         <div className="panel-0ff-code-item">ثبت نام</div>
                                     </div>
                                     {
-                                        Object.values(users).map((user, index) =>
-                                            <div key={user._id} className="panel-0ff-code-cont">
-                                                <div className="panel-0ff-code-item-small">{index + 1}</div>
-                                                <div className="panel-0ff-code-item">{user.name || user.phone}</div>
-                                                <div className="panel-0ff-code-item">{user.phone}</div>
-                                                <div className="panel-0ff-code-item">{new Date(user.created_date).toLocaleDateString("fa-ir")}</div>
-                                            </div>,
-                                        )
+                                        Object.values(users).length > 0 ?
+                                            Object.values(users).map((user, index) =>
+                                                <div key={user._id} className="panel-0ff-code-cont">
+                                                    <div className="panel-0ff-code-item-small">{index + 1}</div>
+                                                    <div className="panel-0ff-code-item">{user.name || user.phone}</div>
+                                                    <div className="panel-0ff-code-item">{user.phone}</div>
+                                                    <div className="panel-0ff-code-item">{new Date(user.created_date).toLocaleDateString("fa-ir")}</div>
+                                                </div>,
+                                            )
+                                            :
+                                            <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
                                     }
                                 </div>
                             </div>

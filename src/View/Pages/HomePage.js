@@ -5,6 +5,7 @@ import Material from "../Components/Material"
 import api, {REST_URL} from "../../Functions/api"
 import MySlider from "../Components/MySlider"
 import axios from "axios"
+import Footer from "../Components/Footer"
 
 class HomePage extends PureComponent
 {
@@ -160,6 +161,7 @@ class HomePage extends PureComponent
                         <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type='button' backgroundColor='rgba(58,175,169,0.2)' className='home-collab-butt'>همکاری با KRED</Material></a>
                     </div>
                 </div>
+                <Footer/>
             </React.Fragment>
         )
     }

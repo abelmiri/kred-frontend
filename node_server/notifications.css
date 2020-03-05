@@ -13,7 +13,7 @@
     bottom: 0;
     left: 0;
     z-index: 999999;
-    padding: 0px 15px;
+    padding: 0 15px;
     max-height: calc(100% - 30px);
     overflow-x: hidden;
     overflow-y: auto;
@@ -83,7 +83,7 @@
     left: 15px;
     margin-top: -14px;
     display: block;
-    font-family: 'Notification';
+    font-family: 'Notification', serif;
     width: 28px;
     height: 28px;
     font-size: 28px;

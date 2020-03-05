@@ -115,7 +115,7 @@
 }
 
 .video-pack-item-img {
-  width: 80%;
+  width: 60%;
   margin: auto;
   display: block;
 }
@@ -132,12 +132,14 @@
 
 .video-pack-item-title-text {
   flex-grow: 1;
-  text-align: right;
+  text-align: center;
 }
 
 .video-pack-item-title-svg {
   width: 20px;
   fill: $primary-color;
+  vertical-align: top;
+  margin-right: 7px;
 }
 
 .video-pack-item-title-buy {
@@ -145,6 +147,7 @@
   flex-grow: 1;
   min-width: 100%;
   font-size: $regular-font-size;
+  font-weight: normal;
   color: white;
   background-color: $error-color;
   border: 1px solid $error-color;
@@ -156,6 +159,33 @@
     &:hover {
       color: $error-color;
       background-color: whitesmoke;
+    }
+  }
+
+  &.view {
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+
+    @media screen and (min-width: 480px) {
+      &:hover {
+        color: $primary-color;
+        background-color: whitesmoke;
+      }
+    }
+  }
+
+  &.exchange {
+    @media screen and (max-width: 480px) {
+      position: absolute;
+      border-radius: 15px;
+      right: 5%;
+      text-align: right;
+      bottom: 15px;
+      margin-top: 0;
+      margin-bottom: 0;
+      width: auto;
+      min-width: initial;
+      padding: 3px 25px;
     }
   }
 }
@@ -190,6 +220,7 @@
 .buy-slide-cont {
   width: 100%;
   white-space: nowrap;
+  transition: all linear 0.2s;
 }
 
 .buy-slide {

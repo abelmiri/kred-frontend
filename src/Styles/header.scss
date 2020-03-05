@@ -45,7 +45,7 @@
 }
 
 .header-buttons-menu-cont {
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 480px) {
     margin-left: 35px;
     height: 100%;
     position: relative;
@@ -72,7 +72,7 @@
       }
     }
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 480px) {
     display: none;
   }
 }
@@ -95,7 +95,7 @@
 }
 
 .header-buttons-menu-drop {
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 480px) {
     position: absolute;
     left: 0;
     right: 0;
@@ -106,7 +106,7 @@
     overflow: hidden;
     transition: all linear 0.2s;
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 480px) {
     display: none;
   }
 }
@@ -387,5 +387,67 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     height: 100vh;
+  }
+}
+
+.login-modal-forget-cont {
+  margin-top: -5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-modal-forget {
+  color: $secondary-color;
+  text-align: right;
+  font-size: $regular-font-size;
+  padding: 10px 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.login-modal-forget-checkbox {
+  width: 15px;
+  height: 15px;
+  background-color: $primary-color;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 2px;
+  margin-left: 10px;
+  position: relative;
+
+  &.hide {
+    &:after {
+      opacity: 0;
+      transform: rotate(45deg) scale(0);
+    }
+
+    &:before {
+      opacity: 0;
+      transform: rotate(-45deg) scale(0);
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 3px;
+    background-color: white;
+    transform: rotate(45deg);
+    left: 1.5px;
+    top: 8px;
+    transition: all linear 0.1s;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 3px;
+    background-color: white;
+    transform: rotate(-45deg);
+    left: 3px;
+    top: 6px;
+    transition: all linear 0.1s;
   }
 }

@@ -27,9 +27,14 @@ class ProfilePageUserInfo extends Component
 
     componentDidMount()
     {
-        if (localStorage.hasOwnProperty("user"))
+        if (document.body.clientWidth <= 480)
         {
-            const user = JSON.parse(localStorage.getItem("user"))
+            window.scroll({top: 0})
+        }
+
+        if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user"))
+        {
+            const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
             this.setState({
                     ...this.state,
                     name: user.name && user.name,
@@ -39,7 +44,6 @@ class ProfilePageUserInfo extends Component
                     entrance: user.entrance && user.entrance,
                     major: user.major && user.major,
                     grade: user.grade && user.grade,
-                    password: user.password && user.password,
                 },
                 () => document.body.clientWidth > 480 && this.name.focus(),
             )
@@ -101,9 +105,10 @@ class ProfilePageUserInfo extends Component
                     })
                     .catch((e) =>
                     {
-                        if (e.message === "Request failed with status code 404")
+                        if (e?.response?.status === 404)
                         {
                             localStorage.removeItem("user")
+                            sessionStorage.removeItem("user")
                             this.setState({...this.state, loading: false})
                         }
                     })
@@ -122,25 +127,21 @@ class ProfilePageUserInfo extends Component
 
     handlePassChange = () =>
     {
-        const {password} = this.state
         const {setUser} = this.props
-        const oldPass = this.oldPasswordInput.value
         const newPass = this.newPasswordInput.value
 
-        if (oldPass === password && newPass.length >= 8 && newPass.length <= 20)
+        if (newPass.length >= 8 && newPass.length <= 20)
         {
             this.setState({...this.state, loading: true, done_pass: false, wrong_pass: false}, () =>
             {
                 api.patch("user", {password: newPass}, "")
-                    .then((res) =>
-                    {
-                        this.setState({...this.state, loading: false, done_pass: true, password: newPass}, () => setUser(res))
-                    })
+                    .then((res) => this.setState({...this.state, loading: false, done_pass: true, password: newPass}, () => setUser(res)))
                     .catch((e) =>
                     {
-                        if (e.message === "Request failed with status code 404")
+                        if (e?.response?.status === 404)
                         {
-                            localStorage.clear()
+                            localStorage.removeItem("user")
+                            sessionStorage.removeItem("user")
                             this.setState({...this.state, loading: false})
                         }
                     })
@@ -205,15 +206,6 @@ class ProfilePageUserInfo extends Component
                                     <div className='create-exchange-title'>تغییر رمز پروفایل</div>
                                     <div className="create-exchange-main">
                                         <div className="create-exchange-part">
-                                            <div className='create-exchange-section'>
-                                                <label className='create-exchange-section-label'>رمز قدیمی <span>*</span></label>
-                                                <input type='password'
-                                                       className='create-exchange-section-input'
-                                                       placeholder="رمز پروفایل"
-                                                       maxLength={20}
-                                                       ref={e => this.oldPasswordInput = e}
-                                                />
-                                            </div>
                                             <div className='create-exchange-section'>
                                                 <label className='create-exchange-section-label'>رمز جدید <span>*</span></label>
                                                 <input type='password'

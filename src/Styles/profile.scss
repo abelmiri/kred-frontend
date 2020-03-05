@@ -1,36 +1,42 @@
 @import "variables";
 
 .profile-container {
-  padding: 110px calc(5% + 270px) 50px 5%;
+  padding: 110px calc(5% + 270px) 50px calc(5% + 270px);
   display: flex;
+  width: calc(90% - 540px);
 
   @media screen and (max-width: 480px) {
-    padding: 100px 5% 0 5%;
+    padding: 90px 5% 0 5%;
+    width: 90%;
     flex-wrap: wrap;
   }
 }
 
 .profile-right-menus {
-  width: 270px;
+  width: 268px;
   background-color: $background-color;
   position: fixed;
   right: 5%;
+  border: 1px solid $border-color;
 
   @media screen and (max-width: 480px) {
-    position: static;
     width: 100%;
+    top: initial !important;
+    bottom: 0;
+    display: flex;
+    z-index: 1;
+    right: 0;
+    left: 0;
+    border: none;
+    border-top: 1px solid $primary-color;
   }
-}
-
-.profile-main-right-menu {
-  width: calc(100% - 2px);
-  border: 1px solid $border-color;
 }
 
 .profile-main-right-menu-element {
   height: 70px;
   display: flex;
   justify-content: flex-start;
+  flex-grow: 1;
   align-items: center;
   cursor: pointer;
   color: $dark-color;
@@ -38,6 +44,14 @@
   background-color: $background-color;
   padding: 0 17px;
   transition-duration: $long-animation-duration;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    font-size: 9px;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+  }
 
   &.selected {
     color: $background-color;
@@ -56,40 +70,47 @@
   height: 38px;
   margin-left: 17px;
   transition-duration: $long-animation-duration;
+
+  @media screen and (max-width: 480px) {
+    margin-left: 0;
+    width: 25px;
+  }
 }
 
 .profile-content {
   flex-grow: 1;
-  background-color: $very-light-color;
   margin: 0 2px;
   padding: 0 20px 20px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  width: calc(100% - 40px);
 
   @media screen and (max-width: 480px) {
-    flex-wrap: wrap;
     padding: 0;
-    margin: 10px 0;
+    width: 100%;
+    margin: 10px 0 70px 0;
   }
 }
 
 .profile-introduction {
-  width: 100%;
   border: 1px solid $border-color;
   display: flex;
   justify-content: space-between;
   padding-bottom: 25px;
   background-color: white;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 1510px) {
     flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 480px) {
+    justify-content: space-between;
   }
 }
 
 .profile-introduction-slider {
   margin-top: 20px;
   width: 370px;
+  height: 390px;
   position: relative;
   text-align: center;
   flex-shrink: 0;
@@ -102,6 +123,7 @@
 }
 
 .profile-introduction-content {
+  width: 100%;
   flex-grow: 1;
 }
 
@@ -138,7 +160,7 @@
   width: calc(100% - 100px);
   text-align: center;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 1350px) {
     padding: 0 20px;
     width: calc(100% - 40px);
   }
@@ -152,9 +174,9 @@
     background-color: transparent;
     font-size: $title-font-size;
     transition-duration: $short-animation-duration;
-    width: 350px;
+    width: 345px;
 
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: 1350px) {
       width: 100%;
     }
 
@@ -170,7 +192,7 @@
     font-size: $home-regular-font-size;
     display: inline-block;
 
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: 1350px) {
       margin: 25px 0 5px 0;
       width: 100%;
     }
@@ -202,11 +224,14 @@
 }
 
 .profile-left-menus {
-  width: 270px;
+  width: 268px;
+  border: 1px solid $border-color;
   background-color: $background-color;
+  position: fixed;
+  left: 5%;
 
   @media screen and (max-width: 480px) {
-    width: 100%;
+    display: none;
   }
 }
 
@@ -233,11 +258,6 @@
   width: calc(100% - 2px);
   border: 1px solid $border-color;
   margin-bottom: 30px;
-}
-
-.profile-forum-left-menu {
-  width: 100%;
-  border: 1px solid $border-color;
 }
 
 .profile-info-submit-buttons-container {
@@ -290,18 +310,12 @@
   color: $error-color;
 }
 
-.change-password-modal {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  background-color: white;
-  width: 430px;
-  border: 1px solid $text-light-color;
+.profile-my-books {
+  background-color: $secondary-color;
+  padding: 10px 0;
   text-align: center;
-  z-index: 5;
-  opacity: 1;
-  animation: show-modal linear 0.2s;
-  transform: translate3d(-50%, -50%, 0) scale(1);
-  transition: all linear 0.2s;
-  border-radius: 3px;
+  font-size: $title-font-size;
+  color: white;
+  font-weight: bold;
+  margin: 15px 0;
 }
