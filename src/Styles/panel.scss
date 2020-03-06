@@ -52,6 +52,10 @@
     padding: 13px 0;
     color: white;
     font-weight: bold;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
   }
 
   &.scroll {
@@ -230,6 +234,13 @@
   height: 370px;
   overflow: auto;
   border: 1px solid $dark-color;
+  text-decoration: none;
+  color: $dark-color;
+  transition: all linear 0.2s;
+
+  &:hover {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  }
 
   @media screen and (max-width: 480px) {
     width: calc(100% - 2px);

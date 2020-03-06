@@ -3,6 +3,10 @@ import {NavLink, Route, Switch} from "react-router-dom"
 import OffCodes from "../Panel/OffCodes"
 import Material from "../Components/Material"
 import Dashboard from "./Dashboard.js"
+import TodaySignUps from "./TodaySignUps"
+import TodayPageViews from "./TodayPageViews"
+import TodayVideoViews from "./TodayVideoViews"
+import TodayBuys from "./TodayBuys"
 
 class Panel extends PureComponent
 {
@@ -26,6 +30,10 @@ class Panel extends PureComponent
                         <Switch>
                             <Route path='/panel/dashboard' render={() => <Dashboard/>}/>
                             <Route path='/panel/off-codes' render={() => <OffCodes/>}/>
+                            <Route path='/panel/sign-ups' render={() => <TodaySignUps/>}/>
+                            <Route path='/panel/page-views' render={() => <TodayPageViews/>}/>
+                            <Route path='/panel/video-views' render={() => <TodayVideoViews/>}/>
+                            <Route path='/panel/buys' render={() => <TodayBuys/>}/>
                             <Route path='*' render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
                         </Switch>
                     </div>

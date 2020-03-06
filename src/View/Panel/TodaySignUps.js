@@ -33,7 +33,7 @@ class TodaySignUps extends PureComponent
         {
             if (document.body.clientWidth <= 480)
             {
-                if (this.state.showUser)
+                if (!this.props.smallView && this.state.showUser)
                 {
                     document.body.style.overflow = "auto"
                     this.setState({...this.state, showUser: false, user: {}})
@@ -44,18 +44,21 @@ class TodaySignUps extends PureComponent
 
     toggleUserModal(user)
     {
-        const showUser = !this.state.showUser
-        if (showUser)
+        if (!this.props.smallView)
         {
-            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/dashboard/user")
-            document.body.style.overflow = "hidden"
-            this.setState({...this.state, showUser, user})
-        }
-        else
-        {
-            if (document.body.clientWidth <= 480) window.history.back()
-            document.body.style.overflow = "auto"
-            this.setState({...this.state, showUser, user: {}})
+            const showUser = !this.state.showUser
+            if (showUser)
+            {
+                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/dashboard/user")
+                document.body.style.overflow = "hidden"
+                this.setState({...this.state, showUser, user})
+            }
+            else
+            {
+                if (document.body.clientWidth <= 480) window.history.back()
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, showUser, user: {}})
+            }
         }
     }
 
