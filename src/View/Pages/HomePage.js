@@ -74,6 +74,7 @@ class HomePage extends PureComponent
 
     render()
     {
+        const {user} = this.props
         const {freeVideos} = this.state
         return (
             <React.Fragment>
@@ -117,14 +118,17 @@ class HomePage extends PureComponent
                         <button className='home-section-butt reverse' onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</button>
                     </div>
                 </div>
-                <div className='home-videos'>
-                    <div className='home-videos-text'>
-                        <h3 className='home-videos-title'>پاویون</h3>
-                        <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
-                        <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/pavilion")}>برو تو پاویون</button>
+                {
+                    user?.role === "admin" &&
+                    <div className='home-videos'>
+                        <div className='home-videos-text'>
+                            <h3 className='home-videos-title'>پاویون</h3>
+                            <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
+                            <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/pavilion")}>برو تو پاویون</button>
+                        </div>
+                        <img className='home-videos-img' src={Pavion} alt=''/>
                     </div>
-                    <img className='home-videos-img' src={Pavion} alt=''/>
-                </div>
+                }
                 <div className='home-about'>
                     <h3 className='home-about-title'>اینجا چه خبره؟!</h3>
                     <div className='home-about-description'>

@@ -217,7 +217,7 @@ class App extends PureComponent
                         <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                         <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
                         <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                        <Route path='/pavilion' render={() => <PavilionPage/>}/>
+                        {user?.role === "admin" && <Route path='/pavilion' render={() => <PavilionPage/>}/>}
                         <Route path='/videos' render={() =>
                             <VideoPacksPage user={user}
                                             getVideoPacks={this.getVideoPacks}
@@ -229,7 +229,7 @@ class App extends PureComponent
                         }/>
                         <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
                         <Route path='/panel' render={() => <Panel user={user}/>}/>
-                        <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
+                        <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook} user={user}/>}/>
                     </Switch>
                     <NotificationContainer/>
                 </main>
