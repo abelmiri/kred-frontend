@@ -39,7 +39,7 @@
   &.last {
     font-weight: bold;
     font-size: $home-regular-font-size;
-    color: $almost-dark-color;
+    color: $dark-color;
     text-align: center;
     flex-grow: 1;
     margin-left: 0;
@@ -60,7 +60,7 @@
 .footer-part-title {
   font-weight: bold;
   font-size: $home-regular-font-size;
-  border-bottom: 1px solid $almost-dark-color;
+  border-bottom: 1px solid $dark-color;
   padding-bottom: 5px;
   display: inline-block;
   padding-left: 10px;
@@ -69,7 +69,7 @@
 .footer-part-text {
   font-size: $title-font-size;
   margin: 20px 0;
-  color: $almost-dark-color;
+  color: $dark-color;
   text-decoration: none;
   display: block;
 }
@@ -78,7 +78,7 @@
   width: 20px;
   vertical-align: top;
   margin-left: 8px;
-  fill: $almost-dark-color;
+  fill: $dark-color;
 }
 
 .footer-last-line {

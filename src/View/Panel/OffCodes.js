@@ -1,11 +1,11 @@
-import React, {Component} from "react"
+import React, {PureComponent} from "react"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import api from "../../Functions/api"
 import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import {ClipLoader} from "react-spinners"
 
-class OffCodes extends Component
+class OffCodes extends PureComponent
 {
     constructor(props)
     {
@@ -145,6 +145,7 @@ class OffCodes extends Component
         if (error) return "خطایی پیش اومد ادمین جان!"
         else return (
             <section className="panel-page-section">
+                <div className="panel-page-section-title">کدهای تخفیف {Object.values(offCodes).length > 0 && `(${Object.values(offCodes).length})`}</div>
                 <div className="panel-0ff-code-scroll dont-gesture">
                     <div className="panel-0ff-code-cont scroll title">
                         <div className="panel-0ff-code-item">کد</div>
@@ -155,16 +156,19 @@ class OffCodes extends Component
                         <div className="panel-0ff-code-item">انقضا</div>
                     </div>
                     {
-                        Object.values(offCodes).map(code =>
-                            <div key={code._id} className="panel-0ff-code-cont scroll">
-                                <div className="panel-0ff-code-item">{code.code}</div>
-                                <div className="panel-0ff-code-item">{code.amount_type === "fix" ? "ثابت" : "درصدی"}</div>
-                                <div className="panel-0ff-code-item">{code.amount_type === "fix" ? <span>{addCommaPrice(code.amount)} ت</span> : <span>{code.amount} درصد</span>}</div>
-                                <div className="panel-0ff-code-item">{code.usage === 0 ? code.usage : <Material className="panel-0ff-code-usage" onClick={() => this.toggleUsersModal(code._id)}>{code.usage}</Material>}</div>
-                                <div className="panel-0ff-code-item">{code.max_usage}</div>
-                                <div className="panel-0ff-code-item">{new Date(code.expire_date).toLocaleDateString("fa-ir")}</div>
-                            </div>,
-                        )
+                        Object.values(offCodes).length > 0 ?
+                            Object.values(offCodes).map(code =>
+                                <div key={code._id} className="panel-0ff-code-cont scroll">
+                                    <div className="panel-0ff-code-item">{code.code}</div>
+                                    <div className="panel-0ff-code-item">{code.amount_type === "fix" ? "ثابت" : "درصدی"}</div>
+                                    <div className="panel-0ff-code-item">{code.amount_type === "fix" ? <span>{addCommaPrice(code.amount)} ت</span> : <span>{code.amount} درصد</span>}</div>
+                                    <div className="panel-0ff-code-item">{code.usage === 0 ? code.usage : <Material className="panel-0ff-code-usage" onClick={() => this.toggleUsersModal(code._id)}>{code.usage}</Material>}</div>
+                                    <div className="panel-0ff-code-item">{code.max_usage}</div>
+                                    <div className="panel-0ff-code-item">{new Date(code.expire_date).toLocaleDateString("fa-ir")}</div>
+                                </div>,
+                            )
+                            :
+                            <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
                     }
                 </div>
                 <Material className="panel-0ff-code-add" onClick={this.toggleAddModal}>
@@ -225,16 +229,14 @@ class OffCodes extends Component
                             <div className="panel-add-off-main">
                                 <div className="panel-0ff-code-scroll dont-gesture">
                                     <div className="panel-0ff-code-cont title">
-                                        <div className="panel-0ff-code-item-small">ردیف</div>
                                         <div className="panel-0ff-code-item">نام</div>
                                         <div className="panel-0ff-code-item">شماره</div>
                                         <div className="panel-0ff-code-item">ثبت نام</div>
                                     </div>
                                     {
                                         Object.values(users).length > 0 ?
-                                            Object.values(users).map((user, index) =>
+                                            Object.values(users).map((user) =>
                                                 <div key={user._id} className="panel-0ff-code-cont">
-                                                    <div className="panel-0ff-code-item-small">{index + 1}</div>
                                                     <div className="panel-0ff-code-item">{user.name || user.phone}</div>
                                                     <div className="panel-0ff-code-item">{user.phone}</div>
                                                     <div className="panel-0ff-code-item">{new Date(user.created_date).toLocaleDateString("fa-ir")}</div>

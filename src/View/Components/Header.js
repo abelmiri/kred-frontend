@@ -15,7 +15,6 @@ class Header extends PureComponent
             showLoginModal: false,
             collapseSidebar: true,
             hideDropDown: true,
-            hidePanelDropDown: true,
         }
         this.deltaX = 0
         this.posX = 0
@@ -155,12 +154,11 @@ class Header extends PureComponent
     onClick(e)
     {
         if (!this.state.hideDropDown && this.dropDownCont && !this.dropDownCont.contains(e.target)) this.toggleDropDown()
-        if (!this.state.hidePanelDropDown && this.panelDropDownCont && !this.panelDropDownCont.contains(e.target)) this.togglePanelDropDown()
     }
 
     onScroll()
     {
-        const {isTransparent, hideDropDown, hidePanelDropDown} = this.state
+        const {isTransparent, hideDropDown} = this.state
         if (window.scrollY >= window.innerHeight - 50)
         {
             if (isTransparent) this.setState({...this.state, isTransparent: false})
@@ -171,7 +169,6 @@ class Header extends PureComponent
         }
 
         if (!hideDropDown) this.toggleDropDown()
-        if (!hidePanelDropDown) this.togglePanelDropDown()
     }
 
     showLoginModalOnSide = () =>
@@ -223,28 +220,12 @@ class Header extends PureComponent
         })
     }
 
-    togglePanelDropDown = () =>
-    {
-        const hidePanelDropDown = !this.state.hidePanelDropDown
-        this.setState({...this.state, hidePanelDropDown}, () =>
-        {
-            if (hidePanelDropDown)
-            {
-                if (this.panelDropDown) this.panelDropDown.style.height = "0"
-            }
-            else
-            {
-                if (this.panelDropDown) this.panelDropDown.style.height = this.panelDropDown.scrollHeight + "px"
-            }
-        })
-    }
-
     render()
     {
         const {location, user, setUser} = this.props
         if (location !== "/sign-up")
         {
-            const {isTransparent, showLoginModal, collapseSidebar, hideDropDown, hidePanelDropDown} = this.state
+            const {isTransparent, showLoginModal, collapseSidebar, hideDropDown} = this.state
             return (
                 <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
                     <div className='header-buttons'>
@@ -284,6 +265,12 @@ class Header extends PureComponent
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>صفحه اصلی</Material>
                                     </Link>
                                     {
+                                        user && user.role === "admin" &&
+                                        <Link className="header-buttons-menu-drop-link" to="/panel/dashboard">
+                                            <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پنل ادمین</Material>
+                                        </Link>
+                                    }
+                                    {
                                         user &&
                                         <Link className="header-buttons-menu-drop-link" to="/profile">
                                             <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پروفایل من</Material>
@@ -305,27 +292,9 @@ class Header extends PureComponent
                         {
                             user ?
                                 <React.Fragment>
-                                    {
-                                        user.role === "admin" ?
-                                            <div className={`header-buttons-menu-cont styled ${hidePanelDropDown ? "" : "open-drop"}`} ref={e => this.panelDropDownCont = e}>
-                                                <Material backgroundColor='rgba(255,255,255,0.3)' className="header-buttons-menu panel" onClick={this.togglePanelDropDown}>
-                                                    <Hamburger className='header-hamburger-desktop' collapse={hidePanelDropDown}/>
-                                                    <span>{location === "/panel/off-codes" ? "کد تخفیف" : location === "/panel/statistics" ? "آمارها" : "سلام ادمین!"}</span>
-                                                </Material>
-                                                <div className="header-buttons-menu-drop" ref={e => this.panelDropDown = e} style={{height: "0"}}>
-                                                    <Link className="header-buttons-menu-drop-link" to="/panel/statistics">
-                                                        <Material className="header-buttons-menu-drop-item" onClick={this.togglePanelDropDown}>آمارها</Material>
-                                                    </Link>
-                                                    <Link className="header-buttons-menu-drop-link" to="/panel/off-codes">
-                                                        <Material className="header-buttons-menu-drop-item" onClick={this.togglePanelDropDown}>کد تخفیف</Material>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                            :
-                                            <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
-                                                سلام {user.name ? user.name.split(" ")[0] : user.phone}
-                                            </Link>
-                                    }
+                                    <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
+                                        سلام {user.name ? user.name.split(" ")[0] : user.phone}
+                                    </Link>
                                     <div className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.logout}>خروج</div>
                                 </React.Fragment>
                                 :
@@ -363,7 +332,7 @@ class Header extends PureComponent
                         {
                             user && user.role === "admin" &&
                             <React.Fragment>
-                                <Link to="/panel" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پنل ادمین</Material></Link>
+                                <Link to="/panel/dashboard" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پنل ادمین</Material></Link>
                             </React.Fragment>
                         }
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}

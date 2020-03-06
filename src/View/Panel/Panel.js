@@ -1,23 +1,34 @@
 import React, {PureComponent} from "react"
-import {Route, Switch} from "react-router-dom"
+import {NavLink, Route, Switch} from "react-router-dom"
 import OffCodes from "../Panel/OffCodes"
-import StatisticsPage from "./StatisticsPage"
-import PanelMain from "./PanelMain"
+import Material from "../Components/Material"
+import Dashboard from "./Dashboard.js"
 
 class Panel extends PureComponent
 {
+    componentDidMount()
+    {
+        window.scroll({top: 0})
+    }
+
     render()
     {
         const {user} = this.props
         if (user && user.role === "admin")
         {
             return (
-                <div className="statistics-page-container">
-                    <Switch>
-                        <Route path='/panel/statistics' render={() => <StatisticsPage user={user}/>}/>
-                        <Route path='/panel/off-codes' render={() => <OffCodes user={user}/>}/>
-                        <Route path='*' render={() => <PanelMain/>}/>
-                    </Switch>
+                <div className="panel-page-container">
+                    <div className="panel-side-bar">
+                        <NavLink className="panel-side-bar-item-link" activeClassName="selected" to="/panel/dashboard"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">داشبورد</Material></NavLink>
+                        <NavLink className="panel-side-bar-item-link" activeClassName="selected" to="/panel/off-codes"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کد تخفیف</Material></NavLink>
+                    </div>
+                    <div className="panel-page-content">
+                        <Switch>
+                            <Route path='/panel/dashboard' render={() => <Dashboard/>}/>
+                            <Route path='/panel/off-codes' render={() => <OffCodes/>}/>
+                            <Route path='*' render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
+                        </Switch>
+                    </div>
                 </div>
             )
         }

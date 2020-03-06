@@ -255,7 +255,7 @@
 .create-exchange-button-search {
   width: 250px;
   border: none;
-  border-bottom: 1px solid $almost-dark-color;
+  border-bottom: 1px solid $dark-color;
   padding: 16px;
   vertical-align: top;
 
@@ -306,7 +306,7 @@
   width: 300px;
   background-color: white;
   z-index: 1;
-  border: 1px solid $almost-dark-color;
+  border: 1px solid $dark-color;
   overflow: hidden;
   height: 308px;
   opacity: 1;
@@ -345,7 +345,7 @@
 
 .create-exchange-button-search-categories {
   padding: 15px 20px;
-  border: 1px solid $almost-dark-color;
+  border: 1px solid $dark-color;
   z-index: 2;
   background-color: white;
 
@@ -434,6 +434,12 @@
   transform: translate3d(-50%, -50%, 0) scale(1);
   transition: all linear 0.2s;
   border-radius: 3px;
+
+  &.bigger-size {
+    @media screen and (min-width: 850px) {
+      width: 800px;
+    }
+  }
 
   &.create-small {
     @media screen and (max-width: 480px) {
@@ -809,7 +815,7 @@
     height: 13px;
     width: 13px;
     border-radius: 50%;
-    border: 1px solid $almost-dark-color;
+    border: 1px solid $dark-color;
     background-color: white;
 
     &:after {
@@ -825,7 +831,7 @@
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background-color: $almost-dark-color;
+    background-color: $dark-color;
   }
 
   input {
@@ -901,7 +907,7 @@
     bottom: -5px;
     content: "";
     width: 100%;
-    border-bottom: 1px solid $almost-dark-color;
+    border-bottom: 1px solid $dark-color;
   }
 }
 
