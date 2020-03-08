@@ -1,8 +1,8 @@
 import axios from "axios"
 import {NotificationManager} from "react-notifications"
 
-export const REST_URL = "http://localhost:1435"
-// export const REST_URL = "https://restful.kred.ir"
+// export const REST_URL = "http://localhost:1435"
+export const REST_URL = "https://restful.kred.ir"
 
 function get(url, param = "", noToken)
 {
