@@ -56,7 +56,7 @@ class TodaySignUps extends PureComponent
                                             }
                                         </div>
                                         {
-                                            todaySignUp.map(user =>
+                                            todaySignUp.reverse().map(user =>
                                                 <Material key={"today-sign-ups" + user.phone} className={`panel-0ff-code-cont ${!smallView ? "scroll-wide" : ""}`}>
                                                     <div className={!smallView ? "panel-0ff-code-item-big" : "panel-0ff-code-item"}>{user.name}</div>
                                                     <div className="panel-0ff-code-item">{user.phone}</div>

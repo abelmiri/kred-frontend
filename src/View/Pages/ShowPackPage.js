@@ -40,8 +40,24 @@ class ShowPackPage extends PureComponent
         }
 
         const {packId} = this.props
-        api.get(`video-pack/${packId}`, `?limit=100&time=${new Date().toISOString()}`)
-            .then(videoPack => this.setState({...this.state, videoPack}))
+        api.get(`video-pack/${packId}`, `?limit=100&time=${new Date().toISOString()}`, false, true)
+            .then(videoPack =>
+            {
+                this.setState({...this.state, videoPack}, () =>
+                    localStorage.setItem(packId, JSON.stringify(videoPack)),
+                )
+            })
+            .catch(() =>
+            {
+                const videoPack = localStorage.getItem(packId)
+                if (videoPack)
+                {
+                    this.setState({...this.state, videoPack: JSON.parse(videoPack)}, () =>
+                        NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین..."),
+                    )
+                }
+                else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+            })
 
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه‌ی مجموعه ویدیوها", content_id: packId}).catch(err => console.log(err))

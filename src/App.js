@@ -12,6 +12,7 @@ import versionMigrations from "./Functions/versionMigration"
 import PaymentPage from "./View/Pages/PaymentPage"
 import Panel from "./View/Panel/Panel"
 import PavilionPage from "./View/Pages/PavilionPage"
+import {NotificationManager} from "react-notifications"
 
 class App extends PureComponent
 {
@@ -192,16 +193,46 @@ class App extends PureComponent
 
     getVideoPacks = () =>
     {
-        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`).then((videoPacks) =>
-            this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}),
-        )
+        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`, false, true)
+            .then((videoPacks) =>
+            {
+                this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}, () =>
+                    localStorage.setItem("video-pack", JSON.stringify(videoPacks)),
+                )
+            })
+            .catch(() =>
+            {
+                const videoPacks = localStorage.getItem("video-pack")
+                if (videoPacks)
+                {
+                    this.setState({...this.state, videoPacks: JSON.parse(videoPacks).reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}, () =>
+                        NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین..."),
+                    )
+                }
+                else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+            })
     }
 
     getCompanies = () =>
     {
-        api.get("company", `?limit=100&time=${new Date().toISOString()}`, true).then((companies) =>
-            this.setState({...this.state, companies: companies.reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}),
-        )
+        api.get("company", `?limit=100&time=${new Date().toISOString()}`, true, true)
+            .then((companies) =>
+            {
+                this.setState({...this.state, companies: companies.reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}, () =>
+                    localStorage.setItem("company", JSON.stringify(companies)),
+                )
+            })
+            .catch(() =>
+            {
+                const companies = localStorage.getItem("company")
+                if (companies)
+                {
+                    this.setState({...this.state, companies: JSON.parse(companies).reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}, () =>
+                        NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین..."),
+                    )
+                }
+                else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+            })
     }
 
     render()

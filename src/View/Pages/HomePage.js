@@ -7,6 +7,7 @@ import api, {REST_URL} from "../../Functions/api"
 import MySlider from "../Components/MySlider"
 import axios from "axios"
 import Footer from "../Components/Footer"
+import {ClipLoader} from "react-spinners"
 
 class HomePage extends PureComponent
 {
@@ -15,6 +16,7 @@ class HomePage extends PureComponent
         super(props)
         this.state = {
             freeVideos: {},
+            videoError: false,
         }
     }
 
@@ -25,6 +27,7 @@ class HomePage extends PureComponent
         if (document.body.clientWidth >= 800)
             api.get("video/free", "", true)
                 .then(freeVideos => this.setState({...this.state, freeVideos: freeVideos.reduce((sum, video) => ({...sum, [video._id]: {...video}}), {})}, () => this.getSubtitlesFromServer(freeVideos)))
+                .catch(() => this.setState({...this.state, videoError: true}))
 
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه اصلی"}).catch(err => console.log(err))
@@ -75,7 +78,7 @@ class HomePage extends PureComponent
     render()
     {
         const {user} = this.props
-        const {freeVideos} = this.state
+        const {freeVideos, videoError} = this.state
         return (
             <React.Fragment>
                 <div className='home-background-img'>
@@ -91,23 +94,31 @@ class HomePage extends PureComponent
                     <img className='home-videos-img mobile' src={Nurses} alt=''/>
                     <div className="home-videos-img desktop">
                         <div className="home-videos-img-title">پربازدیدترین فیلم‌ها</div>
-                        <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" nodes={
-                            (Object.values(freeVideos)).map(video =>
-                                <div className="home-videos-item-cont">
-                                    <video key={video._id} id={video._id} controls controlsList="nodownload"
-                                           className="home-videos-item"
-                                           poster={REST_URL + video.poster}
-                                           onPlay={this.onVideoPlay}
-                                           onMouseDown={this.onLinkDown}
-                                           onMouseUp={this.onLinkUp}
-                                           onClick={this.onLinkClick}>
-                                        <source src={REST_URL + video.video_url}/>
-                                        <track label="Farsi" kind="subtitles" srcLang="en" src={video.subtitle} default/>
-                                    </video>
-                                    <div className="home-videos-item-title">{video.title}</div>
-                                </div>,
-                            )
-                        }/>
+                        {
+                            Object.values(freeVideos).length > 0 ?
+                                <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" nodes={
+                                    (Object.values(freeVideos)).map(video =>
+                                        <div className="home-videos-item-cont">
+                                            <video key={video._id} id={video._id} controls controlsList="nodownload"
+                                                   className="home-videos-item"
+                                                   poster={REST_URL + video.poster}
+                                                   onPlay={this.onVideoPlay}
+                                                   onMouseDown={this.onLinkDown}
+                                                   onMouseUp={this.onLinkUp}
+                                                   onClick={this.onLinkClick}>
+                                                <source src={REST_URL + video.video_url}/>
+                                                <track label="Farsi" kind="subtitles" srcLang="en" src={video.subtitle} default/>
+                                            </video>
+                                            <div className="home-videos-item-title">{video.title}</div>
+                                        </div>,
+                                    )
+                                }/>
+                                :
+                                videoError ?
+                                    <div className="exchange-page-loading not-found">خطا در گرفتن ویدیوها</div>
+                                    :
+                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                        }
                     </div>
                 </div>
                 <div className='home-exchange'>

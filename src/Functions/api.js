@@ -4,23 +4,15 @@ import {NotificationManager} from "react-notifications"
 // export const REST_URL = "http://localhost:1435"
 export const REST_URL = "https://restful.kred.ir"
 
-function get(url, param = "", noToken)
+function get(url, param = "", noToken, dontToast)
 {
     const token = noToken || (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) ? "" : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     return axios.get(encodeURI(REST_URL + "/" + url + "/" + param), {headers: !noToken ? {"Authorization": `${token}`} : null})
-        .then((res) =>
-        {
-            if (res.status === 200) return res.data
-            else
-            {
-                NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
-                throw res.data
-            }
-        })
+        .then((res) => res.data)
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
-            if (err?.response?.status !== 404) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+            if (err?.response?.status !== 404 && !dontToast) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
             throw err
         })
 }
@@ -32,11 +24,7 @@ function post(url, data, param = "", noToken, progress)
         headers: !noToken ? {"Authorization": `${token}`} : null,
         onUploadProgress: e => progress ? progress(e) : null,
     })
-        .then((res) =>
-        {
-            if (res.status === 200 || res.status === 201) return res.data
-            else throw res.data
-        })
+        .then((res) => res.data)
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
@@ -49,11 +37,7 @@ function patch(url, data, param = "")
     const token = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     const sendUrl = param === "" ? REST_URL + "/" + url + "/" : REST_URL + "/" + url + "/" + param + "/"
     return axios.patch(encodeURI(sendUrl), data, {headers: {"Authorization": `${token}`}})
-        .then((res) =>
-        {
-            if (res.status === 200) return res.data
-            else throw res.data
-        })
+        .then((res) => res.data)
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
@@ -66,11 +50,7 @@ function del(url, data, param = "")
     const token = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     const sendUrl = param === "" ? REST_URL + "/" + url + "/" : REST_URL + "/" + url + "/" + param + "/"
     return axios.delete(encodeURI(sendUrl), {headers: {"Authorization": `${token}`}, data})
-        .then((res) =>
-        {
-            if (res.status === 200 || res.status === 204) return res.data
-            else throw res.data
-        })
+        .then((res) => res.data)
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
