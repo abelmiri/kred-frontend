@@ -8,13 +8,17 @@ import {NotificationManager} from "react-notifications"
 const deleteExchangeFunc = (e, id, deleteExchange) =>
 {
     e.preventDefault()
-    api.del("exchange", null, id)
-        .then(() =>
-        {
-            NotificationManager.success("آگهی شما با موفقیت حذف شد!")
-            deleteExchange(id)
-        })
-        .catch(() => NotificationManager.error("مشکلی پیش آمد. اینرنت خود را بررسی کنید."))
+    let result = window.confirm("از حذف آگهی مطمئنید؟")
+    if (result)
+    {
+        api.del("exchange", null, id)
+            .then(() =>
+            {
+                NotificationManager.success("آگهی شما با موفقیت حذف شد!")
+                deleteExchange(id)
+            })
+            .catch(() => NotificationManager.error("مشکلی پیش آمد. اینترنت خود را بررسی کنید."))
+    }
 }
 
 const ExchangeItem = (props) =>

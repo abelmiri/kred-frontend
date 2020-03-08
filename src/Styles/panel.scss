@@ -64,6 +64,12 @@
     }
   }
 
+  &.scroll-almost-wide {
+    @media screen and (max-width: 480px) {
+      width: 150%;
+    }
+  }
+
   &.scroll-wide {
     @media screen and (max-width: 480px) {
       width: 180%;
@@ -78,6 +84,12 @@
 .panel-0ff-code-item-small {
   width: 100px;
   text-align: center;
+}
+
+.panel-0ff-code-remove-cont {
+  min-width: 25px;
+  text-align: center;
+  margin: 0 35px;
 }
 
 .panel-0ff-code-item {

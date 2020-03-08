@@ -4,6 +4,7 @@ import api from "../../Functions/api"
 import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import {ClipLoader} from "react-spinners"
+import CancelSvg from "../../Media/Svgs/CancelSvg"
 
 class OffCodes extends PureComponent
 {
@@ -139,6 +140,24 @@ class OffCodes extends PureComponent
         }
     }
 
+    deleteOffCode(id)
+    {
+        let result = window.confirm("مطمئنی ادمین؟!")
+        if (result)
+        {
+            api.del("off-code", null, id)
+                .then(() =>
+                {
+                    const offCodes = {...this.state.offCodes}
+                    delete offCodes[id]
+                    this.setState({...this.state, offCodes}, () =>
+                        NotificationManager.success("کد تخفیف با موفقیت حذف شد!"),
+                    )
+                })
+                .catch(() => NotificationManager.error("مشکلی پیش آمد. اینترنت خود را بررسی کنید."))
+        }
+    }
+
     render()
     {
         const {offCodes, error, addOffCode, amount_type, addLoading, showUsers, users} = this.state
@@ -147,24 +166,26 @@ class OffCodes extends PureComponent
             <section className="panel-page-section">
                 <div className="panel-page-section-title">کدهای تخفیف {Object.values(offCodes).length > 0 && `(${Object.values(offCodes).length})`}</div>
                 <div className="panel-0ff-code-scroll dont-gesture">
-                    <div className="panel-0ff-code-cont scroll title">
-                        <div className="panel-0ff-code-item">کد</div>
+                    <div className="panel-0ff-code-cont scroll-almost-wide title">
+                        <div className="panel-0ff-code-item-big">کد</div>
                         <div className="panel-0ff-code-item">مدل</div>
                         <div className="panel-0ff-code-item">مقدار</div>
                         <div className="panel-0ff-code-item">مصرف</div>
                         <div className="panel-0ff-code-item">محدودیت</div>
                         <div className="panel-0ff-code-item">انقضا</div>
+                        <div className="panel-0ff-code-remove-cont">حذف</div>
                     </div>
                     {
                         Object.values(offCodes).length > 0 ?
                             Object.values(offCodes).map(code =>
-                                <div key={code._id} className="panel-0ff-code-cont scroll">
-                                    <div className="panel-0ff-code-item">{code.code}</div>
+                                <div key={code._id} className="panel-0ff-code-cont scroll-almost-wide">
+                                    <div className="panel-0ff-code-item-big">{code.code}</div>
                                     <div className="panel-0ff-code-item">{code.amount_type === "fix" ? "ثابت" : "درصدی"}</div>
                                     <div className="panel-0ff-code-item">{code.amount_type === "fix" ? <span>{addCommaPrice(code.amount)} ت</span> : <span>{code.amount} درصد</span>}</div>
                                     <div className="panel-0ff-code-item">{code.usage === 0 ? code.usage : <Material className="panel-0ff-code-usage" onClick={() => this.toggleUsersModal(code._id)}>{code.usage}</Material>}</div>
                                     <div className="panel-0ff-code-item">{code.max_usage}</div>
                                     <div className="panel-0ff-code-item">{new Date(code.expire_date).toLocaleDateString("fa-ir")}</div>
+                                    {code.usage === 0 ? <CancelSvg className="panel-0ff-code-remove-cont" onClick={() => this.deleteOffCode(code._id)}/> : <div className="panel-0ff-code-remove-cont"/>}
                                 </div>,
                             )
                             :
