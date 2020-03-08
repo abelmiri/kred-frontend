@@ -222,6 +222,10 @@
   padding: 30px;
   border-right: 4px solid $text-light-color;
   text-align: justify;
+
+  @media screen and (max-width: 480px) {
+    margin: 20px 0 0 0 ;
+  }
 }
 
 .pavilion-item-desc {
@@ -244,6 +248,7 @@
   margin-right: -10px;
   margin-bottom: 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
 
   @media screen and (max-width: 480px) {

@@ -133,9 +133,9 @@ class HomePage extends PureComponent
                     user?.role === "admin" &&
                     <div className='home-videos'>
                         <div className='home-videos-text'>
-                            <h3 className='home-videos-title'>پاویون</h3>
+                            <h3 className='home-videos-title'>گپ و گفت</h3>
                             <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
-                            <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو پاویون</button>
+                            <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو گپ و گفت</button>
                         </div>
                         <img className='home-videos-img' src={Pavion} alt=''/>
                     </div>

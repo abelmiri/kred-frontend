@@ -72,7 +72,7 @@ class PavilionItemPage extends PureComponent
                                         <div className="pavilion-item-bold-desc">{pavilion.bold_description}</div>
                                         <div className="pavilion-item-desc">{pavilion.description}</div>
                                         <div className="pavilion-item-footer">
-                                            <Material className="post-like-count-cont" onClick={this.likeAndDisLike}>
+                                            <Material className="post-like-count-cont like" onClick={this.likeAndDisLike}>
                                                 <LikeSvg className={`post-like-svg ${pavilion.is_liked ? "liked" : ""}`}/>
                                                 <div className={`pavilion-item-like ${pavilion.is_liked ? "liked" : ""}`}>{pavilion.likes_count} پسند</div>
                                             </Material>

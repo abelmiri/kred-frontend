@@ -252,7 +252,7 @@ class Header extends PureComponent
                                                         :
                                                         location.slice(0, 8) === "/profile" ? "پروفایل من"
                                                             :
-                                                            location.slice(0, 10) === "/pavilions" ? "پاویون"
+                                                            location.slice(0, 10) === "/pavilions" ? "گپ و گفت"
                                                                 :
                                                                 location.slice(0, 9) === "/payment/" ? "پرداخت"
                                                                     :
@@ -285,7 +285,7 @@ class Header extends PureComponent
                                     {
                                         user?.role === "admin" &&
                                         <Link className="header-buttons-menu-drop-link" to="/pavilions">
-                                            <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پاویون</Material>
+                                            <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>گپ و گفت</Material>
                                         </Link>
                                     }
                                 </div>
@@ -333,7 +333,7 @@ class Header extends PureComponent
                         <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
                         {
                             user?.role === "admin" &&
-                            <Link to="/pavilions" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پاویون</Material></Link>
+                            <Link to="/pavilions" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">گپ و گفت</Material></Link>
                         }
                         {
                             user && user.role === "admin" &&
