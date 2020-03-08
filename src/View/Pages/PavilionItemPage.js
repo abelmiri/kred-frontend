@@ -39,13 +39,13 @@ class PavilionItemPage extends PureComponent
         if (pavilion.is_liked)
         {
             api.del(`conversation/like/${pavilion._id}`)
-                .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: false}}))
+                .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}}))
                 .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
         }
         else
         {
             api.post("conversation/like", {conversation_id: pavilion._id})
-                .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: true}}))
+                .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}}))
                 .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
         }
     }

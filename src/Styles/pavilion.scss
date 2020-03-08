@@ -215,18 +215,18 @@
 
 .pavilion-item-bold-desc {
   font-size: $home-regular-font-size;
-  margin-top: 20px;
+  margin: 20px 10% 0 10%;
   line-height: 30px;
   font-weight: bold;
   background-color: #F3F3F3;
-  padding: 30px 10%;
+  padding: 30px;
   border-right: 4px solid $text-light-color;
   text-align: justify;
 }
 
 .pavilion-item-desc {
   font-size: $title-font-size;
-  margin: 20px 0;
+  margin: 15px 0;
   line-height: 28px;
   text-align: justify;
   padding: 0 10%;
