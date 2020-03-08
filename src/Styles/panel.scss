@@ -108,7 +108,9 @@
   font-weight: bold;
 
   @media screen and (max-width: 480px) {
-    bottom: 70px;
+    bottom: 60px;
+    width: 50px;
+    height: 48px;
   }
 }
 
@@ -194,12 +196,15 @@
   vertical-align: top;
 
   @media screen and (max-width: 480px) {
-    bottom: 0;
     right: 0;
     left: 0;
-    top: initial;
+    top: calc(100% - 45px);
     width: auto;
-    display: flex;
+    z-index: 2;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    height: 100vh;
+    background-color: white;
   }
 }
 
@@ -244,7 +249,6 @@
 
   @media screen and (max-width: 480px) {
     width: calc(100% - 2px);
-    height: calc(100vh - 155px);
   }
 
   &.right {
@@ -263,4 +267,22 @@
 .panel-welcome {
   text-align: center;
   color: $secondary-color;
+}
+
+.panel-side-bar-mobile-line {
+  display: none;
+  @media screen and (max-width: 480px) {
+    display: block;
+    min-width: 100%;
+    background-color: white;
+    padding: 20px 0;
+  }
+}
+
+.panel-side-bar-line {
+  width: 50px;
+  height: 5px;
+  background-color: $text-light-color;
+  border-radius: 3px;
+  margin: auto;
 }

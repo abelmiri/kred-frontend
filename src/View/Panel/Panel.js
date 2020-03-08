@@ -1,12 +1,16 @@
 import React, {PureComponent} from "react"
-import {NavLink, Route, Switch} from "react-router-dom"
+import {Route, Switch} from "react-router-dom"
 import OffCodes from "../Panel/OffCodes"
-import Material from "../Components/Material"
 import Dashboard from "./Dashboard.js"
 import TodaySignUps from "./TodaySignUps"
 import TodayPageViews from "./TodayPageViews"
 import TodayVideoViews from "./TodayVideoViews"
 import TodayBuys from "./TodayBuys"
+import AllPageViews from "./AllPageViews"
+import AllVideoViews from "./AllVideoViews"
+import AllBuys from "./AllBuys"
+import AllUsers from "./AllUsers"
+import PanelSidebar from "./PanelSidebar"
 
 class Panel extends PureComponent
 {
@@ -22,18 +26,19 @@ class Panel extends PureComponent
         {
             return (
                 <div className="panel-page-container">
-                    <div className="panel-side-bar">
-                        <NavLink className="panel-side-bar-item-link" activeClassName="selected" to="/panel/dashboard"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">داشبورد</Material></NavLink>
-                        <NavLink className="panel-side-bar-item-link" activeClassName="selected" to="/panel/off-codes"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کد تخفیف</Material></NavLink>
-                    </div>
+                    <PanelSidebar/>
                     <div className="panel-page-content">
                         <Switch>
                             <Route path='/panel/dashboard' render={() => <Dashboard/>}/>
                             <Route path='/panel/off-codes' render={() => <OffCodes/>}/>
-                            <Route path='/panel/sign-ups' render={() => <TodaySignUps/>}/>
+                            <Route path='/panel/all-page-views' render={() => <AllPageViews/>}/>
+                            <Route path='/panel/all-video-views' render={() => <AllVideoViews/>}/>
+                            <Route path='/panel/all-sales' render={() => <AllBuys/>}/>
+                            <Route path='/panel/all-sign-ups' render={() => <AllUsers/>}/>
                             <Route path='/panel/page-views' render={() => <TodayPageViews/>}/>
                             <Route path='/panel/video-views' render={() => <TodayVideoViews/>}/>
-                            <Route path='/panel/buys' render={() => <TodayBuys/>}/>
+                            <Route path='/panel/sales' render={() => <TodayBuys/>}/>
+                            <Route path='/panel/sign-ups' render={() => <TodaySignUps/>}/>
                             <Route path='*' render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
                         </Switch>
                     </div>

@@ -3,7 +3,7 @@ import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 
-class TodayBuys extends PureComponent
+class AllBuys extends PureComponent
 {
     constructor(props)
     {
@@ -17,7 +17,7 @@ class TodayBuys extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/today/pack-users", `?time=${new Date().toISOString()}`)
+        api.get("view/all/pack-users", `?time=${new Date().toISOString()}`)
             .then(packUsers => this.setState({...this.state, packUsers, isLoading: false}))
             .catch((err) =>
             {
@@ -34,7 +34,7 @@ class TodayBuys extends PureComponent
         {
             return (
                 <section className="panel-page-section">
-                    <div className="panel-page-section-title">فروش پک - 24 ساعت اخیر {packUsers.length > 0 && `(${packUsers.length})`}</div>
+                    <div className="panel-page-section-title">فروش پک {packUsers.length > 0 && `(${packUsers.length})`}</div>
                     <div className="panel-0ff-code-scroll dont-gesture">
                         {
                             packUsers.length > 0 ?
@@ -69,4 +69,4 @@ class TodayBuys extends PureComponent
     }
 }
 
-export default TodayBuys
+export default AllBuys

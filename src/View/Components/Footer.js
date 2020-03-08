@@ -6,7 +6,7 @@ import InstaSvg from "../../Media/Svgs/InstaSvg"
 import EmailSvg from "../../Media/Svgs/EmailSvg"
 import TelegramSvg from "../../Media/Svgs/TelegramSvg"
 import {Link} from "react-router-dom"
-import Booklet from "../../Media/Svgs/Booklet"
+import ExchangeSvg from "../../Media/Svgs/ExchangeSvg"
 
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
@@ -28,7 +28,7 @@ const Footer = () =>
                     فیلم‌های آموزشی
                 </Link>
                 <Link to="/exchanges" onClick={goUp} className="footer-part-text">
-                    <Booklet className="footer-part-svg"/>
+                    <ExchangeSvg className="footer-part-svg"/>
                     تبادل کتاب
                 </Link>
             </div>

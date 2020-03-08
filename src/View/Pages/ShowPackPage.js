@@ -255,7 +255,7 @@ class ShowPackPage extends PureComponent
                                         </div>
                                         :
                                         <div className="video-page-video-container pre">
-                                            لطفا یک ویدئو انتخاب کنید
+                                            لطفا یک ویدیو انتخاب کنید
                                         </div>
                                 }
                                 <div className="video-page-aside">

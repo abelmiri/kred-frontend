@@ -2,7 +2,7 @@ import React, {PureComponent} from "react"
 import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
 
-class TodayVideoViews extends PureComponent
+class AllVideoViews extends PureComponent
 {
     constructor(props)
     {
@@ -15,7 +15,7 @@ class TodayVideoViews extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/today/video", `?time=${new Date().toISOString()}`)
+        api.get("view/all/video", `?time=${new Date().toISOString()}`)
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>
             {
@@ -33,7 +33,7 @@ class TodayVideoViews extends PureComponent
             const {todayVideosCount, todayVideos} = results
             return (
                 <section className="panel-page-section">
-                    <div className="panel-page-section-title">بازدید ویدیوها - 24 ساعت اخیر {todayVideosCount && `(${todayVideosCount})`}</div>
+                    <div className="panel-page-section-title">بازدید ویدیوها {todayVideosCount && `(${todayVideosCount})`}</div>
                     <div className="panel-0ff-code-scroll dont-gesture">
                         {
                             todayVideos ?
@@ -64,4 +64,4 @@ class TodayVideoViews extends PureComponent
     }
 }
 
-export default TodayVideoViews
+export default AllVideoViews
