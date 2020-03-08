@@ -14,7 +14,6 @@ class PanelSidebar extends PureComponent
         this.showingSidebar = false
     }
 
-
     onTouchStart = (e) =>
     {
         this.posY = e.touches[0].clientY
@@ -40,7 +39,6 @@ class PanelSidebar extends PureComponent
 
     showSidebar = () =>
     {
-        this.showingSidebar = true
         this.prevY = this.windowHeight
         this.sidebar.style.transition = "transform linear 0.2s"
         this.sidebar.style.transform = `translateY(${this.prevY}px)`
@@ -49,6 +47,7 @@ class PanelSidebar extends PureComponent
         this.sidebarBack.style.height = `100vh`
         setTimeout(() =>
         {
+            this.showingSidebar = true
             if (this.sidebar) this.sidebar.style.transition = "initial"
             if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
             document.body.style.overflow = "auto"
@@ -57,7 +56,6 @@ class PanelSidebar extends PureComponent
 
     hideSidebar = () =>
     {
-        this.showingSidebar = false
         this.prevY = 0
         this.sidebar.style.transition = "transform linear 0.2s"
         this.sidebar.style.transform = `translateY(${this.prevY}px)`
@@ -66,6 +64,7 @@ class PanelSidebar extends PureComponent
         this.sidebarBack.style.height = `0`
         setTimeout(() =>
         {
+            this.showingSidebar = false
             if (this.sidebar) this.sidebar.style.transition = "initial"
             if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
             document.body.style.overflow = "auto"
