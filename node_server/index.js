@@ -34,6 +34,8 @@ app.route("/site-map").get((req, res) =>
     res.send("https://www.kred.ir/\nhttps://www.kred.ir/sign-up\nhttps://www.kred.ir/exchanges\nhttps://www.kred.ir/videos\nhttps://www.kred.ir/videos/5e480095ac00841b52a27ee1")
 })
 
+app.route("/.well-known/assetlinks.json").get((req, res) => res.sendFile(path.join(__dirname, "assetlinks.json")))
+
 app.route("/:file").get((req, res) =>
 {
     res.setHeader("Access-Control-Allow-Origin", "*")

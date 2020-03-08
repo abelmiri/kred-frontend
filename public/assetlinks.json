@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "ir.kred",
+    "sha256_cert_fingerprints":
+    ["A9:E1:B0:E9:BE:D5:4C:96:FC:A4:F7:8E:F3:9F:04:3A:21:13:D5:41:54:50:08:8F:FE:52:25:D1:D0:6F:91:86"]
+  }
+}]
