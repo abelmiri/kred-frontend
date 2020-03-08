@@ -17,4 +17,5 @@ const Dashboard = (props) =>
             <path d="m89.5 22.247h-4.375a1.75 1.75 0 0 0 0 3.5h4.375a1.75 1.75 0 0 0 0-3.5z"/>
         </g>
     </svg>
+
 export default Dashboard

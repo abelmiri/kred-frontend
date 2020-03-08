@@ -235,7 +235,7 @@ class Header extends PureComponent
                                 location.slice(0, 10) === "/exchanges" ||
                                 location.slice(0, 7) === "/videos" ||
                                 location.slice(0, 8) === "/profile" ||
-                                location.slice(0, 9) === "/pavilion" ||
+                                location.slice(0, 10) === "/pavilions" ||
                                 location.slice(0, 9) === "/payment/" ||
                                 (user && user.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
@@ -252,7 +252,7 @@ class Header extends PureComponent
                                                         :
                                                         location.slice(0, 8) === "/profile" ? "پروفایل من"
                                                             :
-                                                            location.slice(0, 9) === "/pavilion" ? "پاویون"
+                                                            location.slice(0, 10) === "/pavilions" ? "پاویون"
                                                                 :
                                                                 location.slice(0, 9) === "/payment/" ? "پرداخت"
                                                                     :
@@ -284,7 +284,7 @@ class Header extends PureComponent
                                     </Link>
                                     {
                                         user?.role === "admin" &&
-                                        <Link className="header-buttons-menu-drop-link" to="/pavilion">
+                                        <Link className="header-buttons-menu-drop-link" to="/pavilions">
                                             <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پاویون</Material>
                                         </Link>
                                     }
@@ -333,7 +333,7 @@ class Header extends PureComponent
                         <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
                         {
                             user?.role === "admin" &&
-                            <Link to="/pavilion" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پاویون</Material></Link>
+                            <Link to="/pavilions" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پاویون</Material></Link>
                         }
                         {
                             user && user.role === "admin" &&

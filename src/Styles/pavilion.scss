@@ -29,6 +29,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  text-decoration: none;
 
   @media screen and (max-width: 480px) {
     flex-wrap: wrap;
@@ -105,6 +106,31 @@
   display: inline-block;
   padding: 10px;
   cursor: pointer;
+  height: 20px;
+  border-radius: 35px;
+
+  &.like {
+    order: 1;
+  }
+
+  &.comment {
+    order: 3;
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 30px;
+  }
+
+  &.copy {
+    border: 1px solid $post-like-comment-color;
+    margin: 0 auto 0 10px;
+    order: 4;
+
+    @media screen and (max-width: 480px) {
+      margin: 0 15px;
+      order: 2;
+    }
+  }
 }
 
 .post-like-count {
@@ -146,9 +172,98 @@
   width: 20px;
   height: 20px;
   fill: $post-like-comment-color;
+  stroke: $post-like-comment-color;
 
   @media screen and (max-width: 480px) {
     width: 30px;
     height: 30px;
+  }
+}
+
+.pavilion-item-page-cont {
+  background-color: $very-light-color;
+  margin: 90px 5% 0 5%;
+  min-height: 100vh;
+
+  @media screen and (max-width: 480px) {
+    background-color: initial;
+  }
+}
+
+.pavilion-item-title {
+  margin: 20px 10%;
+  font-size: $home-title-font-size;
+
+  @media screen and (max-width: 480px) {
+    margin: 20px 0;
+  }
+}
+
+.pavilion-item-pic {
+  display: block;
+  width: 80%;
+  margin-right: 10%;
+  height: 500px;
+  object-fit: cover;
+  object-position: top;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.pavilion-item-bold-desc {
+  font-size: $home-regular-font-size;
+  margin-top: 20px;
+  line-height: 30px;
+  font-weight: bold;
+  background-color: #F3F3F3;
+  padding: 30px 10%;
+  border-right: 4px solid $text-light-color;
+  text-align: justify;
+}
+
+.pavilion-item-desc {
+  font-size: $title-font-size;
+  margin: 20px 0;
+  line-height: 28px;
+  text-align: justify;
+  padding: 0 10%;
+  color: $post-like-comment-color;
+
+  @media screen and (max-width: 480px) {
+    padding: 0;
+  }
+}
+
+.pavilion-item-footer {
+  color: $post-like-comment-color;
+  width: calc(80% + 20px);
+  padding: 0 10%;
+  margin-right: -10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 480px) {
+    justify-content: space-between;
+    width: calc(100% + 20px);
+    padding: 0;
+  }
+}
+
+.pavilion-item-like {
+  display: inline-block;
+  margin-right: 7px;
+  font-size: $regular-font-size;
+  vertical-align: top;
+
+  &.liked {
+    color: $primary-color;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin-top: 5px;
   }
 }

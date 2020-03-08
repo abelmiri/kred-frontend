@@ -1,11 +1,11 @@
 import React, {PureComponent} from "react"
-import {Switch} from "react-router-dom"
+import {Link, Route, Switch} from "react-router-dom"
 import api, {REST_URL} from "../../Functions/api"
 import Mic from "../../Media/Images/PavilionMic.png"
 import {ClipLoader} from "react-spinners"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
 import CommentSvg from "../../Media/Svgs/CommentSvg"
-import Material from "../Components/Material"
+import PavilionItemPage from "./PavilionItemPage"
 
 class PavilionPage extends PureComponent
 {
@@ -58,7 +58,7 @@ class PavilionPage extends PureComponent
         const {posts, postsLoading} = this.state
         return (
             <Switch>
-                {/*<Route path="/pavilion/:id" render={(route) => null}/>*/}
+                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilionId={route.match.params.id}/>}/>
 
                 <React.Fragment>
                     <div className='page-background-img pavilion'>
@@ -76,23 +76,23 @@ class PavilionPage extends PureComponent
                     <div className="posts-list-con">
                         {
                             Object.values(posts).map((post) =>
-                                <div className="post-con" key={post._id}>
+                                <Link to={`/pavilions/${post._id}`} className="post-con" key={post._id}>
                                     <div className="post-info-section">
                                         <div className="post-title">{post.title}</div>
                                         <div className="post-bold-description">{post.bold_description}</div>
                                         <div className="post-likes-comment-section">
-                                            <Material className="post-like-count-cont">
+                                            <div className="post-like-count-cont">
                                                 <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
                                                 <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
-                                            </Material>
-                                            <Material className="post-like-count-cont">
+                                            </div>
+                                            <div className="post-like-count-cont">
                                                 <div className="post-like-count">{post.comments_count}</div>
                                                 <CommentSvg className="post-comment-svg"/>
-                                            </Material>
+                                            </div>
                                         </div>
                                     </div>
                                     <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt="user"/>
-                                </div>,
+                                </Link>,
                             )
                         }
                         <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>

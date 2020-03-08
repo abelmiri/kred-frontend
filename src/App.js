@@ -248,7 +248,7 @@ class App extends PureComponent
                         <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                         <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
                         <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                        {user?.role === "admin" && <Route path='/pavilion' render={() => <PavilionPage/>}/>}
+                        {user?.role === "admin" && <Route path='/pavilions' render={() => <PavilionPage/>}/>}
                         <Route path='/videos' render={() =>
                             <VideoPacksPage user={user}
                                             getVideoPacks={this.getVideoPacks}

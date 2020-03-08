@@ -1,15 +1,16 @@
 import React from "react"
 
 const CommentSvg = (props) =>
-    <svg viewBox="0 0 49.141 49.141" className={props.className}>
-        <path d="M40.082,45.237c-0.289,0-0.57-0.125-0.764-0.354l-5.623-6.646H6.669C2.991,38.237,0,35.245,0,31.567V10.573
-				c0-3.678,2.992-6.67,6.669-6.67h35.803c3.679,0,6.669,2.992,6.669,6.67v20.994c0,3.678-2.992,6.67-6.669,6.67H41.08v6
-				c0,0.419-0.262,0.794-0.655,0.938C40.312,45.218,40.197,45.237,40.082,45.237z M6.669,5.903C4.094,5.903,2,7.999,2,10.573v20.994
-				c0,2.574,2.095,4.67,4.669,4.67h27.489c0.293,0,0.572,0.129,0.763,0.354l4.159,4.916v-4.27c0-0.553,0.449-1,1-1h2.392
-				c2.575,0,4.669-2.096,4.669-4.67V10.573c0-2.575-2.095-4.67-4.669-4.67H6.669z"/>
-        <circle cx="16.873" cy="21.362" r="2.339"/>
-        <circle cx="24.571" cy="21.362" r="2.339"/>
-        <circle cx="32.748" cy="21.362" r="2.339"/>
+    <svg className={props.className} viewBox="0 0 137 106">
+        <path fill="none" strokeWidth="7px" strokeLinecap="round" strokeLinejoin="round"
+              d="M149.5,199.5l8.16-8.16a9.7,9.7,0,0,1,6.86-2.84h40.27a9.71,9.71,0,0,0,9.71-9.71V110.21a9.71,9.71,0,0,0-9.71-9.71H149.5"
+              transform="translate(-81 -97)"/>
+        <path fill="none" strokeWidth="7px" strokeLinecap="round" strokeLinejoin="round" d="M126.5,188.5H94.21a9.71,9.71,0,0,1-9.71-9.71V110.21a9.71,9.71,0,0,1,9.71-9.71H149.5"
+              transform="translate(-81 -97)"/>
+        <line fill="none" strokeWidth="7px" strokeLinecap="round" strokeLinejoin="round" x1="68.5" y1="102.5" x2="57.5" y2="91.5"/>
+        <circle strokeWidth="4px" strokeLinecap="round" strokeLinejoin="round" cx="69" cy="47" r="4"/>
+        <circle strokeWidth="4px" strokeLinecap="round" strokeLinejoin="round" cx="44" cy="47" r="4"/>
+        <circle strokeWidth="4px" strokeLinecap="round" strokeLinejoin="round" cx="94" cy="47" r="4"/>
     </svg>
 
 export default CommentSvg
