@@ -15,6 +15,8 @@ class AllUsers extends PureComponent
         }
         this.activeScrollHeight = 0
         this.page = 2
+
+        this.offsetTop = null
     }
 
     componentDidMount()
@@ -55,6 +57,30 @@ class AllUsers extends PureComponent
                 })
             }
         }, 20)
+
+        if (document.body.clientWidth > 480)
+        {
+            if (this.offsetTop === null) this.offsetTop = this.title.offsetTop
+
+            if (window.scrollY + 81 >= this.offsetTop)
+            {
+                if (this.title.style.position !== "fixed")
+                {
+                    const width = this.title.clientWidth
+                    this.title.style.width = width + "px"
+                    this.title.style.position = "fixed"
+                    this.cont.style.paddingTop = "45px"
+                }
+            }
+            else
+            {
+                if (this.title.style.position !== "static")
+                {
+                    this.title.style.position = "static"
+                    this.cont.style.paddingTop = "0"
+                }
+            }
+        }
     }
 
     render()
@@ -67,11 +93,11 @@ class AllUsers extends PureComponent
             return (
                 <section className="panel-page-section">
                     <div className="panel-page-section-title">ثبت‌نام‌ها {count ? `(${count})` : ""}</div>
-                    <div className="panel-0ff-code-scroll dont-gesture">
+                    <div ref={e => this.cont = e} className="panel-0ff-code-scroll dont-gesture">
                         {
                             users &&
                             <React.Fragment>
-                                <div className="panel-0ff-code-cont title scroll-wide">
+                                <div ref={e => this.title = e} className="panel-0ff-code-cont title scroll-wide">
                                     <div className="panel-0ff-code-item-big">نام</div>
                                     <div className="panel-0ff-code-item">شماره</div>
                                     <div className="panel-0ff-code-item">دانشگاه</div>

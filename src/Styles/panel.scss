@@ -33,6 +33,10 @@
   width: 100%;
   overflow-y: visible;
   overflow-x: auto;
+
+  @media screen and (max-width: 480px) {
+    padding-top: 0 !important;
+  }
 }
 
 .panel-0ff-code-cont {
@@ -54,6 +58,15 @@
     color: white;
     font-weight: bold;
 
+    @media screen and (min-width: 480px) {
+      z-index: 1;
+      top: 81px;
+    }
+
+    @media screen and (max-width: 480px) {
+      position: static !important;
+    }
+
     &:hover {
       background-color: $secondary-color;
     }
@@ -73,7 +86,7 @@
 
   &.scroll-wide {
     @media screen and (max-width: 480px) {
-      width: 180%;
+      width: 180% !important;
     }
   }
 

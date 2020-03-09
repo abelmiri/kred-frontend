@@ -36,9 +36,11 @@ class App extends PureComponent
     {
         versionMigrations("2")
 
+        let user = null
+
         if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user"))
         {
-            const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
+            user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
             this.setState({...this.state, user}, () =>
             {
                 api.post("user/verify-token")
@@ -66,7 +68,7 @@ class App extends PureComponent
             document.location.reload()
         }
 
-        if (process.env.NODE_ENV === "production")
+        if (process.env.NODE_ENV === "production" && user?.role !== "admin")
         {
             const element = new Image()
             let devtoolsOpen = false
