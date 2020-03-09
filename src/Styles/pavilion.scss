@@ -38,7 +38,7 @@
   &:nth-child(even) {
     flex-direction: row-reverse;
     @media screen and (min-width: 480px) {
-      .post-circle-image {
+      .post-circle-image-link {
         margin-right: 0;
         margin-left: 25px;
       }
@@ -66,6 +66,12 @@
     font-size: $menu-title-font-size;
     font-weight: bold;
     color: $dark-color;
+    text-decoration: none;
+    transition: all linear 0.1s;
+
+    &:hover {
+      color: $primary-color;
+    }
   }
 
   .post-bold-description {
@@ -82,15 +88,18 @@
     color: $post-like-comment-color;
     font-size: $regular-font-size;
     margin-left: -10px;
+
+    @media screen and (max-width: 480px) {
+      display: flex;
+      justify-content: space-between;
+      width: calc(100% + 20px);
+      margin-left: 0;
+      margin-right: -10px;
+    }
   }
 }
 
-.post-circle-image {
-  height: 200px;
-  width: 200px;
-  min-width: 200px;
-  object-fit: cover;
-  border-radius: 50%;
+.post-circle-image-link {
   margin-right: 25px;
   margin-top: auto;
   margin-bottom: auto;
@@ -102,12 +111,24 @@
   }
 }
 
+.post-circle-image {
+  height: 200px;
+  width: 200px;
+  min-width: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .post-like-count-cont {
   display: inline-block;
   padding: 10px;
   cursor: pointer;
   height: 20px;
   border-radius: 35px;
+
+  &.not-cursor {
+    cursor: default;
+  }
 
   &.like {
     order: 1;
@@ -224,7 +245,7 @@
   text-align: justify;
 
   @media screen and (max-width: 480px) {
-    margin: 20px 0 0 0 ;
+    margin: 20px 0 0 0;
   }
 }
 

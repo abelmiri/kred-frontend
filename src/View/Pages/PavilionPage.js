@@ -78,23 +78,25 @@ class PavilionPage extends PureComponent
                     <div className="posts-list-con">
                         {
                             Object.values(posts).map((post) =>
-                                <Link to={`/pavilions/${post._id}`} className="post-con" key={post._id}>
+                                <div className="post-con" key={post._id}>
                                     <div className="post-info-section">
-                                        <div className="post-title">{post.title}</div>
+                                        <Link to={`/pavilions/${post._id}`} className="post-title">{post.title}</Link>
                                         <div className="post-bold-description">{post.bold_description}</div>
                                         <div className="post-likes-comment-section">
-                                            <div className="post-like-count-cont">
+                                            <div className="post-like-count-cont not-cursor">
                                                 <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
                                                 <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
                                             </div>
-                                            <div className="post-like-count-cont">
+                                            <div className="post-like-count-cont not-cursor">
                                                 <div className="post-like-count">{post.comments_count}</div>
                                                 <CommentSvg className="post-comment-svg"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt="user"/>
-                                </Link>,
+                                    <Link className="post-circle-image-link" to={`/pavilions/${post._id}`}>
+                                        <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
+                                    </Link>
+                                </div>,
                             )
                         }
                         <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
