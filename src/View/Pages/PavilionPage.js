@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react"
 import {Link, Route, Switch} from "react-router-dom"
 import api, {REST_URL} from "../../Functions/api"
-import Mic from "../../Media/Images/PavilionMic.png"
+// import Mic from "../../Media/Images/PavilionMic.png"
 import {ClipLoader} from "react-spinners"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
 import CommentSvg from "../../Media/Svgs/CommentSvg"
@@ -67,10 +67,12 @@ class PavilionPage extends PureComponent
                             <h3 className='exchange-text'>
                                 اینجا هنوز متن لازم داره برای توضیح اینکه به چه دردی میخوره!
                                 <br/>
-                                ولی خب اینارو نوشتم که حوصلت سر نره!
+                                ولی خب اینارو نوشتم که حوصله ی مخاطبام سر نره!
+                                <br/>
+                                سید، تو مخاطب نیستی! حله؟
                             </h3>
                         </div>
-                        <img alt="Mic" src={Mic} className="pavilion-mic"/>
+                        {/*<img alt="Mic" src={Mic} className="pavilion-mic"/>*/}
                     </div>
 
                     <div className="posts-list-con">
