@@ -1,18 +1,19 @@
-import React, {PureComponent} from "react"
-import SignUpPage from "./View/Pages/SignUpPage"
+import React, {lazy, Suspense, PureComponent} from "react"
 import Header from "./View/Components/Header"
-import HomePage from "./View/Pages/HomePage"
 import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
-import ExchangeBookPage from "./View/Pages/ExchangeBookPage"
-import ProfilePage from "./View/Pages/ProfilePage"
 import {NotificationContainer} from "react-notifications"
-import VideoPacksPage from "./View/Pages/VideoPacksPage"
 import versionMigrations from "./Functions/versionMigration"
-import PaymentPage from "./View/Pages/PaymentPage"
-import Panel from "./View/Panel/Panel"
-import PavilionPage from "./View/Pages/PavilionPage"
 import {NotificationManager} from "react-notifications"
+
+const SignUpPage = lazy(() => import("./View/Pages/SignUpPage"))
+const HomePage = lazy(() => import("./View/Pages/HomePage"))
+const ExchangeBookPage = lazy(() => import("./View/Pages/ExchangeBookPage"))
+const ProfilePage = lazy(() => import("./View/Pages/ProfilePage"))
+const VideoPacksPage = lazy(() => import("./View/Pages/VideoPacksPage"))
+const PaymentPage = lazy(() => import("./View/Pages/PaymentPage"))
+const Panel = lazy(() => import("./View/Panel/Panel"))
+const PavilionPage = lazy(() => import("./View/Pages/PavilionPage"))
 
 class App extends PureComponent
 {
@@ -246,24 +247,26 @@ class App extends PureComponent
                 <main className='main'>
                     {redirect && <Redirect push to={page}/>}
                     <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
-                    <Switch>
-                        <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
-                        <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
-                        <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                        {user?.role === "admin" && <Route path='/pavilions' render={() => <PavilionPage/>}/>}
-                        <Route path='/videos' render={() =>
-                            <VideoPacksPage user={user}
-                                            getVideoPacks={this.getVideoPacks}
-                                            videoPacks={videoPacks}
-                                            getCompanies={this.getCompanies}
-                                            companies={companies}
-                                            setUser={this.setUser}
-                            />
-                        }/>
-                        <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
-                        <Route path='/panel' render={() => <Panel user={user}/>}/>
-                        <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook} user={user}/>}/>
-                    </Switch>
+                    <Suspense fallback={null}>
+                        <Switch>
+                            <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
+                            <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
+                            <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
+                            {user?.role === "admin" && <Route path='/pavilions' render={() => <PavilionPage/>}/>}
+                            <Route path='/videos' render={() =>
+                                <VideoPacksPage user={user}
+                                                getVideoPacks={this.getVideoPacks}
+                                                videoPacks={videoPacks}
+                                                getCompanies={this.getCompanies}
+                                                companies={companies}
+                                                setUser={this.setUser}
+                                />
+                            }/>
+                            <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
+                            <Route path='/panel' render={() => <Panel user={user}/>}/>
+                            <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook} user={user}/>}/>
+                        </Switch>
+                    </Suspense>
                     <NotificationContainer/>
                 </main>
             )

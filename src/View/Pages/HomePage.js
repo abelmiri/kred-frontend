@@ -99,7 +99,7 @@ class HomePage extends PureComponent
                                 <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" nodes={
                                     (Object.values(freeVideos)).map(video =>
                                         <div className="home-videos-item-cont">
-                                            <video key={video._id} id={video._id} controls controlsList="nodownload"
+                                            <video key={video._id} preload="none" id={video._id} controls controlsList="nodownload"
                                                    className="home-videos-item"
                                                    poster={REST_URL + video.poster}
                                                    onPlay={this.onVideoPlay}

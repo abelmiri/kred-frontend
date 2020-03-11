@@ -20,7 +20,7 @@ class Dashboard extends PureComponent
                 <Link to="/panel/video-views" className="panel-dashboard-item right">
                     <TodayVideoViews/>
                 </Link>
-                <Link to="/panel/buys" className="panel-dashboard-item left">
+                <Link to="/panel/sales" className="panel-dashboard-item left">
                     <TodayBuys/>
                 </Link>
             </React.Fragment>
