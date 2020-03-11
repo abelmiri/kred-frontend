@@ -39,11 +39,14 @@ app.route("/.well-known/assetlinks.json").get((req, res) => res.sendFile(path.jo
 app.route("/:file").get((req, res) =>
 {
     res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
-    res.setHeader("Pragma", "no-cache") // HTTP 1.0.
-    res.setHeader("Expires", "0") // Proxies.
     if (fs.existsSync(path.join(__dirname, `/${req.params.file}`))) res.sendFile(path.join(__dirname, `/${req.params.file}`))
-    else res.sendFile(path.join(__dirname, "index.html"))
+    else
+    {
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
+        res.setHeader("Pragma", "no-cache") // HTTP 1.0.
+        res.setHeader("Expires", "0") // Proxies.
+        res.sendFile(path.join(__dirname, "index.html"))
+    }
 })
 
 app.route("/exchanges/:id").get((req, res) => fs.readFile("./index.html", null, (err, data) => sendExchangeHtml(req.params.id, res, data, err)))
