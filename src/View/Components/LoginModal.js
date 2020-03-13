@@ -1,10 +1,10 @@
 import React, {PureComponent} from "react"
-import Logo from "../../Media/Images/Logo.png"
 import Material from "./Material"
 import {ClipLoader} from "react-spinners"
 import {Link} from "react-router-dom"
 import api from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
+import LogoSvg from "../../Media/Svgs/LogoSvg"
 
 class LoginModal extends PureComponent
 {
@@ -86,7 +86,7 @@ class LoginModal extends PureComponent
                 <div className="create-exchange-back" onClick={hideLoginModal}/>
                 <div className="create-exchange-cont login">
                     <div className='create-exchange-title login'>ورود به KRED</div>
-                    <img className="login-modal-logo" src={Logo} alt="kred"/>
+                    <LogoSvg className="login-modal-logo"/>
                     <div className='create-exchange-section margin-top-none'>
                         <input type='text'
                                ref={e => this.phoneInput = e}

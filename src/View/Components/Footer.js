@@ -1,5 +1,4 @@
 import React from "react"
-import Logo from "../../Media/Images/Logo.png"
 import AboutUsSvg from "../../Media/Svgs/AboutUsSvg"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 import InstaSvg from "../../Media/Svgs/InstaSvg"
@@ -7,13 +6,14 @@ import EmailSvg from "../../Media/Svgs/EmailSvg"
 import TelegramSvg from "../../Media/Svgs/TelegramSvg"
 import {Link} from "react-router-dom"
 import ExchangeSvg from "../../Media/Svgs/ExchangeSvg"
+import LogoSvg from "../../Media/Svgs/LogoSvg"
 
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
 const Footer = () =>
     <div className='footer-container' id="footer">
         <div className="footer-logo-cont">
-            <img src={Logo} alt="KRED LOGO" className="footer-logo"/>
+            <LogoSvg className="footer-logo"/>
             <div className="footer-desc">KRED | گام هایی جذاب در دنیای پزشکی</div>
         </div>
         <div className="footer-parts">

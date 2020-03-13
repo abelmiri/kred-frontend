@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react"
-import Logo from "../../Media/Images/Logo.png"
 import Slider1 from "../../Media/Images/login-slider1.jpg"
 import Slider2 from "../../Media/Images/login-slider2.jpg"
 import Slider3 from "../../Media/Images/login-slider3.jpg"
@@ -8,6 +7,7 @@ import {Link, Redirect} from "react-router-dom"
 import {BeatLoader} from "react-spinners"
 import api from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
+import LogoSvg from "../../Media/Svgs/LogoSvg"
 
 class SignUpPage extends PureComponent
 {
@@ -186,7 +186,7 @@ class SignUpPage extends PureComponent
                 <div className='login-kred-logo'>
                     <h1 className='header-logo-cont-title no-margin-top'>K<span>RED</span></h1>
                     <Link to="/">
-                        <img src={Logo} className='header-logo' alt='kred logo'/>
+                        <LogoSvg className='header-logo'/>
                     </Link>
                 </div>
 

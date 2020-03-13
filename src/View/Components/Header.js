@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react"
-import Logo from "../../Media/Images/Logo.png"
 import {Link} from "react-router-dom"
 import Hamburger from "./Hamburger"
 import Material from "./Material"
 import LoginModal from "./LoginModal"
+import LogoSvg from "../../Media/Svgs/LogoSvg"
 
 class Header extends PureComponent
 {
@@ -315,7 +315,7 @@ class Header extends PureComponent
                         </Material>
                         <Link to="/" className='header-logo-link'>
                             <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
-                            <img src={Logo} className={`header-logo ${!collapseSidebar ? "show" : ""}`} alt='kred logo'/>
+                            <LogoSvg className={`header-logo ${!collapseSidebar ? "show" : ""}`}/>
                         </Link>
                         {
                             user ?
