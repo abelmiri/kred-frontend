@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import Material from "./Material"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import {NotificationManager} from "react-notifications"
+import ImageLazyLoad from "./ImageLazyLoad"
 
 const deleteExchangeFunc = (e, id, deleteExchange) =>
 {
@@ -27,7 +28,7 @@ const ExchangeItem = (props) =>
     return (
         <Link to={`/exchanges/${exchange._id}`} className="exchange-item-cont">
             <Material className={`exchange-item-cont-material ${inSlide ? "in-slide" : ""}`}>
-                <img className={`exchange-item-img ${inSlide ? "in-slide" : ""}`} src={REST_URL + "/" + exchange.picture} alt={exchange.title}/>
+                <ImageLazyLoad className={`exchange-item-img ${inSlide ? "in-slide" : ""}`} src={REST_URL + "/" + exchange.picture} thumbnail={exchange.thumbnail ? REST_URL + "/" + exchange.thumbnail : null} alt={exchange.title}/>
                 <div className='exchange-item-title'>{exchange.title}</div>
                 <div className="exchange-item-description">{exchange.description}</div>
                 <div className='exchange-item-price'>

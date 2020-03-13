@@ -3,11 +3,11 @@ import CameraSvg from "../../Media/Svgs/Camera"
 import Material from "./Material"
 import api from "../../Functions/api"
 import Arrow from "../../Media/Svgs/Arrow"
-import imageCompression from "browser-image-compression"
-import Constant from "../../Constant/Constant"
 import {NotificationManager} from "react-notifications"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import PencilSvg from "../../Media/Svgs/Pencil"
+import compressImage from "../../Helpers/compressImage"
+import createThumbnail from "../../Helpers/createThumbnail"
 
 class CreateExchangeModal extends PureComponent
 {
@@ -192,16 +192,17 @@ class CreateExchangeModal extends PureComponent
                 form.append("description", this.descriptionInput.value)
                 form.append("categories", JSON.stringify(selectedCategories))
                 form.append("city_id", this.cityInput.value)
-                if (this.selectedImage.type.includes("svg") || this.selectedImage.type.includes("gif"))
-                {
-                    form.append("picture", this.selectedImage)
-                    this.postData(form)
-                }
-                else imageCompression(this.selectedImage, Constant.COMPRESSION).then(compressedFile =>
-                {
-                    form.append("picture", new File([compressedFile], compressedFile.name))
-                    this.postData(form)
-                })
+                compressImage(this.selectedImage)
+                    .then(img =>
+                    {
+                        console.log(this.selectedImage)
+                        form.append("picture", img)
+                        createThumbnail(img).then(thumbnail =>
+                        {
+                            form.append("thumbnail", thumbnail)
+                            // this.postData(form)
+                        })
+                    })
             })
         }
         else
