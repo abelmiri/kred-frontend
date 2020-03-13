@@ -106,9 +106,17 @@ class ShowPackPage extends PureComponent
                     {
                         if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                         {
-                            requestGetSubtitle.result.blob.arrayBuffer()
-                                .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)))
-                                .catch(() => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve))
+                            try
+                            {
+                                requestGetSubtitle.result.blob.arrayBuffer()
+                                    .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)))
+                                    .catch(() => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve))
+                            }
+                            catch (e)
+                            {
+                                NotificationManager.error("مرورگر شما از پخش آفلاین ساپورت نمیکند، برای پخش آفلاین از Chrome استفاده کنید!")
+                                this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
+                            }
                         }
                         else this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
                     }
@@ -156,7 +164,7 @@ class ShowPackPage extends PureComponent
             .catch((e) =>
             {
                 this.setState({...this.state, loading: false, loadingPercent: null}, () =>
-                    NotificationManager.warning(e?.response?.status === 403 ? "شما به این محتوا دسترسی ندارید! برای خرید به کانال تلگرامی KRED مراجعه کنید! KRED_co@" : "دانلود فایل با مشکل مواجه شد!"),
+                    NotificationManager.warning(e?.response?.status === 403 ? "شما به این محتوا دسترسی ندارید!" : "دانلود فایل با مشکل مواجه شد!"),
                 )
             })
     }
@@ -180,11 +188,22 @@ class ShowPackPage extends PureComponent
             {
                 if (requestGetVideo.result && requestGetVideo.result.blob)
                 {
-                    requestGetVideo.result.blob.arrayBuffer()
-                        .then((buffer) => this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: title}))
-                        .catch(() => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
-                            this.getVideoFromServerAndSave(`${REST_URL}${url}`, save)),
+                    try
+                    {
+                        requestGetVideo.result.blob.arrayBuffer()
+                            .then((buffer) => this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: title}))
+                            .catch(() =>
+                                this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+                                    this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
+                                ),
+                            )
+                    }
+                    catch (e)
+                    {
+                        this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+                            this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
                         )
+                    }
                 }
                 else this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
                     this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
