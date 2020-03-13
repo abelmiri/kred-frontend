@@ -92,10 +92,11 @@ class ExchangeBookPage extends PureComponent
                 this.setState({...this.state, exchangesLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    this.page += 1
                     api.get("exchange", `?limit=12&page=${this.page}${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
-                        this.setState({...this.state, exchangesLoading: false, exchanges: {...exchanges, ...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}}),
-                    )
+                    {
+                        this.page += 1
+                        this.setState({...this.state, exchangesLoading: false, exchanges: {...exchanges, ...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}})
+                    })
                 })
             }
         }, 20)
