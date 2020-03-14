@@ -168,7 +168,7 @@ class VideoPacksPage extends PureComponent
                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
                                                             <div className="video-pack-item-title">
                                                                 <div className="video-pack-item-title-text">
-                                                                    {pack.title}
+                                                                    مجموعه فیلم‌های<span> </span>{pack.title}
                                                                     {pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>}
                                                                 </div>
                                                                 {

@@ -277,7 +277,7 @@ class ShowPackPage extends PureComponent
                                     {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
                                 </div>
                                 <h1 className="video-page-h1">
-                                    {videoPack.title}
+                                    مجموعه فیلم‌های<span> </span>{videoPack.title}
                                 </h1>
                                 {
                                     video ?
