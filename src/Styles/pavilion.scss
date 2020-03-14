@@ -343,6 +343,8 @@
   text-align: justify;
   text-align-last: right;
   margin: 10px 55px 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
 
   @media screen and (max-width: 480px) {
     margin: 10px 0 0 0;

@@ -16,11 +16,11 @@ const Footer = () =>
         <div className="footer-logo-cont">
             <Link to="/" className="footer-logo-section" onClick={() => window.scroll({top: 0, behavior: "smooth"})}>
                 <LogoSvg className="footer-logo"/>
-                <div className="footer-desc">KRED</div>
+                <div className="footer-desc">K<span>RED</span></div>
             </Link>
             <a href="/KRED.apk" target="_blank" className="footer-logo-section app">
                 <img src={Android} className="footer-logo app" alt="application"/>
-                <div className="footer-desc">اپلیکیشن ما رو دانلود کن!</div>
+                <div className="footer-desc app">اپلیکیشن ما رو دانلود کن!</div>
             </a>
         </div>
         <div className="footer-parts">

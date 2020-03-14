@@ -35,11 +35,21 @@
 
 .footer-desc {
   display: inline-block;
-  font-size: $home-regular-font-size;
+  font-size: $big-title-font-size;
   margin-right: 16px;
   vertical-align: top;
-  margin-top: 13px;
+  margin-top: 9px;
   font-weight: bold;
+  color: $dark-color;
+
+  &.app {
+    margin-top: 13px;
+    font-size: $home-regular-font-size;
+  }
+
+  span {
+    color: $error-color;
+  }
 }
 
 .footer-parts {
