@@ -8,6 +8,7 @@ import Footer from "../Components/Footer"
 import CopySvg from "../../Media/Svgs/CopySvg"
 import {NotificationManager} from "react-notifications"
 import copyToClipboard from "../../Helpers/copyToClipboard"
+import Profile from "../../Media/Svgs/Profile"
 
 class PavilionItemPage extends PureComponent
 {
@@ -18,6 +19,10 @@ class PavilionItemPage extends PureComponent
             pavilion: null,
             notFound: false,
             error: false,
+            commentsLoading: false,
+            comments: [],
+            sendLoading: false,
+            focused: false,
         }
     }
 
@@ -28,33 +33,142 @@ class PavilionItemPage extends PureComponent
         const {pavilionId} = this.props
 
         api.get(`conversation/${pavilionId}`, `?time=${new Date().toISOString()}`)
-            .then((pavilion) => this.setState({...this.state, pavilion}))
+            .then((pavilion) =>
+            {
+                this.setState({...this.state, pavilion}, () =>
+                {
+                    if (pavilion.comments_count > 0)
+                    {
+                        this.setState({...this.state, commentsLoading: true}, () =>
+                        {
+                            api.get(`conversation/comments/${pavilionId}`, `?time=${new Date().toISOString()}`)
+                                .then((comments) => this.setState({...this.state, comments, commentsLoading: false}))
+                        })
+                    }
+                })
+            })
             .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        window.onpopstate = () =>
+        {
+            if (document.body.clientWidth <= 480)
+            {
+                if (this.state.focused)
+                {
+                    document.body.style.overflow = "auto"
+                    this.setState({...this.state, focused: false})
+                }
+            }
+        }
+    }
+
     likeAndDisLike = () =>
     {
-        const {pavilion} = this.state
-        if (pavilion.is_liked)
+        const {user} = this.props
+        if (user)
         {
-            api.del(`conversation/like/${pavilion._id}`)
-                .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}}))
-                .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            const {pavilion} = this.state
+            if (pavilion.is_liked)
+            {
+                api.del(`conversation/like/${pavilion._id}`)
+                    .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}}))
+                    .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            }
+            else
+            {
+                api.post("conversation/like", {conversation_id: pavilion._id})
+                    .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}}))
+                    .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            }
         }
         else
         {
-            api.post("conversation/like", {conversation_id: pavilion._id})
-                .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}}))
-                .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            if (document.getElementById("header-login"))
+            {
+                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                document.getElementById("header-login").click()
+            }
         }
     }
 
     copy = () => copyToClipboard(`https://www.kred.ir/pavilions/${this.state.pavilion._id}`, () => NotificationManager.success("لینک با موفقیت کپی شد"))
 
+    sendComment = () =>
+    {
+        const {sendLoading, pavilion} = this.state
+        if (!sendLoading)
+        {
+            const {user, pavilionId} = this.props
+            if (user)
+            {
+                const description = this.description.value.trim()
+                if (description.length > 1)
+                {
+                    this.setState({...this.state, sendLoading: true}, () =>
+                    {
+                        api.post("conversation/comment", {conversation_id: pavilionId, description})
+                            .then(comment =>
+                                this.setState({
+                                    ...this.state,
+                                    sendLoading: false,
+                                    focused: false,
+                                    comments: [{...comment, user: {...user}}, ...this.state.comments],
+                                    pavilion: {...pavilion, comments_count: pavilion.comments_count + 1},
+                                }, () =>
+                                {
+                                    this.description.value = ""
+                                    document.body.style.overflow = "auto"
+                                    NotificationManager.success("نظر شما با موفقیت ثبت شد!")
+                                }),
+                            )
+                            .catch(() => this.setState({...this.state, sendLoading: false}, () => NotificationManager.error("مشکلی پیش آمد، اینترنت خود را بررسی کنید!")))
+                    })
+                }
+            }
+            else
+            {
+                if (document.getElementById("header-login"))
+                {
+                    NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                    document.getElementById("header-login").click()
+                }
+            }
+        }
+    }
+
+    focusOnComment = () =>
+    {
+        if (document.body.clientWidth <= 480 && !this.state.focused)
+        {
+            if (document.body.clientWidth <= 480) window.history.pushState("", "", `/pavilions/${this.props.pavilionId}/add-comment`)
+            document.body.style.overflow = "hidden"
+            this.setState({...this.state, focused: true})
+        }
+    }
+
+    removeComment(id, index)
+    {
+        api.del(`conversation/comment/${id}`)
+            .then(() =>
+            {
+                const {pavilion} = this.state
+                let comments = [...this.state.comments]
+                comments.splice(index, 1)
+                this.setState({...this.state, comments: [...comments], pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}}, () =>
+                    NotificationManager.success("نظر شما با موفقیت حذف شد!"),
+                )
+            })
+            .catch(() => NotificationManager.error("مشکلی پیش آمد، اینترنت خود را بررسی کنید!"))
+    }
+
     render()
     {
-        const {notFound, error, pavilion} = this.state
+        const {notFound, error, pavilion, comments, commentsLoading, sendLoading, focused} = this.state
+        const {user} = this.props
         return (
             <React.Fragment>
                 <div className="pavilion-item-page-cont">
@@ -84,6 +198,42 @@ class PavilionItemPage extends PureComponent
                                                 <CommentSvg className="post-comment-svg"/>
                                                 <div className="pavilion-item-like">{pavilion.comments_count} دیدگاه</div>
                                             </Material>
+                                        </div>
+                                        <div className="pavilion-item-comments-section">
+                                            <div className="pavilion-comment-create-title">خوشحال میشیم نظرتو بدونیم!</div>
+                                            <textarea ref={e => this.description = e} rows={4} className={`pavilion-comment-create ${focused ? "focused" : ""}`} placeholder="نظرت رو بنویس..." onClick={this.focusOnComment}/>
+                                            <div className="pavilion-comment-create-btn">
+                                                <Material className={`pavilion-comment-create-material ${focused ? "focused" : ""}`} onClick={this.sendComment}>
+                                                    {sendLoading ? <ClipLoader size={15} color="white"/> : "ارسال نظر"}
+                                                </Material>
+                                            </div>
+                                            <div className="pavilion-item-comments-title">نظرات کاربران</div>
+                                            {
+                                                comments.map((comment, index) =>
+                                                    <div key={comment._id} className="pavilion-comment">
+                                                        <div className="pavilion-comment-header">
+                                                            <div className="pavilion-comment-header-profile">
+                                                                <Profile className="pavilion-comment-profile"/>
+                                                                <div>
+                                                                    <div className="pavilion-comment-sender">{comment.user.name}</div>
+                                                                    <div className="pavilion-comment-uni">دانشجوی {comment.user.university}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="pavilion-comment-date">{new Date(comment.created_date).toLocaleDateString("fa-ir")}</div>
+                                                        </div>
+                                                        <div className="pavilion-comment-desc">
+                                                            {comment.description}
+                                                        </div>
+                                                        {
+                                                            comment.user._id === user._id &&
+                                                            <div className="pavilion-comment-create-btn">
+                                                                <Material className="pavilion-comment-delete" onClick={() => this.removeComment(comment._id, index)}>حذف</Material>
+                                                            </div>
+                                                        }
+                                                    </div>,
+                                                )
+                                            }
+                                            <div className={`exchange-page-loading ${commentsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                                         </div>
                                     </React.Fragment>
                                     :

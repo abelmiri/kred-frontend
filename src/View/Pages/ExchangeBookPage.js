@@ -9,6 +9,7 @@ import Arrow from "../../Media/Svgs/Arrow"
 import MySlider from "../Components/MySlider"
 import {Route, Switch} from "react-router-dom"
 import ExchangeBookItemPage from "./ExchangeBookItemPage"
+import {NotificationManager} from "react-notifications"
 
 class ExchangeBookPage extends PureComponent
 {
@@ -108,7 +109,7 @@ class ExchangeBookPage extends PureComponent
         {
             if (bool)
             {
-                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchanges/addExchangeModal")
+                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/exchanges/add-exchange")
                 document.body.style.overflow = "hidden"
                 this.setState({...this.state, showModal: bool})
             }
@@ -122,7 +123,11 @@ class ExchangeBookPage extends PureComponent
                 }
             }
         }
-        else if (document.getElementById("header-login")) document.getElementById("header-login").click()
+        else
+        {
+            if (document.getElementById("header-login")) document.getElementById("header-login").click()
+            NotificationManager.error("برای ثبت آگهی، در سایت ثبت نام و یا وارد شوید.")
+        }
     }
 
     selectCategory(id)

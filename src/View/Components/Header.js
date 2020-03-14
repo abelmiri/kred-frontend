@@ -181,7 +181,7 @@ class Header extends PureComponent
     {
         this.setState({...this.state, showLoginModal: true})
         const {location} = this.props
-        if (document.body.clientWidth <= 480) window.history.pushState("", "", `${location === "/" ? "" : location.replace("/loginModal", "")}/loginModal`)
+        if (document.body.clientWidth <= 480) window.history.pushState("", "", `${location === "/" ? "" : location.replace("/login-modal", "")}/login-modal`)
         document.body.style.overflow = "hidden"
     }
 

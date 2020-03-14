@@ -58,7 +58,7 @@ class VideoPacksPage extends PureComponent
         if (user)
         {
             const {buyPack} = this.state
-            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/videos/completeProfile")
+            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/videos/complete-profile")
             document.body.style.overflow = "hidden"
             this.setState({...this.state, buyModal: true, buyPack: pack ? pack : buyPack, level: !user.name || !user.university ? 0 : 1, code: null})
         }

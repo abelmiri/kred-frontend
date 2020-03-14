@@ -59,12 +59,18 @@ class App extends PureComponent
         }
 
         const {location} = this.props
-        if (location.pathname.includes("loginModal") || location.pathname.includes("addExchangeModal") || location.pathname.includes("completeProfile"))
+        if (
+            location.pathname.includes("login-modal") ||
+            location.pathname.includes("add-exchange") ||
+            location.pathname.includes("complete-profile") ||
+            location.pathname.includes("add-comment")
+        )
         {
             let shit = location.pathname
-                .replace("/loginModal", "")
-                .replace("/addExchangeModal", "")
-                .replace("/completeProfile", "")
+                .replace("/login-modal", "")
+                .replace("/add-exchange", "")
+                .replace("/complete-profile", "")
+                .replace("/add-comment", "")
             window.history.replaceState("", "", shit ? shit : "/")
             document.location.reload()
         }
@@ -252,7 +258,7 @@ class App extends PureComponent
                             <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                             <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
                             <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
-                            {user?.role === "admin" && <Route path='/pavilions' render={() => <PavilionPage/>}/>}
+                            {user?.role === "admin" && <Route path='/pavilions' render={() => <PavilionPage user={user}/>}/>}
                             <Route path='/videos' render={() =>
                                 <VideoPacksPage user={user}
                                                 getVideoPacks={this.getVideoPacks}

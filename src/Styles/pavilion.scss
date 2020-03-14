@@ -1,21 +1,5 @@
 @import "variables";
 
-.pavilion-mic {
-  position: absolute;
-  top: calc(10vh - 81px);
-  left: 20%;
-  width: 300px;
-  transform: rotate(20deg);
-  object-fit: cover;
-
-  @media screen and (max-width: 480px) {
-    margin: 15px 0 0 0;
-    width: 150px;
-    left: 25%;
-    top: calc(40vh - 81px);
-  }
-}
-
 .posts-list-con {
   width: 90%;
   padding: 40px 5%;
@@ -292,4 +276,139 @@
   @media screen and (max-width: 480px) {
     margin-top: 5px;
   }
+}
+
+.pavilion-item-comments-section {
+  background-color: $login-page-background-color;
+  margin: 0 10% 20px 10%;
+  padding: 15px;
+
+  @media screen and (max-width: 480px) {
+    margin: 0 0 20px 0;
+  }
+}
+
+.pavilion-item-comments-title {
+  font-size: $title-font-size;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.pavilion-comment {
+  padding: 15px;
+  background-color: white;
+  margin-top: 15px;
+}
+
+.pavilion-comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pavilion-comment-header-profile {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.pavilion-comment-profile {
+  width: 45px;
+  margin-left: 10px;
+  fill: $secondary-color;
+
+  @media screen and (max-width: 480px) {
+    width: 40px;
+  }
+}
+
+.pavilion-comment-sender {
+  font-size: $title-font-size;
+  font-weight: bold;
+  color: $primary-color;
+  margin-bottom: 6px;
+}
+
+.pavilion-comment-uni {
+  font-size: $small-font-size;
+}
+
+.pavilion-comment-date {
+  font-size: $small-font-size;
+}
+
+.pavilion-comment-desc {
+  font-size: $regular-font-size;
+  line-height: 25px;
+  text-align: justify;
+  text-align-last: right;
+  margin: 10px 60px 0 0;
+
+  @media screen and (max-width: 480px) {
+    margin: 10px 0 0 0;
+  }
+}
+
+.pavilion-comment-create {
+  width: calc(100% - 30px);
+  padding: 15px;
+  font-size: $title-font-size;
+  resize: none;
+  display: block;
+
+  @media screen and (max-width: 480px) {
+    &.focused {
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 60px;
+    }
+  }
+}
+
+.pavilion-comment-create-btn {
+  text-align: left;
+}
+
+.pavilion-comment-create-material {
+  font-size: $title-font-size;
+  background-color: $secondary-color;
+  color: white;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 90px;
+  height: 40px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 480px) {
+    &.focused {
+      position: fixed;
+      height: 60px;
+      z-index: 3;
+      right: 0;
+      left: 0;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+}
+
+.pavilion-comment-create-title {
+  font-size: $title-font-size;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.pavilion-comment-delete {
+  font-size: $small-font-size;
+  background-color: $error-color;
+  display: inline-block;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
 }

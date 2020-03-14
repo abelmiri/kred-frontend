@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react"
 import {Link, Route, Switch} from "react-router-dom"
 import api, {REST_URL} from "../../Functions/api"
-// import Mic from "../../Media/Images/PavilionMic.png"
 import {ClipLoader} from "react-spinners"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
 import CommentSvg from "../../Media/Svgs/CommentSvg"
@@ -56,9 +55,10 @@ class PavilionPage extends PureComponent
     render()
     {
         const {posts, postsLoading} = this.state
+        const {user} = this.props
         return (
             <Switch>
-                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilionId={route.match.params.id}/>}/>
+                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilionId={route.match.params.id} user={user}/>}/>
 
                 <React.Fragment>
                     <div className='page-background-img pavilion'>
@@ -72,7 +72,6 @@ class PavilionPage extends PureComponent
                                 سید، تو مخاطب نیستی! حله؟
                             </h3>
                         </div>
-                        {/*<img alt="Mic" src={Mic} className="pavilion-mic"/>*/}
                     </div>
 
                     <div className="posts-list-con">
