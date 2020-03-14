@@ -30,7 +30,7 @@
   @media screen and (min-width: 480px) {
     font-size: 150px;
     margin: 0 0 10px 0;
-    background-color: rgba(58, 175, 169, 0.4);
+    background-color: $transparent-second;
     padding-top: 5px;
     width: 100%;
     text-align: center;
@@ -45,7 +45,7 @@
 
 .home-desc {
   font-size: 30px;
-  background-color: rgba(58, 175, 169, 0.6);
+  background-color: $transparent-primary;
   border-radius: 35px;
   padding: 5px 20px;
   color: white;

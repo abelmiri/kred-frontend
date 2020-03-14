@@ -174,7 +174,7 @@ class HomePage extends PureComponent
                 <div className='home-collab'>
                     <div className='home-collab-cont'>
                         <h3 className='home-collab-title'>تو هم میتونی با کرد همکاری کنی ...</h3>
-                        <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type='button' backgroundColor='rgba(58,175,169,0.2)' className='home-collab-butt'>همکاری با KRED</Material></a>
+                        <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type='button' className='home-collab-butt'>همکاری با KRED</Material></a>
                     </div>
                 </div>
                 <Footer/>
