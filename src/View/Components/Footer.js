@@ -7,14 +7,21 @@ import TelegramSvg from "../../Media/Svgs/TelegramSvg"
 import {Link} from "react-router-dom"
 import ExchangeSvg from "../../Media/Svgs/ExchangeSvg"
 import LogoSvg from "../../Media/Svgs/LogoSvg"
+import Android from "../../Media/Images/Android.png"
 
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
 const Footer = () =>
     <div className='footer-container' id="footer">
         <div className="footer-logo-cont">
-            <LogoSvg className="footer-logo"/>
-            <div className="footer-desc">KRED | گام هایی جذاب در دنیای پزشکی</div>
+            <Link to="/" className="footer-logo-section" onClick={() => window.scroll({top: 0, behavior: "smooth"})}>
+                <LogoSvg className="footer-logo"/>
+                <div className="footer-desc">KRED</div>
+            </Link>
+            <a href="/KRED.apk" target="_blank" className="footer-logo-section app">
+                <img src={Android} className="footer-logo app" alt="application"/>
+                <div className="footer-desc">اپلیکیشن ما رو دانلود کن!</div>
+            </a>
         </div>
         <div className="footer-parts">
             <div className="footer-part">

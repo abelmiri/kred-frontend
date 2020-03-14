@@ -12,6 +12,22 @@
   margin-bottom: 50px;
 }
 
+.footer-logo-section {
+  display: inline-block;
+  width: 210px;
+  cursor: pointer;
+  color: black;
+
+  &.app {
+    margin-right: 70px;
+
+    @media screen and (max-width: 480px) {
+      margin-right: 0;
+      margin-top: 15px;
+    }
+  }
+}
+
 .footer-logo {
   width: 50px;
 }
@@ -34,7 +50,8 @@
 
 .footer-part {
   display: inline-block;
-  margin-left: 150px;
+  width: 210px;
+  margin-left: 70px;
 
   &.last {
     font-weight: bold;
