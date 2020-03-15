@@ -32,28 +32,31 @@ class PavilionItemPage extends PureComponent
     {
         window.scroll({top: 0})
 
-        const {pavilionId, location} = this.props
+        const {pavilion, pavilionId, location} = this.props
 
-        api.get(`conversation/${pavilionId}`, `?time=${new Date().toISOString()}`)
-            .then((pavilion) =>
-            {
-                this.setState({...this.state, pavilion}, () =>
+        this.setState({...this.state, pavilion}, () =>
+        {
+            api.get(`conversation/${pavilionId}`, `?time=${new Date().toISOString()}`)
+                .then((pavilion) =>
                 {
-                    if (pavilion.comments_count > 0)
+                    this.setState({...this.state, pavilion}, () =>
                     {
-                        this.setState({...this.state, commentsLoading: true}, () =>
+                        if (pavilion.comments_count > 0)
                         {
-                            api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=1&time=${new Date().toISOString()}`)
-                                .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false}))
-                        })
-                    }
-                    setTimeout(() =>
-                    {
-                        if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})
-                    }, 450)
+                            this.setState({...this.state, commentsLoading: true}, () =>
+                            {
+                                api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=1&time=${new Date().toISOString()}`)
+                                    .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false}))
+                            })
+                        }
+                        setTimeout(() =>
+                        {
+                            if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})
+                        }, 450)
+                    })
                 })
-            })
-            .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
+                .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
+        })
 
         document.addEventListener("scroll", this.onScroll)
     }

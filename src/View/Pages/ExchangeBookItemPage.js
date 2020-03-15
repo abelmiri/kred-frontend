@@ -20,14 +20,17 @@ class ExchangeBookItemPage extends PureComponent
 
     componentDidMount()
     {
-        const {exchangeId, getCities} = this.props
+        const {exchangeId, exchange} = this.props
         if (exchangeId !== "addExchangeModal")
         {
             window.scroll({top: 0})
-            api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`)
-                .then((exchange) => this.setState({...this.state, exchange}))
-                .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
-            getCities()
+
+            this.setState({...this.state, exchange}, () =>
+            {
+                api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`)
+                    .then((exchange) => this.setState({...this.state, exchange}))
+                    .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
+            })
 
             // statistics
             process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "تبادل کتاب | صفحه کتاب", content_id: exchangeId}).catch(err => console.log(err))

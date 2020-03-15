@@ -3,7 +3,7 @@ import Profile from "../../Media/Svgs/Profile"
 import Material from "./Material"
 import ReplySvg from "../../Media/Svgs/ReplySvg"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
-import api from "../../Functions/api"
+import api, {REST_URL} from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
 import {ClipLoader} from "react-spinners"
 
@@ -127,7 +127,12 @@ class Comment extends PureComponent
             <div className="pavilion-comment">
                 <div className="pavilion-comment-header">
                     <div className="pavilion-comment-header-profile">
-                        <Profile className="pavilion-comment-profile"/>
+                        {
+                            comment.user.avatar ?
+                                <img className="pavilion-comment-profile" src={REST_URL + comment.user.avatar} alt={comment.user.name}/>
+                                :
+                                <Profile className="pavilion-comment-profile"/>
+                        }
                         <div>
                             <div className="pavilion-comment-sender">{comment.user.name}</div>
                             {
@@ -171,7 +176,7 @@ class Comment extends PureComponent
                             <Material className="pavilion-comment-show-replies" onClick={this.showReplies}>نمایش پاسخ‌ها ({childs.length})</Material>
                             :
                             <div className="pavilion-comment-child">
-                                <div className="pavilion-comment-child-title">پاسخ‌ها</div>
+                                <div className="pavilion-comment-child-title">پاسخ‌ها ({childs.length})</div>
                                 {
                                     childs.map(cm =>
                                         <Comment key={cm._id}

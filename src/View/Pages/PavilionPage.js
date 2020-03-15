@@ -58,7 +58,7 @@ class PavilionPage extends PureComponent
         const {user} = this.props
         return (
             <Switch>
-                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilionId={route.match.params.id} location={route.location.pathname} user={user}/>}/>
+                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilion={posts[route.match.params.id]} pavilionId={route.match.params.id} location={route.location.pathname} user={user}/>}/>
 
                 <React.Fragment>
                     <div className='page-background-img pavilion'>
