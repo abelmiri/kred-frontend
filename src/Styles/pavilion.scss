@@ -105,6 +105,7 @@
 
 .post-like-count-cont {
   display: inline-block;
+  color: $dark-color;
   padding: 10px;
   cursor: pointer;
   height: 20px;
@@ -330,7 +331,7 @@
 }
 
 .pavilion-comment-uni {
-  font-size: $small-font-size;
+  font-size: $really-small-font;
 }
 
 .pavilion-comment-date {

@@ -58,7 +58,7 @@ class PavilionPage extends PureComponent
         const {user} = this.props
         return (
             <Switch>
-                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilionId={route.match.params.id} user={user}/>}/>
+                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilionId={route.match.params.id} location={route.location.pathname} user={user}/>}/>
 
                 <React.Fragment>
                     <div className='page-background-img pavilion'>
@@ -86,10 +86,10 @@ class PavilionPage extends PureComponent
                                                 <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
                                                 <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
                                             </div>
-                                            <div className="post-like-count-cont not-cursor">
+                                            <Link to={`/pavilions/${post._id}/comments`} className="post-like-count-cont">
                                                 <div className="post-like-count">{post.comments_count}</div>
                                                 <CommentSvg className="post-comment-svg"/>
-                                            </div>
+                                            </Link>
                                         </div>
                                     </div>
                                     <Link className="post-circle-image-link" to={`/pavilions/${post._id}`}>

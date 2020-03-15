@@ -31,7 +31,7 @@ class PavilionItemPage extends PureComponent
     {
         window.scroll({top: 0})
 
-        const {pavilionId} = this.props
+        const {pavilionId, location} = this.props
 
         api.get(`conversation/${pavilionId}`, `?time=${new Date().toISOString()}`)
             .then((pavilion) =>
@@ -46,6 +46,10 @@ class PavilionItemPage extends PureComponent
                                 .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false}))
                         })
                     }
+                    setTimeout(() =>
+                    {
+                        if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})
+                    }, 300)
                 })
             })
             .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
@@ -182,17 +186,21 @@ class PavilionItemPage extends PureComponent
 
     removeComment(id)
     {
-        api.del(`conversation/comment/${id}`)
-            .then(() =>
-            {
-                const {pavilion} = this.state
-                let comments = {...this.state.comments}
-                delete comments[id]
-                this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}}, () =>
-                    NotificationManager.success("نظر شما با موفقیت حذف شد!"),
-                )
-            })
-            .catch(() => NotificationManager.error("مشکلی پیش آمد، اینترنت خود را بررسی کنید!"))
+        let result = window.confirm("از حذف نظر مطمئنید؟!")
+        if (result)
+        {
+            api.del(`conversation/comment/${id}`)
+                .then(() =>
+                {
+                    const {pavilion} = this.state
+                    let comments = {...this.state.comments}
+                    delete comments[id]
+                    this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}}, () =>
+                        NotificationManager.success("نظر شما با موفقیت حذف شد!"),
+                    )
+                })
+                .catch(() => NotificationManager.error("مشکلی پیش آمد، اینترنت خود را بررسی کنید!"))
+        }
     }
 
     render()
@@ -228,7 +236,7 @@ class PavilionItemPage extends PureComponent
                                             <div className="pavilion-item-like">{pavilion.comments_count} دیدگاه</div>
                                         </Material>
                                     </div>
-                                    <div className="pavilion-item-comments-section">
+                                    <div className="pavilion-item-comments-section" ref={e => this.comments = e}>
                                         <div className="pavilion-comment-create-title">خوشحال میشیم نظرتو بدونیم!</div>
                                         <textarea ref={e => this.description = e} rows={4} className={`pavilion-comment-create ${focused ? "focused" : ""}`} placeholder="نظرت رو بنویس..." onClick={this.focusOnComment}/>
                                         <div className="pavilion-comment-create-btn">
