@@ -218,7 +218,7 @@ class CreateExchangeModal extends PureComponent
 
     postData(form)
     {
-        api.post("exchange", form, "", false, (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
+        api.post("exchange", form, "", (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
             .then(() =>
             {
                 const {hideModal} = this.props

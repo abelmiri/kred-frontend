@@ -1,13 +1,14 @@
 import axios from "axios"
 import {NotificationManager} from "react-notifications"
 
-// export const REST_URL = "http://localhost:1435"
-export const REST_URL = "https://restful.kred.ir"
+export const REST_URL = "http://localhost:1435"
 
-function get(url, param = "", noToken, dontToast)
+// export const REST_URL = "https://restful.kred.ir"
+
+function get(url, param = "", dontToast)
 {
-    const token = noToken || (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) ? "" : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
-    return axios.get(encodeURI(REST_URL + "/" + url + "/" + param), {headers: !noToken ? {"Authorization": `${token}`} : null})
+    const token = !localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user") ? null : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
+    return axios.get(encodeURI(REST_URL + "/" + url + "/" + param), {headers: token ? {"Authorization": `${token}`} : null})
         .then((res) => res.data)
         .catch((err) =>
         {
@@ -17,11 +18,11 @@ function get(url, param = "", noToken, dontToast)
         })
 }
 
-function post(url, data, param = "", noToken, progress)
+function post(url, data, param = "", progress)
 {
-    const token = noToken || (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) ? "" : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
+    const token = !localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user") ? null : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     return axios.post(encodeURI(REST_URL + "/" + url + "/" + param), data, {
-        headers: !noToken ? {"Authorization": `${token}`} : null,
+        headers: token ? {"Authorization": `${token}`} : null,
         onUploadProgress: e => progress ? progress(e) : null,
     })
         .then((res) => res.data)

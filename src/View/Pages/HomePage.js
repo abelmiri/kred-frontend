@@ -25,7 +25,7 @@ class HomePage extends PureComponent
         window.scroll({top: 0})
 
         if (document.body.clientWidth >= 800)
-            api.get("video/free", "", true)
+            api.get("video/free", "")
                 .then(freeVideos => this.setState({...this.state, freeVideos: freeVideos.reduce((sum, video) => ({...sum, [video._id]: {...video}}), {})}, () => this.getSubtitlesFromServer(freeVideos)))
                 .catch(() => this.setState({...this.state, videoError: true}))
 

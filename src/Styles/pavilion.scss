@@ -267,6 +267,12 @@
 .pavilion-item-like {
   display: inline-block;
   margin-right: 7px;
+
+  &.mr-left {
+    margin-left: 7px;
+    margin-right: 0;
+  }
+
   font-size: $regular-font-size;
   vertical-align: top;
 
@@ -276,6 +282,9 @@
 
   @media screen and (max-width: 480px) {
     margin-top: 5px;
+    &.mr-left {
+      margin-top: 2px;
+    }
   }
 }
 
@@ -296,7 +305,7 @@
 }
 
 .pavilion-comment {
-  padding: 15px;
+  padding: 15px 15px 5px 15px;
   background-color: white;
   margin-top: 15px;
 }
@@ -336,6 +345,10 @@
 
 .pavilion-comment-date {
   font-size: $small-font-size;
+}
+
+.pavilion-comment-replied {
+  color: $secondary-color;
 }
 
 .pavilion-comment-desc {
@@ -389,6 +402,13 @@
   align-items: center;
   justify-content: center;
 
+  &.reply {
+    font-size: $really-small-font;
+    width: 80px;
+    height: 30px;
+    margin-bottom: 10px;
+  }
+
   @media screen and (max-width: 480px) {
     &.focused {
       position: fixed;
@@ -409,12 +429,18 @@
 }
 
 .pavilion-comment-delete {
+  vertical-align: top;
   font-size: $small-font-size;
-  background-color: $error-color;
+  color: $error-color;
   display: inline-block;
-  color: white;
-  padding: 5px 10px;
+  padding: 10px;
   cursor: pointer;
+  height: 20px;
+  border-radius: 35px;
+
+  @media screen and (max-width: 480px) {
+    order: 2;
+  }
 }
 
 .pavilion-comment-emoji-cont {
@@ -445,5 +471,131 @@
       padding: 14px 0;
       font-size: 22px;
     }
+  }
+}
+
+.pavilion-comment-like-cont {
+  text-align: left;
+  margin-left: -10px;
+
+  @media screen and (max-width: 480px) {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% + 20px);
+    margin-right: -10px;
+  }
+}
+
+.pavilion-comment-like {
+  display: inline-block;
+  color: $dark-color;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  height: 20px;
+  border-radius: 35px;
+
+  @media screen and (max-width: 480px) {
+    height: 30px;
+    &.mr-left {
+      height: 20px;
+      order: 3;
+    }
+  }
+}
+
+.pavilion-comment-like-svg {
+  vertical-align: top;
+  width: 20px;
+  height: 20px;
+  margin-top: -2px;
+  fill: $post-like-comment-color;
+  transition: all linear 0.2s;
+
+  &.liked {
+    fill: $primary-color;
+  }
+}
+
+.pavilion-comment-reply {
+  display: inline-block;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  height: 20px;
+  border-radius: 35px;
+  font-size: $small-font-size;
+  font-weight: bold;
+  color: $secondary-color;
+  margin: 0 10px;
+  transition: all linear 0.2s;
+
+  &.focus {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (max-width: 480px) {
+    order: 1;
+    margin: 0;
+  }
+}
+
+.pavilion-comment-reply-area {
+  padding: 10px;
+  width: calc(100% - 77px);
+  background-color: white;
+  border: 1px solid $border-color;
+  resize: none;
+  display: block;
+  margin: 10px 55px 0 0;
+  font-size: $regular-font-size;
+  transition: all linear 0.2s;
+
+  @media screen and (max-width: 480px) {
+    margin: 10px 0 0 0;
+    width: calc(100% - 22px);
+  }
+
+  &:focus {
+    border: 1px solid $primary-color;
+  }
+}
+
+.pavilion-comment-child {
+  //border: 1px solid $border-color;
+  width: calc(100% - 40px);
+  border-right: 1px solid $primary-color;
+  margin: 10px 55px 10px 0;
+  @media screen and (max-width: 480px) {
+    margin: 10px 0 10px 0;
+    width: calc(100% + 15px);
+    border: none;
+    border-right: 1px solid $primary-color;
+  }
+}
+
+.pavilion-comment-child-title {
+  padding: 15px 15px 0 0;
+  font-size: $regular-font-size;
+  font-weight: bold;
+}
+
+.pavilion-comment-not-found {
+  text-align: right;
+  padding: 35px 0 0 0;
+  font-size: $title-font-size;
+}
+
+.pavilion-comment-show-replies {
+  font-size: $regular-font-size;
+  margin-right: 45px;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: $secondary-color;
+  cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    margin-right: -10px;
   }
 }

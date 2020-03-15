@@ -7,8 +7,8 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 import CopySvg from "../../Media/Svgs/CopySvg"
 import {NotificationManager} from "react-notifications"
 import copyToClipboard from "../../Helpers/copyToClipboard"
-import Profile from "../../Media/Svgs/Profile"
 import StickersMenu from "../Components/StickerMenu"
+import Comment from "../Components/Comment"
 
 class PavilionItemPage extends PureComponent
 {
@@ -190,25 +190,6 @@ class PavilionItemPage extends PureComponent
         }
     }
 
-    removeComment(id)
-    {
-        let result = window.confirm("از حذف نظر مطمئنید؟!")
-        if (result)
-        {
-            api.del(`conversation/comment/${id}`)
-                .then(() =>
-                {
-                    const {pavilion} = this.state
-                    let comments = {...this.state.comments}
-                    delete comments[id]
-                    this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}}, () =>
-                        NotificationManager.success("نظر شما با موفقیت حذف شد!"),
-                    )
-                })
-                .catch(() => NotificationManager.error("مشکلی پیش آمد، اینترنت خود را بررسی کنید!"))
-        }
-    }
-
     onCommentChange = (e) =>
     {
         if (e.target.style.border === "1px solid red" && e.target.value.trim().length > 1) e.target.style.border = "1px solid white"
@@ -232,6 +213,26 @@ class PavilionItemPage extends PureComponent
             this.description.selectionEnd = startPos + emoji.length
         }
         else this.description.value += emoji
+    }
+
+    setComment = (comment) =>
+    {
+        const {pavilion} = this.state
+        const {user} = this.props
+
+        this.setState({
+            ...this.state,
+            comments: {[comment._id]: {...comment, user: {...user}}, ...this.state.comments},
+            pavilion: {...pavilion, comments_count: pavilion.comments_count + 1},
+        })
+    }
+
+    removeComment = (id) =>
+    {
+        const {pavilion} = this.state
+        let comments = {...this.state.comments}
+        delete comments[id]
+        this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}})
     }
 
     render()
@@ -293,32 +294,22 @@ class PavilionItemPage extends PureComponent
                                         </div>
                                         <div className="pavilion-item-comments-title">نظرات کاربران</div>
                                         {
-                                            Object.values(comments).map(comment =>
-                                                <div key={comment._id} className="pavilion-comment">
-                                                    <div className="pavilion-comment-header">
-                                                        <div className="pavilion-comment-header-profile">
-                                                            <Profile className="pavilion-comment-profile"/>
-                                                            <div>
-                                                                <div className="pavilion-comment-sender">{comment.user.name}</div>
-                                                                {
-                                                                    comment.user.university &&
-                                                                    <div className="pavilion-comment-uni">دانشجوی {comment.user.university}</div>
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                        <div className="pavilion-comment-date">{new Date(comment.created_date).toLocaleDateString("fa-ir")}</div>
-                                                    </div>
-                                                    <div className="pavilion-comment-desc">
-                                                        {comment.description}
-                                                    </div>
-                                                    {
-                                                        comment.user._id === user._id &&
-                                                        <div className="pavilion-comment-create-btn">
-                                                            <Material className="pavilion-comment-delete" onClick={() => this.removeComment(comment._id)}>حذف</Material>
-                                                        </div>
-                                                    }
-                                                </div>,
-                                            )
+                                            Object.values(comments).filter(comment => !comment.parent_comment_id).length > 0 ?
+                                                Object.values(comments).filter(comment => !comment.parent_comment_id).map(comment =>
+                                                    <Comment key={comment._id}
+                                                             comment={comment}
+                                                             user={user}
+                                                             parentId={pavilion._id}
+                                                             setComment={this.setComment}
+                                                             removeComment={this.removeComment}
+                                                             childs={Object.values(comments).filter(cm => cm.parent_comment_id === comment._id)}
+                                                             commentParentId={comment._id}
+                                                             replyComment={comments[comment.reply_comment_id]}
+                                                             comments={comments}
+                                                    />,
+                                                )
+                                                :
+                                                pavilion.comments_count === 0 && <div className="pavilion-comment-not-found">نظری وجود ندارد!</div>
                                         }
                                         <div className={`exchange-page-loading ${commentsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                                     </div>

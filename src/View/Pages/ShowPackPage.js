@@ -40,7 +40,7 @@ class ShowPackPage extends PureComponent
         }
 
         const {packId} = this.props
-        api.get(`video-pack/${packId}`, `?limit=100&time=${new Date().toISOString()}`, false, true)
+        api.get(`video-pack/${packId}`, `?limit=100&time=${new Date().toISOString()}`, true)
             .then(videoPack =>
             {
                 this.setState({...this.state, videoPack}, () =>

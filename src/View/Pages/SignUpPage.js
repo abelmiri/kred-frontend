@@ -82,7 +82,7 @@ class SignUpPage extends PureComponent
             this.setState({...this.state, phone: value})
             if (value.length === 11)
             {
-                api.post("user/phone_check", {phone: value}, "", true)
+                api.post("user/phone_check", {phone: value}, "")
                     .then((data) =>
                     {
                         if (data.count > 0)
@@ -146,7 +146,7 @@ class SignUpPage extends PureComponent
             {
                 if (level === 1)
                 {
-                    api.post("code", {phone: this.phoneInput.value}, "", true)
+                    api.post("code", {phone: this.phoneInput.value}, "")
                         .then(() => this.setState({...this.state, level: 2, loading: false}))
                         .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
                 }
@@ -154,7 +154,7 @@ class SignUpPage extends PureComponent
                 {
                     if (this.codeInput.value.length === 4)
                     {
-                        api.post("user", {phone: this.phoneInput.value, name: this.nameInput.value, password: this.passwordInput.value, code: this.codeInput.value}, "", true)
+                        api.post("user", {phone: this.phoneInput.value, name: this.nameInput.value, password: this.passwordInput.value, code: this.codeInput.value}, "")
                             .then((data) =>
                             {
                                 setUser(data)

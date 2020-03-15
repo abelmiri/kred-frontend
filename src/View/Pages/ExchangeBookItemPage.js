@@ -24,7 +24,7 @@ class ExchangeBookItemPage extends PureComponent
         if (exchangeId !== "addExchangeModal")
         {
             window.scroll({top: 0})
-            api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`, true)
+            api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`)
                 .then((exchange) => this.setState({...this.state, exchange}))
                 .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
             getCities()

@@ -34,7 +34,7 @@ class ExchangeBookPage extends PureComponent
     {
         window.scroll({top: 0})
         const {getCities, getCategories} = this.props
-        api.get("exchange", `?limit=12&page=1&time=${new Date().toISOString()}`, true)
+        api.get("exchange", `?limit=12&page=1&time=${new Date().toISOString()}`)
             .then((data) =>
                 this.setState({...this.state, exchangesLoading: false}, () =>
                 {
@@ -93,7 +93,7 @@ class ExchangeBookPage extends PureComponent
                 this.setState({...this.state, exchangesLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    api.get("exchange", `?limit=12&page=${this.page}${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+                    api.get("exchange", `?limit=12&page=${this.page}${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`).then((data) =>
                     {
                         this.page += 1
                         this.setState({...this.state, exchangesLoading: false, exchanges: {...exchanges, ...data.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}})
@@ -138,7 +138,7 @@ class ExchangeBookPage extends PureComponent
         this.setState({...this.state, selectedCategories, exchangesLoading: true}, () =>
         {
             const {searchTitle} = this.state
-            api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+            api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`).then((data) =>
             {
                 if (searchTitle || selectedCategories.length > 0)
                 {
@@ -182,7 +182,7 @@ class ExchangeBookPage extends PureComponent
                 this.setState({...this.state, exchangesLoading: true}, () =>
                     {
                         const {selectedCategories} = this.state
-                        api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`, true).then((data) =>
+                        api.get("exchange", `?limit=12&page=1${selectedCategories.length > 0 ? `&searchCategories=${selectedCategories}` : ""}${searchTitle ? `&searchTitle=${searchTitle}` : ""}&time=${new Date().toISOString()}`).then((data) =>
                         {
                             if (searchTitle || selectedCategories.length > 0)
                             {

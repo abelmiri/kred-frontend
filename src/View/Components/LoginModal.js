@@ -34,7 +34,7 @@ class LoginModal extends PureComponent
                 const phone = this.phoneInput.value.trim()
                 if (phone.length === 11 && !isNaN(phone))
                 {
-                    api.post("user/forget-password", {phone}, "", true)
+                    api.post("user/forget-password", {phone}, "")
                         .then(() =>
                         {
                             NotificationManager.success("رمز عبور برای شما ارسال شد!")
@@ -57,7 +57,7 @@ class LoginModal extends PureComponent
                 {
                     this.setState({...this.state, loginLoading: true}, () =>
                     {
-                        api.post("user/login", {phone, password}, "", true)
+                        api.post("user/login", {phone, password}, "")
                             .then((data) =>
                             {
                                 const {setUser, hideLoginModal} = this.props

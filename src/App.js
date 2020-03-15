@@ -188,21 +188,21 @@ class App extends PureComponent
 
     getCities = () =>
     {
-        api.get("city", `?limit=100&time=${new Date().toISOString()}`, true).then((cities) =>
+        api.get("city", `?limit=100&time=${new Date().toISOString()}`).then((cities) =>
             this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})}),
         )
     }
 
     getCategories = () =>
     {
-        api.get("category", `?limit=100&time=${new Date().toISOString()}`, true).then((categories) =>
+        api.get("category", `?limit=100&time=${new Date().toISOString()}`).then((categories) =>
             this.setState({...this.state, categories: categories.reduce((sum, category) => ({...sum, [category._id]: {...category}}), {})}),
         )
     }
 
     getVideoPacks = () =>
     {
-        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`, false, true)
+        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`, true)
             .then((videoPacks) =>
             {
                 this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}, () =>
@@ -224,7 +224,7 @@ class App extends PureComponent
 
     getCompanies = () =>
     {
-        api.get("company", `?limit=100&time=${new Date().toISOString()}`, true, true)
+        api.get("company", `?limit=100&time=${new Date().toISOString()}`, true)
             .then((companies) =>
             {
                 this.setState({...this.state, companies: companies.reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}, () =>

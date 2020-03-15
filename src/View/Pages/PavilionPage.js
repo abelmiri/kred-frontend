@@ -42,7 +42,7 @@ class PavilionPage extends PureComponent
                 this.setState({...this.state, postsLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    api.get("conversation", `?limit=9&page=${this.page}&time=${new Date().toISOString()}`, true).then((data) =>
+                    api.get("conversation", `?limit=9&page=${this.page}&time=${new Date().toISOString()}`).then((data) =>
                     {
                         this.page += 1
                         this.setState({...this.state, postsLoading: false, posts: {...posts, ...data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}})

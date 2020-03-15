@@ -42,7 +42,7 @@ class ProfilePageDashboard extends PureComponent
         if (user)
         {
             this.getExchanges = false
-            api.get("exchange", `?limit=100&page=1&user_id=${user._id}&time=${new Date().toISOString()}`, true)
+            api.get("exchange", `?limit=100&page=1&user_id=${user._id}&time=${new Date().toISOString()}`)
                 .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
         }
     }
@@ -53,7 +53,7 @@ class ProfilePageDashboard extends PureComponent
         {
             this.getExchanges = false
             const {user} = this.props
-            api.get("exchange", `?limit=100&page=1&user_id=${user._id}&time=${new Date().toISOString()}`, true)
+            api.get("exchange", `?limit=100&page=1&user_id=${user._id}&time=${new Date().toISOString()}`)
                 .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
         }
     }
