@@ -235,6 +235,10 @@ class PavilionItemPage extends PureComponent
         this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}})
     }
 
+    setLikeComment = (comment) => this.setState({...this.state, comments: {...this.state.comments, [comment._id]: {...comment, is_liked: false, likes_count: comment.likes_count - 1}}})
+
+    removeLikeComment = (comment) => this.setState({...this.state, comments: {...this.state.comments, [comment._id]: {...comment, is_liked: true, likes_count: comment.likes_count + 1}}})
+
     render()
     {
         const {notFound, error, pavilion, comments, commentsLoading, sendLoading, focused} = this.state
@@ -306,6 +310,8 @@ class PavilionItemPage extends PureComponent
                                                              commentParentId={comment._id}
                                                              replyComment={comments[comment.reply_comment_id]}
                                                              comments={comments}
+                                                             setLikeComment={this.setLikeComment}
+                                                             removeLikeComment={this.removeLikeComment}
                                                     />,
                                                 )
                                                 :

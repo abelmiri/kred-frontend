@@ -21,19 +21,19 @@ class Comment extends PureComponent
 
     likeAndDisLikeComment(comment)
     {
-        const {user} = this.props
+        const {user, setLikeComment, removeLikeComment} = this.props
         if (user)
         {
             if (comment.is_liked)
             {
                 api.del(`conversation/comment/like/${comment._id}`)
-                    .then(() => this.setState({...this.state, comments: {...this.state.comments, [comment._id]: {...comment, is_liked: false, likes_count: comment.likes_count - 1}}}))
+                    .then(() => setLikeComment(comment))
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
             else
             {
                 api.post("conversation/comment/like", {comment_id: comment._id})
-                    .then(() => this.setState({...this.state, comments: {...this.state.comments, [comment._id]: {...comment, is_liked: true, likes_count: comment.likes_count + 1}}}))
+                    .then(() => removeLikeComment(comment))
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
         }
@@ -62,7 +62,14 @@ class Comment extends PureComponent
         }
     }
 
-    showReplay = () => this.setState({...this.state, reply: !this.state.reply})
+    showReplay = () =>
+    {
+        const reply = !this.state.reply
+        this.setState({...this.state, reply}, () =>
+        {
+            if (reply && document.body.clientWidth > 480) this.description.focus()
+        })
+    }
 
     sendReply = () =>
     {
@@ -115,7 +122,7 @@ class Comment extends PureComponent
     render()
     {
         const {reply, sendLoading, showReplies} = this.state
-        const {comment, user, childs, parentId, setComment, removeComment, comments, replyComment} = this.props
+        const {comment, user, childs, parentId, setComment, removeComment, comments, replyComment, setLikeComment, removeLikeComment} = this.props
         return (
             <div className="pavilion-comment">
                 <div className="pavilion-comment-header">
@@ -175,6 +182,8 @@ class Comment extends PureComponent
                                                  removeComment={removeComment}
                                                  commentParentId={comment._id}
                                                  replyComment={comments[cm.reply_comment_id]}
+                                                 setLikeComment={setLikeComment}
+                                                 removeLikeComment={removeLikeComment}
                                         />,
                                     )
                                 }
