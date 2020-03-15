@@ -49,7 +49,7 @@ class PavilionItemPage extends PureComponent
                     setTimeout(() =>
                     {
                         if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})
-                    }, 300)
+                    }, 450)
                 })
             })
             .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
@@ -162,6 +162,11 @@ class PavilionItemPage extends PureComponent
                             .catch(() => this.setState({...this.state, sendLoading: false}, () => NotificationManager.error("مشکلی پیش آمد، اینترنت خود را بررسی کنید!")))
                     })
                 }
+                else
+                {
+                    this.description.style.border = "1px solid red"
+                    if (description.length === 1) NotificationManager.error("حداقل متن مورد قبول 2 کاراکتر است!")
+                }
             }
             else
             {
@@ -203,6 +208,11 @@ class PavilionItemPage extends PureComponent
         }
     }
 
+    onCommentChange = (e) =>
+    {
+        if (e.target.style.border === "1px solid red" && e.target.value.trim().length > 1) e.target.style.border = "1px solid white"
+    }
+
     render()
     {
         const {notFound, error, pavilion, comments, commentsLoading, sendLoading, focused} = this.state
@@ -238,7 +248,7 @@ class PavilionItemPage extends PureComponent
                                     </div>
                                     <div className="pavilion-item-comments-section" ref={e => this.comments = e}>
                                         <div className="pavilion-comment-create-title">خوشحال میشیم نظرتو بدونیم!</div>
-                                        <textarea ref={e => this.description = e} rows={4} className={`pavilion-comment-create ${focused ? "focused" : ""}`} placeholder="نظرت رو بنویس..." onClick={this.focusOnComment}/>
+                                        <textarea ref={e => this.description = e} rows={4} onChange={this.onCommentChange} className={`pavilion-comment-create ${focused ? "focused" : ""}`} placeholder="نظرت رو بنویس..." onClick={this.focusOnComment}/>
                                         <div className="pavilion-comment-create-btn">
                                             <Material className={`pavilion-comment-create-material ${focused ? "focused" : ""}`} onClick={this.sendComment}>
                                                 {sendLoading ? <ClipLoader size={15} color="white"/> : "ارسال نظر"}

@@ -358,6 +358,8 @@
   font-size: $title-font-size;
   resize: none;
   display: block;
+  border: 1px solid white;
+  transition: all linear 0.2s;
 
   @media screen and (max-width: 480px) {
     &.focused {
@@ -365,7 +367,7 @@
       z-index: 3;
       top: 0;
       right: 0;
-      left: 0;
+      width: calc(100% - 32px);
       bottom: 60px;
     }
   }
