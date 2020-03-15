@@ -8,6 +8,7 @@ import CopySvg from "../../Media/Svgs/CopySvg"
 import {NotificationManager} from "react-notifications"
 import copyToClipboard from "../../Helpers/copyToClipboard"
 import Profile from "../../Media/Svgs/Profile"
+import StickersMenu from "../Components/StickerMenu"
 
 class PavilionItemPage extends PureComponent
 {
@@ -213,6 +214,26 @@ class PavilionItemPage extends PureComponent
         if (e.target.style.border === "1px solid red" && e.target.value.trim().length > 1) e.target.style.border = "1px solid white"
     }
 
+    handleEmoji = (emoji) =>
+    {
+        if (document.selection)
+        {
+            this.description.focus()
+            let sel = document.selection.createRange()
+            sel.text = emoji
+        }
+        else if (this.description.selectionStart || this.description.selectionStart === 0)
+        {
+            this.description.focus()
+            let startPos = this.description.selectionStart
+            let endPos = this.description.selectionEnd
+            this.description.value = this.description.value.substring(0, startPos) + emoji + this.description.value.substring(endPos, this.description.value.length)
+            this.description.selectionStart = startPos + emoji.length
+            this.description.selectionEnd = startPos + emoji.length
+        }
+        else this.description.value += emoji
+    }
+
     render()
     {
         const {notFound, error, pavilion, comments, commentsLoading, sendLoading, focused} = this.state
@@ -249,6 +270,22 @@ class PavilionItemPage extends PureComponent
                                     <div className="pavilion-item-comments-section" ref={e => this.comments = e}>
                                         <div className="pavilion-comment-create-title">خوشحال میشیم نظرتو بدونیم!</div>
                                         <textarea ref={e => this.description = e} rows={4} onChange={this.onCommentChange} className={`pavilion-comment-create ${focused ? "focused" : ""}`} placeholder="نظرت رو بنویس..." onClick={this.focusOnComment}/>
+                                        <div className="pavilion-comment-emoji-cont">
+                                            <StickersMenu output={this.handleEmoji} modal={true}/>
+                                        </div>
+                                        {
+                                            focused &&
+                                            <div className="pavilion-comment-emoji-mobile">
+                                                <Material onClick={() => this.handleEmoji("😂")}><span role='img' aria-label=''>😂</span></Material>
+                                                <Material onClick={() => this.handleEmoji("❤")}><span role='img' aria-label=''>❤</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😊")}><span role='img' aria-label=''>😊</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😑")}><span role='img' aria-label=''>😑</span></Material>
+                                                <Material onClick={() => this.handleEmoji("👌")}><span role='img' aria-label=''>👌</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😍")}><span role='img' aria-label=''>😍</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😐")}><span role='img' aria-label=''>😐</span></Material>
+                                                <Material onClick={() => this.handleEmoji("🙌")}><span role='img' aria-label=''>🙌</span></Material>
+                                            </div>
+                                        }
                                         <div className="pavilion-comment-create-btn">
                                             <Material className={`pavilion-comment-create-material ${focused ? "focused" : ""}`} onClick={this.sendComment}>
                                                 {sendLoading ? <ClipLoader size={15} color="white"/> : "ارسال نظر"}
@@ -263,7 +300,10 @@ class PavilionItemPage extends PureComponent
                                                             <Profile className="pavilion-comment-profile"/>
                                                             <div>
                                                                 <div className="pavilion-comment-sender">{comment.user.name}</div>
-                                                                <div className="pavilion-comment-uni">دانشجوی {comment.user.university}</div>
+                                                                {
+                                                                    comment.user.university &&
+                                                                    <div className="pavilion-comment-uni">دانشجوی {comment.user.university}</div>
+                                                                }
                                                             </div>
                                                         </div>
                                                         <div className="pavilion-comment-date">{new Date(comment.created_date).toLocaleDateString("fa-ir")}</div>

@@ -353,7 +353,7 @@
 }
 
 .pavilion-comment-create {
-  width: calc(100% - 30px);
+  width: calc(100% - 32px);
   padding: 15px;
   font-size: $title-font-size;
   resize: none;
@@ -367,8 +367,7 @@
       z-index: 3;
       top: 0;
       right: 0;
-      width: calc(100% - 32px);
-      bottom: 60px;
+      bottom: 120px;
     }
   }
 }
@@ -416,4 +415,35 @@
   color: white;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.pavilion-comment-emoji-cont {
+  background-color: white;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 2px;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+}
+
+.pavilion-comment-emoji-mobile {
+  display: none;
+  @media screen and (max-width: 480px) {
+    display: flex;
+    position: fixed;
+    z-index: 3;
+    right: 0;
+    left: 0;
+    bottom: 60px;
+    height: 60px;
+    background-color: $login-page-background-color;
+    .material {
+      flex-grow: 1;
+      text-align: center;
+      padding: 14px 0;
+      font-size: 22px;
+    }
+  }
 }

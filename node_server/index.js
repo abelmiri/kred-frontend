@@ -87,6 +87,42 @@ function sendExchangeHtml(id, res, html, err)
     })
 }
 
+app.route("/pavilions/:id").get((req, res) => fs.readFile("./index.html", null, (err, data) => sendPavilionHtml(req.params.id, res, data, err)))
+app.route("/pavilions/:id/*").get((req, res) => fs.readFile("./index.html", null, (err, data) => sendPavilionHtml(req.params.id, res, data, err)))
+
+function sendPavilionHtml(id, res, html, err)
+{
+    if (err) res.sendFile(path.join(__dirname, "index.html"))
+    else request(`https://restful.kred.ir/conversation/${id}`, (error, response, body) =>
+    {
+        try
+        {
+            const gap = JSON.parse(body)
+            if (gap && gap._id)
+            {
+                res.send(html.toString().replace(
+                    `<title>کرد؛ گام هایی جذاب در دنیای پزشکی</title><meta property="og:title" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta name="twitter:title" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta name="description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta property="og:description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta name="twitter:description" content="کرد؛ گام هایی جذاب در دنیای پزشکی"/><meta property="og:image" content="/logo512.png"/><meta name="twitter:image" content="/logo512.png"/><meta name="twitter:card" content="summary_large_image"/>`,
+                    `<title>گپ و گفت ${gap.title} | کرد</title>
+                                 <meta property="og:title" content="گپ و گفت ${gap.title} | کرد"/>
+                                 <meta name="twitter:title" content="گپ و گفت ${gap.title} | کرد"/>
+                                 <meta name="description" content="${gap.bold_description}"/>
+                                 <meta property="og:description" content="${gap.bold_description}"/>
+                                 <meta name="twitter:description" content="${gap.bold_description}"/>
+                                 <meta property="og:image" content="https://restful.kred.ir/${gap.picture}"/>
+                                 <meta name="twitter:image" content="https://restful.kred.ir/${gap.picture}"/>
+                                 <meta name="twitter:card" content="summary_large_image"/>`,
+                ))
+            }
+            else res.sendFile(path.join(__dirname, "index.html"))
+        }
+        catch (e)
+        {
+            console.log(e.message)
+            res.sendFile(path.join(__dirname, "index.html"))
+        }
+    })
+}
+
 app.route("*").get((req, res) =>
 {
     res.setHeader("Access-Control-Allow-Origin", "*")

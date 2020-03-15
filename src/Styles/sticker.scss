@@ -1,0 +1,96 @@
+@import "variables";
+
+.stickers-container {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+
+.stickers-menu-container {
+  position: absolute;
+  bottom: 8px;
+  left: 25px;
+  border: 1px solid #eee;
+  background-color: #fcfcfc;
+  border-radius: 4px;
+  padding: 5px;
+  height: 200px;
+  width: 255px;
+  overflow: hidden;
+  opacity: 1;
+  z-index: 2;
+  transition: all linear 0.2s, z-index linear 0s 0s;
+  line-height: 30px;
+  letter-spacing: 3px;
+  text-align: center;
+  font-size: 19px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+
+  &.close {
+    padding: 0 5px;
+    height: 0;
+    opacity: 0;
+    z-index: -2;
+    transition: all linear 0.2s, z-index linear 0s 0.3s;
+  }
+}
+
+.stickers-menu-scroll {
+  overflow: auto;
+  height: 150px;
+}
+
+.stickers-menu-scroll::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 4px;
+}
+
+.stickers-menu-scroll::-webkit-scrollbar-track {
+  background-color: #FCFCFC;
+  border-radius: 4px;
+}
+
+.stickers-menu-scroll::-webkit-scrollbar-thumb {
+  background: lightgrey;
+  border-radius: 4px;
+
+  &:hover {
+    background: darkgrey;
+  }
+}
+
+.stickers-menu-tabs {
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.stickers-menu-tab {
+  display: inline-block;
+  flex-grow: 1;
+  padding-top: 5px;
+  background-color: #F5F5F5;
+  cursor: pointer;
+  color: red;
+  transition: all linear 0.2s 0.1s;
+
+  &.select {
+    background-color: #ececec;
+  }
+}
+
+.emoji-logo {
+  fill: #BBBBBB;
+  width: 20px;
+  transition: all linear 0.1s;
+
+  &:hover {
+    fill: $primary-color;
+  }
+}
+
+.emoji-inline-block {
+  display: inline-block;
+}
