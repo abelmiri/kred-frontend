@@ -27,6 +27,9 @@ class PavilionPage extends PureComponent
             .then((data) => this.setState({...this.state, postsLoading: false, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
             .catch(() => this.setState({...this.state, error: true, postsLoading: false}))
 
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "گپ و گفت"}).catch(err => console.log(err))
+
         document.addEventListener("scroll", this.onScroll)
     }
 

@@ -56,6 +56,9 @@ class PavilionItemPage extends PureComponent
                         {
                             if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})
                         }, 500)
+
+                        // statistics
+                        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `گپ و گفت | ${pavilion.interviewee_name}`, content_id: pavilionId}).catch(err => console.log(err))
                     })
                 })
                 .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
