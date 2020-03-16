@@ -3,21 +3,24 @@ const createThumbnail = (img) =>
     return new Promise(resolve =>
     {
         const canvas = document.createElement("CANVAS")
-        const newImg = new Image()
         const reader = new FileReader()
         reader.readAsDataURL(img)
         reader.onload = () =>
         {
+            const newImg = new Image()
             newImg.src = reader.result
-            canvas.width = 50
-            canvas.height = newImg.naturalHeight / (newImg.naturalWidth / 50)
-            const context = canvas.getContext("2d")
-            context.drawImage(newImg, 0, 0, 50, newImg.naturalHeight / (newImg.naturalWidth / 50))
-            const preview = canvas.toDataURL("image/png")
-            const block = preview.split(";")
-            const contentType = block[0].split(":")[1]
-            const realData = block[1].split(",")[1]
-            resolve(b64toFile(realData, contentType))
+            newImg.onload = () =>
+            {
+                canvas.width = 50
+                canvas.height = newImg.naturalHeight / (newImg.naturalWidth / 50)
+                const context = canvas.getContext("2d")
+                context.drawImage(newImg, 0, 0, 50, newImg.naturalHeight / (newImg.naturalWidth / 50))
+                const preview = canvas.toDataURL("image/png")
+                const block = preview.split(";")
+                const contentType = block[0].split(":")[1]
+                const realData = block[1].split(",")[1]
+                resolve(b64toFile(realData, contentType))
+            }
         }
     })
 }
