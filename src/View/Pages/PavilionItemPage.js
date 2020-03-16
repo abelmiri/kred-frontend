@@ -225,7 +225,7 @@ class PavilionItemPage extends PureComponent
 
         this.setState({
             ...this.state,
-            comments: {[comment._id]: {...comment, user: {...user}}, ...this.state.comments},
+            comments: {...this.state.comments, [comment._id]: {...comment, user: {...user}}},
             pavilion: {...pavilion, comments_count: pavilion.comments_count + 1},
         })
     }
