@@ -350,10 +350,6 @@
   cursor: pointer;
   position: relative;
 
-  @media screen and (max-width: 480px) {
-    width: calc(100% - 100px);
-  }
-
   &:hover {
     .create-exchange-edit-svg {
       opacity: 1;

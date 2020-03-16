@@ -33,6 +33,11 @@ class PavilionPage extends PureComponent
         document.addEventListener("scroll", this.onScroll)
     }
 
+    componentWillUnmount()
+    {
+        document.removeEventListener("scroll", this.onScroll)
+    }
+
     onScroll = () =>
     {
         clearTimeout(this.timeout)

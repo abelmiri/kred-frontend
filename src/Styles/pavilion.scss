@@ -56,6 +56,11 @@
     &:hover {
       color: $primary-color;
     }
+
+    @media screen and (max-width: 480px) {
+      font-size: $title-font-size;
+    }
+
   }
 
   .post-bold-description {
@@ -203,6 +208,7 @@
 
   @media screen and (max-width: 480px) {
     margin: 20px 0;
+    font-size: $menu-title-font-size;
   }
 }
 
@@ -219,16 +225,21 @@
   @media screen and (max-width: 480px) {
     width: 100%;
     margin-right: 0;
+    flex-wrap: wrap;
+    height: auto;
   }
 }
 
 .pavilion-item-pic-detail {
   flex-grow: 1;
   margin-right: 25px;
+
+  @media screen and (max-width: 480px) {
+    margin-right: 0;
+  }
 }
 
 .pavilion-item-pic-detail-row {
-  display: inline-block;
   text-align: center;
 }
 
@@ -236,12 +247,20 @@
   font-size: $enormous-title-font-size;
   margin: 10px 0;
   font-weight: bold;
+
+  @media screen and (max-width: 480px) {
+    font-size: $huge-title-font-size;
+  }
 }
 
 .pavilion-item-pic-detail-desc {
   font-size: $huge-title-font-size;
   margin: 10px 0;
   font-weight: bold;
+
+  @media screen and (max-width: 480px) {
+    font-size: $big-title-font-size;
+  }
 }
 
 .pavilion-item-pic {
@@ -251,6 +270,10 @@
   object-fit: contain;
   background-color: white;
   margin-left: 25px;
+
+  @media screen and (max-width: 480px) {
+    margin: 15px auto 25px auto;
+  }
 }
 
 .pavilion-item-bold-desc {
