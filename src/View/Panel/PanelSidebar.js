@@ -10,7 +10,7 @@ class PanelSidebar extends PureComponent
         this.posY = 0
         this.prevY = 0
         this.deltaY = 0
-        this.windowHeight = -315
+        this.windowHeight = -367.5
         this.showingSidebar = false
     }
 
@@ -86,6 +86,7 @@ class PanelSidebar extends PureComponent
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-page-views"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">بازدید صفحات</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-video-views"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">بازدید ویدیوها</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-sales"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">فروش پک</Material></NavLink>
+                    <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/pavilion"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">گپ و گفت</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-sign-ups"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کاربران</Material></NavLink>
                 </div>
                 <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>

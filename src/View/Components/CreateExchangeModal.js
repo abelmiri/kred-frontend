@@ -195,12 +195,11 @@ class CreateExchangeModal extends PureComponent
                 compressImage(this.selectedImage)
                     .then(img =>
                     {
-                        console.log(this.selectedImage)
                         form.append("picture", img)
                         createThumbnail(img).then(thumbnail =>
                         {
                             form.append("thumbnail", thumbnail)
-                            // this.postData(form)
+                            this.postData(form)
                         })
                     })
             })

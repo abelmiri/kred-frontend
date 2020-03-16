@@ -99,7 +99,8 @@
   height: 200px;
   width: 200px;
   min-width: 200px;
-  object-fit: cover;
+  object-fit: contain;
+  background-color: white;
   border-radius: 50%;
 }
 
@@ -205,18 +206,51 @@
   }
 }
 
-.pavilion-item-pic {
-  display: block;
+.pavilion-item-pic-cont {
+  height: 400px;
   width: 80%;
   margin-right: 10%;
-  height: 500px;
-  object-fit: cover;
-  object-position: top;
+  background-image: url("../Media/Images/PavilionBack.png");
+  background-repeat: repeat;
+  background-size: 300px;
+  display: flex;
+  align-items: center;
 
   @media screen and (max-width: 480px) {
     width: 100%;
     margin-right: 0;
   }
+}
+
+.pavilion-item-pic-detail {
+  flex-grow: 1;
+  margin-right: 25px;
+}
+
+.pavilion-item-pic-detail-row {
+  display: inline-block;
+  text-align: center;
+}
+
+.pavilion-item-pic-detail-name {
+  font-size: $enormous-title-font-size;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.pavilion-item-pic-detail-desc {
+  font-size: $huge-title-font-size;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.pavilion-item-pic {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: white;
+  margin-left: 25px;
 }
 
 .pavilion-item-bold-desc {
@@ -228,6 +262,8 @@
   padding: 30px;
   border-right: 4px solid $text-light-color;
   text-align: justify;
+  white-space: pre-wrap;
+  word-break: break-word;
 
   @media screen and (max-width: 480px) {
     margin: 20px 0 0 0;
@@ -241,6 +277,8 @@
   text-align: justify;
   padding: 0 10%;
   color: $post-like-comment-color;
+  white-space: pre-wrap;
+  word-break: break-word;
 
   @media screen and (max-width: 480px) {
     padding: 0;

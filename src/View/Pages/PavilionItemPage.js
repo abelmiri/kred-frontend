@@ -9,6 +9,7 @@ import {NotificationManager} from "react-notifications"
 import copyToClipboard from "../../Helpers/copyToClipboard"
 import StickersMenu from "../Components/StickerMenu"
 import Comment from "../Components/Comment"
+import questionDetection from "../../Helpers/questionDetection"
 
 class PavilionItemPage extends PureComponent
 {
@@ -41,6 +42,8 @@ class PavilionItemPage extends PureComponent
                 {
                     this.setState({...this.state, pavilion}, () =>
                     {
+                        this.descriptionText.innerText && questionDetection(this.descriptionText)
+                        this.boldDescriptionText.innerText && questionDetection(this.boldDescriptionText)
                         if (pavilion.comments_count > 0)
                         {
                             this.setState({...this.state, commentsLoading: true}, () =>
@@ -52,7 +55,7 @@ class PavilionItemPage extends PureComponent
                         setTimeout(() =>
                         {
                             if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})
-                        }, 450)
+                        }, 500)
                     })
                 })
                 .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
@@ -258,9 +261,17 @@ class PavilionItemPage extends PureComponent
                             pavilion ?
                                 <React.Fragment>
                                     <h1 className="pavilion-item-title">{pavilion.title}</h1>
-                                    <img className="pavilion-item-pic" src={REST_URL + "/" + pavilion.picture} alt={pavilion.title}/>
-                                    <div className="pavilion-item-bold-desc">{pavilion.bold_description}</div>
-                                    <div className="pavilion-item-desc">{pavilion.description}</div>
+                                    <div className="pavilion-item-pic-cont">
+                                        <div className="pavilion-item-pic-detail">
+                                            <div className="pavilion-item-pic-detail-row">
+                                                <div className="pavilion-item-pic-detail-name">{pavilion.interviewee_name}</div>
+                                                <div className="pavilion-item-pic-detail-desc">{pavilion.interviewee_bio}</div>
+                                            </div>
+                                        </div>
+                                        <img className="pavilion-item-pic" src={REST_URL + "/" + pavilion.picture} alt={pavilion.title}/>
+                                    </div>
+                                    <div className="pavilion-item-bold-desc" ref={e => this.boldDescriptionText = e}>{pavilion.bold_description}</div>
+                                    <div className="pavilion-item-desc" ref={e => this.descriptionText = e}>{pavilion.description}</div>
                                     <div className="pavilion-item-footer">
                                         <Material className="post-like-count-cont like" onClick={this.likeAndDisLike}>
                                             <LikeSvg className={`post-like-svg ${pavilion.is_liked ? "liked" : ""}`}/>

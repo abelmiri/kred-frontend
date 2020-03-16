@@ -313,3 +313,50 @@
   border-radius: 3px;
   margin: auto;
 }
+
+.panel-add-pav-title {
+  margin: 15px auto;
+  display: block;
+  width: calc(100% - 2px);
+  height: 50px;
+
+  .material-input-textarea {
+    font-size: $home-regular-font-size;
+    line-height: 25px;
+  }
+
+  &.area {
+    height: 200px;
+    margin: 10px auto 35px auto;
+  }
+}
+
+.panel-add-pav-submit {
+  background-color: $secondary-color;
+  color: white;
+  font-size: $home-regular-font-size;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.panel-add-img {
+  height: 280px;
+  width: calc(100% - 2px);
+  margin: auto 0 15px auto;
+  border: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+
+  @media screen and (max-width: 480px) {
+    width: calc(100% - 100px);
+  }
+
+  &:hover {
+    .create-exchange-edit-svg {
+      opacity: 1;
+    }
+  }
+}
