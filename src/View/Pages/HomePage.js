@@ -100,7 +100,7 @@ class HomePage extends PureComponent
                                         <div className="home-videos-item-cont">
                                             <video key={video._id} preload="none" id={video._id} controls controlsList="nodownload"
                                                    className="home-videos-item"
-                                                   poster={REST_URL + video.poster}
+                                                   poster={video.poster ? REST_URL + video.poster : null}
                                                    onPlay={this.onVideoPlay}
                                                    onMouseDown={this.onLinkDown}
                                                    onMouseUp={this.onLinkUp}
