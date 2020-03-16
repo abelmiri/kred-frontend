@@ -11,7 +11,6 @@ const compressImage = (img) =>
             imageCompression(img, Constant.COMPRESSION).then(compressedFile =>
             {
                 let file = new File([compressedFile], compressedFile.name)
-                console.log("shit", file)
                 if (file.size > img.size) resolve(img)
                 else resolve(file)
             })

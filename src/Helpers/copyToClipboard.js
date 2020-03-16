@@ -1,6 +1,8 @@
-const copyToClipboard = (input, resolve) => {
+const copyToClipboard = (input, resolve) =>
+{
     if (navigator && navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(input).then(() => resolve())
-    else {
+    else
+    {
         const area = document.createElement("TEXTAREA")
         area.style.height = "1px"
         area.style.overflow = "hidden"
