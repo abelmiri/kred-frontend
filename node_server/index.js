@@ -32,8 +32,8 @@ app.route("/site-map").get((req, res) =>
     res.setHeader("Pragma", "no-cache") // HTTP 1.0.
     res.setHeader("Expires", "0") // Proxies.
     res.send(
-        "https://www.kred.ir\nhttps://www.kred.ir/sign-up\nhttps://www.kred.ir/exchanges\nhttps://www.kred.ir/videos\n" +
-        "https://www.kred.ir/videos/5e480095ac00841b52a27ee1\nhttps://www.kred.ir/videos/5e6c0610b2d4c22d1799cadd\nhttps://www.kred.ir/videos/5e6c1d15b2d4c22d1799cb20",
+        "https://www.kred.ir\nhttps://www.kred.ir/sign-up\nhttps://www.kred.ir/exchanges\nhttps://www.kred.ir/videos\nhttps://www.kred.ir/pavilions\n" +
+        "https://www.kred.ir/videos/5e480095ac00841b52a27ee1\nhttps://www.kred.ir/videos/5e6c0610b2d4c22d1799cadd\nhttps://www.kred.ir/videos/5e6c1d15b2d4c22d1799cb20\n",
     )
 })
 

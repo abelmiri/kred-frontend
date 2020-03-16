@@ -85,9 +85,9 @@ class PavilionPage extends PureComponent
                     <div className="posts-list-con">
                         {
                             Object.values(posts).map((post) =>
-                                <div className="post-con" key={post._id}>
+                                <Link to={`/pavilions/${post._id}`} className="post-con" key={post._id}>
                                     <div className="post-info-section">
-                                        <Link to={`/pavilions/${post._id}`} className="post-title">{post.title}</Link>
+                                        <div className="post-title">{post.title}</div>
                                         <div className="post-bold-description">{post.bold_description}</div>
                                         <div className="post-likes-comment-section">
                                             <div className="post-like-count-cont not-cursor">
@@ -100,10 +100,10 @@ class PavilionPage extends PureComponent
                                             </Link>
                                         </div>
                                     </div>
-                                    <Link className="post-circle-image-link" to={`/pavilions/${post._id}`}>
+                                    <div className="post-circle-image-link">
                                         <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
-                                    </Link>
-                                </div>,
+                                    </div>
+                                </Link>,
                             )
                         }
                         <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
