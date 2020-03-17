@@ -21,7 +21,7 @@ class Dashboard extends PureComponent
                     <TodayVideoViews/>
                 </Link>
                 <Link to="/panel/sales" className="panel-dashboard-item left">
-                    <TodayBuys/>
+                    <TodayBuys smallView={true}/>
                 </Link>
             </React.Fragment>
         )

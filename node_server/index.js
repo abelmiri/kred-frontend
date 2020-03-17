@@ -42,7 +42,11 @@ app.route("/.well-known/assetlinks.json").get((req, res) => res.sendFile(path.jo
 app.route("/:file").get((req, res) =>
 {
     res.setHeader("Access-Control-Allow-Origin", "*")
-    if (fs.existsSync(path.join(__dirname, `/${req.params.file}`))) res.sendFile(path.join(__dirname, `/${req.params.file}`))
+    if (fs.existsSync(path.join(__dirname, `/${req.params.file}`)))
+    {
+        res.setHeader("Cache-Control", "max-age=604800")
+        res.sendFile(path.join(__dirname, `/${req.params.file}`))
+    }
     else
     {
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
