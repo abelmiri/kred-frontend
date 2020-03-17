@@ -85,25 +85,28 @@ class PavilionPage extends PureComponent
                     <div className="posts-list-con">
                         {
                             Object.values(posts).map((post) =>
-                                <Link to={`/pavilions/${post._id}`} className="post-con" key={post._id}>
+                                <div className="post-con" key={post._id}>
                                     <div className="post-info-section">
-                                        <div className="post-title">{post.title}</div>
-                                        <div className="post-bold-description">{post.bold_description}</div>
+                                        <Link className="text-decoration-none" to={`/pavilions/${post._id}`}>
+                                            <div className="post-title">{post.title}</div>
+                                            <div className="post-name">{post.interviewee_name} "{post.interviewee_bio}"</div>
+                                        </Link>
+                                        <Link to={`/pavilions/${post._id}`} className="post-bold-description">{post.bold_description}</Link>
                                         <div className="post-likes-comment-section">
-                                            <div className="post-like-count-cont not-cursor">
+                                            <Link to={`/pavilions/${post._id}`} className="post-like-count-cont not-cursor">
                                                 <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
                                                 <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
-                                            </div>
+                                            </Link>
                                             <Link to={`/pavilions/${post._id}/comments`} className="post-like-count-cont">
                                                 <div className="post-like-count">{post.comments_count}</div>
                                                 <CommentSvg className="post-comment-svg"/>
                                             </Link>
                                         </div>
                                     </div>
-                                    <div className="post-circle-image-link">
+                                    <Link to={`/pavilions/${post._id}`} className="post-circle-image-link">
                                         <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
-                                    </div>
-                                </Link>,
+                                    </Link>
+                                </div>,
                             )
                         }
                         <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>

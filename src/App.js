@@ -50,9 +50,7 @@ class App extends PureComponent
                     {
                         if (e?.response?.status === 403)
                         {
-                            localStorage.removeItem("user")
-                            sessionStorage.removeItem("user")
-                            this.setState({...this.state, user: null})
+                            this.logout()
                         }
                     })
             })
@@ -183,6 +181,7 @@ class App extends PureComponent
     {
         localStorage.removeItem("user")
         sessionStorage.removeItem("user")
+        localStorage.removeItem("push-notification")
         this.setState({...this.state, user: null})
     }
 

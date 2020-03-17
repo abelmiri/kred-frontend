@@ -43,7 +43,6 @@ class PavilionItemPage extends PureComponent
                     this.setState({...this.state, pavilion}, () =>
                     {
                         this.descriptionText.innerText && questionDetection(this.descriptionText)
-                        this.boldDescriptionText.innerText && questionDetection(this.boldDescriptionText)
                         if (pavilion.comments_count > 0)
                         {
                             this.setState({...this.state, commentsLoading: true}, () =>
@@ -273,8 +272,17 @@ class PavilionItemPage extends PureComponent
                                         </div>
                                         <img className="pavilion-item-pic" src={REST_URL + "/" + pavilion.picture} alt={pavilion.title}/>
                                     </div>
-                                    <div className="pavilion-item-bold-desc" ref={e => this.boldDescriptionText = e}>{pavilion.bold_description}</div>
+                                    <div className="pavilion-item-bold-desc">{pavilion.bold_description}</div>
                                     <div className="pavilion-item-desc" ref={e => this.descriptionText = e}>{pavilion.description}</div>
+                                    {
+                                        pavilion.audio &&
+                                        <div className="pavilion-item-audio-cont">
+                                            <div className="pavilion-item-audio-title">پادکست</div>
+                                            <audio controls className="pavilion-item-audio">
+                                                <source src={REST_URL + "/" + pavilion.audio}/>
+                                            </audio>
+                                        </div>
+                                    }
                                     <div className="pavilion-item-footer">
                                         <Material className="post-like-count-cont like" onClick={this.likeAndDisLike}>
                                             <LikeSvg className={`post-like-svg ${pavilion.is_liked ? "liked" : ""}`}/>
