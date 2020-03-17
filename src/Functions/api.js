@@ -32,11 +32,14 @@ function post(url, data, param = "", progress)
         })
 }
 
-function patch(url, data, param = "")
+function patch(url, data, param = "", progress)
 {
     const token = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     const sendUrl = param === "" ? REST_URL + "/" + url + "/" : REST_URL + "/" + url + "/" + param + "/"
-    return axios.patch(encodeURI(sendUrl), data, {headers: {"Authorization": `${token}`}})
+    return axios.patch(encodeURI(sendUrl), data, {
+        headers: {"Authorization": `${token}`},
+        onUploadProgress: e => progress ? progress(e) : null,
+    })
         .then((res) => res.data)
         .catch((err) =>
         {

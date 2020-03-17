@@ -11,7 +11,6 @@ class MaterialInput extends Component
         type: PropTypes.string,
         maxLength: PropTypes.number,
         isTextArea: PropTypes.bool,
-        reload: PropTypes.bool,
         defaultValue: PropTypes.string,
         borderColor: PropTypes.string,
         name: PropTypes.string,
@@ -35,19 +34,6 @@ class MaterialInput extends Component
     {
         const {defaultValue} = this.props
         if (defaultValue)
-        {
-            this.setState({...this.state, value: defaultValue})
-        }
-    }
-
-    componentWillReceiveProps(nextProps, nextContext)
-    {
-        const {reload, defaultValue} = nextProps
-        if (reload)
-        {
-            this.setState({...this.state, value: ''})
-        }
-        else if (defaultValue)
         {
             this.setState({...this.state, value: defaultValue})
         }

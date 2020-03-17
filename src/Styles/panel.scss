@@ -116,6 +116,11 @@
   text-align: center;
 }
 
+.panel-0ff-code-item-all {
+  width: 100%;
+  text-align: center;
+}
+
 .panel-0ff-code-add {
   width: 55px;
   height: 53px;
@@ -319,6 +324,10 @@
   display: block;
   width: calc(100% - 2px);
   height: 50px;
+
+  &.no-margin-top {
+    margin: 0 auto 15px auto;
+  }
 
   .material-input-textarea {
     font-size: $home-regular-font-size;
