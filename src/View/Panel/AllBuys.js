@@ -39,19 +39,21 @@ class AllBuys extends PureComponent
                         {
                             packUsers.length > 0 ?
                                 <React.Fragment>
-                                    <div className="panel-0ff-code-cont scroll-almost-wide title">
+                                    <div className="panel-0ff-code-cont scroll-wide title">
                                         <div className="panel-0ff-code-item-big">نام</div>
                                         <div className="panel-0ff-code-item-big">پک</div>
                                         <div className="panel-0ff-code-item">شماره</div>
+                                        <div className="panel-0ff-code-item-big">دانشگاه</div>
                                         <div className="panel-0ff-code-item">مبلغ</div>
                                         <div className="panel-0ff-code-item">تاریخ</div>
                                     </div>
                                     {
                                         packUsers.reverse().map((pack) =>
-                                            <div key={pack._id} className="panel-0ff-code-cont scroll-almost-wide">
+                                            <div key={pack._id} className="panel-0ff-code-cont scroll-wide">
                                                 <div className="panel-0ff-code-item-big">{pack.user.name || pack.user.phone}</div>
                                                 <div className="panel-0ff-code-item-big">{pack.video_pack.title}</div>
                                                 <div className="panel-0ff-code-item">{pack.user.phone}</div>
+                                                <div className="panel-0ff-code-item-big">{pack.user.university}</div>
                                                 <div className="panel-0ff-code-item">{pack.price ? addCommaPrice(pack.price) : "-"}</div>
                                                 <div className="panel-0ff-code-item">{new Date(pack.created_date).toLocaleDateString("fa-ir")}</div>
                                             </div>,

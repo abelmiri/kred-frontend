@@ -356,3 +356,32 @@
     }
   }
 }
+
+.panel-add-img-star {
+  vertical-align: top;
+  color: grey;
+}
+
+.panel-add-audio {
+  height: 100px;
+  width: calc(100% - 2px);
+  margin: auto 0 15px auto;
+  border: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    .create-exchange-edit-svg {
+      opacity: 1;
+    }
+  }
+}
+
+
+.panel-add-audio-svg {
+  width: 40px;
+  fill: $text-light-color;
+}

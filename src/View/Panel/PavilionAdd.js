@@ -6,6 +6,7 @@ import CameraSvg from "../../Media/Svgs/Camera"
 import {NotificationManager} from "react-notifications"
 import compressImage from "../../Helpers/compressImage"
 import api from "../../Functions/api"
+import AudioSvg from "../../Media/Svgs/AudioSvg"
 
 class PavilionAdd extends PureComponent
 {
@@ -24,6 +25,7 @@ class PavilionAdd extends PureComponent
         this.bold_description = ""
         this.description = ""
         this.selectedImage = false
+        this.selectedAudio = false
     }
 
     selectImage = (e) =>
@@ -34,6 +36,19 @@ class PavilionAdd extends PureComponent
         reader.readAsDataURL(img)
         reader.onload = () => this.setState({...this.state, selectedImagePreview: reader.result})
         e.target.value = ""
+    }
+
+    selectAudio = (e) =>
+    {
+        const audio = e.target.files[0]
+        e.target.value = ""
+        this.setState({...this.state, selectedAudioPreview: null}, () =>
+        {
+            this.selectedAudio = audio
+            const reader = new FileReader()
+            reader.readAsDataURL(audio)
+            reader.onload = () => this.setState({...this.state, selectedAudioPreview: reader.result})
+        })
     }
 
     setTitle = (title) => this.title = title
@@ -64,6 +79,7 @@ class PavilionAdd extends PureComponent
                 form.append("bold_description", bold_description)
                 form.append("interviewee_name", interviewee_name)
                 form.append("interviewee_bio", interviewee_bio)
+                if (this.selectedAudio) form.append("audio", this.selectedAudio)
                 compressImage(this.selectedImage)
                     .then(img =>
                     {
@@ -87,12 +103,13 @@ class PavilionAdd extends PureComponent
     {
         api.post("conversation", form, "", (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
             .then(() =>
-                this.setState({...this.state, loading: false, loadingPercent: 0, reload: true, selectedImagePreview: null}, () =>
+                this.setState({...this.state, loading: false, loadingPercent: 0, reload: true, selectedAudioPreview: null, selectedImagePreview: null}, () =>
                 {
                     this.title = ""
                     this.bold_description = ""
                     this.description = ""
                     this.selectedImage = false
+                    this.selectedAudio = false
                     NotificationManager.success("با موفقیت ثبت شد ادمین جون.")
                     setTimeout(() => this.setState({...this.state, reload: false}), 150)
                 }),
@@ -102,15 +119,29 @@ class PavilionAdd extends PureComponent
 
     render()
     {
-        const {reload, selectedImagePreview, loading, loadingPercent} = this.state
+        const {reload, selectedImagePreview, loading, loadingPercent, selectedAudioPreview} = this.state
         return (
             <section className="panel-page-section">
                 <div className="panel-page-section-title">ساخت گپ و گفت</div>
-                <MaterialInput reload={reload} className="panel-add-pav-title" backgroundColor="white" label="عنوان" getValue={this.setTitle}/>
-                <MaterialInput reload={reload} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="متن بولد" getValue={this.setBold}/>
-                <MaterialInput reload={reload} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="توضیحات (سوالات را بین ** قرار دهید)" getValue={this.setDesc}/>
-                <MaterialInput reload={reload} className="panel-add-pav-title" backgroundColor="white" label="نام طرف" getValue={this.setName}/>
-                <MaterialInput reload={reload} className="panel-add-pav-title" backgroundColor="white" label="بیو طرف" getValue={this.setBio}/>
+                <MaterialInput reload={reload} className="panel-add-pav-title" backgroundColor="white" label="عنوان *" getValue={this.setTitle}/>
+                <MaterialInput reload={reload} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="متن بولد *" getValue={this.setBold}/>
+                <MaterialInput reload={reload} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="توضیحات (سوالات را بین ** قرار دهید) *" getValue={this.setDesc}/>
+                <MaterialInput reload={reload} className="panel-add-pav-title" backgroundColor="white" label="نام طرف *" getValue={this.setName}/>
+                <MaterialInput reload={reload} className="panel-add-pav-title" backgroundColor="white" label="بیو طرف *" getValue={this.setBio}/>
+                <label className='panel-add-audio'>
+                    {
+                        selectedAudioPreview ?
+                            <React.Fragment>
+                                <audio controls>
+                                    <source src={selectedAudioPreview}/>
+                                </audio>
+                                <PencilSvg className="create-exchange-edit-svg"/>
+                            </React.Fragment>
+                            :
+                            <AudioSvg className="panel-add-audio-svg"/>
+                    }
+                    <input disabled={loading} type='file' hidden accept="audio/*" onChange={this.selectAudio}/>
+                </label>
                 <label className='panel-add-img'>
                     {
                         selectedImagePreview ?
@@ -119,7 +150,10 @@ class PavilionAdd extends PureComponent
                                 {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <PencilSvg className="create-exchange-edit-svg"/>}
                             </React.Fragment>
                             :
-                            <CameraSvg className="create-exchange-svg"/>
+                            <div>
+                                <span className="panel-add-img-star">*</span>
+                                <CameraSvg className="create-exchange-svg"/>
+                            </div>
                     }
                     <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
                     <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
