@@ -237,13 +237,15 @@ class PavilionItemPage extends PureComponent
     setComment = (comment) =>
     {
         const {pavilion} = this.state
-        const {user} = this.props
+        const {user, setPavilionUpdate} = this.props
 
         this.setState({
-            ...this.state,
-            comments: {...this.state.comments, [comment._id]: {...comment, user: {...user}}},
-            pavilion: {...pavilion, comments_count: pavilion.comments_count + 1},
-        })
+                ...this.state,
+                comments: {...this.state.comments, [comment._id]: {...comment, user: {...user}}},
+                pavilion: {...pavilion, comments_count: pavilion.comments_count + 1},
+            }, () =>
+                setPavilionUpdate({...pavilion, comments_count: pavilion.comments_count + 1}),
+        )
     }
 
     removeComment = (id) =>
