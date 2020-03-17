@@ -5,6 +5,8 @@ import {ClipLoader} from "react-spinners"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
 import CommentSvg from "../../Media/Svgs/CommentSvg"
 import PavilionItemPage from "./PavilionItemPage"
+import {NotificationManager} from "react-notifications"
+import Material from "../Components/Material"
 
 class PavilionPage extends PureComponent
 {
@@ -60,13 +62,54 @@ class PavilionPage extends PureComponent
         }, 20)
     }
 
+    likeAndDisLike(pavilion)
+    {
+        const {user} = this.props
+        if (user)
+        {
+            if (pavilion.is_liked)
+            {
+                api.del(`conversation/like/${pavilion._id}`)
+                    .then(() => this.setState({...this.state, posts: {...this.state.posts, [pavilion._id]: {...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}}}))
+                    .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            }
+            else
+            {
+                api.post("conversation/like", {conversation_id: pavilion._id})
+                    .then(() => this.setState({...this.state, posts: {...this.state.posts, [pavilion._id]: {...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}}}))
+                    .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            }
+        }
+        else
+        {
+            if (document.getElementById("header-login"))
+            {
+                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                document.getElementById("header-login").click()
+            }
+        }
+    }
+
+    setPavilionUpdate = (pavilion) =>
+    {
+        if (this.state.posts[pavilion._id])
+            this.setState({...this.state, posts: {...this.state.posts, [pavilion._id]: {...pavilion}}})
+    }
+
     render()
     {
         const {posts, postsLoading} = this.state
         const {user} = this.props
         return (
             <Switch>
-                <Route path="/pavilions/:id" render={(route) => <PavilionItemPage pavilion={posts[route.match.params.id]} pavilionId={route.match.params.id} location={route.location.pathname} user={user}/>}/>
+                <Route path="/pavilions/:id" render={route =>
+                    <PavilionItemPage pavilion={posts[route.match.params.id]}
+                                      setPavilionUpdate={this.setPavilionUpdate}
+                                      pavilionId={route.match.params.id}
+                                      location={route.location.pathname}
+                                      user={user}
+                    />
+                }/>
 
                 <React.Fragment>
                     <div className='page-background-img pavilion'>
@@ -93,10 +136,10 @@ class PavilionPage extends PureComponent
                                         </Link>
                                         <Link to={`/pavilions/${post._id}`} className="post-bold-description">{post.bold_description}</Link>
                                         <div className="post-likes-comment-section">
-                                            <Link to={`/pavilions/${post._id}`} className="post-like-count-cont not-cursor">
+                                            <Material className="post-like-count-cont" onClick={() => this.likeAndDisLike(post)}>
                                                 <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
                                                 <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
-                                            </Link>
+                                            </Material>
                                             <Link to={`/pavilions/${post._id}/comments`} className="post-like-count-cont">
                                                 <div className="post-like-count">{post.comments_count}</div>
                                                 <CommentSvg className="post-comment-svg"/>

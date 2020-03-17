@@ -104,7 +104,7 @@ class ProfilePageDashboard extends PureComponent
                             <p>حالا بیا با قسمت های مختلف سایت آشنا بشیم:</p>
                             <div className="profile-introduction-links">
                                 <Link to="/videos" className="link">فیلم‌های آموزشی</Link>
-                                <Link to="/profile" className="link">گپ و گفت</Link>
+                                <Link to="/pavilions" className="link">گپ و گفت</Link>
                                 <Link to="/exchanges" className="link">تبادل کتاب</Link>
                                 {/*<Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>*/}
                                 {/*<Link to="/profile" className="link">نمونه سوالات</Link>*/}

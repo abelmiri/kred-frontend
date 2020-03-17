@@ -111,20 +111,30 @@ class PavilionItemPage extends PureComponent
 
     likeAndDisLike = () =>
     {
-        const {user} = this.props
+        const {user, setPavilionUpdate} = this.props
         if (user)
         {
             const {pavilion} = this.state
             if (pavilion.is_liked)
             {
                 api.del(`conversation/like/${pavilion._id}`)
-                    .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}}))
+                    .then(() =>
+                    {
+                        this.setState({...this.state, pavilion: {...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}}, () =>
+                            setPavilionUpdate({...pavilion, is_liked: false, likes_count: pavilion.likes_count - 1}),
+                        )
+                    })
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
             else
             {
                 api.post("conversation/like", {conversation_id: pavilion._id})
-                    .then(() => this.setState({...this.state, pavilion: {...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}}))
+                    .then(() =>
+                    {
+                        this.setState({...this.state, pavilion: {...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}}, () =>
+                            setPavilionUpdate({...pavilion, is_liked: true, likes_count: pavilion.likes_count + 1}),
+                        )
+                    })
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
         }
@@ -145,7 +155,7 @@ class PavilionItemPage extends PureComponent
         const {sendLoading, pavilion} = this.state
         if (!sendLoading)
         {
-            const {user, pavilionId} = this.props
+            const {user, pavilionId, setPavilionUpdate} = this.props
             if (user)
             {
                 const description = this.description.value.trim()
@@ -163,6 +173,7 @@ class PavilionItemPage extends PureComponent
                                     pavilion: {...pavilion, comments_count: pavilion.comments_count + 1},
                                 }, () =>
                                 {
+                                    setPavilionUpdate({...pavilion, comments_count: pavilion.comments_count + 1})
                                     this.description.value = ""
                                     document.body.style.overflow = "auto"
                                     NotificationManager.success("نظر شما با موفقیت ثبت شد!")
@@ -237,10 +248,13 @@ class PavilionItemPage extends PureComponent
 
     removeComment = (id) =>
     {
+        const {setPavilionUpdate} = this.props
         const {pavilion} = this.state
         let comments = {...this.state.comments}
         delete comments[id]
-        this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}})
+        this.setState({...this.state, comments: {...comments}, pavilion: {...pavilion, comments_count: pavilion.comments_count - 1}}, () =>
+            setPavilionUpdate({...pavilion, comments_count: pavilion.comments_count - 1}),
+        )
     }
 
     setLikeComment = (comment) => this.setState({...this.state, comments: {...this.state.comments, [comment._id]: {...comment, is_liked: false, likes_count: comment.likes_count - 1}}})
