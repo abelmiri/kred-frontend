@@ -199,6 +199,8 @@ class PavilionAdd extends PureComponent
                 this.setState({...this.state, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
                 {
                     this.title = ""
+                    this.interviewee_name = ""
+                    this.interviewee_bio = ""
                     this.bold_description = ""
                     this.description = ""
                     this.selectedImage = false
@@ -217,6 +219,8 @@ class PavilionAdd extends PureComponent
                 this.setState({...this.state, posts: {...this.state.posts, [updateConversation._id]: {...updateConversation}}, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
                 {
                     this.title = ""
+                    this.interviewee_name = ""
+                    this.interviewee_bio = ""
                     this.bold_description = ""
                     this.description = ""
                     this.selectedImage = false
@@ -237,13 +241,23 @@ class PavilionAdd extends PureComponent
             {
                 if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/pavilion/add")
                 document.body.style.overflow = "hidden"
+                this.setState({...this.state, add})
             }
             else
             {
                 if (document.body.clientWidth <= 480) window.history.back()
                 document.body.style.overflow = "auto"
+                this.setState({...this.state, add, isUpdating: false, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
+                {
+                    this.title = ""
+                    this.interviewee_name = ""
+                    this.interviewee_bio = ""
+                    this.bold_description = ""
+                    this.description = ""
+                    this.selectedImage = false
+                    this.selectedAudio = false
+                })
             }
-            this.setState({...this.state, add})
         }
     }
 
