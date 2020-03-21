@@ -52,7 +52,7 @@ export default function register()
                 navigator.serviceWorker.addEventListener("controllerchange", () =>
                 {
                     console.log("New **controller** found.")
-                    window.location.reload(true)
+                    if (localStorage.getItem("user") || sessionStorage.getItem("user")) window.location.reload(true)
                 })
             }
         })

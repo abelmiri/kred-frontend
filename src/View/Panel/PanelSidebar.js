@@ -10,7 +10,7 @@ class PanelSidebar extends PureComponent
         this.posY = 0
         this.prevY = 0
         this.deltaY = 0
-        this.windowHeight = -367.5
+        this.windowHeight = -367
         this.showingSidebar = false
     }
 

@@ -88,7 +88,7 @@ class ExchangeBookPage extends PureComponent
         {
             const {searchTitle, exchanges, selectedCategories} = this.state
             const scrollHeight = document.body ? document.body.scrollHeight : 0
-            if (window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
+            if (Object.values(exchanges).length > 0 && window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
             {
                 this.setState({...this.state, exchangesLoading: true}, () =>
                 {
