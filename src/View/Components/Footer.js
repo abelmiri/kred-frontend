@@ -8,6 +8,7 @@ import {Link} from "react-router-dom"
 import ExchangeSvg from "../../Media/Svgs/ExchangeSvg"
 import LogoSvg from "../../Media/Svgs/LogoSvg"
 import Android from "../../Media/Images/Android.png"
+import PavilionSvg from "../../Media/Svgs/PavilionSvg"
 
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
@@ -37,6 +38,10 @@ const Footer = () =>
                 <Link to="/exchanges" onClick={goUp} className="footer-part-text">
                     <ExchangeSvg className="footer-part-svg"/>
                     تبادل کتاب
+                </Link>
+                <Link to="/pavilions" onClick={goUp} className="footer-part-text">
+                    <PavilionSvg className="footer-part-svg"/>
+                    گپ و گفت
                 </Link>
             </div>
             <div className="footer-part">
