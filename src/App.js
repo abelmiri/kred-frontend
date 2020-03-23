@@ -81,14 +81,7 @@ class App extends PureComponent
             {
                 devtoolsOpen = false
                 console.log(element)
-                if (devtoolsOpen)
-                {
-                    if (!this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
-                }
-                else
-                {
-                    if (this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
-                }
+                if (devtoolsOpen !== this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
             }, 1000)
             document.addEventListener("keydown", this.onKeyDown)
         }
@@ -255,7 +248,8 @@ class App extends PureComponent
                         <Switch>
                             <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                             <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
-                            <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories} getCategories={this.getCategories}/>}/>
+                            <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories}
+                                                                                     getCategories={this.getCategories}/>}/>
                             <Route path='/pavilions' render={() => <PavilionPage user={user}/>}/>
                             <Route path='/videos' render={() =>
                                 <VideoPacksPage user={user}
