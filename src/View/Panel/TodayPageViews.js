@@ -34,7 +34,7 @@ class TodayPageViews extends PureComponent
             return (
                 <section className="panel-page-section">
                     <div className="panel-page-section-title">بازدید صفحات - 24 ساعت اخیر {todayPagesCount && `(${todayPagesCount})`}</div>
-                    <div className="panel-0ff-code-scroll dont-gesture">
+                    <div className="panel-0ff-code-scroll">
                         {
                             todayPages ?
                                 Object.values(todayPages).length > 0 ?

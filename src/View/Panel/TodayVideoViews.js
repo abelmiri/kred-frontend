@@ -34,7 +34,7 @@ class TodayVideoViews extends PureComponent
             return (
                 <section className="panel-page-section">
                     <div className="panel-page-section-title">بازدید ویدیوها - 24 ساعت اخیر {todayVideosCount && `(${todayVideosCount})`}</div>
-                    <div className="panel-0ff-code-scroll dont-gesture">
+                    <div className="panel-0ff-code-scroll">
                         {
                             todayVideos ?
                                 Object.values(todayVideos).length > 0 ?
