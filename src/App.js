@@ -13,6 +13,7 @@ const VideoPacksPage = lazy(() => import("./View/Pages/VideoPacksPage"))
 const PaymentPage = lazy(() => import("./View/Pages/PaymentPage"))
 const Panel = lazy(() => import("./View/Panel/Panel"))
 const PavilionPage = lazy(() => import("./View/Pages/PavilionPage"))
+const ClassPage = lazy(() => import("./View/Pages/ClassPage"))
 
 class App extends PureComponent
 {
@@ -251,6 +252,7 @@ class App extends PureComponent
                             <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories}
                                                                                      getCategories={this.getCategories}/>}/>
                             <Route path='/pavilions' render={() => <PavilionPage user={user}/>}/>
+                            <Route path='/class' render={() => <ClassPage user={user}/>}/>
                             <Route path='/videos' render={() =>
                                 <VideoPacksPage user={user}
                                                 getVideoPacks={this.getVideoPacks}

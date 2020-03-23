@@ -236,6 +236,7 @@ class Header extends PureComponent
                                 location.slice(0, 7) === "/videos" ||
                                 location.slice(0, 8) === "/profile" ||
                                 location.slice(0, 10) === "/pavilions" ||
+                                location.slice(0, 6) === "/class" ||
                                 location.slice(0, 9) === "/payment/" ||
                                 (user && user.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
@@ -254,9 +255,11 @@ class Header extends PureComponent
                                                             :
                                                             location.slice(0, 10) === "/pavilions" ? "گپ و گفت"
                                                                 :
-                                                                location.slice(0, 9) === "/payment/" ? "پرداخت"
+                                                                location.slice(0, 6) === "/class" ? "کلاس درس"
                                                                     :
-                                                                    location.slice(0, 6) === "/panel" && "پنل ادمین"
+                                                                    location.slice(0, 9) === "/payment/" ? "پرداخت"
+                                                                        :
+                                                                        location.slice(0, 6) === "/panel" && "پنل ادمین"
                                         }
                                     </span>
                                 </Material>
@@ -316,9 +319,11 @@ class Header extends PureComponent
                         </Link>
                         {
                             user ?
-                                <Link to="/profile" onClick={this.hideSidebar} className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>
+                                <Link to="/profile" onClick={this.hideSidebar}
+                                      className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>
                                 :
-                                <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`} onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
+                                <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}
+                                          onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
                         }
                     </div>
 
