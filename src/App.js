@@ -2,9 +2,8 @@ import React, {lazy, Suspense, PureComponent} from "react"
 import Header from "./View/Components/Header"
 import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
-import {NotificationContainer} from "react-notifications"
+import {NotificationContainer, NotificationManager} from "react-notifications"
 import versionMigrations from "./Functions/versionMigration"
-import {NotificationManager} from "react-notifications"
 
 const SignUpPage = lazy(() => import("./View/Pages/SignUpPage"))
 const HomePage = lazy(() => import("./View/Pages/HomePage"))
@@ -64,12 +63,12 @@ class App extends PureComponent
             location.pathname.includes("add-comment")
         )
         {
-            let shit = location.pathname
+            let currentPath = location.pathname
                 .replace("/login-modal", "")
                 .replace("/add-exchange", "")
                 .replace("/complete-profile", "")
                 .replace("/add-comment", "")
-            window.history.replaceState("", "", shit ? shit : "/")
+            window.history.replaceState("", "", currentPath ? currentPath : "/")
             document.location.reload()
         }
 
