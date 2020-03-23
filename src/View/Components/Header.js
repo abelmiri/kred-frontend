@@ -288,6 +288,9 @@ class Header extends PureComponent
                                     <Link className="header-buttons-menu-drop-link" to="/pavilions">
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>گپ و گفت</Material>
                                     </Link>
+                                    <Link className="header-buttons-menu-drop-link" to="/class">
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>کلاس درس</Material>
+                                    </Link>
                                 </div>
                             </div>
                         }
