@@ -76,7 +76,7 @@ class App extends PureComponent
         {
             const element = new Image()
             let devtoolsOpen = false
-            element.__defineGetter__("id", () => devtoolsOpen = true)
+            element.__defineGetter__("id", () => devtoolsOpen = true) // change to "Object.defineProperty" later
             setInterval(() =>
             {
                 devtoolsOpen = false
