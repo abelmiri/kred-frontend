@@ -27,7 +27,7 @@
 body {
   margin: 0;
   padding: 0;
-  color: #17252A;
+  color: $dark-color;
   direction: rtl;
   font-family: "IranSans", serif;
   -webkit-font-smoothing: antialiased;
@@ -78,24 +78,24 @@ video::cue {
 
 ::-webkit-scrollbar-track {
   border-radius: 5px;
-  background-color: white;
+  background-color: $background-color;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: #cdcdcd;
+  background-color: $primary-color;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #2A3542;
+  background-color: $secondary-color;
 }
 
 ::-moz-selection { /* Code for Firefox */
   color: white;
-  background: #3AAFA9;
+  background: $primary-color;
 }
 
 ::selection {
   color: white;
-  background: #3AAFA9;
+  background: $primary-color;
 }
