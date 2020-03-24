@@ -813,6 +813,10 @@
     opacity: 0;
   }
 
+  &.none {
+    display: none;
+  }
+
   &.not-found {
     margin-top: 15px;
     font-size: $title-font-size;

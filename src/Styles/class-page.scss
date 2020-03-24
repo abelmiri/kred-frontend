@@ -1,2 +1,282 @@
 @import "variables";
 
+.lessons-blocks-list-con {
+  width: 90%;
+  padding: 40px 5%;
+  min-height: 10vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 100px;
+    height: 50px;
+    background: $background-color;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+  }
+
+  label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+    background: $primary-color;
+    border-radius: 40px;
+    transition: 0.3s;
+  }
+
+  input:checked + label {
+    background: $background-color;
+  }
+
+  input:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+
+  label:active:after {
+    width: 60px;
+  }
+}
+
+.class-subject-box {
+  flex-grow: 1;
+  background-color: $primary-color;
+  margin: 7px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 25px;
+  cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    margin: 5px;
+    padding: 20px;
+  }
+}
+
+.class-switch-box {
+  flex-grow: 1;
+  background-color: $secondary-color;
+  margin: 7px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 60px 35px;
+
+  @media screen and (max-width: 480px) {
+    margin: 5px;
+    padding: 45px 30px;
+  }
+}
+
+.class-tall-info-box {
+  flex-grow: 1;
+  margin: 7px;
+  background-color: $secondary-color;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 48px 10px;
+  color: $background-color;
+  font-size: $regular-font-size;
+
+  @media screen and (max-width: 480px) {
+    margin: 5px;
+    padding: 35px 5px;
+  }
+}
+
+.class-tall-info-section-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 9px;
+}
+
+.class-counter-box {
+  flex-grow: 1;
+  background-color: $secondary-color;
+  margin: 7px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 85px 85px;
+
+  @media screen and (max-width: 480px) {
+    margin: 5px;
+    padding: 65px 65px;
+  }
+}
+
+.class-counter-box-number {
+  position: absolute;
+  color: $background-color;
+  font-size: $h2-font-size;
+  top: 25%;
+  @media screen and (max-width: 480px) {
+    top: 16%;
+  }
+}
+
+.class-like-box {
+  flex-grow: 1;
+  background-color: $secondary-color;
+  margin: 7px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 25px 35px;
+
+  @media screen and (max-width: 480px) {
+    margin: 5px;
+    padding: 15px 25px;
+  }
+}
+
+.class-kred-box {
+  flex-grow: 1;
+  background-color: $secondary-color;
+  margin: 7px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 45px 45px;
+
+  @media screen and (max-width: 480px) {
+    margin: 5px;
+    padding: 30px 30px;
+  }
+}
+
+.class-subject-svg {
+  width: 120px;
+  height: 120px;
+  fill: $background-color;
+  filter: invert(1);
+  color: $background-color;
+
+  @media screen and (max-width: 480px) {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+.class-like-svg {
+  width: 100px;
+  height: 100px;
+  fill: $background-color;
+  margin-bottom: 20px;
+
+  @media screen and (max-width: 480px) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.class-comment-svg {
+  width: 100px;
+  height: 100px;
+  fill: $background-color;
+  stroke: $background-color;
+  margin-bottom: 20px;
+
+  @media screen and (max-width: 480px) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.class-kred-svg {
+  width: 80px;
+  height: 80px;
+  fill: $background-color;
+
+  @media screen and (max-width: 480px) {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.class-info-svg {
+  width: 35px;
+  height: 35px;
+  fill: $background-color;
+  margin: 10px 0;
+
+  @media screen and (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.class-subject-text {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  font-size: $regular-font-size;
+  color: $background-color;
+  @media screen and (max-width: 480px) {
+    bottom: 2px;
+    right: 5px;
+    font-size: $really-small-font;
+  }
+}
+
+.class-switch-right-text {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $regular-font-size;
+  transform: translateX(26px) translateY(15px);
+  color: $primary-color;
+  transition-duration: $normal-animation-duration;
+  cursor: pointer;
+
+  &.selected {
+    color: $background-color;
+    transition-duration: $normal-animation-duration;
+  }
+}
+
+.class-switch-left-text {
+  font-size: $regular-font-size;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(-26px) translateY(15px);
+  color: $background-color;
+  transition-duration: $normal-animation-duration;
+  cursor: pointer;
+
+  &.selected {
+    color: $primary-color;
+    transition-duration: $normal-animation-duration;
+  }
+}
+
+.error-text {
+  color: $error-color;
+  font-size: $title-font-size;
+}
