@@ -54,7 +54,7 @@ class AllBuys extends PureComponent
                                                 <div className="panel-0ff-code-item-big">{pack.video_pack.title}</div>
                                                 <div className="panel-0ff-code-item">{pack.user.phone}</div>
                                                 <div className="panel-0ff-code-item-big">{pack.user.university}</div>
-                                                <div className="panel-0ff-code-item">{pack.price ? addCommaPrice(pack.price) : "-"}</div>
+                                                <div className="panel-0ff-code-item">{pack.price ? addCommaPrice(pack.price) : pack.price === 0 ? "هدیه" : "-"}</div>
                                                 <div className="panel-0ff-code-item">{new Date(pack.created_date).toLocaleDateString("fa-ir")}</div>
                                             </div>,
                                         )

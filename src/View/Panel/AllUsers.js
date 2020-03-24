@@ -59,7 +59,7 @@ class AllUsers extends PureComponent
 
         if (document.body.clientWidth > 480)
         {
-            if (this.offsetTop === null) this.offsetTop = this.title.offsetTop
+            if (this?.offsetTop === null) this.offsetTop = this.title.offsetTop
 
             if (window.scrollY + 81 >= this.offsetTop)
             {
