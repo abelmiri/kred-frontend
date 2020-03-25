@@ -252,7 +252,7 @@ class App extends PureComponent
                             <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories}
                                                                                      getCategories={this.getCategories}/>}/>
                             <Route path='/pavilions' render={() => <PavilionPage user={user}/>}/>
-                            <Route path='/class' render={() => <ClassPage user={user}/>}/>
+                            <Route path='/class' render={() => <ClassPage/>}/>
                             <Route path='/videos' render={() =>
                                 <VideoPacksPage user={user}
                                                 getVideoPacks={this.getVideoPacks}

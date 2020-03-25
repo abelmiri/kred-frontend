@@ -10,6 +10,16 @@ import QuestionsNew from "../../Media/Svgs/QuestionsNew"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
 import LogoSvg from "../../Media/Svgs/LogoSvg"
 import CommentSvg from "../../Media/Svgs/CommentSvg"
+import {Link, Route, Switch} from "react-router-dom"
+import ClassItemPage from "./ClassItemPage"
+
+let indexes = [
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+]
 
 class ClassPage extends PureComponent
 {
@@ -44,108 +54,113 @@ class ClassPage extends PureComponent
     render()
     {
         const {lessons, blocks, isBlockView, loading, error} = this.state
-        console.log(lessons)
         return (
-            <React.Fragment>
-                <div className='page-background-img class'>
-                    <div className='page-des-cont'>
-                        <h2 className='exchange-desc class'>گپ و گفت</h2>
-                        <h3 className='exchange-text class'>
-                            اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و
-                            <br/>
-                            نمونه سوال گرفته تا کلاس آموزشی پیدا کنی
-                        </h3>
-                    </div>
-                </div>
-
-                <div className="lessons-blocks-list-con">
-                    {
-                        !loading && <div className="class-switch-box">
-                            <input type="checkbox" id="switch" checked={isBlockView} onChange={(e) => this.changeSubjects(e.target.checked)}/>
-                            <label htmlFor="switch"/>
-                            <div className="class-subject-text">چینش بر اساس</div>
-                            <div onClick={() => this.changeSubjects(!isBlockView)} className={`class-switch-right-text${isBlockView ? " selected" : ""}`}>بلوک</div>
-                            <div onClick={() => this.changeSubjects(!isBlockView)} className={`class-switch-left-text${isBlockView ? " selected" : ""}`}>درس</div>
+            <Switch>
+                <Route path="/class/:id" render={(route) => <ClassItemPage isBlock={isBlockView} id={route.match.params.id}/>}/>
+                <React.Fragment>
+                    <div className='page-background-img class'>
+                        <div className='page-des-cont'>
+                            <h2 className='exchange-desc class'>گپ و گفت</h2>
+                            <h3 className='exchange-text class'>
+                                اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و
+                                <br/>
+                                نمونه سوال گرفته تا کلاس آموزشی پیدا کنی
+                            </h3>
                         </div>
-                    }
-                    {
-                        (isBlockView ? blocks : lessons).map((les, index) =>
-                            <React.Fragment>
-                                {
-                                    index === 4 &&
-                                    <div className="class-tall-info-box">
-                                        <div className="class-tall-info-section-box">
-                                            <div>
-                                                جزوه
-                                            </div>
-                                            <Booklet className={"class-info-svg"}/>
-                                        </div>
-                                        <div className="class-tall-info-section-box">
-                                            <div>
-                                                خلاصه دروس
-                                            </div>
-                                            <Questions className={"class-info-svg"}/>
-                                        </div>
-                                        <div className="class-tall-info-section-box">
-                                            <div>
-                                                نمونه سوال
-                                            </div>
-                                            <QuestionsNew className={"class-info-svg"}/>
-                                        </div>
-                                        <div className="class-tall-info-section-box">
-                                            <div>
-                                                ویس آموزشی
-                                            </div>
-                                            <AudioSvg className={"class-info-svg"}/>
-                                        </div>
-                                        <div className="class-tall-info-section-box">
-                                            <div>
-                                                فیلم
-                                            </div>
-                                            <VideoPlayer className={"class-info-svg"}/>
-                                        </div>
-                                    </div>
-                                }
-                                {
-                                    index === 8 &&
-                                    <div className="class-counter-box">
-                                        <div className="class-counter-box-number">15</div>
-                                        <div className="class-subject-text">آموزش</div>
-                                    </div>
-                                }
-                                {
-                                    index === 12 &&
-                                    <div className="class-like-box">
-                                        <LikeSvg className="class-like-svg"/>
-                                        <div className="class-subject-text">آموزش ها رو لایک کن</div>
-                                    </div>
-                                }
-                                {
-                                    index === 14 &&
-                                    <div className="class-kred-box">
-                                        <LogoSvg className="class-kred-svg"/>
-                                        <div className="class-subject-text">با KRED متفاوت باش</div>
-                                    </div>
-                                }
-                                {
-                                    index === 17 &&
-                                    <div className="class-like-box">
-                                        <CommentSvg className="class-comment-svg"/>
-                                        <div className="class-subject-text">پایین آموزش ها کامنت بزار</div>
-                                    </div>
-                                }
-                                <Material key={les._id} className="class-subject-box" backgroundColor="rgba(255,255,255,0.35)">
-                                    <img alt="svg" src={REST_URL + les.svg} className="class-subject-svg"/>
-                                    <div className="class-subject-text">{les.title}</div>
-                                </Material>
-                            </React.Fragment>,
-                        )
-                    }
+                    </div>
 
-                    <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                    <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
-                </div>
-            </React.Fragment>
+                    <div className="lessons-blocks-list-con">
+                        {
+                            !loading && <div className="class-switch-box">
+                                <input type="checkbox" id="switch" checked={isBlockView} onChange={(e) => this.changeSubjects(e.target.checked)}/>
+                                <label htmlFor="switch"/>
+                                <div className="class-subject-text">چینش بر اساس</div>
+                                <div onClick={() => this.changeSubjects(!isBlockView)} className={`class-switch-right-text${isBlockView ? " selected" : ""}`}>بلوک</div>
+                                <div onClick={() => this.changeSubjects(!isBlockView)} className={`class-switch-left-text${isBlockView ? " selected" : ""}`}>درس</div>
+                            </div>
+                        }
+                        {
+                            (isBlockView ? blocks : lessons).map((les, index) =>
+                                <React.Fragment key={les._id}>
+                                    {
+                                        index === indexes[0] &&
+                                        <div className="class-tall-info-box">
+                                            <div className="class-tall-info-section-box">
+                                                <div>
+                                                    جزوه
+                                                </div>
+                                                <Booklet className={"class-info-svg"}/>
+                                            </div>
+                                            <div className="class-tall-info-section-box">
+                                                <div>
+                                                    خلاصه دروس
+                                                </div>
+                                                <Questions className={"class-info-svg"}/>
+                                            </div>
+                                            <div className="class-tall-info-section-box">
+                                                <div>
+                                                    نمونه سوال
+                                                </div>
+                                                <QuestionsNew className={"class-info-svg"}/>
+                                            </div>
+                                            <div className="class-tall-info-section-box">
+                                                <div>
+                                                    ویس آموزشی
+                                                </div>
+                                                <AudioSvg className={"class-info-svg"}/>
+                                            </div>
+                                            <div className="class-tall-info-section-box">
+                                                <div>
+                                                    فیلم
+                                                </div>
+                                                <VideoPlayer className={"class-info-svg"}/>
+                                            </div>
+                                        </div>
+                                    }
+                                    {
+                                        index === indexes[1] &&
+                                        <div className="class-counter-box">
+                                            <div className="class-counter-box-number">15</div>
+                                            <div className="class-subject-text">آموزش</div>
+                                        </div>
+                                    }
+                                    {
+                                        index === indexes[2] &&
+                                        <div className="class-like-box">
+                                            <LikeSvg className="class-like-svg"/>
+                                            <div className="class-subject-text">آموزش ها رو لایک کن</div>
+                                        </div>
+                                    }
+                                    {
+                                        index === indexes[3] &&
+                                        <div className="class-kred-box">
+                                            <LogoSvg className="class-kred-svg"/>
+                                            <div className="class-subject-text">با KRED متفاوت باش</div>
+                                        </div>
+                                    }
+                                    {
+                                        index === indexes[4] &&
+                                        <div className="class-like-box">
+                                            <CommentSvg className="class-comment-svg"/>
+                                            <div className="class-subject-text">پایین آموزش ها کامنت بزار</div>
+                                        </div>
+                                    }
+
+                                    <Material className="class-subject-box" backgroundColor="rgba(255,255,255,0.35)">
+                                        <Link to={`/class/${les._id}`}>
+                                            <img alt="svg" src={REST_URL + les.svg} className="class-subject-svg"/>
+                                            <div className="class-subject-text">{les.title}</div>
+                                        </Link>
+                                    </Material>
+                                </React.Fragment>,
+                            )
+                        }
+
+                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
+                    </div>
+                </React.Fragment>
+            </Switch>
         )
     }
 }

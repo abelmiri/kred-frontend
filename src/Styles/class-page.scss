@@ -1,8 +1,8 @@
 @import "variables";
 
 .lessons-blocks-list-con {
-  width: 90%;
-  padding: 40px 5%;
+  width: 90.7%;
+  padding: 40px 4.65%;
   min-height: 10vh;
   display: flex;
   flex-wrap: wrap;
@@ -60,12 +60,12 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  padding: 25px;
+  padding: 21px;
   cursor: pointer;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 20px;
+    padding: 16px 20px;
   }
 }
 
@@ -77,7 +77,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  padding: 60px 35px;
+  padding: 60px 31px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
@@ -93,7 +93,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  padding: 48px 11px;
+  padding: 48px 5px;
   color: $background-color;
   font-size: $regular-font-size;
 
@@ -118,7 +118,7 @@
   position: relative;
   display: flex;
   justify-content: center;
-  padding: 85px 85px;
+  padding: 85px 81px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
@@ -144,7 +144,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  padding: 25px 35px;
+  padding: 25px 31px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
@@ -160,7 +160,7 @@
   display: flex;
   justify-content: center;
   align-content: center;
-  padding: 45px 45px;
+  padding: 45px 41px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
@@ -279,4 +279,8 @@
 .error-text {
   color: $error-color;
   font-size: $title-font-size;
+}
+
+.class-item-page-container {
+  padding: $header-size 5% 0 5%;
 }
