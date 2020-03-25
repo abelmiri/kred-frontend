@@ -56,19 +56,19 @@ class ClassItemPage extends PureComponent
                 </div>
                 <div className="class-single-item-title">{items[0].title}</div>
                 <div className="class-single-item-right-side">
-                    <div className="class-single-item-option-section">
+                    <div className="class-single-item-option-section class-single-item-option-section-r">
                         <Booklet className="class-single-item-svg"/>
                         <div>
                             جزوه
                         </div>
                     </div>
-                    <div className="class-single-item-option-section">
+                    <div className="class-single-item-option-section class-single-item-option-section-r">
                         <Questions className="class-single-item-svg"/>
                         <div>
                             خلاصه دروس
                         </div>
                     </div>
-                    <div className="class-single-item-option-section">
+                    <div className="class-single-item-option-section class-single-item-option-section-r">
                         <QuestionsNew className="class-single-item-svg"/>
                         <div>
                             نمونه سوال
@@ -82,7 +82,7 @@ class ClassItemPage extends PureComponent
                         </div>
                         <AudioSvg className="class-single-item-svg"/>
                     </div>
-                    <div className="class-single-item-option-section">
+                    <div className="class-single-item-option-section ">
                         <div>
                             فیلم
                         </div>
