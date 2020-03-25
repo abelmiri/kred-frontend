@@ -171,9 +171,7 @@
 .class-subject-svg {
   width: 120px;
   height: 120px;
-  fill: $background-color;
   filter: invert(1);
-  color: $background-color;
 
   @media screen and (max-width: 480px) {
     width: 90px;
@@ -282,5 +280,140 @@
 }
 
 .class-item-page-container {
-  padding: $header-size 5% 0 5%;
+  padding: $header-size+150px 5% 0 5%;
+  background-color: $light-color;
+  min-height: calc(100vh - 231px);
+  display: flex;
+  justify-content: center;
+}
+
+.class-single-item-container {
+  position: relative;
+  width: 70%;
+  height: 180px;
+  background-color: $secondary-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 25px;
+  color: $background-color;
+  font-size: $menu-title-font-size;
+}
+
+.class-single-item-title {
+  position: absolute;
+  top: 130px;
+  width: calc(100% - 50px);
+  text-align: center;
+  font-size: $enormous-title-font-size;
+}
+
+.class-single-item-right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  font-size: $home-title-font-size;
+  width: 35%;
+
+  svg {
+    margin-left: 50px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    font-size: $menu-title-font-size;
+  }
+
+  @media screen and (max-width: 1000px) {
+    font-size: $title-font-size;
+  }
+}
+
+.class-single-item-left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  font-size: $home-title-font-size;
+  width: 35%;
+
+  svg {
+    margin-right: 50px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    font-size: $menu-title-font-size;
+  }
+
+  @media screen and (max-width: 1000px) {
+    font-size: $title-font-size;
+  }
+}
+
+.class-single-item-option-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  width: 300px;
+
+  @media screen and (max-width: 1360px) {
+    width: 250px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    width: 200px;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 150px;
+  }
+}
+
+.class-single-item-main-svg-container {
+  position: absolute;
+  width: calc(100% - 50px);
+  background-color: transparent;
+  border-radius: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.class-single-item-main-svg-circle {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  background-color: $background-color;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 480px) {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.class-single-item-main-svg {
+  width: 130px;
+  height: 130px;
+
+  @media screen and (max-width: 480px) {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+.class-single-item-svg {
+  width: 45px;
+  height: 45px;
+  fill: $background-color;
+  margin: 0 15px;
+
+  @media screen and (max-width: 480px) {
+    width: 30px;
+    height: 30px;
+  }
 }
