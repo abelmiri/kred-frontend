@@ -93,13 +93,61 @@ class ClassItemPage extends PureComponent
         )
     }
 
-    // itemsView()
-    // {
-    //     const {items} = this.state
-    //     return (
-    //         <div>Bai</div>
-    //     )
-    // }
+    itemsView()
+    {
+        const {items} = this.state
+        return (
+            <React.Fragment>
+                {
+                    items.map((lesson, index) =>
+                        <div className="class-item-container" key={lesson._id}>
+                            <div className={`class-lesson-item ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
+                                <div className="class-lesson-item-media">
+                                    <div className={`class-lesson-item-media-svg-container ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
+                                        <img alt="svg" src={REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
+                                    </div>
+                                </div>
+                                <div className="class-lesson-item-info">
+                                    <div className={`class-lesson-item-info-title ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>{lesson.title}</div>
+                                    <div className="class-lesson-item-info-description">
+                                        <div className="class-lesson-item-info-description-section">
+                                            <div>
+                                                جزوه
+                                            </div>
+                                            <Booklet className={"class-lesson-item-info-description-section-svg"}/>
+                                        </div>
+                                        <div className="class-lesson-item-info-description-section">
+                                            <div>
+                                                خلاصه دروس
+                                            </div>
+                                            <Questions className={"class-lesson-item-info-description-section-svg"}/>
+                                        </div>
+                                        <div className="class-lesson-item-info-description-section">
+                                            <div>
+                                                نمونه سوال
+                                            </div>
+                                            <QuestionsNew className={"class-lesson-item-info-description-section-svg"}/>
+                                        </div>
+                                        <div className="class-lesson-item-info-description-section">
+                                            <div>
+                                                ویس آموزشی
+                                            </div>
+                                            <AudioSvg className={"class-lesson-item-info-description-section-svg"}/>
+                                        </div>
+                                        <div className="class-lesson-item-info-description-section">
+                                            <div>
+                                                فیلم
+                                            </div>
+                                            <VideoPlayer className={"class-lesson-item-info-description-section-svg"}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>)
+                }
+            </React.Fragment>
+        )
+    }
 
     render()
     {
@@ -108,9 +156,9 @@ class ClassItemPage extends PureComponent
             <React.Fragment>
                 <div className="class-item-page-container">
                     {items.length === 1 ? this.singleItemView() : items.length > 1 ? this.itemsView() : null}
-                    <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                    <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                 </div>
+                <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
             </React.Fragment>
         )
     }

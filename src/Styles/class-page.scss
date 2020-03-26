@@ -284,7 +284,8 @@
   background-color: $light-color;
   min-height: calc(100vh - 81px);
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .class-single-item-container {
@@ -317,8 +318,8 @@
   @media screen and (max-width: 480px) {
     top: 455px;
     border-top: 2px solid $background-color;
-    padding-top: 15px;
-    font-size: $enormous-title-font-size;
+    padding-top: 25px;
+    font-size: 28px;
   }
 }
 
@@ -459,5 +460,165 @@
     width: 40px;
     height: 40px;
     margin: 0 15px;
+  }
+}
+
+.class-item-container {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+
+  &:nth-child(even) {
+    justify-content: flex-end;
+  }
+
+  &:last-child {
+    margin-bottom: 30px;
+  }
+}
+
+.class-lesson-item {
+  width: 40%;
+  height: 180px;
+  background-color: $secondary-color;
+  display: flex;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    height: 120px;
+  }
+
+  &.odd {
+    margin-right: 90px;
+    @media screen and (max-width: 480px) {
+      margin-right: 60px;
+    }
+
+    .class-lesson-item-media {
+      order: 1;
+    }
+
+    .class-lesson-item-info {
+      order: 2;
+    }
+  }
+
+  &.even {
+    margin-left: 90px;
+    @media screen and (max-width: 480px) {
+      margin-left: 60px;
+    }
+
+    .class-lesson-item-media {
+      order: 2;
+    }
+
+    .class-lesson-item-info {
+      order: 1;
+    }
+  }
+}
+
+.class-lesson-item-media {
+  width: 20%;
+  position: relative;
+}
+
+.class-lesson-item-info {
+  width: 80%;
+  color: $background-color;
+}
+
+.class-lesson-item-media-svg-container {
+  position: absolute;
+  height: 180px;
+  width: 180px;
+  background-color: $background-color;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 480px) {
+    height: 120px;
+    width: 120px;
+  }
+
+  &.odd {
+    right: -90px;
+    @media screen and (max-width: 480px) {
+      right: -60px;
+    }
+  }
+
+  &.even {
+    left: -90px;
+    @media screen and (max-width: 480px) {
+      left: -60px;
+    }
+  }
+}
+
+.class-lesson-item-media-svg {
+  height: 110px;
+  width: 110px;
+  @media screen and (max-width: 480px) {
+    height: 75px;
+    width: 75px;
+  }
+}
+
+.class-lesson-item-info-title {
+  width: 86%;
+  height: 80px;
+  font-size: $home-title-font-size;
+  display: flex;
+  align-items: center;
+  padding: 0 7%;
+
+  @media screen and (max-width: 480px) {
+    height: 50px;
+    font-size: $home-regular-font-size;
+  }
+
+  &.odd {
+    justify-content: flex-start;
+  }
+
+  &.even {
+    justify-content: flex-end;
+  }
+}
+
+.class-lesson-item-info-description {
+  width: 100%;
+  height: 100px;
+  font-size: $title-font-size;
+  display: flex;
+
+  @media screen and (max-width: 480px) {
+    height: 70px;
+    font-size: $really-small-font;
+  }
+}
+
+.class-lesson-item-info-description-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  text-align: center;
+}
+
+.class-lesson-item-info-description-section-svg {
+  width: 30px;
+  height: 30px;
+  fill: $background-color;
+  margin: 10px 0;
+
+  @media screen and (max-width: 480px) {
+    width: 20px;
+    height: 20px;
   }
 }
