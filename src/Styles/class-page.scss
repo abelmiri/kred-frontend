@@ -520,13 +520,31 @@
 }
 
 .class-lesson-item-media {
-  width: 20%;
+  width: 14%;
   position: relative;
+  @media screen and (max-width: 1300px) {
+    width: 20%;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 25%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 18%;
+  }
 }
 
 .class-lesson-item-info {
-  width: 80%;
+  width: 88%;
   color: $background-color;
+  @media screen and (max-width: 1300px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 1000px) {
+    width: 75%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 82%;
+  }
 }
 
 .class-lesson-item-media-svg-container {
@@ -598,7 +616,7 @@
 
   @media screen and (max-width: 480px) {
     height: 70px;
-    font-size: $really-small-font;
+    font-size: $very-fucking-small-font;
   }
 }
 
