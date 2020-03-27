@@ -56,7 +56,7 @@ class ClassPage extends PureComponent
         const {lessons, blocks, isBlockView, loading, error} = this.state
         return (
             <Switch>
-                <Route path="/class/:id" render={(route) => <ClassItemPage isBlock={isBlockView} id={route.match.params.id}/>}/>
+                <Route path={`/class/:type/:id`} render={(route) => <ClassItemPage type={route.match.params.type} id={route.match.params.id}/>}/>
                 <React.Fragment>
                     <div className='page-background-img class'>
                         <div className='page-des-cont'>
@@ -70,6 +70,8 @@ class ClassPage extends PureComponent
                     </div>
 
                     <div className="lessons-blocks-list-con">
+                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                         {
                             !loading && <div className="class-switch-box">
                                 <input type="checkbox" id="switch" checked={isBlockView} onChange={(e) => this.changeSubjects(e.target.checked)}/>
@@ -147,7 +149,7 @@ class ClassPage extends PureComponent
                                     }
 
                                     <Material className="class-subject-box" backgroundColor="rgba(255,255,255,0.35)">
-                                        <Link to={`/class/${les._id}`}>
+                                        <Link to={`/class/${isBlockView ? "block" : "lesson"}/${les._id}`}>
                                             <img alt="svg" src={REST_URL + les.svg} className="class-subject-svg"/>
                                             <div className="class-subject-text">{les.title}</div>
                                         </Link>
@@ -155,9 +157,6 @@ class ClassPage extends PureComponent
                                 </React.Fragment>,
                             )
                         }
-
-                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                     </div>
                 </React.Fragment>
             </Switch>

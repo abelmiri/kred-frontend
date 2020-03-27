@@ -21,10 +21,12 @@ class ClassItemPage extends PureComponent
 
     componentDidMount()
     {
+        console.log(this.props.type)
+
         window.scroll({top: 0})
 
-        const {isBlock, id} = this.props
-        api.get(`${isBlock ? "block" : "lesson"}/category`, `?${isBlock ? "block" : "lesson"}_id=${id}`)
+        const {type, id} = this.props
+        api.get(`${type === "block" ? "block" : "lesson"}/category`, `?${type === "block" ? "block" : "lesson"}_id=${id}`)
             .then((data) =>
             {
                 if (data.length > 0)
@@ -33,7 +35,7 @@ class ClassItemPage extends PureComponent
                 }
                 else
                 {
-                    api.get(`${isBlock ? "block" : "lesson"}`, `${id}`)
+                    api.get(`${type === "block" ? "block" : "lesson"}`, `${id}`)
                         .then((item) =>
                         {
                             this.setState({...this.state, loading: false, items: [item]})
@@ -154,11 +156,11 @@ class ClassItemPage extends PureComponent
         const {items, loading, error} = this.state
         return (
             <React.Fragment>
+                <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                 <div className="class-item-page-container">
                     {items.length === 1 ? this.singleItemView() : items.length > 1 ? this.itemsView() : null}
                 </div>
-                <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
             </React.Fragment>
         )
     }
