@@ -467,9 +467,10 @@
   width: 100%;
   margin-top: 30px;
   display: flex;
+  justify-content: flex-end;
 
   &:nth-child(even) {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   &:last-child {
@@ -639,4 +640,30 @@
     width: 20px;
     height: 20px;
   }
+}
+
+.class-location-container {
+  margin-top: 20px;
+  text-align: right;
+  width: 100%;
+  font-size: $home-regular-font-size;
+  font-weight: bold;
+}
+
+.class-location-link {
+  text-decoration: underline;
+  transition: all linear $short-animation-duration;
+  color: $dark-color;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.class-left-arrow {
+  fill: $dark-color;
+  width: 15px;
+  height: 15px;
+  margin: 0 15px;
+  transform: rotate(180deg) translateY(-5px);
 }

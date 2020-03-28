@@ -6,6 +6,8 @@ import Questions from "../../Media/Svgs/Questions"
 import QuestionsNew from "../../Media/Svgs/QuestionsNew"
 import AudioSvg from "../../Media/Svgs/AudioSvg"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
+import SmoothArrowSvg from "../../Media/Svgs/SmoothArrowSvg"
+import {Link} from "react-router-dom"
 
 class ClassItemPage extends PureComponent
 {
@@ -16,47 +18,34 @@ class ClassItemPage extends PureComponent
             loading: true,
             error: false,
             items: [],
+            parent: {},
         }
     }
 
     componentDidMount()
     {
-        console.log(this.props.type)
-
         window.scroll({top: 0})
 
         const {type, id} = this.props
         api.get(`${type === "block" ? "block" : "lesson"}/category`, `?${type === "block" ? "block" : "lesson"}_id=${id}`)
-            .then((data) =>
-            {
-                if (data.length > 0)
-                {
-                    this.setState({...this.state, items: data, loading: false})
-                }
-                else
-                {
-                    api.get(`${type === "block" ? "block" : "lesson"}`, `${id}`)
-                        .then((item) =>
-                        {
-                            this.setState({...this.state, loading: false, items: [item]})
-                        })
-                        .catch(() => this.setState({...this.state, error: true, loading: false}))
-                }
-            })
+            .then((data) => data.length > 0 ? this.setState({...this.state, items: data, loading: false}) : this.setState({...this.state, loading: false, items: [data]}))
+            .catch(() => this.setState({...this.state, error: true, loading: false}))
+        api.get(`${type === "block" ? "block" : "lesson"}`, `${id}`)
+            .then((item) => this.setState({...this.state, loading: false, parent: item}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
     }
 
     singleItemView()
     {
-        const {items} = this.state
+        const {parent} = this.state
         return (
             <div className="class-single-item-container">
                 <div className="class-single-item-main-svg-container">
                     <div className="class-single-item-main-svg-circle">
-                        <img alt="svg" src={REST_URL + items[0].svg} className="class-single-item-main-svg"/>
+                        <img alt="svg" src={REST_URL + parent.svg} className="class-single-item-main-svg"/>
                     </div>
                 </div>
-                <div className="class-single-item-title">{items[0].title}</div>
+                <div className="class-single-item-title">{parent.title}</div>
                 <div className="class-single-item-right-side">
                     <div className="class-single-item-option-section class-single-item-option-section-r">
                         <Booklet className="class-single-item-svg"/>
@@ -153,15 +142,21 @@ class ClassItemPage extends PureComponent
 
     render()
     {
-        const {items, loading, error} = this.state
+        const {items, parent, loading, error} = this.state
         return (
-            <React.Fragment>
+            <div className="class-item-page-container">
                 <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
                 <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
-                <div className="class-item-page-container">
-                    {items.length === 1 ? this.singleItemView() : items.length > 1 ? this.itemsView() : null}
-                </div>
-            </React.Fragment>
+                {
+                    !loading &&
+                    <div className="class-location-container">
+                        <Link to={"/class"} className="class-location-link">کلاس درس</Link>
+                        <SmoothArrowSvg className="class-left-arrow"/>
+                        {parent.title}
+                    </div>
+                }
+                {items.length === 1 ? this.singleItemView() : items.length > 1 ? this.itemsView() : null}
+            </div>
         )
     }
 }
