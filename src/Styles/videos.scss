@@ -114,6 +114,16 @@
   }
 }
 
+.video-pack-item-sub {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid $third-color;
+  color: $primary-color;
+  border-radius: 15px;
+  padding: 3px 15px;
+  font-size: $small-font-size;
+}
+
 .video-pack-item-img {
   width: 60%;
   margin: auto;

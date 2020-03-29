@@ -166,6 +166,7 @@ class VideoPacksPage extends PureComponent
                                                     <Link key={pack._id} to={`/videos/${pack._id}`}>
                                                         <div className="video-pack-item">
                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
+                                                            {pack.price !== 0 && <div className='video-pack-item-sub'>با زیرنویس فارسی</div>}
                                                             <div className="video-pack-item-title">
                                                                 <div className="video-pack-item-title-text">
                                                                     مجموعه فیلم‌های<span> </span>{pack.title}
