@@ -117,7 +117,7 @@ class Comment extends PureComponent
         if (e.target.style.border === "1px solid red" && e.target.value.trim().length > 1) e.target.style.border = "1px solid #CDCDCD"
     }
 
-    showReplies = () => this.setState({...this.state, showReplies: true})
+    showReplies = () => this.setState({...this.state, showReplies: !this.state.showReplies})
 
     render()
     {
@@ -171,10 +171,11 @@ class Comment extends PureComponent
                     </React.Fragment>
                 }
                 {
-                    !comment.parent_comment_id && childs && childs.length > 0 ?
-                        !showReplies ?
-                            <Material className="pavilion-comment-show-replies" onClick={this.showReplies}>نمایش پاسخ‌ها ({childs.length})</Material>
-                            :
+                    !comment.parent_comment_id && childs && childs.length > 0 &&
+                    <React.Fragment>
+                        <Material className="pavilion-comment-show-replies" onClick={this.showReplies}>{showReplies ? "مخفی کردن" : "نمایش"} پاسخ‌ها ({childs?.length})</Material>
+                        {
+                            showReplies &&
                             <div className="pavilion-comment-child">
                                 <div className="pavilion-comment-child-title">پاسخ‌ها ({childs.length})</div>
                                 {
@@ -193,8 +194,8 @@ class Comment extends PureComponent
                                     )
                                 }
                             </div>
-                        :
-                        null
+                        }
+                    </React.Fragment>
                 }
             </div>
         )
