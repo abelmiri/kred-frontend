@@ -13,7 +13,7 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 import {Link, Route, Switch} from "react-router-dom"
 import ClassItemPage from "./ClassItemPage"
 
-let indexes = [
+const indexes = [
     Math.round(Math.random() * 20),
     Math.round(Math.random() * 20),
     Math.round(Math.random() * 20),
@@ -46,10 +46,7 @@ class ClassPage extends PureComponent
             .catch(() => this.setState({...this.state, error: true, loading: false}))
     }
 
-    changeSubjects = (value) =>
-    {
-        this.setState({...this.state, isBlockView: value})
-    }
+    changeSubjects = (value) => this.setState({...this.state, isBlockView: value})
 
     render()
     {

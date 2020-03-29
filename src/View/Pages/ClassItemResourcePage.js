@@ -53,7 +53,7 @@ class ClassItemResourcePage extends PureComponent
                 {
                     !loading &&
                     <div className="class-location-container">
-                        <Link to={"/class"} className="class-location-link">کلاس درس</Link>
+                        <Link to="/class" className="class-location-link">کلاس درس</Link>
                         <SmoothArrowSvg className="class-left-arrow"/>
                         {
                             parent.title ?
