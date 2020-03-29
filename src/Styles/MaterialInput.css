@@ -12,7 +12,6 @@
     width: calc(100% - 20px);
     height: 100%;
     border: 1px solid #DADCE0;
-    /*border-radius: 5px;*/
     padding: 0 10px;
     text-align: right;
     transition-timing-function: ease;

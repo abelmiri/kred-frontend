@@ -389,8 +389,22 @@
   }
 }
 
-
 .panel-add-audio-svg {
   width: 40px;
   fill: $text-light-color;
+
+  &.success {
+    fill: $success-color;
+  }
+}
+
+.panel-class-type {
+  width: 100%;
+  border: 1px solid #DADCE0;
+  padding: 15px;
+  margin-bottom: 15px;
+
+  &:focus {
+    border: 1px solid #2A3542;
+  }
 }

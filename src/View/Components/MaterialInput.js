@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import * as PropTypes from 'prop-types'
+import React, {Component} from "react"
+import * as PropTypes from "prop-types"
 
 class MaterialInput extends Component
 {
@@ -11,6 +11,7 @@ class MaterialInput extends Component
         type: PropTypes.string,
         maxLength: PropTypes.number,
         isTextArea: PropTypes.bool,
+        disabled: PropTypes.bool,
         defaultValue: PropTypes.string,
         borderColor: PropTypes.string,
         name: PropTypes.string,
@@ -20,7 +21,7 @@ class MaterialInput extends Component
     {
         super(props)
         this.state = {
-            value: '',
+            value: "",
             focused: false,
         }
         this.handleChange = this.handleChange.bind(this)
@@ -72,14 +73,13 @@ class MaterialInput extends Component
         this.textRef.focus()
     }
 
-
     render()
     {
-        const {className, isTextArea, maxLength, borderColor, type, label, backgroundColor, name} = this.props
+        const {className, isTextArea, maxLength, borderColor, type, label, backgroundColor, name, disabled} = this.props
         const {focused, value} = this.state
 
         return (
-            <div className={className ? className + ' material-input' : 'material-input'}>
+            <div className={className ? className + " material-input" : "material-input"}>
                 {
                     isTextArea ?
                         <textarea maxLength={maxLength}
@@ -92,9 +92,10 @@ class MaterialInput extends Component
                                   onKeyDown={this.handleKeyDown}
                                   onBlur={this.handleBlur}
                                   style={borderColor ? {borderColor} : {}}
+                                  disabled={disabled}
                         />
                         :
-                        <input type={type ? type : 'text'}
+                        <input type={type ? type : "text"}
                                maxLength={maxLength}
                                name={name}
                                ref={e => this.textRef = e}
@@ -105,11 +106,12 @@ class MaterialInput extends Component
                                onKeyDown={this.handleKeyDown}
                                onBlur={this.handleBlur}
                                style={borderColor ? {borderColor} : {}}
+                               disabled={disabled}
                         />
                 }
 
-                <label className={focused || value.length > 0 ? 'material-input-label-out' : 'material-input-label'}
-                       style={{backgroundColor: backgroundColor ? backgroundColor : 'white'}}
+                <label className={focused || value.length > 0 ? "material-input-label-out" : "material-input-label"}
+                       style={{backgroundColor: backgroundColor ? backgroundColor : "white"}}
                        onClick={this.handleClick}>
                     {label}
                 </label>

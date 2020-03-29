@@ -9,7 +9,7 @@ import api, {REST_URL} from "../../Functions/api"
 import AudioSvg from "../../Media/Svgs/AudioSvg"
 import {ClipLoader} from "react-spinners"
 
-class PavilionAdd extends PureComponent
+class Pavilion extends PureComponent
 {
     constructor(props)
     {
@@ -184,10 +184,7 @@ class PavilionAdd extends PureComponent
                     }
                     else this.patchData(form)
                 }
-                else
-                {
-                    NotificationManager.warning("شما تغییری ایجاد نکرده اید!")
-                }
+                else NotificationManager.warning("شما تغییری ایجاد نکرده اید!")
             }
         }
     }
@@ -195,16 +192,9 @@ class PavilionAdd extends PureComponent
     postData(form)
     {
         api.post("conversation", form, "", (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
-            .then(() =>
-                this.setState({...this.state, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
+            .then((conversation) =>
+                this.setState({...this.state, posts: {[conversation._id]: {...conversation}, ...this.state.posts}, loading: false}, () =>
                 {
-                    this.title = ""
-                    this.interviewee_name = ""
-                    this.interviewee_bio = ""
-                    this.bold_description = ""
-                    this.description = ""
-                    this.selectedImage = false
-                    this.selectedAudio = false
                     NotificationManager.success("با موفقیت ثبت شد ادمین جون.")
                     this.toggleAddModal()
                 }),
@@ -216,15 +206,8 @@ class PavilionAdd extends PureComponent
     {
         api.patch("conversation", form, "", (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
             .then((updateConversation) =>
-                this.setState({...this.state, posts: {...this.state.posts, [updateConversation._id]: {...updateConversation}}, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
+                this.setState({...this.state, posts: {...this.state.posts, [updateConversation._id]: {...updateConversation}}, loading: false}, () =>
                 {
-                    this.title = ""
-                    this.interviewee_name = ""
-                    this.interviewee_bio = ""
-                    this.bold_description = ""
-                    this.description = ""
-                    this.selectedImage = false
-                    this.selectedAudio = false
                     NotificationManager.success("با موفقیت آپدیت شد ادمین جون.")
                     this.toggleAddModal()
                 }),
@@ -290,13 +273,13 @@ class PavilionAdd extends PureComponent
                     add &&
                     <React.Fragment>
                         <div className="create-exchange-cont bigger-size create-small">
-                            <div className='create-exchange-title'>ساخت گپ و گفت</div>
+                            <div className='create-exchange-title'>{isUpdating ? "ویرایش" : "ساخت"} گپ و گفت</div>
                             <div className="panel-add-off-main">
-                                <MaterialInput defaultValue={isUpdating.title} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="عنوان *" getValue={this.setTitle}/>
-                                <MaterialInput defaultValue={isUpdating.bold_description} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="متن بولد *" getValue={this.setBold}/>
-                                <MaterialInput defaultValue={isUpdating.description} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="توضیحات (سوالات را بین ** قرار دهید) *" getValue={this.setDesc}/>
-                                <MaterialInput defaultValue={isUpdating.interviewee_name} className="panel-add-pav-title" backgroundColor="white" label="نام طرف *" getValue={this.setName}/>
-                                <MaterialInput defaultValue={isUpdating.interviewee_bio} className="panel-add-pav-title" backgroundColor="white" label="بیو طرف *" getValue={this.setBio}/>
+                                <MaterialInput disabled={loading} defaultValue={isUpdating.title} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="عنوان *" getValue={this.setTitle}/>
+                                <MaterialInput disabled={loading} defaultValue={isUpdating.bold_description} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="متن بولد *" getValue={this.setBold}/>
+                                <MaterialInput disabled={loading} defaultValue={isUpdating.description} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="توضیحات (سوالات را بین ** قرار دهید) *" getValue={this.setDesc}/>
+                                <MaterialInput disabled={loading} defaultValue={isUpdating.interviewee_name} className="panel-add-pav-title" backgroundColor="white" label="نام طرف *" getValue={this.setName}/>
+                                <MaterialInput disabled={loading} defaultValue={isUpdating.interviewee_bio} className="panel-add-pav-title" backgroundColor="white" label="بیو طرف *" getValue={this.setBio}/>
                                 <label className='panel-add-audio'>
                                     {
                                         selectedAudioPreview || isUpdating.audio ?
@@ -339,4 +322,4 @@ class PavilionAdd extends PureComponent
     }
 }
 
-export default PavilionAdd
+export default Pavilion

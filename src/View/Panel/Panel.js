@@ -11,7 +11,8 @@ import AllVideoViews from "./AllVideoViews"
 import AllBuys from "./AllBuys"
 import AllUsers from "./AllUsers"
 import PanelSidebar from "./PanelSidebar"
-import PavilionAdd from "./PavilionAdd"
+import Pavilion from "./Pavilion"
+import Class from "./Class"
 
 class Panel extends PureComponent
 {
@@ -40,7 +41,8 @@ class Panel extends PureComponent
                             <Route path='/panel/video-views' render={() => <TodayVideoViews/>}/>
                             <Route path='/panel/sales' render={() => <TodayBuys/>}/>
                             <Route path='/panel/sign-ups' render={() => <TodaySignUps/>}/>
-                            <Route path='/panel/pavilion' render={() => <PavilionAdd/>}/>
+                            <Route path='/panel/pavilion' render={() => <Pavilion/>}/>
+                            <Route path='/panel/class' render={() => <Class/>}/>
                             <Route path='*' render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
                         </Switch>
                     </div>

@@ -10,7 +10,7 @@ class PanelSidebar extends PureComponent
         this.posY = 0
         this.prevY = 0
         this.deltaY = 0
-        this.windowHeight = -367
+        this.windowHeight = -419
         this.showingSidebar = false
     }
 
@@ -34,8 +34,9 @@ class PanelSidebar extends PureComponent
     {
         if (this.deltaY > 3) this.showSidebar()
         else if (this.deltaY < -3) this.hideSidebar()
+        else if (this.prevY > this.windowHeight / 2) this.hideSidebar()
+        else this.showSidebar()
     }
-
 
     showSidebar = () =>
     {
@@ -86,6 +87,7 @@ class PanelSidebar extends PureComponent
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-page-views"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">بازدید صفحات</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-video-views"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">بازدید ویدیوها</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-sales"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">فروش پک</Material></NavLink>
+                    <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/class"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کلاس درس</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/pavilion"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">گپ و گفت</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-sign-ups"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کاربران</Material></NavLink>
                 </div>

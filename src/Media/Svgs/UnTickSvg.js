@@ -1,6 +1,6 @@
 import React from "react"
 
-const UnTickSvg = (props) => (
+const UnTickSvg = (props) =>
     <svg className={props.className} viewBox="0 0 17 17">
         <g transform="translate(0.5 0.5)">
             <path d="M8,0a8,8,0,1,0,5.544,13.768.326.326,0,0,0-.451-.469,7.325,7.325,0,1,1,1.764-2.648.326.326,0,1,0,.607.235A8,8,0,0,0,8,0Z"/>
@@ -9,6 +9,5 @@ const UnTickSvg = (props) => (
             <path d="M85.6,78.28a.326.326,0,0,0-.46,0L78.28,85.143a.326.326,0,0,0,.461.46L85.6,78.741A.326.326,0,0,0,85.6,78.28Z" transform="translate(-73.942 -73.942)"/>
         </g>
     </svg>
-)
 
 export default UnTickSvg
