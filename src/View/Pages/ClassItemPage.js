@@ -7,7 +7,8 @@ import QuestionsNew from "../../Media/Svgs/QuestionsNew"
 import AudioSvg from "../../Media/Svgs/AudioSvg"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 import SmoothArrowSvg from "../../Media/Svgs/SmoothArrowSvg"
-import {Link} from "react-router-dom"
+import {Link, Switch, Route} from "react-router-dom"
+import ClassItemResourcePage from "./ClassItemResourcePage"
 
 class ClassItemPage extends PureComponent
 {
@@ -28,7 +29,7 @@ class ClassItemPage extends PureComponent
 
         const {type, id} = this.props
         api.get(`${type === "block" ? "block" : "lesson"}/category`, `?${type === "block" ? "block" : "lesson"}_id=${id}`)
-            .then((data) => data.length > 0 ? this.setState({...this.state, items: data, loading: false}) : this.setState({...this.state, loading: false, items: [data]}))
+            .then((data) => data.length > 0 ? this.setState({...this.state, items: data, loading: false}) : this.setState({...this.state, loading: false, items: [0]}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
         api.get(`${type === "block" ? "block" : "lesson"}`, `${id}`)
             .then((item) => this.setState({...this.state, loading: false, parent: item}))
@@ -42,10 +43,12 @@ class ClassItemPage extends PureComponent
             <div className="class-single-item-container">
                 <div className="class-single-item-main-svg-container">
                     <div className="class-single-item-main-svg-circle">
-                        <img alt="svg" src={REST_URL + parent.svg} className="class-single-item-main-svg"/>
+                        <Link to={`${parent._id}/resources`}><img alt="svg" src={parent.svg && REST_URL + parent.svg} className="class-single-item-main-svg"/></Link>
                     </div>
                 </div>
-                <div className="class-single-item-title">{parent.title}</div>
+                <div className="class-single-item-title">
+                    <Link className="class-lesson-item-info-title-text" to={`${parent._id}/resources`}> {parent.title} </Link>
+                </div>
                 <div className="class-single-item-right-side">
                     <div className="class-single-item-option-section class-single-item-option-section-r">
                         <Booklet className="class-single-item-svg"/>
@@ -87,6 +90,7 @@ class ClassItemPage extends PureComponent
     itemsView()
     {
         const {items} = this.state
+        const {type, id} = this.props
         return (
             <React.Fragment>
                 {
@@ -95,11 +99,15 @@ class ClassItemPage extends PureComponent
                             <div className={`class-lesson-item ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
                                 <div className="class-lesson-item-media">
                                     <div className={`class-lesson-item-media-svg-container ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
-                                        <img alt="svg" src={REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
+                                        <Link to={`/class/${type}/${id}/${lesson._id}/resources`}>
+                                            <img alt="svg" src={lesson.svg && REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="class-lesson-item-info">
-                                    <div className={`class-lesson-item-info-title ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>{lesson.title}</div>
+                                    <div className={`class-lesson-item-info-title ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
+                                        <Link className="class-lesson-item-info-title-text" to={`/class/${type}/${id}/${lesson._id}/resources`}>{lesson.title}</Link>
+                                    </div>
                                     <div className="class-lesson-item-info-description">
                                         <div className="class-lesson-item-info-description-section">
                                             <div>
@@ -144,19 +152,26 @@ class ClassItemPage extends PureComponent
     {
         const {items, parent, loading, error} = this.state
         return (
-            <div className="class-item-page-container">
-                <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
-                {
-                    !loading &&
-                    <div className="class-location-container">
-                        <Link to={"/class"} className="class-location-link">کلاس درس</Link>
-                        <SmoothArrowSvg className="class-left-arrow"/>
-                        {parent.title}
-                    </div>
-                }
-                {items.length === 1 ? this.singleItemView() : items.length > 1 ? this.itemsView() : null}
-            </div>
+            <Switch>
+                <Route path={`/class/:type/:parentId/:id/resources`}
+                       render={(route) => <ClassItemResourcePage type={route.match.params.type} parentId={route.match.params.parentId} id={route.match.params.id}/>}/>
+                <Route path={`/class/:type/:id/resources`}
+                       render={(route) => <ClassItemResourcePage type={route.match.params.type} id={route.match.params.id}/>}/>
+
+                <div className="class-item-page-container">
+                    <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                    <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
+                    {
+                        !loading &&
+                        <div className="class-location-container">
+                            <Link to={"/class"} className="class-location-link">کلاس درس</Link>
+                            <SmoothArrowSvg className="class-left-arrow"/>
+                            {parent.title}
+                        </div>
+                    }
+                    {items[0] === 0 ? this.singleItemView() : items.length > 0 ? this.itemsView() : null}
+                </div>
+            </Switch>
         )
     }
 }

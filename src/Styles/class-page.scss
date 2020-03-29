@@ -609,6 +609,16 @@
   }
 }
 
+.class-lesson-item-info-title-text {
+  text-decoration: none;
+  color: $background-color;
+  transition: all linear 0.1s;
+
+  &:hover {
+    color: $third-color;
+  }
+}
+
 .class-lesson-item-info-description {
   width: 100%;
   height: 100px;
@@ -666,4 +676,11 @@
   height: 15px;
   margin: 0 15px;
   transform: rotate(180deg) translateY(-5px);
+}
+
+.class-resources-page-container {
+  padding: $header-size 5% 0 5%;
+  background-color: $light-color;
+  min-height: calc(100vh - 81px);
+  display: flex;
 }
