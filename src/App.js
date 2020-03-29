@@ -249,8 +249,13 @@ class App extends PureComponent
                         <Switch>
                             <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
                             <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
-                            <Route path='/exchanges' render={() => <ExchangeBookPage defaultPhone={user ? user.phone : ""} cities={cities} getCities={this.getCities} categories={categories}
-                                                                                     getCategories={this.getCategories}/>}/>
+                            <Route path='/exchanges' render={() =>
+                                <ExchangeBookPage defaultPhone={user ? user.phone : ""}
+                                                  cities={cities}
+                                                  getCities={this.getCities}
+                                                  categories={categories}
+                                                  getCategories={this.getCategories}/>}
+                            />
                             <Route path='/pavilions' render={() => <PavilionPage user={user}/>}/>
                             {process.env.NODE_ENV !== "production" && <Route path='/class' render={() => <ClassPage/>}/>}
                             <Route path='/videos' render={() =>

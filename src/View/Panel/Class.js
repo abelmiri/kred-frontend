@@ -24,8 +24,8 @@ class Class extends PureComponent
             posts: {},
             isUpdating: false,
             selectedFile: null,
-            blocks: [],
-            lessons: [],
+            blocks: {},
+            lessons: {},
             lessonCategories: [],
             blockCategories: [],
         }
@@ -54,9 +54,9 @@ class Class extends PureComponent
             .then((data) => this.setState({...this.state, postsLoading: false, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
             .catch(() => this.setState({...this.state, error: true, postsLoading: false}))
 
-        api.get("lesson").then((data) => this.setState({...this.state, loading: false, lessons: data}))
+        api.get("lesson").then((data) => this.setState({...this.state, loading: false, lessons: data.reduce((sum, lesson) => ({...sum, [lesson._id]: {...lesson}}), {})}))
         api.get("lesson/category").then((data) => this.setState({...this.state, loading: false, lessonCategories: data}))
-        api.get("block").then((data) => this.setState({...this.state, loading: false, blocks: data}))
+        api.get("block").then((data) => this.setState({...this.state, loading: false, blocks: data.reduce((sum, block) => ({...sum, [block._id]: {...block}}), {})}))
         api.get("block/category").then((data) => this.setState({...this.state, loading: false, blockCategories: data}))
 
         document.addEventListener("scroll", this.onScroll)
@@ -67,27 +67,27 @@ class Class extends PureComponent
         document.removeEventListener("scroll", this.onScroll)
     }
 
-    // onScroll = () =>
-    // {
-    //     clearTimeout(this.timeout)
-    //     this.timeout = setTimeout(() =>
-    //     {
-    //         const {posts} = this.state
-    //         const scrollHeight = document.body ? document.body.scrollHeight : 0
-    //         if (Object.values(posts).length > 0 && window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
-    //         {
-    //             this.setState({...this.state, postsLoading: true}, () =>
-    //             {
-    //                 this.activeScrollHeight = scrollHeight
-    //                 api.get("conversation", `?limit=50&page=${this.page}&time=${new Date().toISOString()}`).then((data) =>
-    //                 {
-    //                     this.page += 1
-    //                     this.setState({...this.state, postsLoading: false, posts: {...posts, ...data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}})
-    //                 })
-    //             })
-    //         }
-    //     }, 20)
-    // }
+    onScroll = () =>
+    {
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() =>
+        {
+            const {posts} = this.state
+            const scrollHeight = document.body ? document.body.scrollHeight : 0
+            if (Object.values(posts).length > 0 && window.innerHeight + window.scrollY >= scrollHeight - 200 && scrollHeight > this.activeScrollHeight)
+            {
+                this.setState({...this.state, postsLoading: true}, () =>
+                {
+                    this.activeScrollHeight = scrollHeight
+                    api.get("education-resource", `?limit=50&page=${this.page}&time=${new Date().toISOString()}`).then((data) =>
+                    {
+                        this.page += 1
+                        this.setState({...this.state, postsLoading: false, posts: {...posts, ...data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}})
+                    })
+                })
+            }
+        }, 20)
+    }
 
     componentDidUpdate(prevProps, prevState, snapshot)
     {
@@ -350,14 +350,14 @@ class Class extends PureComponent
                                     <option value="">انتخاب دسته بندی درسی</option>
                                     {
                                         lessonCategories.map(item =>
-                                            <option key={item._id} value={item._id}>{item.title}</option>,
+                                            <option key={item._id} value={item._id}>{lessons[item.lesson_id].title} -> {item.title}</option>,
                                         )
                                     }
                                 </select>
                                 <select disabled={loading} defaultValue={isUpdating.lesson_id} className="panel-class-type" onChange={this.changeLesson}>
                                     <option value="">انتخاب درس</option>
                                     {
-                                        lessons.map(item =>
+                                        Object.values(lessons).map(item =>
                                             lessonCategories.filter(cat => cat.lesson_id === item._id).length === 0 && <option key={item._id} value={item._id}>{item.title}</option>,
                                         )
                                     }
@@ -366,14 +366,14 @@ class Class extends PureComponent
                                     <option value="">انتخاب دسته بندی بلوکی</option>
                                     {
                                         blockCategories.map(item =>
-                                            <option key={item._id} value={item._id}>{item.title}</option>,
+                                            <option key={item._id} value={item._id}>{blocks[item.block_id].title} -> {item.title}</option>,
                                         )
                                     }
                                 </select>
                                 <select disabled={loading} defaultValue={isUpdating.block_id} className="panel-class-type" onChange={this.changeBlock}>
                                     <option value="">انتخاب بلوک</option>
                                     {
-                                        blocks.map(item =>
+                                        Object.values(blocks).map(item =>
                                             blockCategories.filter(cat => cat.block_id === item._id).length === 0 && <option key={item._id} value={item._id}>{item.title}</option>,
                                         )
                                     }
