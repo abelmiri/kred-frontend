@@ -286,7 +286,7 @@ class ShowPackPage extends PureComponent
                                                 <source src={video}/>
                                                 {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
                                             </video>
-                                            {selected}
+                                            <span className="video-page-video-title">{selected}</span>
                                         </div>
                                         :
                                         <div className="video-page-video-container pre">
@@ -301,7 +301,7 @@ class ShowPackPage extends PureComponent
                                                     <div className="video-page-aside-videos-title">{category.title}</div>
                                                     {
                                                         category.videos.map(video =>
-                                                            <Material key={"video" + video._id} className="video-page-aside-videos-item" onClick={() => this.showVideo(video)}>
+                                                            <Material key={"video" + video._id} className={`video-page-aside-videos-item ${selected === video.title ? "selected" : ""}`} onClick={() => this.showVideo(video)}>
                                                                 {video.title}
                                                                 {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
                                                             </Material>,

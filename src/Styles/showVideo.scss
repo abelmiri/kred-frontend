@@ -4,29 +4,15 @@
   padding: 90px 5%;
 }
 
-.video-page-aside {
-  display: inline-block;
-  direction: ltr;
-  width: calc(24% - 2px);
-  padding-right: 1%;
-  vertical-align: top;
-  font-size: 13px;
-
-  @media screen and (max-width: 480px) {
-    width: 100%;
-    padding-right: 0;
-    margin-top: 15px;
-  }
-}
-
 .video-page-aside-videos {
   direction: ltr;
 }
 
 .video-page-aside-videos-title {
   font-weight: bold;
-  border-top: 1px solid $text-light-color;
-  padding: 5px 0;
+  border-top: 1px solid $transparent-primary;
+  padding: 5px;
+  color: $secondary-color;
 }
 
 .video-page-aside-videos-item {
@@ -34,7 +20,13 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: 5px 0 5px 5px;
+  padding: 5px 0 5px 10px;
+  font-size: $regular-font-size;
+
+  &.selected {
+    color: $primary-color;
+    background-color: $transparent-third;
+  }
 }
 
 .video-page-aside-videos-free {
@@ -56,20 +48,36 @@
   padding-bottom: 5px;
 }
 
+.video-page-aside {
+  display: inline-block;
+  direction: ltr;
+  width: calc(27% - 2px);
+  padding-right: 1%;
+  vertical-align: top;
+  font-size: 13px;
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    padding-right: 0;
+    margin-top: 15px;
+  }
+}
+
 .video-page-video-container {
   direction: ltr;
   display: inline-block;
-  width: calc(75% - 2px);
+  width: calc(72% - 2px);
   @media screen and (max-width: 480px) {
     width: calc(100% - 2px)
   }
 
   &.pre {
-    border: 1px solid black;
+    border: 1px solid $secondary-color;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     height: 500px;
+    font-size: $title-font-size;
     @media screen and (max-width: 480px) {
       height: 200px;
     }
@@ -77,8 +85,13 @@
 }
 
 .video-page-video {
-  border: 1px solid black;
+  border: 1px solid $secondary-color;
   width: calc(100% - 2px);
+}
+
+.video-page-video-title {
+  font-size: $title-font-size;
+  font-weight: bold;
 }
 
 .video-page-video-not-login {
@@ -87,6 +100,10 @@
 }
 
 .video-page-h1 {
+  @media screen and (min-width: 480px) {
+    width: 70%;
+  }
+
   text-align: center;
   font-size: $home-title-font-size;
   margin: 5px 0 15px 0;
