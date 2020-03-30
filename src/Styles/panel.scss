@@ -22,8 +22,8 @@
 }
 
 .panel-page-section-title {
-  background-color: $dark-color;
-  color: $background-color;
+  background-color: var(--dark-color);
+  color: var(--background-color);
   font-weight: bold;
   font-size: $title-font-size;
   padding: 12px 0;
@@ -49,11 +49,11 @@
   transition: all linear 0.2s;
 
   &:nth-child(odd) {
-    background-color: $login-page-background-color;
+    background-color: var(--login-page-background-color);
   }
 
   &.title {
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
     padding: 13px 0;
     color: white;
     font-weight: bold;
@@ -68,7 +68,7 @@
     }
 
     &:hover {
-      background-color: $secondary-color;
+      background-color: var(--secondary-color);
     }
   }
 
@@ -91,7 +91,7 @@
   }
 
   &:hover {
-    background-color: $third-color;
+    background-color: var(--third-color);
   }
 }
 
@@ -132,7 +132,7 @@
   position: fixed;
   left: 5%;
   bottom: 5%;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   border-radius: 50%;
   color: white;
   font-size: 20px;
@@ -179,24 +179,24 @@
   flex-grow: 1;
   padding: 5px 0;
   border: none;
-  border-bottom: 1px solid $text-light-color;
+  border-bottom: 1px solid var(--text-light-color);
   transition: all linear 0.2s;
 
   &:focus {
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 1px solid var(--primary-color);
   }
 }
 
 .panel-add-off-hint {
   font-size: $regular-font-size;
-  color: $text-light-color;
+  color: var(--text-light-color);
   position: absolute;
   left: 0;
   top: 5px;
 }
 
 .panel-add-off-submit {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: white;
   font-size: $title-font-size;
   height: 36px;
@@ -209,7 +209,7 @@
 .panel-0ff-code-usage {
   width: 30px !important;
   height: 30px;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: white;
   border-radius: 50%;
   display: inline-flex;
@@ -223,7 +223,7 @@
   right: 5%;
   top: 90px;
   width: 300px;
-  border: 1px solid $dark-color;
+  border: 1px solid var(--dark-color);
   display: inline-block;
   vertical-align: top;
 
@@ -250,7 +250,7 @@
 
   &.selected {
     .panel-side-bar-item {
-      background-color: $dark-color;
+      background-color: var(--dark-color);
       color: white;
     }
   }
@@ -258,7 +258,7 @@
 
 .panel-side-bar-item {
   padding: 16px 0;
-  background-color: $background-color;
+  background-color: var(--background-color);
   transition: all linear 0.2s;
 }
 
@@ -268,7 +268,7 @@
   text-align: center;
   height: 370px;
   overflow: auto;
-  border: 1px solid $dark-color;
+  border: 1px solid var(--dark-color);
   transition: all linear 0.2s;
 
   &:hover {
@@ -294,7 +294,7 @@
 
 .panel-welcome {
   text-align: center;
-  color: $secondary-color;
+  color: var(--secondary-color);
 }
 
 .panel-side-bar-mobile-line {
@@ -310,7 +310,7 @@
 .panel-side-bar-line {
   width: 50px;
   height: 5px;
-  background-color: $text-light-color;
+  background-color: var(--text-light-color);
   border-radius: 3px;
   margin: auto;
 }
@@ -337,7 +337,7 @@
 }
 
 .panel-add-pav-submit {
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   color: white;
   font-size: $home-regular-font-size;
   padding: 10px;
@@ -348,7 +348,7 @@
   height: 280px;
   width: calc(100% - 2px);
   margin: auto 0 15px auto;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -371,7 +371,7 @@
   height: 100px;
   width: calc(100% - 2px);
   margin: auto 0 15px auto;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -387,10 +387,10 @@
 
 .panel-add-audio-svg {
   width: 40px;
-  fill: $text-light-color;
+  fill: var(--text-light-color);
 
   &.success {
-    fill: $success-color;
+    fill: var(--success-color);
   }
 }
 

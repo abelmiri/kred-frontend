@@ -8,13 +8,13 @@
 
 .payment-page-success-svg {
   width: 150px;
-  fill: $primary-color;
+  fill: var(--primary-color);
   margin-bottom: 10px;
 }
 
 .payment-page-fail-svg {
   width: 150px;
-  fill: $error-color;
+  fill: var(--error-color);
   margin-bottom: 10px;
 }
 
@@ -25,7 +25,7 @@
   .material {
     display: inline-block;
     padding: 10px 15px;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     color: whitesmoke;
   }
 }

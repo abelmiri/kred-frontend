@@ -26,7 +26,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: $pavilion-background-color;
+    background-color: var(--pavilion-background-color);
 
     @media screen and (max-width: 480px) {
       background-position: 20% 100%;
@@ -58,13 +58,13 @@
 .exchange-desc {
   display: block;
   white-space: nowrap;
-  border-bottom: 1px solid $dark-color;
+  border-bottom: 1px solid var(--dark-color);
   font-size: 60px;
-  color: $secondary-color;
+  color: var(--secondary-color);
   margin-bottom: 20px;
 
   &.pavilion {
-    color: $error-color;
+    color: var(--error-color);
   }
 
   &.class {
@@ -124,7 +124,7 @@
     box-shadow: none;
     width: 90%;
     margin: 0;
-    border-top: 1px solid $primary-color;
+    border-top: 1px solid var(--primary-color);
     position: relative;
   }
 }
@@ -136,7 +136,7 @@
     background-color: rgba(245, 245, 245, 0.5);
 
     &.in-slide {
-      border: 1px solid $primary-color;
+      border: 1px solid var(--primary-color);
     }
   }
 }
@@ -199,7 +199,7 @@
 }
 
 .exchange-item-price {
-  color: $error-color;
+  color: var(--error-color);
   font-size: $title-font-size;
   white-space: nowrap;
   margin-top: 10px;
@@ -222,7 +222,7 @@
 
 .exchange-item-city {
   background-color: white;
-  border: 1px solid $text-light-color;
+  border: 1px solid var(--text-light-color);
   margin-top: 10px;
   border-radius: 15px;
   padding: 3px 15px;
@@ -243,8 +243,8 @@
 .create-exchange-button {
   display: inline-block;
   padding: 15px;
-  border: 1px solid $primary-color;
-  color: $primary-color;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   cursor: pointer;
   font-size: $home-regular-font-size;
 
@@ -274,7 +274,7 @@
 .create-exchange-button-search {
   width: 250px;
   border: none;
-  border-bottom: 1px solid $dark-color;
+  border-bottom: 1px solid var(--dark-color);
   padding: 16px;
   vertical-align: top;
 
@@ -303,7 +303,7 @@
   align-items: center;
   margin: 0 5px;
   font-size: $really-small-font;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--primary-color);
   border-radius: 50%;
   width: 17px;
   height: 17px;
@@ -325,7 +325,7 @@
   width: 300px;
   background-color: white;
   z-index: 1;
-  border: 1px solid $dark-color;
+  border: 1px solid var(--dark-color);
   overflow: hidden;
   height: 308px;
   opacity: 1;
@@ -364,7 +364,7 @@
 
 .create-exchange-button-search-categories {
   padding: 15px 20px;
-  border: 1px solid $dark-color;
+  border: 1px solid var(--dark-color);
   z-index: 2;
   background-color: white;
 
@@ -390,7 +390,7 @@
 
 .exchange-list-new {
   padding: 0 calc(5% - 10px) 30px calc(5% - 10px);
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   display: inline-block;
   width: calc(90% + 20px);
 
@@ -427,7 +427,7 @@
   font-size: $home-title-font-size;
   position: relative;
   color: white;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
 
   &:after {
     position: absolute;
@@ -445,7 +445,7 @@
   top: 50%;
   background-color: white;
   width: 430px;
-  border: 1px solid $text-light-color;
+  border: 1px solid var(--text-light-color);
   text-align: center;
   z-index: 5;
   opacity: 1;
@@ -506,7 +506,7 @@
   font-size: $home-regular-font-size;
   font-weight: bold;
   padding: 20px 0 20px 0;
-  border-bottom: 1px solid $text-light-color;
+  border-bottom: 1px solid var(--text-light-color);
 
   &.login {
     display: inline-block;
@@ -522,8 +522,8 @@
   font-size: $home-regular-font-size;
   font-weight: bold;
   padding: 20px 0 5px 0;
-  border-top: 1px solid $text-light-color;
-  color: $secondary-color;
+  border-top: 1px solid var(--text-light-color);
+  color: var(--secondary-color);
   display: block;
 }
 
@@ -577,7 +577,7 @@
 
 .create-exchange-section-input {
   flex-grow: 1;
-  border: 1px solid $text-light-color;
+  border: 1px solid var(--text-light-color);
   padding: 15px;
   white-space: pre-wrap;
   resize: none;
@@ -593,7 +593,7 @@
   text-align: right;
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 }
 
@@ -601,7 +601,7 @@
   position: absolute;
   top: 50px;
   left: 10px;
-  color: $text-light-color;
+  color: var(--text-light-color);
 }
 
 .create-exchange-back {
@@ -621,7 +621,7 @@
   margin: 20px 0;
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 }
 
@@ -629,7 +629,7 @@
   margin: 35px 0 8.5px 0;
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 }
 
@@ -637,7 +637,7 @@
   height: 280px;
   width: calc(100% - 152px);
   margin: auto;
-  border: 1px dashed $text-light-color;
+  border: 1px dashed var(--text-light-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -657,7 +657,7 @@
 
 .create-exchange-svg {
   width: 60px;
-  fill: $text-light-color;
+  fill: var(--text-light-color);
 }
 
 .create-exchange-selected-img {
@@ -668,12 +668,12 @@
 
 .create-exchange-select {
   width: 100%;
-  border: 1px solid $text-light-color;
+  border: 1px solid var(--text-light-color);
   padding: 15px;
 }
 
 .create-exchange-submit {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   padding: 15px 0;
   color: white;
   margin-bottom: 5px;
@@ -684,7 +684,7 @@
 
   &.loading {
     cursor: not-allowed;
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
   }
 }
 
@@ -735,7 +735,7 @@
   user-select: none;
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 }
 
@@ -751,7 +751,7 @@
     text-align: right;
     font-size: $regular-font-size;
     padding: 10px;
-    border-bottom: 1px solid $text-light-color;
+    border-bottom: 1px solid var(--text-light-color);
   }
 }
 
@@ -781,7 +781,7 @@
   transition: all linear 0.2s;
 
   &.selected {
-    background-color: $login-page-background-color;
+    background-color: var(--login-page-background-color);
   }
 
   &.child {
@@ -837,7 +837,7 @@
     height: 13px;
     width: 13px;
     border-radius: 50%;
-    border: 1px solid $dark-color;
+    border: 1px solid var(--dark-color);
     background-color: white;
 
     &:after {
@@ -853,7 +853,7 @@
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background-color: $dark-color;
+    background-color: var(--dark-color);
   }
 
   input {
@@ -929,7 +929,7 @@
     bottom: -5px;
     content: "";
     width: 100%;
-    border-bottom: 1px solid $dark-color;
+    border-bottom: 1px solid var(--dark-color);
   }
 }
 
@@ -957,7 +957,7 @@
 
 .exchange-show-city {
   background-color: white;
-  border: 1px solid $text-light-color;
+  border: 1px solid var(--text-light-color);
   margin-top: 10px;
   border-radius: 15px;
   padding: 3px 15px;
@@ -966,7 +966,7 @@
 }
 
 .exchange-show-price {
-  color: $error-color;
+  color: var(--error-color);
   font-size: $menu-title-font-size;
   white-space: nowrap;
   margin-top: 10px;
@@ -984,7 +984,7 @@
   padding: 10px 30px;
   color: white;
   cursor: pointer;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
 }
 
 .exchange-show-contact {
@@ -998,7 +998,7 @@
   background-color: white;
   text-align: center;
   font-size: $title-font-size;
-  border: 5px solid $secondary-color;
+  border: 5px solid var(--secondary-color);
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
   animation: show-modal linear 0.2s;
 
@@ -1013,7 +1013,7 @@
 
 .exchange-show-contact-link {
   margin-right: 8px;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   border-radius: 15px;
   color: white;
   padding: 5px 10px;

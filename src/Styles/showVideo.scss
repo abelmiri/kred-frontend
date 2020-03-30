@@ -10,9 +10,9 @@
 
 .video-page-aside-videos-title {
   font-weight: bold;
-  border-top: 1px solid $transparent-primary;
+  border-top: 1px solid var(--transparent-primary);
   padding: 5px;
-  color: $secondary-color;
+  color: var(--secondary-color);
 }
 
 .video-page-aside-videos-item {
@@ -24,14 +24,14 @@
   font-size: $regular-font-size;
 
   &.selected {
-    color: $primary-color;
-    background-color: $transparent-third;
+    color: var(--primary-color);
+    background-color: var(--transparent-third);
   }
 }
 
 .video-page-aside-videos-free {
-  border: 1px solid $primary-color;
-  color: $secondary-color;
+  border: 1px solid var(--primary-color);
+  color: var(--secondary-color);
   border-radius: 50%;
   min-width: 23px;
   margin-left: 10px;
@@ -72,7 +72,7 @@
   }
 
   &.pre {
-    border: 1px solid $secondary-color;
+    border: 1px solid var(--secondary-color);
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -85,7 +85,7 @@
 }
 
 .video-page-video {
-  border: 1px solid $secondary-color;
+  border: 1px solid var(--secondary-color);
   width: calc(100% - 2px);
 }
 

@@ -15,10 +15,10 @@
 
 .profile-right-menus {
   width: 268px;
-  background-color: $background-color;
+  background-color: var(--background-color);
   position: fixed;
   right: 5%;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
 
   @media screen and (max-width: 480px) {
     width: 100%;
@@ -29,7 +29,7 @@
     right: 0;
     left: 0;
     border: none;
-    border-top: 1px solid $primary-color;
+    border-top: 1px solid var(--primary-color);
   }
 }
 
@@ -41,7 +41,7 @@
   align-items: center;
   cursor: pointer;
   font-size: $menu-title-font-size;
-  background-color: $background-color;
+  background-color: var(--background-color);
   padding: 0 17px;
   transition-duration: $long-animation-duration;
 
@@ -54,18 +54,18 @@
   }
 
   &.selected {
-    color: $background-color;
-    background-color: $dark-color;
+    color: var(--background-color);
+    background-color: var(--dark-color);
 
     .dashboard-svg {
-      fill: $background-color;
+      fill: var(--background-color);
       transition-duration: $long-animation-duration;
     }
   }
 }
 
 .dashboard-svg {
-  fill: $dark-color;
+  fill: var(--dark-color);
   width: 38px;
   height: 38px;
   margin-left: 17px;
@@ -91,7 +91,7 @@
 }
 
 .profile-introduction {
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   padding-bottom: 25px;
@@ -166,11 +166,11 @@
   }
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 
   input {
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
     background-color: transparent;
     font-size: $title-font-size;
     transition-duration: $short-animation-duration;
@@ -181,7 +181,7 @@
     }
 
     &:focus {
-      border-bottom: 1px solid $primary-color;
+      border-bottom: 1px solid var(--primary-color);
       transition-duration: $short-animation-duration;
     }
   }
@@ -213,7 +213,7 @@
 
   .link {
     align-self: center;
-    color: $primary-color;
+    color: var(--primary-color);
     font-weight: bold;
 
     &:hover {
@@ -224,8 +224,8 @@
 
 .profile-left-menus {
   width: 268px;
-  border: 1px solid $border-color;
-  background-color: $background-color;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
   position: fixed;
   left: 5%;
   max-height: calc(100vh - 120px);
@@ -238,15 +238,15 @@
 
 .profile-left-menus-subject {
   padding: 6px 0;
-  background-color: $dark-color;
-  color: $background-color;
+  background-color: var(--dark-color);
+  color: var(--background-color);
   font-size: $home-regular-font-size;
   text-align: center;
 }
 
 .profile-left-menus-title {
-  background-color: $secondary-color;
-  color: $background-color;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
   font-size: $title-font-size;
   padding: 4px 0;
   text-align: center;
@@ -255,9 +255,9 @@
 .profile-left-menus-contents {
   display: flex;
   align-items: center;
-  background-color: $background-color;
+  background-color: var(--background-color);
   font-size: $regular-font-size;
-  border-bottom: 1px solid $primary-color;
+  border-bottom: 1px solid var(--primary-color);
   text-align: center;
 
   &:last-child {
@@ -271,7 +271,7 @@
   margin: 10px 0 10px 10px;
   border-radius: 50%;
   object-fit: contain;
-  background-color: $login-page-background-color;
+  background-color: var(--login-page-background-color);
 
   &.pack {
     border-radius: 0;
@@ -289,12 +289,12 @@
 
 .profile-left-menus-contents-name {
   font-weight: bold;
-  color: $secondary-color;
+  color: var(--secondary-color);
   margin-bottom: 5px;
 }
 
 .profile-left-menus-contents-detail {
-  color: $primary-color;
+  color: var(--primary-color);
   margin-bottom: 5px;
 }
 
@@ -318,7 +318,7 @@
 .profile-info-submit-button {
   width: 240px;
   padding: 5px 0;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: white;
   font-size: $home-regular-font-size;
   margin-top: 25px;
@@ -341,23 +341,23 @@
 
   &.loading {
     cursor: not-allowed;
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
   }
 }
 
 .profile-info-submit-success-text {
   font-size: $home-regular-font-size;
-  color: $success-color;
+  color: var(--success-color);
   white-space: nowrap;
 }
 
 .profile-info-submit-error-text {
   font-size: $home-regular-font-size;
-  color: $error-color;
+  color: var(--error-color);
 }
 
 .profile-my-books {
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   padding: 10px 0;
   text-align: center;
   font-size: $title-font-size;

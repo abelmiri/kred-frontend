@@ -18,14 +18,14 @@
     }
 
     &.visible {
-      background-color: $background-color;
-      border-bottom: 1px solid $primary-color;
+      background-color: var(--background-color);
+      border-bottom: 1px solid var(--primary-color);
       padding: 0 5% 0 5%;
     }
   }
   @media screen and (max-width: 480px) {
-    background-color: $background-color;
-    border-bottom: 1px solid $primary-color;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--primary-color);
     padding: 0 5% 0 5%;
   }
 
@@ -80,7 +80,7 @@
 .header-buttons-menu {
   height: 100%;
   cursor: pointer;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   color: whitesmoke;
   display: inline-flex;
   align-items: center;
@@ -90,7 +90,7 @@
   transition: all linear 0.2s;
 
   &.panel {
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
   }
 }
 
@@ -99,7 +99,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     text-align: center;
     color: whitesmoke;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
@@ -116,7 +116,7 @@
   transition: all linear 0.2s;
 
   &:hover {
-    background-color: $third-color;
+    background-color: var(--third-color);
   }
 
   &:nth-child(odd) {
@@ -185,7 +185,7 @@
 
   &.styled {
     color: white;
-    background-color: $transparent-primary;
+    background-color: var(--transparent-primary);
     padding: 10px 15px;
   }
 
@@ -207,12 +207,12 @@
     position: fixed;
     left: 5%;
     font-size: $title-font-size;
-    color: $secondary-color;
+    color: var(--secondary-color);
     padding: 5px;
     min-width: 38px;
     text-align: center;
     white-space: nowrap;
-    border: 1px solid $login-page-background-color;
+    border: 1px solid var(--login-page-background-color);
     transition: all linear 0.2s;
 
     &.on-side {
@@ -252,7 +252,7 @@
   }
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 
   @media screen and (max-width: 480px) {
@@ -290,7 +290,7 @@
   top: 50%;
   background-color: white;
   width: 500px;
-  border: 1px solid $text-light-color;
+  border: 1px solid var(--text-light-color);
   text-align: center;
   padding: 15px;
 
@@ -310,7 +310,7 @@
 }
 
 .header-login-submit {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   padding: 15px 0;
   color: white;
   margin: 10px 0;
@@ -346,8 +346,8 @@
 }
 
 .header-sidebar-btn {
-  border-top: 1px solid $login-page-background-color;
-  border-bottom: 1px solid $login-page-background-color;
+  border-top: 1px solid var(--login-page-background-color);
+  border-bottom: 1px solid var(--login-page-background-color);
   padding: 20px 15px;
   margin-top: -1px;
 
@@ -360,7 +360,7 @@
   font-size: $title-font-size;
   font-weight: bold;
   background-color: #ffebee;
-  color: $error-color;
+  color: var(--error-color);
   padding: 20px 15px;
   position: absolute;
   bottom: 0;
@@ -390,7 +390,7 @@
 }
 
 .login-modal-forget {
-  color: $secondary-color;
+  color: var(--secondary-color);
   text-align: right;
   font-size: $regular-font-size;
   padding: 10px 5px;
@@ -401,7 +401,7 @@
 .login-modal-forget-checkbox {
   width: 15px;
   height: 15px;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   display: inline-block;
   vertical-align: top;
   margin-top: 2px;

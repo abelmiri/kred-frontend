@@ -22,13 +22,13 @@
 
 .home-title {
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 
   @media screen and (min-width: 480px) {
     font-size: 150px;
     margin: 0 0 10px 0;
-    background-color: $transparent-second;
+    background-color: var(--transparent-second);
     padding-top: 5px;
     width: 100%;
     text-align: center;
@@ -43,7 +43,7 @@
 
 .home-desc {
   font-size: 30px;
-  background-color: $transparent-primary;
+  background-color: var(--transparent-primary);
   border-radius: 35px;
   padding: 5px 20px;
   color: white;
@@ -58,7 +58,7 @@
   @media screen and (min-width: 800px) {
     display: flex;
     padding: 5%;
-    background-color: $third-color;
+    background-color: var(--third-color);
   }
   @media screen and (max-width: 800px) {
     position: relative;
@@ -104,7 +104,7 @@
   font-size: $home-title-font-size;
 
   @media screen and (max-width: 480px) {
-    color: $secondary-color;
+    color: var(--secondary-color);
   }
 }
 
@@ -125,27 +125,27 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  background-color: $primary-color;
-  color: $very-light-color;
+  background-color: var(--primary-color);
+  color: var(--very-light-color);
   padding: 10px;
   cursor: pointer;
   transition: all ease $normal-animation-duration, border-radius linear $short-animation-duration, opacity ease $opacity-animation-duration, scale ease $scale-animation-duration, color ease $color-animation-duration;
-  border: 1px solid $primary-color;
+  border: 1px solid var(--primary-color);
   min-width: 120px;
 
   &:hover {
-    background-color: $very-light-color;
-    color: $primary-color;
+    background-color: var(--very-light-color);
+    color: var(--primary-color);
   }
 
   @media screen and (min-width: 800px) {
     &.reverse {
-      background-color: $very-light-color;
-      color: $primary-color;
+      background-color: var(--very-light-color);
+      color: var(--primary-color);
 
       &:hover {
-        background-color: $primary-color;
-        color: $very-light-color;
+        background-color: var(--primary-color);
+        color: var(--very-light-color);
       }
     }
   }
@@ -202,7 +202,7 @@
 
 .home-videos-img-title {
   text-align: center;
-  color: $secondary-color;
+  color: var(--secondary-color);
   font-weight: bold;
   font-size: $menu-title-font-size;
 }
@@ -218,13 +218,13 @@
   @media screen and (max-width: 800px) {
     padding: 20px 5% 10px 5%;
     height: 205px;
-    background-color: $light-color;
+    background-color: var(--light-color);
   }
 }
 
 .home-videos-title {
   font-size: $home-title-font-size;
-  color: $secondary-color;
+  color: var(--secondary-color);
 }
 
 .home-about {
@@ -298,7 +298,7 @@
 
 .home-collab-title {
   font-size: $big-title-font-size;
-  color: $primary-color;
+  color: var(--primary-color);
   margin-bottom: 30px;
 }
 
@@ -306,7 +306,7 @@
   display: inline-block;
   white-space: nowrap;
   font-size: $big-title-font-size;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   color: white;
   padding: 20px 0;
   width: 300px;

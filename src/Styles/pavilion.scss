@@ -57,7 +57,7 @@
     transition: all linear 0.1s;
 
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
     }
 
     @media screen and (max-width: 480px) {
@@ -68,7 +68,7 @@
   .post-name {
     font-size: $title-font-size;
     font-weight: bold;
-    color: $secondary-color;
+    color: var(--secondary-color);
     margin-top: 10px;
     line-height: 25px;
 
@@ -80,7 +80,7 @@
   .post-bold-description {
     text-align: justify;
     text-justify: inter-word;
-    color: $bold-description-color;
+    color: var(--bold-description-color);
     font-size: $title-font-size;
     line-height: 27px;
     margin: 15px 0;
@@ -88,7 +88,7 @@
 
   .post-likes-comment-section {
     text-align: left;
-    color: $post-like-comment-color;
+    color: var(--post-like-comment-color);
     font-size: $regular-font-size;
     margin-left: -10px;
 
@@ -147,7 +147,7 @@
   }
 
   &.copy {
-    border: 1px solid $post-like-comment-color;
+    border: 1px solid var(--post-like-comment-color);
     margin: 0 auto 0 10px;
     order: 4;
 
@@ -165,7 +165,7 @@
   transition: all linear 0.2s;
 
   &.liked {
-    color: $primary-color;
+    color: var(--primary-color);
   }
 
   @media screen and (max-width: 480px) {
@@ -179,7 +179,7 @@
   width: 20px;
   height: 20px;
   margin-top: -2px;
-  fill: $post-like-comment-color;
+  fill: var(--post-like-comment-color);
   transition: all linear 0.2s;
 
   @media screen and (max-width: 480px) {
@@ -188,7 +188,7 @@
   }
 
   &.liked {
-    fill: $primary-color;
+    fill: var(--primary-color);
   }
 }
 
@@ -196,8 +196,8 @@
   vertical-align: top;
   width: 20px;
   height: 20px;
-  fill: $post-like-comment-color;
-  stroke: $post-like-comment-color;
+  fill: var(--post-like-comment-color);
+  stroke: var(--post-like-comment-color);
 
   @media screen and (max-width: 480px) {
     width: 30px;
@@ -206,7 +206,7 @@
 }
 
 .pavilion-item-page-cont {
-  background-color: $very-light-color;
+  background-color: var(--very-light-color);
   margin: 90px 5% 0 5%;
   min-height: 100vh;
 
@@ -322,7 +322,7 @@
   font-weight: bold;
   background-color: #F3F3F3;
   padding: 30px;
-  border-right: 4px solid $text-light-color;
+  border-right: 4px solid var(--text-light-color);
   text-align: justify;
   white-space: pre-wrap;
   word-break: break-word;
@@ -338,7 +338,7 @@
   line-height: 28px;
   text-align: justify;
   padding: 0 10%;
-  color: $post-like-comment-color;
+  color: var(--post-like-comment-color);
   white-space: pre-wrap;
   word-break: break-word;
 
@@ -348,7 +348,7 @@
 }
 
 .pavilion-item-footer {
-  color: $post-like-comment-color;
+  color: var(--post-like-comment-color);
   width: calc(80% + 20px);
   padding: 0 10%;
   margin-right: -10px;
@@ -377,7 +377,7 @@
   vertical-align: top;
 
   &.liked {
-    color: $primary-color;
+    color: var(--primary-color);
   }
 
   @media screen and (max-width: 480px) {
@@ -389,7 +389,7 @@
 }
 
 .pavilion-item-comments-section {
-  background-color: $login-page-background-color;
+  background-color: var(--login-page-background-color);
   margin: 0 10% 20px 10%;
   padding: 15px;
 
@@ -427,7 +427,7 @@
   height: 45px;
   border-radius: 50%;
   margin-left: 10px;
-  fill: $secondary-color;
+  fill: var(--secondary-color);
 
   @media screen and (max-width: 480px) {
     width: 40px;
@@ -438,7 +438,7 @@
 .pavilion-comment-sender {
   font-size: $title-font-size;
   font-weight: bold;
-  color: $primary-color;
+  color: var(--primary-color);
   margin-bottom: 6px;
 }
 
@@ -451,7 +451,7 @@
 }
 
 .pavilion-comment-replied {
-  color: $secondary-color;
+  color: var(--secondary-color);
 }
 
 .pavilion-comment-desc {
@@ -494,7 +494,7 @@
 
 .pavilion-comment-create-material {
   font-size: $title-font-size;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   color: white;
   cursor: pointer;
   margin-top: 15px;
@@ -534,7 +534,7 @@
 .pavilion-comment-delete {
   vertical-align: top;
   font-size: $small-font-size;
-  color: $error-color;
+  color: var(--error-color);
   display: inline-block;
   padding: 10px;
   cursor: pointer;
@@ -568,7 +568,7 @@
     left: 0;
     bottom: 60px;
     height: 60px;
-    background-color: $login-page-background-color;
+    background-color: var(--login-page-background-color);
     .material {
       flex-grow: 1;
       text-align: center;
@@ -613,11 +613,11 @@
   width: 20px;
   height: 20px;
   margin-top: -2px;
-  fill: $post-like-comment-color;
+  fill: var(--post-like-comment-color);
   transition: all linear 0.2s;
 
   &.liked {
-    fill: $primary-color;
+    fill: var(--primary-color);
   }
 }
 
@@ -630,7 +630,7 @@
   border-radius: 35px;
   font-size: $small-font-size;
   font-weight: bold;
-  color: $secondary-color;
+  color: var(--secondary-color);
   margin: 0 10px;
   transition: all linear 0.2s;
 
@@ -648,7 +648,7 @@
   padding: 10px;
   width: calc(100% - 77px);
   background-color: white;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   resize: none;
   display: block;
   margin: 10px 55px 0 0;
@@ -661,20 +661,20 @@
   }
 
   &:focus {
-    border: 1px solid $primary-color;
+    border: 1px solid var(--primary-color);
   }
 }
 
 .pavilion-comment-child {
-  //border: 1px solid $border-color;
+  //border: 1px solid var(--border-color);
   width: calc(100% - 40px);
-  border-right: 1px solid $primary-color;
+  border-right: 1px solid var(--primary-color);
   margin: 10px 55px 10px 0;
   @media screen and (max-width: 480px) {
     margin: 10px 0 10px 0;
     width: calc(100% + 15px);
     border: none;
-    border-right: 1px solid $primary-color;
+    border-right: 1px solid var(--primary-color);
   }
 }
 
@@ -695,7 +695,7 @@
   margin-right: 45px;
   margin-bottom: 10px;
   padding: 10px;
-  color: $secondary-color;
+  color: var(--secondary-color);
   cursor: pointer;
 
   @media screen and (max-width: 480px) {

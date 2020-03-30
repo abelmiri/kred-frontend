@@ -3,9 +3,9 @@
 .video-page-desc {
   display: block;
   white-space: nowrap;
-  border-bottom: 1px solid $dark-color;
+  border-bottom: 1px solid var(--dark-color);
   font-size: 60px;
-  color: $secondary-color;
+  color: var(--secondary-color);
   margin-bottom: 20px;
 
   @media screen and (max-width: 650px) {
@@ -44,7 +44,7 @@
   }
 
   &:nth-child(odd) {
-    background-color: $login-page-background-color;
+    background-color: var(--login-page-background-color);
 
     .video-pack-item {
       background-color: white;
@@ -52,10 +52,10 @@
   }
 
   &:nth-child(even) {
-    background-color: $third-color;
+    background-color: var(--third-color);
 
     .video-pack-item {
-      background-color: $login-page-background-color;
+      background-color: var(--login-page-background-color);
     }
   }
 }
@@ -117,8 +117,8 @@
 .video-pack-item-sub {
   display: inline-block;
   margin-top: 10px;
-  border: 1px solid $third-color;
-  color: $primary-color;
+  border: 1px solid var(--third-color);
+  color: var(--primary-color);
   border-radius: 15px;
   padding: 3px 15px;
   font-size: $small-font-size;
@@ -148,38 +148,38 @@
 
 .video-pack-item-title-svg {
   width: 20px;
-  fill: $primary-color;
+  fill: var(--primary-color);
   vertical-align: top;
   margin-right: 7px;
 }
 
 .video-pack-item-title-buy {
-  fill: $primary-color;
+  fill: var(--primary-color);
   flex-grow: 1;
   min-width: 100%;
   font-size: $regular-font-size;
   font-weight: normal;
   color: white;
-  background-color: $error-color;
-  border: 1px solid $error-color;
+  background-color: var(--error-color);
+  border: 1px solid var(--error-color);
   margin-top: 10px;
   padding: 5px 0;
   transition: all linear 0.2s;
 
   @media screen and (min-width: 480px) {
     &:hover {
-      color: $error-color;
+      color: var(--error-color);
       background-color: whitesmoke;
     }
   }
 
   &.view {
-    background-color: $primary-color;
-    border: 1px solid $primary-color;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
 
     @media screen and (min-width: 480px) {
       &:hover {
-        color: $primary-color;
+        color: var(--primary-color);
         background-color: whitesmoke;
       }
     }
@@ -244,7 +244,7 @@
 }
 
 .buy-off-code {
-  color: $primary-color;
+  color: var(--primary-color);
   font-size: $title-font-size;
   text-align: right;
   position: relative;
@@ -272,7 +272,7 @@
 
 .buy-off-code-pay {
   margin-top: 150px;
-  color: $error-color;
+  color: var(--error-color);
   font-size: $menu-title-font-size;
 
   @media screen and (max-width: 480px) {

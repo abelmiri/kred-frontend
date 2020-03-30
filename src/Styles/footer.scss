@@ -3,7 +3,7 @@
 .footer-container {
   padding: 50px 5% 0 5%;
   text-align: right;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   margin-top: auto;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2) inset;
 }
@@ -46,7 +46,7 @@
   }
 
   span {
-    color: $error-color;
+    color: var(--error-color);
   }
 }
 
@@ -85,7 +85,7 @@
 .footer-part-title {
   font-weight: bold;
   font-size: $home-regular-font-size;
-  border-bottom: 1px solid $dark-color;
+  border-bottom: 1px solid var(--dark-color);
   padding-bottom: 5px;
   display: inline-block;
   padding-left: 10px;
@@ -101,13 +101,13 @@
   width: 20px;
   vertical-align: top;
   margin-left: 8px;
-  fill: $dark-color;
+  fill: var(--dark-color);
 }
 
 .footer-last-line {
   margin-top: 30px;
   padding: 20px 0;
-  border-top: 1px solid $secondary-color;
+  border-top: 1px solid var(--secondary-color);
   text-align: center;
   font-size: $title-font-size;
 }

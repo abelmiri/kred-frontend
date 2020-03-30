@@ -20,7 +20,7 @@
     text-indent: -9999px;
     width: 100px;
     height: 50px;
-    background: $background-color;
+    background: var(--background-color);
     display: block;
     border-radius: 100px;
     position: relative;
@@ -33,13 +33,13 @@
     left: 5px;
     width: 40px;
     height: 40px;
-    background: $primary-color;
+    background: var(--primary-color);
     border-radius: 40px;
     transition: 0.3s;
   }
 
   input:checked + label {
-    background: $background-color;
+    background: var(--background-color);
   }
 
   input:checked + label:after {
@@ -54,7 +54,7 @@
 
 .class-subject-box {
   flex-grow: 1;
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   margin: 7px;
   position: relative;
   display: flex;
@@ -71,7 +71,7 @@
 
 .class-switch-box {
   flex-grow: 1;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   margin: 7px;
   position: relative;
   display: flex;
@@ -88,13 +88,13 @@
 .class-tall-info-box {
   flex-grow: 1;
   margin: 7px;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   position: relative;
   display: flex;
   justify-content: center;
   align-content: center;
   padding: 48px 5px;
-  color: $background-color;
+  color: var(--background-color);
   font-size: $regular-font-size;
 
   @media screen and (max-width: 480px) {
@@ -113,7 +113,7 @@
 
 .class-counter-box {
   flex-grow: 1;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   margin: 7px;
   position: relative;
   display: flex;
@@ -128,7 +128,7 @@
 
 .class-counter-box-number {
   position: absolute;
-  color: $background-color;
+  color: var(--background-color);
   font-size: $h2-font-size;
   top: 25%;
   @media screen and (max-width: 480px) {
@@ -138,7 +138,7 @@
 
 .class-like-box {
   flex-grow: 1;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   margin: 7px;
   position: relative;
   display: flex;
@@ -154,7 +154,7 @@
 
 .class-kred-box {
   flex-grow: 1;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   margin: 7px;
   position: relative;
   display: flex;
@@ -182,7 +182,7 @@
 .class-like-svg {
   width: 100px;
   height: 100px;
-  fill: $background-color;
+  fill: var(--background-color);
   margin-bottom: 20px;
 
   @media screen and (max-width: 480px) {
@@ -194,8 +194,8 @@
 .class-comment-svg {
   width: 100px;
   height: 100px;
-  fill: $background-color;
-  stroke: $background-color;
+  fill: var(--background-color);
+  stroke: var(--background-color);
   margin-bottom: 20px;
 
   @media screen and (max-width: 480px) {
@@ -207,7 +207,7 @@
 .class-kred-svg {
   width: 80px;
   height: 80px;
-  fill: $background-color;
+  fill: var(--background-color);
 
   @media screen and (max-width: 480px) {
     width: 70px;
@@ -218,7 +218,7 @@
 .class-info-svg {
   width: 35px;
   height: 35px;
-  fill: $background-color;
+  fill: var(--background-color);
   margin: 10px 0;
 
   @media screen and (max-width: 480px) {
@@ -232,7 +232,7 @@
   bottom: 5px;
   right: 10px;
   font-size: $regular-font-size;
-  color: $background-color;
+  color: var(--background-color);
   @media screen and (max-width: 480px) {
     bottom: 2px;
     right: 5px;
@@ -247,12 +247,12 @@
   align-items: center;
   font-size: $regular-font-size;
   transform: translateX(26px) translateY(15px);
-  color: $primary-color;
+  color: var(--primary-color);
   transition-duration: $normal-animation-duration;
   cursor: pointer;
 
   &.selected {
-    color: $background-color;
+    color: var(--background-color);
     transition-duration: $normal-animation-duration;
   }
 }
@@ -264,24 +264,24 @@
   justify-content: center;
   align-items: center;
   transform: translateX(-26px) translateY(15px);
-  color: $background-color;
+  color: var(--background-color);
   transition-duration: $normal-animation-duration;
   cursor: pointer;
 
   &.selected {
-    color: $primary-color;
+    color: var(--primary-color);
     transition-duration: $normal-animation-duration;
   }
 }
 
 .error-text {
-  color: $error-color;
+  color: var(--error-color);
   font-size: $title-font-size;
 }
 
 .class-item-page-container {
   padding: $header-size 5% 0 5%;
-  background-color: $light-color;
+  background-color: var(--light-color);
   min-height: calc(100vh - 81px);
   display: flex;
   align-items: center;
@@ -292,12 +292,12 @@
   position: relative;
   width: 70%;
   height: 180px;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   display: flex;
   justify-content: space-between;
   align-items: stretch;
   padding: 25px;
-  color: $background-color;
+  color: var(--background-color);
   font-size: $menu-title-font-size;
   margin-top: 150px;
 
@@ -317,7 +317,7 @@
   font-size: $enormous-title-font-size;
   @media screen and (max-width: 480px) {
     top: 455px;
-    border-top: 2px solid $background-color;
+    border-top: 2px solid var(--background-color);
     padding-top: 25px;
     font-size: 28px;
   }
@@ -428,7 +428,7 @@
   position: absolute;
   width: 220px;
   height: 220px;
-  background-color: $background-color;
+  background-color: var(--background-color);
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -453,7 +453,7 @@
 .class-single-item-svg {
   width: 45px;
   height: 45px;
-  fill: $background-color;
+  fill: var(--background-color);
   margin: 0 15px;
 
   @media screen and (max-width: 480px) {
@@ -481,7 +481,7 @@
 .class-lesson-item {
   width: 40%;
   height: 180px;
-  background-color: $secondary-color;
+  background-color: var(--secondary-color);
   display: flex;
 
   @media screen and (max-width: 480px) {
@@ -536,7 +536,7 @@
 
 .class-lesson-item-info {
   width: 88%;
-  color: $background-color;
+  color: var(--background-color);
   @media screen and (max-width: 1300px) {
     width: 80%;
   }
@@ -552,7 +552,7 @@
   position: absolute;
   height: 180px;
   width: 180px;
-  background-color: $background-color;
+  background-color: var(--background-color);
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -610,11 +610,11 @@
 }
 
 .class-lesson-item-info-title-text {
-  color: $background-color;
+  color: var(--background-color);
   transition: all linear 0.1s;
 
   &:hover {
-    color: $third-color;
+    color: var(--third-color);
   }
 }
 
@@ -642,7 +642,7 @@
 .class-lesson-item-info-description-section-svg {
   width: 30px;
   height: 30px;
-  fill: $background-color;
+  fill: var(--background-color);
   margin: 10px 0;
 
   @media screen and (max-width: 480px) {
@@ -664,12 +664,12 @@
   transition: all linear $short-animation-duration;
 
   &:hover {
-    color: $primary-color;
+    color: var(--primary-color);
   }
 }
 
 .class-left-arrow {
-  fill: $dark-color;
+  fill: var(--dark-color);
   width: 15px;
   height: 15px;
   margin: 0 15px;
@@ -678,7 +678,7 @@
 
 .class-resources-page-container {
   padding: $header-size 5% 0 5%;
-  background-color: $light-color;
+  background-color: var(--light-color);
   min-height: calc(100vh - 81px);
   display: flex;
 }

@@ -87,7 +87,7 @@
   transition: all linear 0.1s;
 
   &:hover {
-    fill: $primary-color;
+    fill: var(--primary-color);
   }
 }
 
