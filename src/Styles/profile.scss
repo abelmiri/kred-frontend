@@ -1,7 +1,7 @@
 @import "variables";
 
 .profile-container {
-  padding: 110px calc(5% + 270px) 50px calc(5% + 270px);
+  padding: 100px calc(5% + 270px) 50px calc(5% + 270px);
   display: flex;
   width: calc(90% - 540px);
 
@@ -39,7 +39,6 @@
   flex-grow: 1;
   align-items: center;
   cursor: pointer;
-  color: $dark-color;
   font-size: $menu-title-font-size;
   background-color: $background-color;
   padding: 0 17px;
@@ -229,35 +228,83 @@
   background-color: $background-color;
   position: fixed;
   left: 5%;
+  max-height: calc(100vh - 120px);
+  overflow: auto;
 
   @media screen and (max-width: 480px) {
     display: none;
   }
 }
 
+.profile-left-menus-subject {
+  padding: 6px 0;
+  background-color: $dark-color;
+  color: $background-color;
+  font-size: $home-regular-font-size;
+  text-align: center;
+}
+
 .profile-left-menus-title {
   background-color: $secondary-color;
   color: $background-color;
-  font-size: $menu-title-font-size;
-  padding: 4px 25px;
+  font-size: $title-font-size;
+  padding: 4px 0;
+  text-align: center;
 }
 
 .profile-left-menus-contents {
+  display: flex;
+  align-items: center;
   background-color: $background-color;
   font-size: $regular-font-size;
-  padding: 50px 25px;
   border-bottom: 1px solid $primary-color;
   text-align: center;
+  text-decoration: none;
 
   &:last-child {
     border-bottom: none;
   }
 }
 
-.profile-movies-left-menu {
-  width: calc(100% - 2px);
-  border: 1px solid $border-color;
-  margin-bottom: 30px;
+.profile-left-menus-contents-img {
+  width: 90px;
+  height: 90px;
+  margin: 10px 0 10px 10px;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: $login-page-background-color;
+
+  &.pack {
+    border-radius: 0;
+    background-color: transparent;
+  }
+}
+
+.profile-left-menus-contents-desc {
+  flex-grow: 1;
+  max-width: calc(100% - 120px);
+  display: inline-block;
+  text-align: right;
+  padding: 10px;
+}
+
+.profile-left-menus-contents-name {
+  font-weight: bold;
+  color: $secondary-color;
+  margin-bottom: 5px;
+}
+
+.profile-left-menus-contents-detail {
+  color: $primary-color;
+  margin-bottom: 5px;
+}
+
+.profile-left-menus-contents-text {
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  text-overflow: ellipsis;
 }
 
 .profile-info-submit-buttons-container {

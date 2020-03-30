@@ -663,7 +663,6 @@
 .class-location-link {
   text-decoration: underline;
   transition: all linear $short-animation-duration;
-  color: $dark-color;
 
   &:hover {
     color: $primary-color;

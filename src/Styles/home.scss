@@ -21,8 +21,6 @@
 }
 
 .home-title {
-  color: $dark-color;
-
   span {
     color: $error-color;
   }
@@ -104,7 +102,6 @@
 
 .home-exchange-title {
   font-size: $home-title-font-size;
-  color: $dark-color;
 
   @media screen and (max-width: 480px) {
     color: $secondary-color;
@@ -120,7 +117,6 @@
     width: 45%;
     padding: 5px;
     margin-top: 5px;
-    color: $dark-color;
     line-height: 26px;
   }
 }

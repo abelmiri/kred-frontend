@@ -259,7 +259,6 @@
 
 .panel-side-bar-item {
   padding: 16px 0;
-  color: $dark-color;
   background-color: $background-color;
   transition: all linear 0.2s;
 }
@@ -272,7 +271,6 @@
   overflow: auto;
   border: 1px solid $dark-color;
   text-decoration: none;
-  color: $dark-color;
   transition: all linear 0.2s;
 
   &:hover {

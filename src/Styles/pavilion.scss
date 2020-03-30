@@ -54,7 +54,6 @@
   .post-title {
     font-size: $menu-title-font-size;
     font-weight: bold;
-    color: $dark-color;
     text-decoration: none;
     line-height: 25px;
     transition: all linear 0.1s;
@@ -130,7 +129,6 @@
 
 .post-like-count-cont {
   display: inline-block;
-  color: $dark-color;
   padding: 10px;
   cursor: pointer;
   height: 20px;
@@ -599,7 +597,6 @@
 
 .pavilion-comment-like {
   display: inline-block;
-  color: $dark-color;
   text-align: left;
   padding: 10px;
   cursor: pointer;

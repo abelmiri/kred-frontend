@@ -40,7 +40,6 @@
   vertical-align: top;
   margin-top: 9px;
   font-weight: bold;
-  color: $dark-color;
 
   &.app {
     margin-top: 13px;
@@ -67,7 +66,6 @@
   &.last {
     font-weight: bold;
     font-size: $home-regular-font-size;
-    color: $dark-color;
     text-align: center;
     flex-grow: 1;
     margin-left: 0;
@@ -97,7 +95,6 @@
 .footer-part-text {
   font-size: $title-font-size;
   margin: 20px 0;
-  color: $dark-color;
   text-decoration: none;
   display: block;
 }

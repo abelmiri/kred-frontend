@@ -46,6 +46,11 @@ button, input, textarea, h4, h3, h2, h1, select, video, track {
   }
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 video::-webkit-media-text-track-display {
   font-family: "IranSans", serif;
   font-size: 20px;

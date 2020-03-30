@@ -8,9 +8,11 @@ import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 // import Bookmark from "../../Media/Svgs/Bookmark"
 import Profile from "../../Media/Svgs/Profile"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
-import api from "../../Functions/api"
+import api, {REST_URL} from "../../Functions/api"
 import ProfilePageDashboard from "../Components/ProfilePageDashboard"
 import Footer from "../Components/Footer"
+import {ClipLoader} from "react-spinners"
+import {Link} from "react-router-dom"
 
 class ProfilePage extends PureComponent
 {
@@ -20,6 +22,7 @@ class ProfilePage extends PureComponent
         this.state = {
             selected: "dashboard",
             redirectHome: false,
+            posts: {},
         }
     }
 
@@ -28,10 +31,15 @@ class ProfilePage extends PureComponent
         window.scroll({top: 0})
         if (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
 
-        document.addEventListener("scroll", this.onScroll)
+        api.get("conversation", `?limit=2&page=1&time=${new Date().toISOString()}`)
+            .then((data) => this.setState({...this.state, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
+
+        this.props.getVideoPacks()
 
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "پروفایل"}).catch(err => console.log(err))
+
+        document.addEventListener("scroll", this.onScroll)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)
@@ -48,13 +56,13 @@ class ProfilePage extends PureComponent
     {
         if (document.body.clientWidth > 480)
         {
-            this.leftSide.style.top = document.getElementById("footer").offsetTop - this.leftSide.clientHeight - window.scrollY - 50 > 110 ?
-                "110px"
+            this.leftSide.style.top = document.getElementById("footer").offsetTop - this.leftSide.clientHeight - window.scrollY - 50 > 100 ?
+                "100px"
                 :
                 document.getElementById("footer").offsetTop - this.leftSide.clientHeight - window.scrollY - 50 + "px"
 
-            this.rightSide.style.top = document.getElementById("footer").offsetTop - this.rightSide.clientHeight - window.scrollY - 50 > 110 ?
-                "110px"
+            this.rightSide.style.top = document.getElementById("footer").offsetTop - this.rightSide.clientHeight - window.scrollY - 50 > 100 ?
+                "100px"
                 :
                 document.getElementById("footer").offsetTop - this.rightSide.clientHeight - window.scrollY - 50 + "px"
         }
@@ -64,8 +72,8 @@ class ProfilePage extends PureComponent
 
     render()
     {
-        const {selected, redirectHome} = this.state
-        const {setUser, user} = this.props
+        const {selected, redirectHome, posts} = this.state
+        const {setUser, user, videoPacks} = this.props
         return (
             <React.Fragment>
                 <div className='profile-container'>
@@ -114,15 +122,44 @@ class ProfilePage extends PureComponent
                         }
                     </div>
                     <div className="profile-left-menus" ref={e => this.leftSide = e}>
+                        <div className="profile-left-menus-subject">
+                            جدیدترین‌ها
+                        </div>
                         <div className="profile-left-menus-title">
                             گپ و گفت
                         </div>
-                        <div className="profile-left-menus-contents">
-                            محتوای اول!
+                        {
+                            Object.values(posts).length > 0 ?
+                                Object.values(posts).map(item =>
+                                    <Link key={item._id} to={`/pavilions/${item._id}`} className="profile-left-menus-contents">
+                                        <div className="profile-left-menus-contents-desc">
+                                            <div className="profile-left-menus-contents-name">{item.interviewee_name}</div>
+                                            <div className="profile-left-menus-contents-detail">{item.interviewee_bio}</div>
+                                            <div className="profile-left-menus-contents-text">{item.bold_description}</div>
+                                        </div>
+                                        <img className="profile-left-menus-contents-img" src={REST_URL + "/" + item.picture} alt=""/>
+                                    </Link>,
+                                )
+                                :
+                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                        }
+                        <div className="profile-left-menus-title">
+                            فیلم‌های آموزشی
                         </div>
-                        <div className="profile-left-menus-contents">
-                            محتوای دوم!
-                        </div>
+                        {
+                            Object.values(videoPacks).length > 0 ?
+                                Object.values(videoPacks).slice(0, 2).map(item =>
+                                    <Link key={item._id} to={`/videos/${item._id}`} className="profile-left-menus-contents">
+                                        <div className="profile-left-menus-contents-desc">
+                                            <div className="profile-left-menus-contents-name">{item.title}</div>
+                                            {item.price !== 0 && <div className='video-pack-item-sub'>با زیرنویس فارسی</div>}
+                                        </div>
+                                        <img className="profile-left-menus-contents-img pack" src={REST_URL + "/" + item.picture} alt=""/>
+                                    </Link>,
+                                )
+                                :
+                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                        }
                     </div>
                 </div>
                 <Footer/>

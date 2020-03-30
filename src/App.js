@@ -248,7 +248,7 @@ class App extends PureComponent
                     <Suspense fallback={null}>
                         <Switch>
                             <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
-                            <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser}/>}/>
+                            <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks}/>}/>
                             <Route path='/exchanges' render={() =>
                                 <ExchangeBookPage defaultPhone={user ? user.phone : ""}
                                                   cities={cities}
