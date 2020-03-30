@@ -4,6 +4,7 @@
   padding: 100px calc(5% + 270px) 50px calc(5% + 270px);
   display: flex;
   width: calc(90% - 540px);
+  min-height: 75vh;
 
   @media screen and (max-width: 480px) {
     padding: 90px 5% 0 5%;
@@ -212,7 +213,6 @@
 
   .link {
     align-self: center;
-    text-decoration: none;
     color: $primary-color;
     font-weight: bold;
 
@@ -259,7 +259,6 @@
   font-size: $regular-font-size;
   border-bottom: 1px solid $primary-color;
   text-align: center;
-  text-decoration: none;
 
   &:last-child {
     border-bottom: none;

@@ -130,7 +130,7 @@ class PavilionPage extends PureComponent
                             Object.values(posts).map((post) =>
                                 <div className="post-con" key={post._id}>
                                     <div className="post-info-section">
-                                        <Link className="text-decoration-none" to={`/pavilions/${post._id}`}>
+                                        <Link to={`/pavilions/${post._id}`}>
                                             <div className="post-title">{post.title}</div>
                                             <div className="post-name">{post.interviewee_name} "{post.interviewee_bio}"</div>
                                         </Link>

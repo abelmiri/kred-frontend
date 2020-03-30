@@ -118,7 +118,7 @@ class ProfilePage extends PureComponent
                                 selected === "dashboard" ?
                                     <ProfilePageDashboard user={user}/>
                                     :
-                                    <div style={{minHeight: "60vh"}}>بزودی...</div>
+                                    <div>بزودی...</div>
                         }
                     </div>
                     <div className="profile-left-menus" ref={e => this.leftSide = e}>

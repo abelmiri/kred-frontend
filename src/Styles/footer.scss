@@ -17,7 +17,6 @@
   white-space: nowrap;
   width: 210px;
   cursor: pointer;
-  color: black;
 
   &.app {
     margin-right: 70px;
@@ -95,7 +94,6 @@
 .footer-part-text {
   font-size: $title-font-size;
   margin: 20px 0;
-  text-decoration: none;
   display: block;
 }
 

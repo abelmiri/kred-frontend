@@ -242,7 +242,6 @@
 
 .panel-side-bar-item-link {
   font-size: $title-font-size;
-  text-decoration: none;
   text-align: center;
 
   @media screen and (max-width: 480px) {
@@ -270,7 +269,6 @@
   height: 370px;
   overflow: auto;
   border: 1px solid $dark-color;
-  text-decoration: none;
   transition: all linear 0.2s;
 
   &:hover {

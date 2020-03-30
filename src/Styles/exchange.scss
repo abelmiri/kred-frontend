@@ -105,8 +105,6 @@
 }
 
 .exchange-item-cont {
-  text-decoration: none;
-  color: black;
   flex-grow: 1;
   width: 185px;
   background-color: rgba(245, 245, 245, 0.5);
@@ -525,7 +523,6 @@
   font-weight: bold;
   padding: 20px 0 5px 0;
   border-top: 1px solid $text-light-color;
-  text-decoration: none;
   color: $secondary-color;
   display: block;
 }
@@ -1016,7 +1013,6 @@
 
 .exchange-show-contact-link {
   margin-right: 8px;
-  text-decoration: none;
   background-color: $primary-color;
   border-radius: 15px;
   color: white;

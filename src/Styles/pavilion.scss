@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  text-decoration: none;
   transition: all linear 0.2s;
 
   &:hover {
@@ -54,7 +53,6 @@
   .post-title {
     font-size: $menu-title-font-size;
     font-weight: bold;
-    text-decoration: none;
     line-height: 25px;
     transition: all linear 0.1s;
 
@@ -71,7 +69,6 @@
     font-size: $title-font-size;
     font-weight: bold;
     color: $secondary-color;
-    text-decoration: none;
     margin-top: 10px;
     line-height: 25px;
 
@@ -87,7 +84,6 @@
     font-size: $title-font-size;
     line-height: 27px;
     margin: 15px 0;
-    text-decoration: none;
   }
 
   .post-likes-comment-section {
@@ -705,8 +701,4 @@
   @media screen and (max-width: 480px) {
     margin-right: -10px;
   }
-}
-
-.text-decoration-none {
-  text-decoration: none;
 }
