@@ -64,7 +64,7 @@ class ClassItemResourcePage extends PureComponent
                                 </React.Fragment>
                                 :
                                 <React.Fragment>
-                                    <Link to={`/class/${type}/${item.title}`} className="class-location-link">{item.title}</Link>
+                                    <Link to={`/class/${type}/${item._id}`} className="class-location-link">{item.title}</Link>
                                     <SmoothArrowSvg className="class-left-arrow"/>
                                     منابع درسی
                                 </React.Fragment>
