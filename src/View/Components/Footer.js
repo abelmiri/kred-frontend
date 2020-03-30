@@ -19,7 +19,7 @@ const Footer = () =>
                 <LogoSvg className="footer-logo"/>
                 <div className="footer-desc">K<span>RED</span></div>
             </Link>
-            <a href="/KRED.apk" target="_blank" className="footer-logo-section app">
+            <a href="/KRED.apk" className="footer-logo-section app" download>
                 <img src={Android} className="footer-logo app" alt="application"/>
                 <div className="footer-desc app">اپلیکیشن ما رو دانلود کن!</div>
             </a>

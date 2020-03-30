@@ -257,11 +257,21 @@ class Pavilion extends PureComponent
                 <div className="panel-page-section-title">گپ و گفت</div>
 
                 {
-                    Object.values(posts).map((post) =>
-                        <Material key={post._id} className="panel-0ff-code-cont" onClick={() => this.goForUpdate(post)}>
-                            <div className="panel-0ff-code-item-all">{post.title}</div>
-                        </Material>,
-                    )
+                    Object.values(posts).length > 0 &&
+                    <React.Fragment>
+                        <div className="panel-0ff-code-cont title">
+                            <div className="panel-0ff-code-item-big">عنوان</div>
+                            <div className="panel-0ff-code-item">طرف!</div>
+                        </div>
+                        {
+                            Object.values(posts).map((post) =>
+                                <Material key={post._id} className="panel-0ff-code-cont" onClick={() => this.goForUpdate(post)}>
+                                    <div className="panel-0ff-code-item-big">{post.title}</div>
+                                    <div className="panel-0ff-code-item">{post.interviewee_name}</div>
+                                </Material>,
+                            )
+                        }
+                    </React.Fragment>
                 }
                 <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
 

@@ -34,6 +34,7 @@ class Class extends PureComponent
         this.writer = ""
         this.subject = ""
         this.teacher = ""
+        this.pages_count = ""
         this.type = ""
         this.lesson_category_id = ""
         this.lesson_id = ""
@@ -128,6 +129,8 @@ class Class extends PureComponent
 
     setUniversity = value => this.university = value
 
+    setPagesCount = value => this.pages_count = value
+
     setTeacher = value => this.teacher = value
 
     setWriter = value => this.writer = value
@@ -149,6 +152,7 @@ class Class extends PureComponent
         const title = this.title.trim()
         const university = this.university.trim()
         const teacher = this.teacher.trim()
+        const pages_count = this.pages_count.trim()
         const writer = this.writer.trim()
         const subject = this.subject.trim()
         const type = this.type
@@ -172,6 +176,7 @@ class Class extends PureComponent
                         if (university) form.append("university", university)
                         if (teacher) form.append("teacher", teacher)
                         if (writer) form.append("writer", writer)
+                        if (pages_count) form.append("pages_count", pages_count)
                         if (subject) form.append("subject", subject)
                         if (lesson_category_id) form.append("lesson_category_id", lesson_category_id)
                         if (lesson_id) form.append("lesson_id", lesson_id)
@@ -200,7 +205,7 @@ class Class extends PureComponent
             else
             {
                 if (
-                    title.length > 0 || university.length > 0 || teacher.length > 0 || writer.length > 0 || subject.length > 0 ||
+                    title.length > 0 || university.length > 0 || teacher.length > 0 || writer.length > 0 || subject.length > 0 || pages_count.length > 0 ||
                     type.length > 0 || this.selectedFile || this.selectedImage || lesson_category_id || lesson_id || block_category_id || block_id
                 )
                 {
@@ -212,6 +217,7 @@ class Class extends PureComponent
                     if (university) form.append("university", university)
                     if (teacher) form.append("teacher", teacher)
                     if (writer) form.append("writer", writer)
+                    if (pages_count) form.append("pages_count", pages_count)
                     if (subject) form.append("subject", subject)
                     if (lesson_category_id) form.append("lesson_category_id", lesson_category_id)
                     if (lesson_id) form.append("lesson_id", lesson_id)
@@ -282,6 +288,7 @@ class Class extends PureComponent
                     this.subject = ""
                     this.teacher = ""
                     this.type = ""
+                    this.pages_count = ""
                     this.lesson_category_id = ""
                     this.lesson_id = ""
                     this.block_category_id = ""
@@ -310,13 +317,13 @@ class Class extends PureComponent
                     <React.Fragment>
                         <div className="panel-0ff-code-cont title">
                             <div className="panel-0ff-code-item-big">عنوان</div>
-                            <div className="panel-0ff-code-item-big">نوع</div>
+                            <div className="panel-0ff-code-item">نوع</div>
                         </div>
                         {
                             Object.values(posts).map((post) =>
                                 <Material key={post._id} className="panel-0ff-code-cont" onClick={() => this.goForUpdate(post)}>
                                     <div className="panel-0ff-code-item-big">{post.title}</div>
-                                    <div className="panel-0ff-code-item-big">{post.type === "handout" ? "جزوه" : post.type === "voice" ? "ویس آموزشی" : post.type === "summary" ? "خلاصه درس" : "نمونه سوال"}</div>
+                                    <div className="panel-0ff-code-item">{post.type === "handout" ? "جزوه" : post.type === "voice" ? "ویس آموزشی" : post.type === "summary" ? "خلاصه درس" : "نمونه سوال"}</div>
                                 </Material>,
                             )
                         }
@@ -336,6 +343,7 @@ class Class extends PureComponent
                             <div className="panel-add-off-main">
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.title} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="عنوان *" getValue={this.setTitle}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.university} className="panel-add-pav-title" backgroundColor="white" label="دانشگاه" getValue={this.setUniversity}/>
+                                <MaterialInput disabled={loading} defaultValue={isUpdating.pages_count} className="panel-add-pav-title" backgroundColor="white" label="تعداد صفحات" getValue={this.setPagesCount}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.teacher} className="panel-add-pav-title" backgroundColor="white" label="استاد" getValue={this.setTeacher}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.subject} className="panel-add-pav-title" backgroundColor="white" label="موضوع" getValue={this.setSubject}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.writer} className="panel-add-pav-title" backgroundColor="white" label="نویسنده" getValue={this.setWriter}/>
