@@ -17,11 +17,21 @@ class ImageLazyLoad extends PureComponent
         const {thumbnail, src} = this.props
         if (thumbnail)
         {
-            axios.get(src, {
-                responseType: "blob",
-                onDownloadProgress: e => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}),
-            })
-                .then((res) => this.setState({...this.state, picture: URL.createObjectURL(res.data)}))
+            let image = new Image()
+            image.src = src
+            if (!image.complete)
+            {
+                axios.get(src, {
+                    responseType: "blob",
+                    onDownloadProgress: e => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}),
+                })
+                    .then((res) =>
+                    {
+                        image.src = src
+                        this.setState({...this.state, picture: URL.createObjectURL(res.data)})
+                    })
+            }
+            else this.setState({...this.state, picture: src})
         }
     }
 

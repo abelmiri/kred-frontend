@@ -135,6 +135,7 @@ class PavilionPage extends PureComponent
                                             <div className="post-name">{post.interviewee_name} "{post.interviewee_bio}"</div>
                                         </Link>
                                         <Link to={`/pavilions/${post._id}`} className="post-bold-description">{post.bold_description}</Link>
+                                        <Link to={`/pavilions/${post._id}`} className="post-continue desktop">ادامه مطلب...</Link>
                                         <div className="post-likes-comment-section">
                                             <Material className="post-like-count-cont" onClick={() => this.likeAndDisLike(post)}>
                                                 <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
@@ -145,6 +146,7 @@ class PavilionPage extends PureComponent
                                                 <CommentSvg className="post-comment-svg"/>
                                             </Link>
                                         </div>
+                                        <Link to={`/pavilions/${post._id}`} className="post-continue mobile">ادامه مطلب...</Link>
                                     </div>
                                     <Link to={`/pavilions/${post._id}`} className="post-circle-image-link">
                                         <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
