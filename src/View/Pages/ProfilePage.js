@@ -76,7 +76,7 @@ class ProfilePage extends PureComponent
         const {setUser, user, videoPacks} = this.props
         return (
             <React.Fragment>
-                <div className='profile-container'>
+                <div className="profile-container">
                     {redirectHome && <Redirect to="/"/>}
                     <div className="profile-right-menus" ref={e => this.rightSide = e}>
                         <Material backgroundColor={selected === "dashboard" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("dashboard")}
@@ -152,7 +152,7 @@ class ProfilePage extends PureComponent
                                     <Link key={item._id} to={`/videos/${item._id}`} className="profile-left-menus-contents">
                                         <div className="profile-left-menus-contents-desc">
                                             <div className="profile-left-menus-contents-name">{item.title}</div>
-                                            {item.price !== 0 && <div className='video-pack-item-sub'>با زیرنویس فارسی</div>}
+                                            {item.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
                                         </div>
                                         <img className="profile-left-menus-contents-img pack" src={REST_URL + "/" + item.picture} alt=""/>
                                     </Link>,

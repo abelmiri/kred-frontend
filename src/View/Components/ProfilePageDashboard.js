@@ -98,9 +98,9 @@ class ProfilePageDashboard extends PureComponent
                             سلام!
                         </div>
                         <div className="profile-introduction-description">
-                            <p>به KRED خوش اومدی <span role="img" aria-label=''>😊</span></p>
+                            <p>به KRED خوش اومدی <span role="img" aria-label="">😊</span></p>
                             <p>اینجا برای نتیجه گیریه! یک جمع صمیمی از دانشجوهای علوم پزشکی با کلی تجربه و محتوا و اتفاق جالب... خوشحال میشیم تو هم بیای.</p>
-                            <p>کرِد یک کلمه باستانیه که ریشه‌ی تمام کلماتی حساب میشه که معنیشون قلبه... <span role="img" aria-label=''>🧡</span></p>
+                            <p>کرِد یک کلمه باستانیه که ریشه‌ی تمام کلماتی حساب میشه که معنیشون قلبه... <span role="img" aria-label="">🧡</span></p>
                             <p>حالا بیا با قسمت های مختلف سایت آشنا بشیم:</p>
                             <div className="profile-introduction-links">
                                 <Link to="/videos" className="link">فیلم‌های آموزشی</Link>
@@ -116,16 +116,16 @@ class ProfilePageDashboard extends PureComponent
                             this.slides.map((item, index) =>
                                 <div key={"slide" + index}
                                      style={{opacity: sliderIndex === index ? "1" : "0", left: sliderIndex === index ? "0" : previousSlider === index ? "30px" : "-30px"}}
-                                     className='login-slider-item'>
-                                    <img src={item.img} alt='' className='login-slider-img'/>
-                                    <div className='login-slider-text'>{item.text}</div>
+                                     className="login-slider-item">
+                                    <img src={item.img} alt="" className="login-slider-img"/>
+                                    <div className="login-slider-text">{item.text}</div>
                                 </div>,
                             )
                         }
-                        <div className='login-slider-dots'>
+                        <div className="login-slider-dots">
                             {
                                 this.slides.map((dot, index) =>
-                                    <div onClick={() => this.setSlider(index)} style={{backgroundColor: sliderIndex === index ? "#878787" : "white"}} className='login-slider-dot' key={"dot" + index}/>,
+                                    <div onClick={() => this.setSlider(index)} style={{backgroundColor: sliderIndex === index ? "#878787" : "white"}} className="login-slider-dot" key={"dot" + index}/>,
                                 )
                             }
                         </div>
@@ -135,15 +135,15 @@ class ProfilePageDashboard extends PureComponent
                     Object.values(exchanges).length > 0 &&
                     <React.Fragment>
                         <div className="profile-my-books">کتاب‌های من</div>
-                        <div className='exchange-list'>
+                        <div className="exchange-list">
                             <React.Fragment>
                                 {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} onProfile={true} deleteExchange={this.deleteExchange}/>)}
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
-                                <div className='exchange-item-cont-hide'/>
+                                <div className="exchange-item-cont-hide"/>
+                                <div className="exchange-item-cont-hide"/>
+                                <div className="exchange-item-cont-hide"/>
+                                <div className="exchange-item-cont-hide"/>
+                                <div className="exchange-item-cont-hide"/>
+                                <div className="exchange-item-cont-hide"/>
                             </React.Fragment>
                         </div>
                     </React.Fragment>

@@ -242,23 +242,23 @@ class App extends PureComponent
         const {location} = this.props
         if (!devtoolsOpen)
             return (
-                <main className='main'>
+                <main className="main">
                     {redirect && <Redirect push to={page}/>}
                     <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                     <Suspense fallback={null}>
                         <Switch>
-                            <Route exact path='/sign-up' render={() => <SignUpPage setUser={this.setUser}/>}/>
-                            <Route exact path='/profile' render={() => <ProfilePage user={user} setUser={this.setUser} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks}/>}/>
-                            <Route path='/exchanges' render={() =>
+                            <Route exact path="/sign-up" render={() => <SignUpPage setUser={this.setUser}/>}/>
+                            <Route exact path="/profile" render={() => <ProfilePage user={user} setUser={this.setUser} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks}/>}/>
+                            <Route path="/exchanges" render={() =>
                                 <ExchangeBookPage defaultPhone={user ? user.phone : ""}
                                                   cities={cities}
                                                   getCities={this.getCities}
                                                   categories={categories}
                                                   getCategories={this.getCategories}/>}
                             />
-                            <Route path='/pavilions' render={() => <PavilionPage user={user}/>}/>
-                            {process.env.NODE_ENV !== "production" && <Route path='/class' render={() => <ClassPage/>}/>}
-                            <Route path='/videos' render={() =>
+                            <Route path="/pavilions" render={() => <PavilionPage user={user}/>}/>
+                            {process.env.NODE_ENV !== "production" && <Route path="/class" render={() => <ClassPage/>}/>}
+                            <Route path="/videos" render={() =>
                                 <VideoPacksPage user={user}
                                                 getVideoPacks={this.getVideoPacks}
                                                 videoPacks={videoPacks}
@@ -267,9 +267,9 @@ class App extends PureComponent
                                                 setUser={this.setUser}
                                 />
                             }/>
-                            <Route path='/payment/:type' render={(route) => <PaymentPage type={route.match.params.type}/>}/>
-                            <Route path='/panel' render={() => <Panel user={user}/>}/>
-                            <Route path='*' render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
+                            <Route path="/payment/:type" render={(route) => <PaymentPage type={route.match.params.type}/>}/>
+                            <Route path="/panel" render={() => <Panel user={user}/>}/>
+                            <Route path="*" render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
                         </Switch>
                     </Suspense>
                     <NotificationContainer/>

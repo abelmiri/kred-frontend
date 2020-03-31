@@ -85,7 +85,7 @@ class MaterialInput extends Component
                         <textarea maxLength={maxLength}
                                   name={name}
                                   ref={e => this.textRef = e}
-                                  className='material-input-textarea'
+                                  className="material-input-textarea"
                                   value={value}
                                   onChange={this.handleChange}
                                   onFocus={this.handleFocus}
@@ -99,7 +99,7 @@ class MaterialInput extends Component
                                maxLength={maxLength}
                                name={name}
                                ref={e => this.textRef = e}
-                               className='material-input-text'
+                               className="material-input-text"
                                value={value}
                                onChange={this.handleChange}
                                onFocus={this.handleFocus}

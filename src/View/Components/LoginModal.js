@@ -85,12 +85,12 @@ class LoginModal extends PureComponent
             <React.Fragment>
                 <div className="create-exchange-back" onClick={hideLoginModal}/>
                 <div className="create-exchange-cont login">
-                    <div className='create-exchange-title login'>ورود به KRED</div>
+                    <div className="create-exchange-title login">ورود به KRED</div>
                     <LogoSvg className="login-modal-logo"/>
-                    <div className='create-exchange-section margin-top-none'>
-                        <input type='text'
+                    <div className="create-exchange-section margin-top-none">
+                        <input type="text"
                                ref={e => this.phoneInput = e}
-                               className='create-exchange-section-input'
+                               className="create-exchange-section-input"
                                placeholder={forgetPassword ? "شماره موبایل" : "ایمیل یا شماره موبایل"}
                                maxLength={forgetPassword ? 11 : 60}
                                name="phone"
@@ -98,9 +98,9 @@ class LoginModal extends PureComponent
                         />
                     </div>
                     <div className={`create-exchange-section ${forgetPassword ? "hide" : "show"}`}>
-                        <input type='password'
+                        <input type="password"
                                ref={e => this.passwordInput = e}
-                               className='create-exchange-section-input'
+                               className="create-exchange-section-input"
                                placeholder="رمز عبور"
                                maxLength={30}
                                name="password"
@@ -117,7 +117,7 @@ class LoginModal extends PureComponent
                     <Material className={`header-login-submit ${loginLoading ? "loading" : ""}`} onClick={this.login}>
                         {loginLoading ? <ClipLoader color="white" size={15}/> : forgetPassword ? "بازیابی رمز" : "ورود"}
                     </Material>
-                    <Link onClick={setOverflowAuto} to="/sign-up" className='login-modal-sign-up'>ثبت نام در KRED</Link>
+                    <Link onClick={setOverflowAuto} to="/sign-up" className="login-modal-sign-up">ثبت نام در KRED</Link>
                 </div>
             </React.Fragment>
         )

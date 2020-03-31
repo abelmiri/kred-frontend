@@ -219,10 +219,10 @@ class ExchangeBookPage extends PureComponent
                 <Route path="/exchanges/:id" render={(route) => <ExchangeBookItemPage exchange={exchanges[route.match.params.id] || newExchanges[route.match.params.id]} exchangeId={route.match.params.id} cities={cities}/>}/>
 
                 <React.Fragment>
-                    <div className='page-background-img exchange'>
-                        <div className='page-des-cont'>
-                            <h2 className='exchange-desc'>تبادل کتاب</h2>
-                            <h3 className='exchange-text'>
+                    <div className="page-background-img exchange">
+                        <div className="page-des-cont">
+                            <h2 className="exchange-desc">تبادل کتاب</h2>
+                            <h3 className="exchange-text">
                                 اینجا میتونی کتابای ترم های قبلت رو، به ترم پایینی‌ها بدی
                                 <br/>
                                 اینجوری هم کتابخونه‌ت خلوت‌تر میشه، هم درختای کمتری قطع میشن
@@ -248,7 +248,7 @@ class ExchangeBookPage extends PureComponent
                     </div>
 
                     <div className="create-exchange-button-search-add-container">
-                        <Material className='create-exchange-button' onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
+                        <Material className="create-exchange-button" onClick={() => this.changeModalState(true)}>آگهی خودتو بساز</Material>
                         <div className="create-exchange-button-search-cont">
                             <input type="text" className="create-exchange-button-search" placeholder="دنبال چی میگردی؟" onChange={this.searchInput} value={searchTitle}/>
                             <SearchSvg className="create-exchange-button-search-svg"/>
@@ -263,13 +263,13 @@ class ExchangeBookPage extends PureComponent
                             <div className={`create-exchange-button-search-categories-list ${showCategoryMenu ? "" : "hide"}`}>
                                 <div className="create-exchange-category-btn search">
                                     <div className="create-exchange-category-item right" onClick={() => this.handleChangeSelected("5dcbff32d39b3ba7e9c38f9f")}>بالین</div>
-                                    <div className='slideThree'>
-                                        <input type='checkbox'
-                                               id='categories'
+                                    <div className="slideThree">
+                                        <input type="checkbox"
+                                               id="categories"
                                                checked={selectedParent === "5dcbff32d39b3ba7e9c38f9f"}
                                                onChange={() => this.handleChangeSelected(selectedParent === "5dcbff32d39b3ba7e9c38f9f" ? "5dcbfd44d39b3ba7e9c38e68" : "5dcbff32d39b3ba7e9c38f9f")}
                                         />
-                                        <label htmlFor='categories'/>
+                                        <label htmlFor="categories"/>
                                     </div>
                                     <div className="create-exchange-category-item left" onClick={() => this.handleChangeSelected("5dcbfd44d39b3ba7e9c38e68")}>علوم پایه</div>
                                 </div>
@@ -301,18 +301,18 @@ class ExchangeBookPage extends PureComponent
                         </div>
                     </div>
 
-                    <div className='exchange-page-content'>
-                        <div className='exchange-list'>
+                    <div className="exchange-page-content">
+                        <div className="exchange-list">
                             {
                                 exchanges && Object.values(exchanges).length > 0 ?
                                     <React.Fragment>
                                         {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} city={cities[exchange.city_id]}/>)}
-                                        <div className='exchange-item-cont-hide'/>
-                                        <div className='exchange-item-cont-hide'/>
-                                        <div className='exchange-item-cont-hide'/>
-                                        <div className='exchange-item-cont-hide'/>
-                                        <div className='exchange-item-cont-hide'/>
-                                        <div className='exchange-item-cont-hide'/>
+                                        <div className="exchange-item-cont-hide"/>
+                                        <div className="exchange-item-cont-hide"/>
+                                        <div className="exchange-item-cont-hide"/>
+                                        <div className="exchange-item-cont-hide"/>
+                                        <div className="exchange-item-cont-hide"/>
+                                        <div className="exchange-item-cont-hide"/>
                                     </React.Fragment>
                                     :
                                     exchangesLoading !== true && <div className="exchange-page-loading not-found">موردی یافت نشد!</div>

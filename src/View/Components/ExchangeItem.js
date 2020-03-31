@@ -29,14 +29,14 @@ const ExchangeItem = (props) =>
         <Link to={`/exchanges/${exchange._id}`} className="exchange-item-cont">
             <Material className={`exchange-item-cont-material ${inSlide ? "in-slide" : ""}`}>
                 <ImageLazyLoad className={`exchange-item-img ${inSlide ? "in-slide" : ""}`} src={REST_URL + "/" + exchange.picture} thumbnail={exchange.thumbnail ? REST_URL + "/" + exchange.thumbnail : null} alt={exchange.title}/>
-                <div className='exchange-item-title'>{exchange.title}</div>
+                <div className="exchange-item-title">{exchange.title}</div>
                 <div className="exchange-item-description">{exchange.description}</div>
-                <div className='exchange-item-price'>
+                <div className="exchange-item-price">
                     {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}
                 </div>
                 {
                     !onProfile ?
-                        city && <div className='exchange-item-city'>{city.name}</div>
+                        city && <div className="exchange-item-city">{city.name}</div>
                         :
                         <div className="exchange-item-remove-cont">
                             <Material className="video-pack-item-title-buy exchange" onClick={(e) => deleteExchangeFunc(e, exchange._id, deleteExchange)}>

@@ -339,7 +339,7 @@ class Class extends PureComponent
                     add &&
                     <React.Fragment>
                         <div className="create-exchange-cont bigger-size create-small">
-                            <div className='create-exchange-title'>{isUpdating ? "ویرایش" : "ساخت"} منبع آموزشی</div>
+                            <div className="create-exchange-title">{isUpdating ? "ویرایش" : "ساخت"} منبع آموزشی</div>
                             <div className="panel-add-off-main">
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.title} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="عنوان *" getValue={this.setTitle}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.university} className="panel-add-pav-title" backgroundColor="white" label="دانشگاه" getValue={this.setUniversity}/>
@@ -386,7 +386,7 @@ class Class extends PureComponent
                                         )
                                     }
                                 </select>
-                                <label className='panel-add-audio'>
+                                <label className="panel-add-audio">
                                     {
                                         selectedFile || isUpdating.file ?
                                             <React.Fragment>
@@ -395,13 +395,13 @@ class Class extends PureComponent
                                             :
                                             <UploadFileSvg className="panel-add-audio-svg"/>
                                     }
-                                    <input disabled={loading} type='file' hidden accept=".pdf,.mp3" onChange={this.selectFile}/>
+                                    <input disabled={loading} type="file" hidden accept=".pdf,.mp3" onChange={this.selectFile}/>
                                 </label>
-                                <label className='panel-add-img'>
+                                <label className="panel-add-img">
                                     {
                                         selectedImagePreview || isUpdating.picture ?
                                             <React.Fragment>
-                                                <img src={selectedImagePreview || REST_URL + "/" + isUpdating.picture} className='create-exchange-selected-img' alt=''/>
+                                                <img src={selectedImagePreview || REST_URL + "/" + isUpdating.picture} className="create-exchange-selected-img" alt=""/>
                                                 {!loading && <PencilSvg className="create-exchange-edit-svg"/>}
                                             </React.Fragment>
                                             :
@@ -409,7 +409,7 @@ class Class extends PureComponent
                                     }
                                     {loading && <div className="create-exchange-edit-svg">{loadingPercent} %</div>}
                                     <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
-                                    <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
+                                    <input disabled={loading} type="file" hidden accept="image/*" onChange={this.selectImage}/>
                                 </label>
                                 <Material className="panel-add-pav-submit" onClick={this.submit}>ثبت</Material>
                             </div>

@@ -190,12 +190,12 @@ class ProfilePageUserInfo extends Component
 
                         {done && <p className="profile-info-submit-success-text">تغییرات با موفقیت ثبت شد.</p>}
                         <div className="profile-info-submit-buttons-container">
-                            <Material type='button' style={dontShowPasswordBtn ? {flexGrow: 1} : {}} onClick={!loading ? this.handleSubmit : null} className={`profile-info-submit-button ${loading ? "loading" : ""}`}>
+                            <Material type="button" style={dontShowPasswordBtn ? {flexGrow: 1} : {}} onClick={!loading ? this.handleSubmit : null} className={`profile-info-submit-button ${loading ? "loading" : ""}`}>
                                 ثبت
                             </Material>
                             {
                                 !dontShowPasswordBtn &&
-                                <Material type='button' onClick={!loading ? this.handlePassModal : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
+                                <Material type="button" onClick={!loading ? this.handlePassModal : null} className={loading ? "profile-info-submit-button loading" : "profile-info-submit-button"}>
                                     تغییر رمز
                                 </Material>
                             }
@@ -203,13 +203,13 @@ class ProfilePageUserInfo extends Component
                         {pass_modal ?
                             <React.Fragment>
                                 <div className="exchange-show-contact password">
-                                    <div className='create-exchange-title'>تغییر رمز پروفایل</div>
+                                    <div className="create-exchange-title">تغییر رمز پروفایل</div>
                                     <div className="create-exchange-main">
                                         <div className="create-exchange-part">
-                                            <div className='create-exchange-section'>
-                                                <label className='create-exchange-section-label'>رمز جدید <span>*</span></label>
-                                                <input type='password'
-                                                       className='create-exchange-section-input'
+                                            <div className="create-exchange-section">
+                                                <label className="create-exchange-section-label">رمز جدید <span>*</span></label>
+                                                <input type="password"
+                                                       className="create-exchange-section-input"
                                                        placeholder="بین 8 تا 20 کاراکتر"
                                                        maxLength={20}
                                                        ref={e => this.newPasswordInput = e}

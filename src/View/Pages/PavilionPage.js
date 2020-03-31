@@ -112,10 +112,10 @@ class PavilionPage extends PureComponent
                 }/>
 
                 <React.Fragment>
-                    <div className='page-background-img pavilion'>
-                        <div className='page-des-cont'>
-                            <h2 className='exchange-desc pavilion'>گپ و گفت</h2>
-                            <h3 className='exchange-text'>
+                    <div className="page-background-img pavilion">
+                        <div className="page-des-cont">
+                            <h2 className="exchange-desc pavilion">گپ و گفت</h2>
+                            <h3 className="exchange-text">
                                 دوست داری بدونی پزشک های موفق توی دوران دانشجویی شون چیکار ها میکردن؟
                                 <br/>
                                 یا این که از تجربیات دانشجوهای موفق استفاده کنی؟

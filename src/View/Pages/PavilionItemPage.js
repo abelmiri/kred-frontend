@@ -322,14 +322,14 @@ class PavilionItemPage extends PureComponent
                                         {
                                             focused &&
                                             <div className="pavilion-comment-emoji-mobile">
-                                                <Material onClick={() => this.handleEmoji("😂")}><span role='img' aria-label=''>😂</span></Material>
-                                                <Material onClick={() => this.handleEmoji("❤")}><span role='img' aria-label=''>❤</span></Material>
-                                                <Material onClick={() => this.handleEmoji("😊")}><span role='img' aria-label=''>😊</span></Material>
-                                                <Material onClick={() => this.handleEmoji("😑")}><span role='img' aria-label=''>😑</span></Material>
-                                                <Material onClick={() => this.handleEmoji("👌")}><span role='img' aria-label=''>👌</span></Material>
-                                                <Material onClick={() => this.handleEmoji("😍")}><span role='img' aria-label=''>😍</span></Material>
-                                                <Material onClick={() => this.handleEmoji("😐")}><span role='img' aria-label=''>😐</span></Material>
-                                                <Material onClick={() => this.handleEmoji("🙌")}><span role='img' aria-label=''>🙌</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😂")}><span role="img" aria-label="">😂</span></Material>
+                                                <Material onClick={() => this.handleEmoji("❤")}><span role="img" aria-label="">❤</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😊")}><span role="img" aria-label="">😊</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😑")}><span role="img" aria-label="">😑</span></Material>
+                                                <Material onClick={() => this.handleEmoji("👌")}><span role="img" aria-label="">👌</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😍")}><span role="img" aria-label="">😍</span></Material>
+                                                <Material onClick={() => this.handleEmoji("😐")}><span role="img" aria-label="">😐</span></Material>
+                                                <Material onClick={() => this.handleEmoji("🙌")}><span role="img" aria-label="">🙌</span></Material>
                                             </div>
                                         }
                                         <div className="pavilion-comment-create-btn">

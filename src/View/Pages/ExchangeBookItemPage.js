@@ -67,8 +67,8 @@ class ExchangeBookItemPage extends PureComponent
                                             }
                                             <div className="exchange-show-desc">{exchange.description}</div>
                                             {exchange.lined && <div className="exchange-show-lined">خط خوردگی: {exchange.lined}</div>}
-                                            {cities[exchange.city_id] && <div className='exchange-show-city'>{cities[exchange.city_id].name}</div>}
-                                            <div className='exchange-show-price'>
+                                            {cities[exchange.city_id] && <div className="exchange-show-city">{cities[exchange.city_id].name}</div>}
+                                            <div className="exchange-show-price">
                                                 {exchange.price === 0 ? "رایگان" : exchange.price === -1 ? "توافقی" : <React.Fragment>{addCommaPrice(exchange.price)} <span>تومان</span></React.Fragment>}
                                             </div>
                                             <Material className="exchange-show-buy" onClick={this.toggleContact}>می‌خوام بخرم</Material>

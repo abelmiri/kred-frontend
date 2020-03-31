@@ -138,10 +138,10 @@ class VideoPacksPage extends PureComponent
                 <Route path="/videos/:id" render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
 
                 <React.Fragment>
-                    <div className='page-background-img video'>
-                        <div className='page-des-cont'>
-                            <h2 className='video-page-desc'>فیلم‌های آموزشی</h2>
-                            <h3 className='video-page-text'>
+                    <div className="page-background-img video">
+                        <div className="page-des-cont">
+                            <h2 className="video-page-desc">فیلم‌های آموزشی</h2>
+                            <h3 className="video-page-text">
                                 اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین
                                 دانشگاه‌های دنیا... آماده‌ای؟
                             </h3>
@@ -166,7 +166,7 @@ class VideoPacksPage extends PureComponent
                                                     <Link key={pack._id} to={`/videos/${pack._id}`}>
                                                         <div className="video-pack-item">
                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
-                                                            {pack.price !== 0 && <div className='video-pack-item-sub'>با زیرنویس فارسی</div>}
+                                                            {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
                                                             <div className="video-pack-item-title">
                                                                 <div className="video-pack-item-title-text">
                                                                     مجموعه فیلم‌های<span> </span>{pack.title}
@@ -237,10 +237,10 @@ class VideoPacksPage extends PureComponent
                                                         }
                                                     </div>
                                                     <div className="profile-info-submit-buttons-container">
-                                                        <Material type='button' style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
+                                                        <Material type="button" style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
                                                             {code ? "حذف کد تخفیف" : "ثبت"}
                                                         </Material>
-                                                        <Material type='button' style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
+                                                        <Material type="button" style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
                                                             تکمیل خرید
                                                         </Material>
                                                     </div>

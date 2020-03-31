@@ -204,7 +204,7 @@ class OffCodes extends PureComponent
                     addOffCode &&
                     <React.Fragment>
                         <div className="create-exchange-cont create-small">
-                            <div className='create-exchange-title'>ثبت کد تخفیف جدید</div>
+                            <div className="create-exchange-title">ثبت کد تخفیف جدید</div>
                             <div className="panel-add-off-main">
                                 <div className="panel-add-off-input-cont">
                                     <div className="panel-add-off-input-title">متن کد</div>
@@ -212,14 +212,14 @@ class OffCodes extends PureComponent
                                 </div>
                                 <div className="panel-add-off-input-cont">
                                     <div className="panel-add-off-input-title">مدل</div>
-                                    <label className='exchange-page-checkbox'>
+                                    <label className="exchange-page-checkbox">
                                         <input type="radio" name="price" defaultChecked onChange={e => e.target.checked ? this.selectOffType("fix") : null}/>
-                                        <span className='check-mark'/>
+                                        <span className="check-mark"/>
                                         ثابت
                                     </label>
-                                    <label className='exchange-page-checkbox'>
+                                    <label className="exchange-page-checkbox">
                                         <input type="radio" name="price" onChange={e => e.target.checked ? this.selectOffType("percent") : null}/>
-                                        <span className='check-mark'/>
+                                        <span className="check-mark"/>
                                         درصدی
                                     </label>
                                 </div>
@@ -250,7 +250,7 @@ class OffCodes extends PureComponent
                     showUsers &&
                     <React.Fragment>
                         <div className="create-exchange-cont create-small">
-                            <div className='create-exchange-title'>مصرف کنندگان کد</div>
+                            <div className="create-exchange-title">مصرف کنندگان کد</div>
                             <div className="panel-add-off-main">
                                 <div className="panel-0ff-code-scroll dont-gesture">
                                     <div className="panel-0ff-code-cont title">

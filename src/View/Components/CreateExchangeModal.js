@@ -234,33 +234,33 @@ class CreateExchangeModal extends PureComponent
         return (
             <React.Fragment>
                 <div className="create-exchange-cont create-small">
-                    <div className='create-exchange-title'>ثبت آگهی تبادل کتاب</div>
+                    <div className="create-exchange-title">ثبت آگهی تبادل کتاب</div>
                     <div className="create-exchange-main">
                         <div className={`create-exchange-rol ${level === 1 ? "level-one" : level === 2 ? "level-two" : "level-three"}`}>
                             <div className="create-exchange-part">
-                                <div className='create-exchange-section'>
-                                    <label className='create-exchange-section-label'>عنوان <span>*</span></label>
-                                    <input type='text'
+                                <div className="create-exchange-section">
+                                    <label className="create-exchange-section-label">عنوان <span>*</span></label>
+                                    <input type="text"
                                            ref={e => this.titleInput = e}
-                                           className='create-exchange-section-input'
+                                           className="create-exchange-section-input"
                                            placeholder="مثال: آناتومی اسنل"
                                            maxLength={60}
                                            onBlur={(e) => this.blurInput(e, "title")}
                                            onChange={(e) => this.validateInput(e, "title")}
                                     />
                                 </div>
-                                <div className='create-exchange-section relative-wrap'>
-                                    <label className='create-exchange-section-label'>تماس <span>*</span></label>
+                                <div className="create-exchange-section relative-wrap">
+                                    <label className="create-exchange-section-label">تماس <span>*</span></label>
 
                                     <div className="create-exchange-section-checkboxes">
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="phone" defaultChecked onChange={e => e.target.checked ? this.selectContactType("phone") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             شماره
                                         </label>
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="phone" onChange={e => e.target.checked ? this.selectContactType("telegram") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             آیدی تلگرام
                                         </label>
                                     </div>
@@ -268,37 +268,37 @@ class CreateExchangeModal extends PureComponent
                                     <input defaultValue={defaultPhone}
                                            ref={e => this.phoneInput = e}
                                            type={contactType === "phone" ? "number" : "text"}
-                                           className='create-exchange-section-input price'
+                                           className="create-exchange-section-input price"
                                            placeholder={`مثال: ${contactType === "phone" ? "09123456789" : "telegram@"}`}
                                            onBlur={(e) => this.blurInput(e, "phone")}
                                            onChange={(e) => this.validateInput(e, "phone")}
                                            onInput={e => contactType === "phone" ? e.target.value = e.target.value.slice(0, 11) : null}
                                     />
                                 </div>
-                                <div className='create-exchange-section relative-wrap'>
-                                    <label className='create-exchange-section-label'>قیمت <span>*</span></label>
+                                <div className="create-exchange-section relative-wrap">
+                                    <label className="create-exchange-section-label">قیمت <span>*</span></label>
 
                                     <div className="create-exchange-section-checkboxes">
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="price" defaultChecked onChange={e => e.target.checked ? this.selectPriceType("fixed") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             مقطوع
                                         </label>
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="price" onChange={e => e.target.checked ? this.selectPriceType("free") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             رایگان
                                         </label>
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="price" onChange={e => e.target.checked ? this.selectPriceType("agreed") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             توافقی
                                         </label>
                                     </div>
 
-                                    <input type='text'
+                                    <input type="text"
                                            ref={e => this.priceInput = e}
-                                           className='create-exchange-section-input price'
+                                           className="create-exchange-section-input price"
                                            placeholder="مثال: 25,000"
                                            onBlur={(e) => this.blurInput(e, "price")}
                                            onChange={(e) => this.validateInput(e, "price")}
@@ -308,38 +308,38 @@ class CreateExchangeModal extends PureComponent
                                     <div className="create-exchange-price">تومان</div>
                                 </div>
 
-                                <div className='create-exchange-section relative-wrap'>
-                                    <label className='create-exchange-section-label'>خط خوردگی <span>*</span></label>
+                                <div className="create-exchange-section relative-wrap">
+                                    <label className="create-exchange-section-label">خط خوردگی <span>*</span></label>
 
                                     <div className="create-exchange-section-checkboxes">
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="line" defaultChecked onChange={e => e.target.checked ? this.selectLined("ندارد") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             ندارد
                                         </label>
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="line" onChange={e => e.target.checked ? this.selectLined("کم") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             کم
                                         </label>
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="line" onChange={e => e.target.checked ? this.selectLined("متوسط") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             متوسط
                                         </label>
-                                        <label className='exchange-page-checkbox'>
+                                        <label className="exchange-page-checkbox">
                                             <input type="radio" name="line" onChange={e => e.target.checked ? this.selectLined("زیاد") : null}/>
-                                            <span className='check-mark'/>
+                                            <span className="check-mark"/>
                                             زیاد
                                         </label>
                                     </div>
                                 </div>
 
-                                <div className='create-exchange-section'>
-                                    <label className='create-exchange-section-label'>توضیحات <span>*</span></label>
+                                <div className="create-exchange-section">
+                                    <label className="create-exchange-section-label">توضیحات <span>*</span></label>
                                     <textarea rows={6}
                                               ref={e => this.descriptionInput = e}
-                                              className='create-exchange-section-input'
+                                              className="create-exchange-section-input"
                                               placeholder="مثال: نوشته دکتر حسن زاده، انتشارات تیمورزاده"
                                               onBlur={(e) => this.blurInput(e, "desc")}
                                               onChange={(e) => this.validateInput(e, "desc")}
@@ -352,13 +352,13 @@ class CreateExchangeModal extends PureComponent
                                     <div>دسته‌بندی <span>*</span></div>
                                     <div className="create-exchange-category-btn">
                                         <div className="create-exchange-category-item right" onClick={() => this.handleChangeSelected("5dcbff32d39b3ba7e9c38f9f")}>بالین</div>
-                                        <div className='slideThree'>
-                                            <input type='checkbox'
-                                                   id='category'
+                                        <div className="slideThree">
+                                            <input type="checkbox"
+                                                   id="category"
                                                    checked={selectedParent === "5dcbff32d39b3ba7e9c38f9f"}
                                                    onChange={() => this.handleChangeSelected(selectedParent === "5dcbff32d39b3ba7e9c38f9f" ? "5dcbfd44d39b3ba7e9c38e68" : "5dcbff32d39b3ba7e9c38f9f")}
                                             />
-                                            <label htmlFor='category'/>
+                                            <label htmlFor="category"/>
                                         </div>
                                         <div className="create-exchange-category-item left" onClick={() => this.handleChangeSelected("5dcbfd44d39b3ba7e9c38e68")}>علوم پایه</div>
                                     </div>
@@ -386,22 +386,22 @@ class CreateExchangeModal extends PureComponent
                             </div>
 
                             <div className="create-exchange-part">
-                                <div className='create-exchange-image'>تصویر: <span>*</span></div>
-                                <label className='create-exchange-img'>
+                                <div className="create-exchange-image">تصویر: <span>*</span></div>
+                                <label className="create-exchange-img">
                                     {
                                         selectedImagePreview ?
                                             <React.Fragment>
-                                                <img src={selectedImagePreview} className='create-exchange-selected-img' alt=''/>
+                                                <img src={selectedImagePreview} className="create-exchange-selected-img" alt=""/>
                                                 {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <PencilSvg className="create-exchange-edit-svg"/>}
                                             </React.Fragment>
                                             :
                                             <CameraSvg className="create-exchange-svg"/>
                                     }
                                     <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
-                                    <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
+                                    <input disabled={loading} type="file" hidden accept="image/*" onChange={this.selectImage}/>
                                 </label>
-                                <div className='create-exchange-city'>شهر: <span>*</span></div>
-                                <select disabled={loading} className='create-exchange-select' ref={e => this.cityInput = e} onBlur={(e) => this.blurInput(e, "city")} onChange={(e) => this.validateInput(e, "city")}>
+                                <div className="create-exchange-city">شهر: <span>*</span></div>
+                                <select disabled={loading} className="create-exchange-select" ref={e => this.cityInput = e} onBlur={(e) => this.blurInput(e, "city")} onChange={(e) => this.validateInput(e, "city")}>
                                     <option value={0}>انتخاب</option>
                                     {
                                         Object.values(cities).map(item => <option key={item._id} value={item._id}>{item.name}</option>)

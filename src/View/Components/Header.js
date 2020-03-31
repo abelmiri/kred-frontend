@@ -228,7 +228,7 @@ class Header extends PureComponent
             const {isTransparent, showLoginModal, collapseSidebar, hideDropDown} = this.state
             return (
                 <div className={`header-container-base ${isTransparent && location === "/" ? "hidden" : "visible"}`}>
-                    <div className='header-buttons'>
+                    <div className="header-buttons">
                         {
                             (
                                 location === "/" ||
@@ -241,8 +241,8 @@ class Header extends PureComponent
                                 (user && user.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
                             <div className={`header-buttons-menu-cont ${isTransparent && location === "/" ? `styled ${hideDropDown ? "" : "open-drop"}` : ""}`} ref={e => this.dropDownCont = e}>
-                                <Material backgroundColor='rgba(255,255,255,0.3)' className="header-buttons-menu" onClick={this.toggleDropDown}>
-                                    <Hamburger className='header-hamburger-desktop' collapse={hideDropDown}/>
+                                <Material backgroundColor="rgba(255,255,255,0.3)" className="header-buttons-menu" onClick={this.toggleDropDown}>
+                                    <Hamburger className="header-hamburger-desktop" collapse={hideDropDown}/>
                                     <span>
                                         {
                                             location === "/" ? "صفحه اصلی"
@@ -312,15 +312,15 @@ class Header extends PureComponent
                                     <Link to="/sign-up" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>ثبت نام</Link>
                                 </React.Fragment>
                         }
-                        {/*<div className='header-buttons-title'>ارتباط با کرد</div>*/}
-                        {/*<div className='header-buttons-title'>درباره ما</div>*/}
+                        {/*<div className="header-buttons-title">ارتباط با کرد</div>*/}
+                        {/*<div className="header-buttons-title">درباره ما</div>*/}
                     </div>
-                    <div className='header-logo-cont'>
+                    <div className="header-logo-cont">
                         <Material backgroundColor={!collapseSidebar ? "transparent" : "rgba(0,0,0,0.1)"} className={`header-hamburger-mobile-material ${!collapseSidebar ? "toggle" : ""}`}>
                             <Hamburger className="header-hamburger-mobile" collapse={collapseSidebar} onClick={collapseSidebar ? this.showSidebar : this.hideSidebar}/>
                         </Material>
-                        <Link to="/" className='header-logo-link'>
-                            <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className='header-logo-cont-title'>K<span>RED</span></h1>
+                        <Link to="/" className="header-logo-link">
+                            <h1 style={{opacity: isTransparent && location === "/" ? 0 : 1}} className="header-logo-cont-title">K<span>RED</span></h1>
                             <LogoSvg className={`header-logo ${!collapseSidebar ? "show" : ""}`}/>
                         </Link>
                         {

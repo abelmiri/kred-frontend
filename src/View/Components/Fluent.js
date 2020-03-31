@@ -67,11 +67,11 @@ class Fluent extends PureComponent
             <div className={`fluent-container ${className}`}
                  style={{padding: borderWidth ? borderWidth : "2px"}}
                  onClick={onClick}>
-                <div className='fluent-design' style={{background: `linear-gradient(to right, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityRight}}/>
-                <div className='fluent-design' style={{background: `linear-gradient(to left, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityLeft}}/>
-                <div className='fluent-design' style={{background: `linear-gradient(to bottom, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityBottom}}/>
-                <div className='fluent-design' style={{background: `linear-gradient(to top, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityTop}}/>
-                <div ref={e => this.fluent = e} className='fluent-content'>{children}</div>
+                <div className="fluent-design" style={{background: `linear-gradient(to right, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityRight}}/>
+                <div className="fluent-design" style={{background: `linear-gradient(to left, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityLeft}}/>
+                <div className="fluent-design" style={{background: `linear-gradient(to bottom, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityBottom}}/>
+                <div className="fluent-design" style={{background: `linear-gradient(to top, transparent, ${fluentColor ? fluentColor : "#424242"})`, opacity: opacityTop}}/>
+                <div ref={e => this.fluent = e} className="fluent-content">{children}</div>
             </div>
         )
     }

@@ -283,14 +283,14 @@ class Pavilion extends PureComponent
                     add &&
                     <React.Fragment>
                         <div className="create-exchange-cont bigger-size create-small">
-                            <div className='create-exchange-title'>{isUpdating ? "ویرایش" : "ساخت"} گپ و گفت</div>
+                            <div className="create-exchange-title">{isUpdating ? "ویرایش" : "ساخت"} گپ و گفت</div>
                             <div className="panel-add-off-main">
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.title} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="عنوان *" getValue={this.setTitle}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.bold_description} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="متن بولد *" getValue={this.setBold}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.description} isTextArea={true} className="panel-add-pav-title area" backgroundColor="white" label="توضیحات (سوالات را بین ** قرار دهید) *" getValue={this.setDesc}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.interviewee_name} className="panel-add-pav-title" backgroundColor="white" label="نام طرف *" getValue={this.setName}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.interviewee_bio} className="panel-add-pav-title" backgroundColor="white" label="بیو طرف *" getValue={this.setBio}/>
-                                <label className='panel-add-audio'>
+                                <label className="panel-add-audio">
                                     {
                                         selectedAudioPreview || isUpdating.audio ?
                                             <React.Fragment>
@@ -302,13 +302,13 @@ class Pavilion extends PureComponent
                                             :
                                             <AudioSvg className="panel-add-audio-svg"/>
                                     }
-                                    <input disabled={loading} type='file' hidden accept="audio/*" onChange={this.selectAudio}/>
+                                    <input disabled={loading} type="file" hidden accept="audio/*" onChange={this.selectAudio}/>
                                 </label>
-                                <label className='panel-add-img'>
+                                <label className="panel-add-img">
                                     {
                                         selectedImagePreview || isUpdating.picture ?
                                             <React.Fragment>
-                                                <img src={selectedImagePreview || REST_URL + "/" + isUpdating.picture} className='create-exchange-selected-img' alt=''/>
+                                                <img src={selectedImagePreview || REST_URL + "/" + isUpdating.picture} className="create-exchange-selected-img" alt=""/>
                                                 {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <PencilSvg className="create-exchange-edit-svg"/>}
                                             </React.Fragment>
                                             :
@@ -318,7 +318,7 @@ class Pavilion extends PureComponent
                                             </div>
                                     }
                                     <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
-                                    <input disabled={loading} type='file' hidden accept="image/*" onChange={this.selectImage}/>
+                                    <input disabled={loading} type="file" hidden accept="image/*" onChange={this.selectImage}/>
                                 </label>
                                 <Material className="panel-add-pav-submit" onClick={this.submit}>ثبت</Material>
                             </div>

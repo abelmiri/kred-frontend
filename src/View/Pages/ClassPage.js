@@ -55,10 +55,10 @@ class ClassPage extends PureComponent
             <Switch>
                 <Route path={`/class/:type/:id`} render={(route) => <ClassItemPage type={route.match.params.type} id={route.match.params.id}/>}/>
                 <React.Fragment>
-                    <div className='page-background-img class'>
-                        <div className='page-des-cont'>
-                            <h2 className='exchange-desc class'>گپ و گفت</h2>
-                            <h3 className='exchange-text class'>
+                    <div className="page-background-img class">
+                        <div className="page-des-cont">
+                            <h2 className="exchange-desc class">گپ و گفت</h2>
+                            <h3 className="exchange-text class">
                                 اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و
                                 <br/>
                                 نمونه سوال گرفته تا کلاس آموزشی پیدا کنی

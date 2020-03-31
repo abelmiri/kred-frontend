@@ -45,20 +45,20 @@ class StickersMenu extends PureComponent
         const {open, tab} = this.state
         return (
             <div ref={e => this.menu = e} className="stickers-container">
-                <div className='emoji-inline-block' onClick={this.handleOpen}><StickerSvg className='emoji-logo'/></div>
+                <div className="emoji-inline-block" onClick={this.handleOpen}><StickerSvg className="emoji-logo"/></div>
                 <div className={`stickers-menu-container ${open ? "" : "close"}`}>
-                    <div className='stickers-menu-scroll'>
+                    <div className="stickers-menu-scroll">
                         {
                             this.state[tab] && this.state[tab].map((emoji, i) =>
                                 <div key={i} onClick={() => output(emoji)} style={{width: "30px", display: "inline-block", overflow: "hidden", color: "black"}}>{emoji}</div>,
                             )
                         }
                     </div>
-                    <div className='stickers-menu-tabs'>
-                        <Material className={`stickers-menu-tab ${tab === "first" ? "select" : ""}`} onClick={() => this.handleTab("first")}><span role='img' aria-label=''>😀</span></Material>
-                        <Material className={`stickers-menu-tab ${tab === "second" ? "select" : ""}`} onClick={() => this.handleTab("second")}><span role='img' aria-label=''>👍🏼</span></Material>
-                        <Material className={`stickers-menu-tab ${tab === "third" ? "select" : ""}`} onClick={() => this.handleTab("third")}><span role='img' aria-label=''>🎈</span></Material>
-                        <Material className={`stickers-menu-tab ${tab === "forth" ? "select" : ""}`} onClick={() => this.handleTab("forth")}><span role='img' aria-label=''>❤</span></Material>
+                    <div className="stickers-menu-tabs">
+                        <Material className={`stickers-menu-tab ${tab === "first" ? "select" : ""}`} onClick={() => this.handleTab("first")}><span role="img" aria-label="">😀</span></Material>
+                        <Material className={`stickers-menu-tab ${tab === "second" ? "select" : ""}`} onClick={() => this.handleTab("second")}><span role="img" aria-label="">👍🏼</span></Material>
+                        <Material className={`stickers-menu-tab ${tab === "third" ? "select" : ""}`} onClick={() => this.handleTab("third")}><span role="img" aria-label="">🎈</span></Material>
+                        <Material className={`stickers-menu-tab ${tab === "forth" ? "select" : ""}`} onClick={() => this.handleTab("forth")}><span role="img" aria-label="">❤</span></Material>
                     </div>
                 </div>
             </div>
