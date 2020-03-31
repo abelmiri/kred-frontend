@@ -159,7 +159,7 @@ class Header extends PureComponent
     onScroll()
     {
         const {isTransparent, hideDropDown} = this.state
-        if (window.scrollY >= window.innerHeight - 50)
+        if (window.scrollY >= 100)
         {
             if (isTransparent) this.setState({...this.state, isTransparent: false})
         }

@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react"
 import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
-import Material from "../Components/Material"
 
 class TodaySignUps extends PureComponent
 {
@@ -57,7 +56,7 @@ class TodaySignUps extends PureComponent
                                         </div>
                                         {
                                             todaySignUp.reverse().map(user =>
-                                                <Material key={"today-sign-ups" + user.phone} className={`panel-0ff-code-cont ${!smallView ? "scroll-wide" : ""}`}>
+                                                <div key={"today-sign-ups" + user.phone} className={`panel-0ff-code-cont ${!smallView ? "scroll-wide" : ""}`}>
                                                     <div className={!smallView ? "panel-0ff-code-item-big" : "panel-0ff-code-item"}>{user.name}</div>
                                                     <div className="panel-0ff-code-item">{user.phone}</div>
                                                     {
@@ -70,7 +69,7 @@ class TodaySignUps extends PureComponent
                                                             <div className="panel-0ff-code-item">{user.grade}</div>
                                                         </React.Fragment>
                                                     }
-                                                </Material>,
+                                                </div>,
                                             )
                                         }
                                     </React.Fragment>

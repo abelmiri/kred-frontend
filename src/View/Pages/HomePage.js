@@ -2,6 +2,8 @@ import React, {PureComponent} from "react"
 import Library from "../../Media/Images/Library.jpg"
 import Nurses from "../../Media/Images/Nurses.png"
 import Pavion from "../../Media/Images/Pavion.jpg"
+import Doctors from "../../Media/Images/Doctors.png"
+import Slider from "../../Media/Images/slider.png"
 import Material from "../Components/Material"
 import api, {REST_URL} from "../../Functions/api"
 import MySlider from "../Components/MySlider"
@@ -80,17 +82,27 @@ class HomePage extends PureComponent
         const {freeVideos, videoError} = this.state
         return (
             <React.Fragment>
-                <div className='home-background-img'>
-                    <h2 className='home-title'>K<span>RED</span></h2>
-                    <h3 className='home-desc'>گام هایی جذاب در دنیای پزشکی</h3>
+                <div className="home-background-img">
+                    <h2 className="home-title">K<span>RED</span></h2>
+                    <h3 className="home-desc">گام هایی جذاب در دنیای پزشکی</h3>
                 </div>
-                <div className='home-videos'>
-                    <div className='home-videos-text'>
-                        <h3 className='home-videos-title'>فیلم‌های آموزشی</h3>
-                        <div className='home-exchange-description'>به دنیای جدید آموزش بیا! دیگه نیازی نیست دغدغه یادگیری درسات رو داشته باشی</div>
-                        <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</button>
+                <div className="home-slider-cont">
+                    <div className="home-slider">
+                        <img className="home-slider-img" src={Slider} alt=""/>
+                        <div className="home-slider-text">
+                            <div className="home-slider-text-big">تو دوران قرنطینه هم، مثل همیشه، ما کنارتونیم و میتونید رو کمک ما حساب کنید</div>
+                            <div className="home-slider-text-big margin"><span>corona_off</span> این یه کد تخفیف <span>20 درصدیه</span> برای تهیه مجموعه فیلم‌های <span>ترجمه‌شده</span> کنهاب</div>
+                            <div>قرنطینه زمان خوبیه که برای همیشه خیال خودتو از یادگیری آناتومی راحت کنی :))</div>
+                        </div>
                     </div>
-                    <img className='home-videos-img mobile' src={Nurses} alt=''/>
+                </div>
+                <div className="home-videos">
+                    <div className="home-videos-text">
+                        <h3 className="home-videos-title">فیلم‌های آموزشی</h3>
+                        <div className="home-exchange-description">به دنیای جدید آموزش بیا! دیگه نیازی نیست دغدغه یادگیری درسات رو داشته باشی</div>
+                        <button className="home-section-butt" onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</button>
+                    </div>
+                    <img className="home-videos-img mobile" src={Nurses} alt="فیلم‌های آموزشی"/>
                     <div className="home-videos-img desktop">
                         <div className="home-videos-img-title">پربازدیدترین فیلم‌ها</div>
                         {
@@ -120,25 +132,36 @@ class HomePage extends PureComponent
                         }
                     </div>
                 </div>
-                <div className='home-exchange'>
-                    <img className='home-exchange-img' src={Library} alt=''/>
-                    <div className='home-exchange-text'>
-                        <h3 className='home-exchange-title'>تبادل کتاب</h3>
-                        <div className='home-exchange-description'>تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>
-                        <button className='home-section-butt reverse' onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</button>
+                {
+                    process.env.NODE_ENV !== "production" &&
+                    <div className="home-exchange">
+                        <img className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
+                        <div className="home-exchange-text">
+                            <h3 className="home-exchange-title">کلاس درس</h3>
+                            <div className="home-exchange-description">دیگه سر کلاس جزوه ننویس! بخواب.</div>
+                            <button className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/class")}>برو تو کلاس درس</button>
+                        </div>
+                    </div>
+                }
+                <div className="home-videos">
+                    <div className="home-videos-text">
+                        <h3 className="home-videos-title">گپ و گفت</h3>
+                        <div className="home-exchange-description">اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
+                        <button className="home-section-butt" onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو گپ و گفت</button>
+                    </div>
+                    <img className="home-videos-img" src={Pavion} alt="گپ و گفت"/>
+                </div>
+                <div className="home-exchange">
+                    <img className="home-exchange-img" src={Library} alt="تبادل کتاب"/>
+                    <div className="home-exchange-text">
+                        <h3 className="home-exchange-title">تبادل کتاب</h3>
+                        <div className="home-exchange-description">تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>
+                        <button className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</button>
                     </div>
                 </div>
-                <div className='home-videos'>
-                    <div className='home-videos-text'>
-                        <h3 className='home-videos-title'>گپ و گفت</h3>
-                        <div className='home-exchange-description'>اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
-                        <button className='home-section-butt' onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو گپ و گفت</button>
-                    </div>
-                    <img className='home-videos-img' src={Pavion} alt=''/>
-                </div>
-                <div className='home-about'>
-                    <h3 className='home-about-title'>اینجا چه خبره؟!</h3>
-                    <div className='home-about-description'>
+                <div className="home-about">
+                    <h3 className="home-about-title">اینجا چه خبره؟!</h3>
+                    <div className="home-about-description">
                         سلام! اینجا KRED عه...
                         <br/>
                         یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم
@@ -151,26 +174,10 @@ class HomePage extends PureComponent
                         و کلی کارای جالب و جدید دیگه که باید بیای و ببینی!!!
                     </div>
                 </div>
-                {/*<div className='home-exchange'>*/}
-                {/*    <img className='home-exchange-img' src={Library} alt=''/>*/}
-                {/*    <div className='home-exchange-text'>*/}
-                {/*        <h3 className='home-exchange-title'>جزوه ها و خلاصه درس ها</h3>*/}
-                {/*        <div className='home-exchange-description'>دیگه سر کلاس جزوه ننویس!</div>*/}
-                {/*        <button className='home-exchange-butt' onClick={(e) => this.changeRoute(e, "/exchange")}>برو تو جزوه و خلاصه درس</button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div className='home-questions'>*/}
-                {/*    <div className='home-videos-text'>*/}
-                {/*        <h3 className='home-videos-title'>نمونه سوال</h3>*/}
-                {/*        <div className='home-exchange-description'>نمونه سوال بزنی پاسی!</div>*/}
-                {/*        <button className='home-videos-butt' onClick={(e) => this.changeRoute(e, "/exchange")}>برو تو نمونه سوال</button>*/}
-                {/*    </div>*/}
-                {/*    <img className='home-videos-img' src={Doctors} alt=''/>*/}
-                {/*</div>*/}
-                <div className='home-collab'>
-                    <div className='home-collab-cont'>
-                        <h3 className='home-collab-title'>تو هم میتونی با کرد همکاری کنی ...</h3>
-                        <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type='button' className='home-collab-butt'>همکاری با KRED</Material></a>
+                <div className="home-collab">
+                    <div className="home-collab-cont">
+                        <h3 className="home-collab-title">تو هم میتونی با کرد همکاری کنی ...</h3>
+                        <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type="button" className="home-collab-butt">همکاری با KRED</Material></a>
                     </div>
                 </div>
                 <Footer/>

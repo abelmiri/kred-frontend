@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react"
 import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
-import Material from "../Components/Material"
 
 class AllUsers extends PureComponent
 {
@@ -107,7 +106,7 @@ class AllUsers extends PureComponent
                                 </div>
                                 {
                                     users.map(user =>
-                                        <Material key={"today-sign-ups" + user.phone} className="panel-0ff-code-cont scroll-wide">
+                                        <div key={"today-sign-ups" + user.phone} className="panel-0ff-code-cont scroll-wide">
                                             <div className="panel-0ff-code-item-big">{user.name}</div>
                                             <div className="panel-0ff-code-item">{user.phone}</div>
                                             <div className="panel-0ff-code-item">{user.university}</div>
@@ -115,7 +114,7 @@ class AllUsers extends PureComponent
                                             <div className="panel-0ff-code-item">{user.birth_date}</div>
                                             <div className="panel-0ff-code-item">{user.major}</div>
                                             <div className="panel-0ff-code-item">{user.grade}</div>
-                                        </Material>,
+                                        </div>,
                                     )
                                 }
                             </React.Fragment>

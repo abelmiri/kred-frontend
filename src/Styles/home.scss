@@ -167,7 +167,6 @@
   }
   @media screen and (max-width: 800px) {
     position: relative;
-    margin: 10px 0;
     height: auto;
   }
 }
@@ -232,15 +231,15 @@
   background-size: cover;
   background-position: center;
   height: 250px;
-  margin: 0 0 60px 0;
+  margin: 5% 0;
   @media screen and (min-width: 800px) {
     width: 90%;
     padding: 5%;
   }
   @media screen and (max-width: 800px) {
     padding: 50px 5%;
-    margin: 10px 0;
     height: auto;
+    margin: 0 0 5% 0;
   }
 }
 
@@ -279,10 +278,6 @@
   background-size: cover;
   background-position: right;
   text-align: left;
-
-  @media screen and (max-width: 800px) {
-    margin-top: 10px;
-  }
 }
 
 .home-collab-cont {
@@ -336,4 +331,57 @@
   font-size: $title-font-size;
   background-color: black;
   color: white;
+}
+
+.home-slider-cont {
+  background-color: var(--third-color);
+}
+
+.home-slider {
+  margin: 5%;
+  padding: 15px;
+  background-color: var(--login-page-background-color);
+  border: 1px solid var(--primary-color);
+  display: flex;
+  justify-content: center;
+  @media screen and (max-width: 480px) {
+    flex-wrap: wrap;
+  }
+}
+
+.home-slider-img {
+  width: 40%;
+  object-fit: cover;
+  margin-left: 5%;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 15px;
+  }
+}
+
+.home-slider-text {
+  font-size: $menu-title-font-size;
+  color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+
+  @media screen and (max-width: 480px) {
+    font-size: $title-font-size;
+  }
+}
+
+.home-slider-text-big {
+  font-size: $home-title-font-size;
+  font-weight: bold;
+
+  &.margin {
+    margin: 15px 0;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: $home-regular-font-size;
+  }
 }
