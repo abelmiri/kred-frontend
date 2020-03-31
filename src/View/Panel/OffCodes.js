@@ -31,24 +31,28 @@ class OffCodes extends PureComponent
                 console.log(err)
                 this.setState({...this.state, error: true})
             })
+
+        window.addEventListener("popstate", this.onPopState)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot)
+    componentWillUnmount()
     {
-        window.onpopstate = () =>
+        window.removeEventListener("popstate", this.onPopState)
+    }
+
+    onPopState = () =>
+    {
+        if (document.body.clientWidth <= 480)
         {
-            if (document.body.clientWidth <= 480)
+            if (this.state.addOffCode)
             {
-                if (this.state.addOffCode)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, addOffCode: false})
-                }
-                if (this.state.showUsers)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, showUsers: false, users: []})
-                }
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, addOffCode: false})
+            }
+            if (this.state.showUsers)
+            {
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, showUsers: false, users: []})
             }
         }
     }

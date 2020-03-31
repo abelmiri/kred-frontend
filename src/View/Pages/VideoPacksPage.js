@@ -32,21 +32,28 @@ class VideoPacksPage extends PureComponent
 
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "ویدیوها"}).catch(err => console.log(err))
+
+        window.addEventListener("popstate", this.onPopState)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot)
     {
         if (this.props.user?._id !== prevProps.user?._id) this.props.getVideoPacks()
+    }
 
-        window.onpopstate = () =>
+    componentWillUnmount()
+    {
+        window.removeEventListener("popstate", this.onPopState)
+    }
+
+    onPopState = () =>
+    {
+        if (document.body.clientWidth <= 480)
         {
-            if (document.body.clientWidth <= 480)
+            if (this.state.buyModal)
             {
-                if (this.state.buyModal)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, buyModal: false})
-                }
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, buyModal: false})
             }
         }
     }

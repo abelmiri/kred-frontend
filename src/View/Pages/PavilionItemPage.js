@@ -64,11 +64,13 @@ class PavilionItemPage extends PureComponent
         })
 
         document.addEventListener("scroll", this.onScroll)
+        window.addEventListener("popstate", this.onPopState)
     }
 
     componentWillUnmount()
     {
         document.removeEventListener("scroll", this.onScroll)
+        window.removeEventListener("popstate", this.onPopState)
     }
 
     onScroll = () =>
@@ -94,17 +96,14 @@ class PavilionItemPage extends PureComponent
         }, 20)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot)
+    onPopState = () =>
     {
-        window.onpopstate = () =>
+        if (document.body.clientWidth <= 480)
         {
-            if (document.body.clientWidth <= 480)
+            if (this.state.focused)
             {
-                if (this.state.focused)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, focused: false})
-                }
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, focused: false})
             }
         }
     }

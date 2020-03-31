@@ -43,11 +43,13 @@ class Pavilion extends PureComponent
             .catch(() => this.setState({...this.state, error: true, postsLoading: false}))
 
         document.addEventListener("scroll", this.onScroll)
+        window.addEventListener("popstate", this.onPopState)
     }
 
     componentWillUnmount()
     {
         document.removeEventListener("scroll", this.onScroll)
+        window.removeEventListener("popstate", this.onPopState)
     }
 
     onScroll = () =>
@@ -72,17 +74,14 @@ class Pavilion extends PureComponent
         }, 20)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot)
+    onPopState = () =>
     {
-        window.onpopstate = () =>
+        if (document.body.clientWidth <= 480)
         {
-            if (document.body.clientWidth <= 480)
+            if (this.state.add)
             {
-                if (this.state.add)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, add: false})
-                }
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, add: false})
             }
         }
     }

@@ -28,6 +28,7 @@ class Header extends PureComponent
         this.onTouchEnd = this.onTouchEnd.bind(this)
         this.onClick = this.onClick.bind(this)
         this.onScroll = this.onScroll.bind(this)
+        this.onPopState = this.onPopState.bind(this)
     }
 
     componentDidMount()
@@ -37,19 +38,17 @@ class Header extends PureComponent
         document.addEventListener("touchstart", this.onTouchStart)
         document.addEventListener("touchmove", this.onTouchMove)
         document.addEventListener("touchend", this.onTouchEnd)
+        window.addEventListener("popstate", this.onPopState)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot)
+    onPopState()
     {
-        window.onpopstate = () =>
+        if (document.body.clientWidth <= 480)
         {
-            if (document.body.clientWidth <= 480)
+            if (this.state.showLoginModal)
             {
-                if (this.state.showLoginModal)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, showLoginModal: false})
-                }
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, showLoginModal: false})
             }
         }
     }
@@ -61,6 +60,7 @@ class Header extends PureComponent
         document.removeEventListener("touchstart", this.onTouchStart)
         document.removeEventListener("touchmove", this.onTouchMove)
         document.removeEventListener("touchend", this.onTouchEnd)
+        window.removeEventListener("popstate", this.onPopState)
     }
 
     checkParentClass(element, classname)

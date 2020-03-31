@@ -52,19 +52,17 @@ class ExchangeBookPage extends PureComponent
 
         document.addEventListener("scroll", this.onScroll)
         document.addEventListener("click", this.onClick)
+        window.addEventListener("popstate", this.onPopState)
     }
 
-    componentDidUpdate()
+    onPopState = () =>
     {
-        window.onpopstate = () =>
+        if (document.body.clientWidth <= 480)
         {
-            if (document.body.clientWidth <= 480)
+            if (this.state.showModal)
             {
-                if (this.state.showModal)
-                {
-                    document.body.style.overflow = "auto"
-                    this.setState({...this.state, showModal: false})
-                }
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, showModal: false})
             }
         }
     }
@@ -72,7 +70,8 @@ class ExchangeBookPage extends PureComponent
     componentWillUnmount()
     {
         document.removeEventListener("scroll", this.onScroll)
-        document.addEventListener("click", this.onClick)
+        document.removeEventListener("click", this.onClick)
+        window.removeEventListener("popstate", this.onPopState)
     }
 
     onClick = (e) =>
