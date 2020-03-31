@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react"
 import Library from "../../Media/Images/Library.jpg"
 import Nurses from "../../Media/Images/Nurses.png"
-import Pavion from "../../Media/Images/Pavion.jpg"
+import Pavion from "../../Media/Images/Pavion.png"
 import Doctors from "../../Media/Images/Doctors.png"
 import Slider from "../../Media/Images/slider.png"
 import Material from "../Components/Material"
