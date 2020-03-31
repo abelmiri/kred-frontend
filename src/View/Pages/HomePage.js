@@ -4,6 +4,7 @@ import Nurses from "../../Media/Images/Nurses.png"
 import Pavion from "../../Media/Images/Pavion.png"
 import Doctors from "../../Media/Images/Doctors.png"
 import Slider from "../../Media/Images/slider.png"
+import SliderText from "../../Media/Images/slider-text.png"
 import Material from "../Components/Material"
 import api, {REST_URL} from "../../Functions/api"
 import MySlider from "../Components/MySlider"
@@ -89,11 +90,12 @@ class HomePage extends PureComponent
                 <div className="home-slider-cont">
                     <div className="home-slider">
                         <img className="home-slider-img" src={Slider} alt=""/>
-                        <div className="home-slider-text">
-                            <div className="home-slider-text-big">تو دوران قرنطینه هم، مثل همیشه، ما کنارتونیم و میتونید رو کمک ما حساب کنید</div>
-                            <div className="home-slider-text-big margin"><span>corona_off</span> این یه کد تخفیف <span>20 درصدیه</span> برای تهیه مجموعه فیلم‌های <span>ترجمه‌شده</span> کنهاب</div>
-                            <div>قرنطینه زمان خوبیه که برای همیشه خیال خودتو از یادگیری آناتومی راحت کنی :))</div>
-                        </div>
+                        <img className="home-slider-img-text" src={SliderText} alt=""/>
+                        {/*<div className="home-slider-text">*/}
+                        {/*    <div className="home-slider-text-big">تو دوران قرنطینه هم، مثل همیشه، ما کنارتونیم و میتونید رو کمک ما حساب کنید</div>*/}
+                        {/*    <div className="home-slider-text-big margin"><span>corona_off</span> این یه کد تخفیف <span>20 درصدیه</span> برای تهیه مجموعه فیلم‌های <span>ترجمه‌شده</span> کنهاب</div>*/}
+                        {/*    <div>قرنطینه زمان خوبیه که برای همیشه خیال خودتو از یادگیری آناتومی راحت کنی :))</div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
                 <div className="home-videos">

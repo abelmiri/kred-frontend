@@ -349,6 +349,16 @@
   }
 }
 
+.home-slider-img-text {
+  object-fit: contain;
+  width: 50%;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 15px;
+  }
+}
+
 .home-slider-img {
   width: 40%;
   object-fit: cover;
