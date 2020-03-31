@@ -30,23 +30,23 @@ class TodayPageViews extends PureComponent
         if (error) return "خطایی پیش اومد ادمین جان!"
         else
         {
-            const {todayPagesCount, todayPages} = results
+            const {todayPagesCount} = results
             return (
                 <section className="panel-page-section">
-                    <div className="panel-page-section-title">بازدید صفحات - 24 ساعت اخیر {todayPagesCount && `(${todayPagesCount})`}</div>
+                    <div className="panel-page-section-title">بازدید صفحات - 24 ساعت اخیر {todayPagesCount && `(${todayPagesCount.reduce((sum, item) => sum + item.count, 0)})`}</div>
                     <div className="panel-0ff-code-scroll">
                         {
-                            todayPages ?
-                                Object.values(todayPages).length > 0 ?
+                            todayPagesCount ?
+                                todayPagesCount.length > 0 ?
                                     <React.Fragment>
                                         <div className="panel-0ff-code-cont title">
                                             <div className="panel-0ff-code-item">صفحه</div>
                                             <div className="panel-0ff-code-item">بازدید</div>
                                         </div>
                                         {
-                                            Object.values(todayPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                <div key={"today-pages" + item.title} className="panel-0ff-code-cont">
-                                                    <div className="panel-0ff-code-item">{item.title}</div>
+                                            todayPagesCount.map(item =>
+                                                <div key={"today-pages" + item._id} className="panel-0ff-code-cont">
+                                                    <div className="panel-0ff-code-item">{item._id}</div>
                                                     <div className="panel-0ff-code-item">{item.count}</div>
                                                 </div>,
                                             )

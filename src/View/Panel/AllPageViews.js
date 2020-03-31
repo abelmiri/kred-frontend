@@ -9,7 +9,7 @@ class AllPageViews extends PureComponent
         super(props)
         this.state = {
             error: false,
-            results: {},
+            results: [],
         }
     }
 
@@ -30,30 +30,26 @@ class AllPageViews extends PureComponent
         if (error) return "خطایی پیش اومد ادمین جان!"
         else
         {
-            const {todayPagesCount, todayPages} = results
             return (
                 <section className="panel-page-section">
-                    <div className="panel-page-section-title">بازدید صفحات {todayPagesCount && `(${todayPagesCount})`}</div>
+                    <div className="panel-page-section-title">بازدید صفحات {results.length > 0 && `(${results.reduce((sum, item) => sum + item.count, 0)})`}</div>
                     <div className="panel-0ff-code-scroll">
                         {
-                            todayPages ?
-                                Object.values(todayPages).length > 0 ?
-                                    <React.Fragment>
-                                        <div className="panel-0ff-code-cont title">
-                                            <div className="panel-0ff-code-item">صفحه</div>
-                                            <div className="panel-0ff-code-item">بازدید</div>
-                                        </div>
-                                        {
-                                            Object.values(todayPages).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                <div key={"today-pages" + item.title} className="panel-0ff-code-cont">
-                                                    <div className="panel-0ff-code-item">{item.title}</div>
-                                                    <div className="panel-0ff-code-item">{item.count}</div>
-                                                </div>,
-                                            )
-                                        }
-                                    </React.Fragment>
-                                    :
-                                    <div className="exchange-page-loading not-found">موردی یافت نشد!</div>
+                            results.length > 0 ?
+                                <React.Fragment>
+                                    <div className="panel-0ff-code-cont title">
+                                        <div className="panel-0ff-code-item">صفحه</div>
+                                        <div className="panel-0ff-code-item">بازدید</div>
+                                    </div>
+                                    {
+                                        results.map(item =>
+                                            <div key={"today-pages" + item._id} className="panel-0ff-code-cont">
+                                                <div className="panel-0ff-code-item">{item._id}</div>
+                                                <div className="panel-0ff-code-item">{item.count}</div>
+                                            </div>,
+                                        )
+                                    }
+                                </React.Fragment>
                                 :
                                 <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
                         }

@@ -30,23 +30,23 @@ class TodayVideoViews extends PureComponent
         if (error) return "خطایی پیش اومد ادمین جان!"
         else
         {
-            const {todayVideosCount, todayVideos} = results
+            const {todayVideosCount} = results
             return (
                 <section className="panel-page-section">
-                    <div className="panel-page-section-title">بازدید ویدیوها - 24 ساعت اخیر {todayVideosCount && `(${todayVideosCount})`}</div>
+                    <div className="panel-page-section-title">بازدید ویدیوها - 24 ساعت اخیر {todayVideosCount && `(${todayVideosCount.reduce((sum, item) => sum + item.count, 0)})`}</div>
                     <div className="panel-0ff-code-scroll">
                         {
-                            todayVideos ?
-                                Object.values(todayVideos).length > 0 ?
+                            todayVideosCount ?
+                                todayVideosCount.length > 0 ?
                                     <React.Fragment>
                                         <div className="panel-0ff-code-cont title">
                                             <div className="panel-0ff-code-item-big">ویدیو</div>
                                             <div className="panel-0ff-code-item-small">بازدید</div>
                                         </div>
                                         {
-                                            Object.values(todayVideos).sort((a, b) => (b.count > a.count) ? 1 : (b.count < a.count) ? -1 : 0).map(item =>
-                                                <div key={"today-videos" + item.title} className="panel-0ff-code-cont">
-                                                    <div className="panel-0ff-code-item-big">{item.title}</div>
+                                            todayVideosCount.map(item =>
+                                                <div key={"today-videos" + item._id} className="panel-0ff-code-cont">
+                                                    <div className="panel-0ff-code-item-big">{item._id}</div>
                                                     <div className="panel-0ff-code-item-small">{item.count}</div>
                                                 </div>,
                                             )
