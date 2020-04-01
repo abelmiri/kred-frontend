@@ -680,5 +680,40 @@
   padding: $header-size 5% 0 5%;
   background-color: var(--light-color);
   min-height: calc(100vh - 81px);
+
+}
+
+.class-a-resource-container {
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  background-color: var(--secondary-color);
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.class-handout-item {
+  background-color: var(--background-color);
+  height: 200px;
+  min-width: 200px;
+  max-width: 210px;
+  margin: 35px;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.class-handout-item-svg {
+  width: 70px;
+  height: 70px;
+  margin: 30px 0 12px 0;
+}
+
+.class-handout-item-title {
+  font-size: $title-font-size;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.class-handout-item-description {
+  font-size: $regular-font-size;
 }
