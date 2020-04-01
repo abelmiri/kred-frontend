@@ -32,6 +32,7 @@ class ClassPage extends PureComponent
             isBlockView: false,
             blocks: [],
             lessons: [],
+            itemsCount: 0,
         }
     }
 
@@ -44,13 +45,16 @@ class ClassPage extends PureComponent
         api.get("block")
             .then((data) => this.setState({...this.state, loading: false, blocks: data}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
+        api.get("education-resource/count")
+            .then((itemsCount) => this.setState({...this.state, loading: false, itemsCount: itemsCount.count}))
+            .catch(() => this.setState({...this.state, error: true, loading: false}))
     }
 
     changeSubjects = (value) => this.setState({...this.state, isBlockView: value})
 
     render()
     {
-        const {lessons, blocks, isBlockView, loading, error} = this.state
+        const {lessons, blocks, isBlockView, itemsCount, loading, error} = this.state
         return (
             <Switch>
                 <Route path={`/class/:type/:id`} render={(route) => <ClassItemPage type={route.match.params.type} id={route.match.params.id}/>}/>
@@ -119,7 +123,7 @@ class ClassPage extends PureComponent
                                     {
                                         index === indexes[1] &&
                                         <div className="class-counter-box">
-                                            <div className="class-counter-box-number">15</div>
+                                            <div className="class-counter-box-number">{itemsCount}</div>
                                             <div className="class-subject-text">آموزش</div>
                                         </div>
                                     }
