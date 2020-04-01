@@ -1,24 +1,14 @@
 import React from "react"
 
 const VoiceSvg = (props) =>
-    <svg viewBox="0 0 35 40" className={props.className}>
-        <path id="Path_4110" className="st0" d="M25.6,19c0.4-0.1,0.7-0.4,0.6-0.8c0-0.3-0.3-0.6-0.6-0.6h-2.4c-0.4,0-0.7,0.3-0.7,0.8
-	c0,0,0,0,0,0.1v5.9c0,0.5,0.3,0.8,0.7,0.8s0.7-0.3,0.7-0.8v-1.6h1.4c0.4,0,0.7-0.3,0.7-0.7l0,0c0-0.4-0.3-0.7-0.6-0.7c0,0,0,0-0.1,0
-	h-1.4V19H25.6z M17.6,17.5h-1.7c-0.4,0-0.8,0.3-0.8,0.7c0,0,0,0,0,0.1v5.9c0,0.4,0.3,0.8,0.7,0.8h0.1h1.8c1.9,0.1,3.5-1.3,3.6-3.2
-	c0-0.1,0-0.3,0-0.4c0.2-1.9-1.2-3.6-3.1-3.8C18,17.5,17.8,17.5,17.6,17.5z M17.6,23.5h-1.1V19h1c1.5,0,2.1,1,2.1,2.3
-	C19.6,22.5,19,23.5,17.6,23.5z M11.3,17.5H9.5c-0.4,0-0.7,0.3-0.8,0.7v0.1v5.9C8.7,24.6,9,25,9.4,25s0.8-0.3,0.8-0.7v-0.1v-1.7h1.1
-	c1.3,0,2.4-1,2.4-2.3c0-0.1,0-0.1,0-0.2c0.1-1.3-1-2.4-2.3-2.5C11.4,17.5,11.3,17.5,11.3,17.5z M11.2,21.1h-1v-2.2h1
-	c0.6,0.1,1.1,0.6,1,1.2C12.2,20.6,11.8,21.1,11.2,21.1L11.2,21.1z"/>
-        <g id="Layer_2" className="st1">
-        </g>
-        <path id="Path_4108" className="st2" d="M2.5,0h21.2L35,11.2v26.3c0,1.4-1.1,2.5-2.5,2.5h-30C1.1,40,0,38.9,0,37.5v-35
+    <svg className={props.className} viewBox="0 0 35 40">
+        <path id="Path_4108" fill="#808080" d="M2.5,0h21.2L35,11.2v26.3c0,1.4-1.1,2.5-2.5,2.5h-30C1.1,40,0,38.9,0,37.5v-35
 	C0,1.1,1.1,0,2.5,0L2.5,0z"/>
-        <path id="Path_4109" className="st3" d="M35,11.3h-8.7c-1.4,0-2.5-1.1-2.5-2.5V0L35,11.3z"/>
-        <text transform="matrix(0.8621 0 0 1 8.1167 24.9878)" className="st4 st5 st6">MP3</text>
-        <polyline className="st7" points="14.3,24.5 14.3,18.2 13.5,18.2 11.9,24.5 10.2,18.2 9.4,18.2 9.4,24.5 "/>
-        <path className="st7" d="M17,24.5v-6.4c0,0,3.6-0.7,3.6,1.6c0,2.6-3.6,1.8-3.6,1.8"/>
-        <path className="st7" d="M22.7,19.3c0.9-1.6,2.7-1.6,2.9-0.2c0.2,1.2-1.1,2-1.7,2"/>
-        <path className="st7" d="M22.6,22.9c0.6,2.4,2.6,1.6,3.1,0.9c0.7-1.1,0.3-2.8-1.7-2.8"/>
+        <path id="Path_4109" fill="#696969" d="M35,11.3h-8.7c-1.4,0-2.5-1.1-2.5-2.5V0L35,11.3z"/>
+        <polyline fill="none" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" points="14.3,24.5 14.3,18.2 13.5,18.2 11.9,24.5 10.2,18.2 9.4,18.2 9.4,24.5 "/>
+        <path fill="none" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" d="M17,24.5v-6.4c0,0,3.6-0.7,3.6,1.6c0,2.6-3.6,1.8-3.6,1.8"/>
+        <path fill="none" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" d="M22.7,19.3c0.9-1.6,2.7-1.6,2.9-0.2c0.2,1.2-1.1,2-1.7,2"/>
+        <path fill="none" stroke="#FFFFFF" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" d="M22.6,22.9c0.6,2.4,2.6,1.6,3.1,0.9c0.7-1.1,0.3-2.8-1.7-2.8"/>
     </svg>
 
 export default VoiceSvg
