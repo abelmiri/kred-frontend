@@ -95,43 +95,61 @@ class ClassItemResourcePage extends PureComponent
                 {
                     handout.length > 0 &&
                     <div className="class-a-resource-container">
+                        <div className="class-a-resource-container-title">جزوه‌ها</div>
                         {
                             handout.map(item =>
                                 <div key={item._id} className="class-handout-item">
                                     <PdfSvg className="class-handout-item-svg"/>
-                                    <div className="class-handout-item-title">
-                                        {item.title}
-                                    </div>
-                                    <div className="class-handout-item-description">
-                                        {item.university} - {item.teacher}
-                                    </div>
-                                    <div className="class-handout-item-description">
-                                        {item.pages_count} صفحه
+                                    <div className="class-handout-item-title-cont">
+                                        <div className="class-handout-item-title">
+                                            {item.title}
+                                        </div>
+                                        <div className="class-handout-item-description">
+                                            {item.university}{item.teacher && ` - ${item.teacher}`}
+                                        </div>
+                                        <div className="class-handout-item-description">
+                                            {item.pages_count} صفحه
+                                        </div>
                                     </div>
                                 </div>,
                             )
                         }
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
                     </div>
                 }
                 {
                     question.length > 0 &&
                     <div className="class-a-resource-container">
+                        <div className="class-a-resource-container-title">نمونه سوالات</div>
                         {
                             question.map(item =>
                                 <div key={item._id} className="class-handout-item">
                                     <PdfSvg className="class-handout-item-svg"/>
-                                    <div className="class-handout-item-title">
-                                        {item.title}
-                                    </div>
-                                    <div className="class-handout-item-description">
-                                        {item.university} - {item.teacher}
-                                    </div>
-                                    <div className="class-handout-item-description">
-                                        {item.pages_count} صفحه
+                                    <div className="class-handout-item-title-cont">
+                                        <div className="class-handout-item-title">
+                                            {item.title}
+                                        </div>
+                                        <div className="class-handout-item-description">
+                                            {item.university}{item.teacher && ` - ${item.teacher}`}
+                                        </div>
+                                        <div className="class-handout-item-description">
+                                            {item.pages_count} صفحه
+                                        </div>
                                     </div>
                                 </div>,
                             )
                         }
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
                     </div>
                 }
                 {
