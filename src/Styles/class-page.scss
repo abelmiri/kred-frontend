@@ -637,6 +637,12 @@
   align-items: center;
   width: 20%;
   text-align: center;
+
+  &:hover {
+    transition: all linear $short-animation-duration;
+    background-color: var(--secondary-color-hover);
+    cursor: pointer;
+  }
 }
 
 .class-lesson-item-info-description-section-svg {
@@ -691,6 +697,16 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 20px;
+  position: relative;
+}
+
+.class-a-resource-container-anchor {
+  position: absolute;
+  opacity: 0;
+  top: -80px;
+  right: 0;
+  width: 0;
+  height: 0;
 }
 
 .class-a-resource-container-title {

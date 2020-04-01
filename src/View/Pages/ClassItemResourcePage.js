@@ -5,6 +5,7 @@ import SmoothArrowSvg from "../../Media/Svgs/SmoothArrowSvg"
 import PdfSvg from "../../Media/Svgs/PdfSvg"
 import VoiceSvg from "../../Media/Svgs/VoiceSvg"
 import {ClipLoader} from "react-spinners"
+import {ClassResourcesItems} from "../Components/ClassResourcesItems"
 
 class ClassItemResourcePage extends PureComponent
 {
@@ -19,6 +20,7 @@ class ClassItemResourcePage extends PureComponent
             item: {},
             resources: [],
             handout: [],
+            summary: [],
             question: [],
             voice: [],
             video: [],
@@ -53,6 +55,7 @@ class ClassItemResourcePage extends PureComponent
                 resLoading: false,
                 resources: res,
                 handout: res.filter((p) => p.type === "handout"),
+                summary: res.filter((p) => p.type === "summary"),
                 question: res.filter((p) => p.type === "question"),
                 voice: res.filter((p) => p.type === "voice"),
                 video: res.filter((p) => p.type === "video"),
@@ -62,7 +65,7 @@ class ClassItemResourcePage extends PureComponent
 
     render()
     {
-        const {loading, resLoading, error, parent, item, resources, handout, question, voice} = this.state
+        const {loading, resLoading, error, parent, item, resources, handout, summary, question, voice, video} = this.state
         const {type} = this.props
         console.log("RES", resources)
         console.log("handout", handout)
@@ -95,24 +98,26 @@ class ClassItemResourcePage extends PureComponent
                 {
                     handout.length > 0 &&
                     <div className="class-a-resource-container">
+                        <div className="class-a-resource-container-anchor" id="handout"/>
                         <div className="class-a-resource-container-title">جزوه‌ها</div>
                         {
-                            handout.map(item =>
-                                <div key={item._id} className="class-handout-item">
-                                    <PdfSvg className="class-handout-item-svg"/>
-                                    <div className="class-handout-item-title-cont">
-                                        <div className="class-handout-item-title">
-                                            {item.title}
-                                        </div>
-                                        <div className="class-handout-item-description">
-                                            {item.university}{item.teacher && ` - ${item.teacher}`}
-                                        </div>
-                                        <div className="class-handout-item-description">
-                                            {item.pages_count} صفحه
-                                        </div>
-                                    </div>
-                                </div>,
-                            )
+                            handout.map(item => <ClassResourcesItems item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
+                        }
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                    </div>
+                }
+                {
+                    summary.length > 0 &&
+                    <div className="class-a-resource-container">
+                        <div className="class-a-resource-container-anchor" id="summary"/>
+                        <div className="class-a-resource-container-title">خلاصه درس</div>
+                        {
+                            summary.map(item => <ClassResourcesItems item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
                         }
                         <div className="class-handout-item-hide"/>
                         <div className="class-handout-item-hide"/>
@@ -124,25 +129,11 @@ class ClassItemResourcePage extends PureComponent
                 }
                 {
                     question.length > 0 &&
-                    <div className="class-a-resource-container">
+                    <div className="class-a-resource-container" id="question">
+                        <div className="class-a-resource-container-anchor" id="question"/>
                         <div className="class-a-resource-container-title">نمونه سوالات</div>
                         {
-                            question.map(item =>
-                                <div key={item._id} className="class-handout-item">
-                                    <PdfSvg className="class-handout-item-svg"/>
-                                    <div className="class-handout-item-title-cont">
-                                        <div className="class-handout-item-title">
-                                            {item.title}
-                                        </div>
-                                        <div className="class-handout-item-description">
-                                            {item.university}{item.teacher && ` - ${item.teacher}`}
-                                        </div>
-                                        <div className="class-handout-item-description">
-                                            {item.pages_count} صفحه
-                                        </div>
-                                    </div>
-                                </div>,
-                            )
+                            question.map(item => <ClassResourcesItems item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
                         }
                         <div className="class-handout-item-hide"/>
                         <div className="class-handout-item-hide"/>
@@ -155,22 +146,33 @@ class ClassItemResourcePage extends PureComponent
                 {
                     voice.length > 0 &&
                     <div className="class-a-resource-container">
+                        <div className="class-a-resource-container-anchor" id="voice"/>
+                        <div className="class-a-resource-container-title">ویس آموزشی</div>
                         {
-                            voice.map(item =>
-                                <div key={item._id} className="class-handout-item">
-                                    <VoiceSvg className="class-handout-item-svg"/>
-                                    <div className="class-handout-item-title">
-                                        {item.title}
-                                    </div>
-                                    <div className="class-handout-item-description">
-                                        {item.university} - {item.teacher}
-                                    </div>
-                                    <div className="class-handout-item-description">
-                                        {item.pages_count} صفحه
-                                    </div>
-                                </div>,
-                            )
+                            voice.map(item => <ClassResourcesItems item={item} svg={<VoiceSvg className="class-handout-item-svg"/>}/>)
                         }
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                    </div>
+                }
+                {
+                    video.length > 0 &&
+                    <div className="class-a-resource-container">
+                        <div className="class-a-resource-container-anchor" id="video"/>
+                        <div className="class-a-resource-container-title">فیلم آموزشی</div>
+                        {
+                            video.map(item => <ClassResourcesItems item={item} svg={<VoiceSvg className="class-handout-item-svg"/>}/>)
+                        }
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
+                        <div className="class-handout-item-hide"/>
                     </div>
                 }
             </div>

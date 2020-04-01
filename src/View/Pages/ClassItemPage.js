@@ -8,6 +8,7 @@ import AudioSvg from "../../Media/Svgs/AudioSvg"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 import SmoothArrowSvg from "../../Media/Svgs/SmoothArrowSvg"
 import {Link, Switch, Route} from "react-router-dom"
+import {HashLink} from "react-router-hash-link"
 import ClassItemResourcePage from "./ClassItemResourcePage"
 
 class ClassItemPage extends PureComponent
@@ -109,36 +110,36 @@ class ClassItemPage extends PureComponent
                                         <Link className="class-lesson-item-info-title-text" to={`/class/${type}/${id}/${lesson._id}/resources`}>{lesson.title}</Link>
                                     </div>
                                     <div className="class-lesson-item-info-description">
-                                        <div className="class-lesson-item-info-description-section">
+                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#handout`}>
                                             <div>
                                                 جزوه
                                             </div>
                                             <Booklet className={"class-lesson-item-info-description-section-svg"}/>
-                                        </div>
-                                        <div className="class-lesson-item-info-description-section">
+                                        </HashLink>
+                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#summary`}>
                                             <div>
                                                 خلاصه دروس
                                             </div>
                                             <Questions className={"class-lesson-item-info-description-section-svg"}/>
-                                        </div>
-                                        <div className="class-lesson-item-info-description-section">
+                                        </HashLink>
+                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#question`}>
                                             <div>
                                                 نمونه سوال
                                             </div>
                                             <QuestionsNew className={"class-lesson-item-info-description-section-svg"}/>
-                                        </div>
-                                        <div className="class-lesson-item-info-description-section">
+                                        </HashLink>
+                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#voice`}>
                                             <div>
                                                 ویس آموزشی
                                             </div>
                                             <AudioSvg className={"class-lesson-item-info-description-section-svg"}/>
-                                        </div>
-                                        <div className="class-lesson-item-info-description-section">
+                                        </HashLink>
+                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#video`}>
                                             <div>
                                                 فیلم
                                             </div>
                                             <VideoPlayer className={"class-lesson-item-info-description-section-svg"}/>
-                                        </div>
+                                        </HashLink>
                                     </div>
                                 </div>
                             </div>
