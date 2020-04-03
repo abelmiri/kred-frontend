@@ -51,38 +51,38 @@ class ClassItemPage extends PureComponent
                     <Link className="class-lesson-item-info-title-text" to={`${parent._id}/resources`}> {parent.title} </Link>
                 </div>
                 <div className="class-single-item-right-side">
-                    <div className="class-single-item-option-section class-single-item-option-section-r">
+                    <HashLink to={`${parent._id}/resources#handout`} className="class-single-item-option-section class-single-item-option-section-r">
                         <Booklet className="class-single-item-svg"/>
                         <div>
                             جزوه
                         </div>
-                    </div>
-                    <div className="class-single-item-option-section class-single-item-option-section-r">
+                    </HashLink>
+                    <HashLink to={`${parent._id}/resources#summary`} className="class-single-item-option-section class-single-item-option-section-r">
                         <Questions className="class-single-item-svg"/>
                         <div>
                             خلاصه دروس
                         </div>
-                    </div>
-                    <div className="class-single-item-option-section class-single-item-option-section-r">
+                    </HashLink>
+                    <HashLink to={`${parent._id}/resources#question`} className="class-single-item-option-section class-single-item-option-section-r">
                         <QuestionsNew className="class-single-item-svg"/>
                         <div>
                             نمونه سوال
                         </div>
-                    </div>
+                    </HashLink>
                 </div>
                 <div className="class-single-item-left-side">
-                    <div className="class-single-item-option-section">
+                    <HashLink to={`${parent._id}/resources#voice`} className="class-single-item-option-section">
                         <div>
                             ویس آموزشی
                         </div>
                         <AudioSvg className="class-single-item-svg"/>
-                    </div>
-                    <div className="class-single-item-option-section ">
+                    </HashLink>
+                    <HashLink to={`${parent._id}/resources#video`} className="class-single-item-option-section ">
                         <div>
                             فیلم
                         </div>
                         <VideoPlayer className="class-single-item-svg"/>
-                    </div>
+                    </HashLink>
                 </div>
             </div>
         )

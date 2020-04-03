@@ -819,6 +819,12 @@
     font-size: $title-font-size;
   }
 
+  &.empty-text {
+    color: var(--background-color);
+    font-size: $title-font-size;
+    text-align: right;
+    padding: 0 20px;
+  }
 }
 
 .exchange-page-checkbox {

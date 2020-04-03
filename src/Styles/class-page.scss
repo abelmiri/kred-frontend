@@ -315,6 +315,7 @@
   width: calc(100% - 50px);
   text-align: center;
   font-size: $enormous-title-font-size;
+  z-index: 0;
   @media screen and (max-width: 480px) {
     top: 455px;
     border-top: 2px solid var(--background-color);
@@ -386,8 +387,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px;
+  padding: 12px;
   width: 300px;
+  z-index: 1;
+  transition: all ease $normal-animation-duration;
+
+  &:hover {
+    background-color: var(--secondary-color-hover);
+  }
 
   @media screen and (max-width: 1360px) {
     width: 250px;
@@ -733,11 +740,64 @@
   padding: 10px;
   margin: 20px;
   text-align: center;
+  position: relative;
+  transition: all ease $normal-animation-duration;
+
+  &:hover {
+    .class-handout-item-blur-container {
+      transition: all ease $normal-animation-duration;
+      @media screen and (max-width: 480px) {
+        filter: blur(2px);
+      }
+    }
+
+    .class-handout-item-detail {
+      opacity: 1;
+      bottom: 50%;
+      @media screen and (max-width: 480px) {
+        bottom: 0;
+      }
+    }
+  }
 
   @media screen and (max-width: 480px) {
     margin: 10px 0;
     display: flex;
     align-items: center;
+  }
+}
+
+.class-handout-item-detail {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 100%;
+  background-color: #E2574C;
+  opacity: 0;
+  transition: all ease $normal-animation-duration;
+  color: var(--background-color);
+  font-size: $big-title-font-size;
+  z-index: 2;
+  @media screen and (max-width: 480px) {
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+}
+
+.class-handout-item-detail-like-svg {
+  fill: var(--background-color);
+  transition: all ease $normal-animation-duration;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+
+  @media screen and (max-width: 480px) {
+    width: 30px;
+    height: 30px;
   }
 }
 
