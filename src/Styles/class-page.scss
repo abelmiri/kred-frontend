@@ -642,7 +642,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 24%;
+  width: 25%;
   text-align: center;
 
   &:hover {
@@ -736,30 +736,13 @@
 
 .class-handout-item {
   background-color: var(--background-color);
+  position: relative;
   width: 180px;
   flex-grow: 1;
   padding: 10px;
   margin: 20px;
   text-align: center;
-  position: relative;
   transition: all ease $normal-animation-duration;
-
-  &:hover {
-    .class-handout-item-blur-container {
-      transition: all ease $normal-animation-duration;
-      @media screen and (max-width: 480px) {
-        filter: blur(2px);
-      }
-    }
-
-    .class-handout-item-detail {
-      opacity: 1;
-      bottom: 50%;
-      @media screen and (max-width: 480px) {
-        bottom: 0;
-      }
-    }
-  }
 
   @media screen and (max-width: 480px) {
     margin: 10px 0;
@@ -768,59 +751,93 @@
   }
 }
 
-.class-handout-item-detail {
-  position: absolute;
+.class-handout-item-comment {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 100%;
-  background-color: #E2574C;
-  opacity: 0;
+  position: absolute;
+  justify-content: flex-end;
   transition: all ease $normal-animation-duration;
   color: var(--background-color);
-  font-size: $big-title-font-size;
-  z-index: 2;
+  background-color: var(--primary-color);
+  font-size: $home-title-font-size;
+  bottom: 0;
+  left: 0;
+  right: 50%;
+  padding: 5px 0 0 10px;
   @media screen and (max-width: 480px) {
-    background-color: rgba(0, 0, 0, 0.35);
+    font-size: $menu-title-font-size;
+  }
+}
+
+.class-handout-item-like {
+  display: flex;
+  position: absolute;
+  justify-content: flex-start;
+  transition: all ease $normal-animation-duration;
+  color: var(--background-color);
+  background-color: var(--primary-color);
+  font-size: $home-title-font-size;
+  bottom: 0;
+  right: 0;
+  left: 50%;
+  padding: 5px 10px 0 0;
+  @media screen and (max-width: 480px) {
+    font-size: $menu-title-font-size;
   }
 }
 
 .class-handout-item-detail-like-svg {
   fill: var(--background-color);
   transition: all ease $normal-animation-duration;
-  width: 40px;
-  height: 40px;
-  margin: 10px;
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  margin-top: 2px;
 
   @media screen and (max-width: 480px) {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+    margin-left: 15px;
+  }
+}
+
+.class-handout-item-detail-comment-svg {
+  fill: var(--background-color);
+  stroke: var(--background-color);
+  transition: all ease $normal-animation-duration;
+  width: 22px;
+  height: 22px;
+  margin-right: 10px;
+  margin-top: 2px;
+
+  @media screen and (max-width: 480px) {
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+    margin-right: 15px;
   }
 }
 
 .class-handout-item-svg {
   width: 70px;
   height: 70px;
-  margin: 10px 0 10px 0;
+  margin: 10px 0;
 
   @media screen and (max-width: 480px) {
-    order: 1;
-    width: 50px;
-    height: 50px;
-    margin: 0;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 40px;
   }
 }
 
 .class-handout-item-title-cont {
+  padding-bottom: 35px;
   @media screen and (max-width: 480px) {
     flex-grow: 1;
     display: inline-block;
     text-align: right;
     padding-right: 10px;
+    padding-bottom: 30px;
   }
 }
 
