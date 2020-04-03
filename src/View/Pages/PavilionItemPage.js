@@ -46,10 +46,9 @@ class PavilionItemPage extends PureComponent
                         if (pavilion.comments_count > 0)
                         {
                             this.setState({...this.state, commentsLoading: true}, () =>
-                            {
                                 api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=1&time=${new Date().toISOString()}`)
-                                    .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false}))
-                            })
+                                    .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false})),
+                            )
                         }
                         setTimeout(() =>
                         {

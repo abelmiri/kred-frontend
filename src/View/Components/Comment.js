@@ -21,18 +21,18 @@ class Comment extends PureComponent
 
     likeAndDisLikeComment(comment)
     {
-        const {user, setLikeComment, removeLikeComment} = this.props
+        const {user, setLikeComment, removeLikeComment, education} = this.props
         if (user)
         {
             if (comment.is_liked)
             {
-                api.del(`conversation/comment/like/${comment._id}`)
+                api.del(`${education ? "education-resource" : "conversation"}/comment/like/${comment._id}`)
                     .then(() => setLikeComment(comment))
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
             else
             {
-                api.post("conversation/comment/like", {comment_id: comment._id})
+                api.post(`${education ? "education-resource" : "conversation"}/comment/like`, {comment_id: comment._id})
                     .then(() => removeLikeComment(comment))
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
@@ -52,7 +52,8 @@ class Comment extends PureComponent
         let result = window.confirm("از حذف نظر مطمئنید؟!")
         if (result)
         {
-            api.del(`conversation/comment/${id}`)
+            const {education} = this.props
+            api.del(`${education ? "education-resource" : "conversation"}/comment/${id}`)
                 .then(() =>
                 {
                     this.props.removeComment(id)
@@ -76,7 +77,7 @@ class Comment extends PureComponent
         const {sendLoading} = this.state
         if (!sendLoading)
         {
-            const {user, parentId, comment, setComment, commentParentId} = this.props
+            const {user, parentId, comment, setComment, commentParentId, education} = this.props
             if (user)
             {
                 const description = this.description.value.trim()
@@ -84,7 +85,7 @@ class Comment extends PureComponent
                 {
                     this.setState({...this.state, sendLoading: true}, () =>
                     {
-                        api.post("conversation/comment", {conversation_id: parentId, description, parent_comment_id: commentParentId, reply_comment_id: comment._id})
+                        api.post(`${education ? "education-resource" : "conversation"}/comment`, {education_id: parentId, conversation_id: parentId, description, parent_comment_id: commentParentId, reply_comment_id: comment._id})
                             .then(comment =>
                                 this.setState({...this.state, sendLoading: false, reply: false}, () =>
                                 {
@@ -122,7 +123,7 @@ class Comment extends PureComponent
     render()
     {
         const {reply, sendLoading, showReplies} = this.state
-        const {comment, user, childs, parentId, setComment, removeComment, comments, replyComment, setLikeComment, removeLikeComment} = this.props
+        const {comment, user, childs, parentId, setComment, removeComment, comments, replyComment, setLikeComment, removeLikeComment, education} = this.props
         return (
             <div className="pavilion-comment">
                 <div className="pavilion-comment-header">
@@ -181,6 +182,7 @@ class Comment extends PureComponent
                                 {
                                     childs.map(cm =>
                                         <Comment key={cm._id}
+                                                 education={education}
                                                  comment={cm}
                                                  user={user}
                                                  parentId={parentId}

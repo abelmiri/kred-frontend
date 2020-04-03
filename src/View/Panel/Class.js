@@ -322,7 +322,7 @@ class Class extends PureComponent
                             Object.values(posts).map((post) =>
                                 <Material key={post._id} className="panel-0ff-code-cont" onClick={() => this.goForUpdate(post)}>
                                     <div className="panel-0ff-code-item-big">{post.title}</div>
-                                    <div className="panel-0ff-code-item">{post.type === "handout" ? "جزوه" : post.type === "voice" ? "ویس آموزشی" : post.type === "summary" ? "خلاصه درس" : "نمونه سوال"}</div>
+                                    <div className="panel-0ff-code-item">{post.type === "handout" ? "جزوه" : post.type === "voice" ? "ویس‌آموزشی" : post.type === "summary" ? "خلاصه درس" : "نمونه سوال"}</div>
                                 </Material>,
                             )
                         }
@@ -349,7 +349,7 @@ class Class extends PureComponent
                                 <select disabled={loading} defaultValue={isUpdating.type} className="panel-class-type" onChange={this.changeType}>
                                     <option value="">انتخاب نوع</option>
                                     <option value="handout">جزوه</option>
-                                    <option value="voice">ویس آموزشی</option>
+                                    <option value="voice">ویس‌آموزشی</option>
                                     <option value="question">نمونه سوال</option>
                                     <option value="summary">خلاصه درس</option>
                                 </select>

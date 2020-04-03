@@ -257,7 +257,7 @@ class App extends PureComponent
                                                   getCategories={this.getCategories}/>}
                             />
                             <Route path="/pavilions" render={() => <PavilionPage user={user}/>}/>
-                            {process.env.NODE_ENV !== "production" && <Route path="/class" render={() => <ClassPage/>}/>}
+                            {process.env.NODE_ENV !== "production" && <Route path="/class" render={() => <ClassPage user={user}/>}/>}
                             <Route path="/videos" render={() =>
                                 <VideoPacksPage user={user}
                                                 getVideoPacks={this.getVideoPacks}

@@ -30,8 +30,8 @@ class ClassPage extends PureComponent
             loading: true,
             error: false,
             isBlockView: false,
-            blocks: [],
-            lessons: [],
+            blocks: {},
+            lessons: {},
             itemsCount: 0,
         }
     }
@@ -40,10 +40,10 @@ class ClassPage extends PureComponent
     {
         window.scroll({top: 0})
         api.get("lesson")
-            .then((data) => this.setState({...this.state, loading: false, lessons: data}))
+            .then((data) => this.setState({...this.state, loading: false, lessons: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {})}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
         api.get("block")
-            .then((data) => this.setState({...this.state, loading: false, blocks: data}))
+            .then((data) => this.setState({...this.state, loading: false, blocks: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {})}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
         api.get("education-resource/count")
             .then((itemsCount) => this.setState({...this.state, loading: false, itemsCount: itemsCount.count}))
@@ -54,10 +54,17 @@ class ClassPage extends PureComponent
 
     render()
     {
+        const {user} = this.props
         const {lessons, blocks, isBlockView, itemsCount, loading, error} = this.state
         return (
             <Switch>
-                <Route path={`/class/:type/:id`} render={(route) => <ClassItemPage type={route.match.params.type} id={route.match.params.id}/>}/>
+                <Route path={`/class/:type/:id`} render={(route) =>
+                    <ClassItemPage user={user}
+                                   parent={route.match.params.type === "block" ? blocks[route.match.params.id] : lessons[route.match.params.id]}
+                                   type={route.match.params.type}
+                                   id={route.match.params.id}
+                    />
+                }/>
                 <React.Fragment>
                     <div className="page-background-img class">
                         <div className="page-des-cont">
@@ -71,8 +78,6 @@ class ClassPage extends PureComponent
                     </div>
 
                     <div className="lessons-blocks-list-con">
-                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                         {
                             !loading && <div className="class-switch-box">
                                 <input type="checkbox" id="switch" checked={isBlockView} onChange={(e) => this.changeSubjects(e.target.checked)}/>
@@ -83,7 +88,7 @@ class ClassPage extends PureComponent
                             </div>
                         }
                         {
-                            (isBlockView ? blocks : lessons).map((les, index) =>
+                            (isBlockView ? Object.values(blocks) : Object.values(lessons)).map((les, index) =>
                                 <React.Fragment key={les._id}>
                                     {
                                         index === indexes[0] &&
@@ -108,7 +113,7 @@ class ClassPage extends PureComponent
                                             </div>
                                             <div className="class-tall-info-section-box">
                                                 <div>
-                                                    ویس آموزشی
+                                                    ویس‌آموزشی
                                                 </div>
                                                 <AudioSvg className={"class-info-svg"}/>
                                             </div>
@@ -158,6 +163,8 @@ class ClassPage extends PureComponent
                                 </React.Fragment>,
                             )
                         }
+                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                     </div>
                 </React.Fragment>
             </Switch>
