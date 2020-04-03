@@ -306,11 +306,13 @@ class ClassItemResourceFilePage extends PureComponent
                             </div>
                             <div className="class-file-page-download">
                                 <img className='class-file-page-pic' src={REST_URL + file.picture} alt={file.title}/>
-                                <Material className="class-file-page-download-btn">دانلود</Material>
+                                <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file}>
+                                    <Material className="class-file-page-download-btn">دانلود</Material>
+                                </a>
                             </div>
                         </div>
 
-                        <div className="pavilion-item-comments-section file" ref={e => this.comments = e}>
+                        <div className="pavilion-item-comments-section file">
                             <div className="pavilion-comment-create-title">خوشحال میشیم نظرتو بدونیم!</div>
                             <textarea ref={e => this.description = e} rows={4} onChange={this.onCommentChange} className={`pavilion-comment-create ${focused ? "focused" : ""}`} placeholder="نظرت رو بنویس..." onClick={this.focusOnComment}/>
                             <div className="pavilion-comment-emoji-cont">
