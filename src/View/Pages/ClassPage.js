@@ -64,14 +64,13 @@ class ClassPage extends PureComponent
                                    id={route.match.params.id}
                     />
                 }/>
+
                 <React.Fragment>
                     <div className="page-background-img class">
                         <div className="page-des-cont">
                             <h2 className="exchange-desc class">کلاس درس</h2>
                             <h3 className="exchange-text class">
-                                اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و
-                                <br/>
-                                نمونه سوال گرفته تا کلاس آموزشی پیدا کنی
+                                اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی
                             </h3>
                         </div>
                     </div>

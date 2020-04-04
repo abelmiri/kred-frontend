@@ -62,6 +62,8 @@ class ClassItemResourcePage extends PureComponent
                 <Route path={`/class/:type/:id/resources/:fileId`} render={(route) =>
                     <ClassItemResourceFilePage user={user}
                                                type={route.match.params.type}
+                                               item={item}
+                                               parent={parent}
                                                id={route.match.params.id}
                                                fileId={route.match.params.fileId}
                                                setFileUpdate={this.setFileUpdate}

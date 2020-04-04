@@ -163,6 +163,7 @@ class ClassItemPage extends PureComponent
                 <Route path={`/class/:type/:id/resources`} render={(route) =>
                     <ClassItemResourcePage user={user}
                                            type={route.match.params.type}
+                                           item={parent}
                                            id={route.match.params.id}
                     />
                 }/>
