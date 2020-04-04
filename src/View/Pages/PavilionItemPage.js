@@ -147,7 +147,29 @@ class PavilionItemPage extends PureComponent
         }
     }
 
-    copy = () => copyToClipboard(`https://www.kred.ir/pavilions/${this.state.pavilion._id}`, () => NotificationManager.success("لینک با موفقیت کپی شد"))
+    shareLink = () =>
+    {
+        if (navigator.share)
+        {
+            navigator.share({
+                title: document.title,
+                text: "این لینک رو در KRED ببین! \n",
+                url: window.location.href,
+            })
+                .then(() => console.log("Successful share"))
+                .catch(error =>
+                {
+                    console.log("Error sharing:", error)
+                    this.copy()
+                })
+        }
+        else this.copy()
+    }
+
+    copy()
+    {
+        copyToClipboard(window.location.href, () => NotificationManager.success("لینک با موفقیت کپی شد"))
+    }
 
     sendComment = () =>
     {
@@ -303,9 +325,12 @@ class PavilionItemPage extends PureComponent
                                             <LikeSvg className={`post-like-svg ${pavilion.is_liked ? "liked" : ""}`}/>
                                             <div className={`pavilion-item-like ${pavilion.is_liked ? "liked" : ""}`}>{pavilion.likes_count} پسند</div>
                                         </Material>
-                                        <Material className="post-like-count-cont copy" onClick={this.copy}>
+                                        <Material className="post-like-count-cont copy" onClick={this.shareLink}>
                                             <CopySvg className="post-comment-svg"/>
-                                            <div className="pavilion-item-like">کپی لینک</div>
+                                            <div className="pavilion-item-like">
+                                                <span className="only-desktop">کپی لینک</span>
+                                                <span className="only-mobile">اشتراک گذری</span>
+                                            </div>
                                         </Material>
                                         <Material className="post-like-count-cont comment">
                                             <CommentSvg className="post-comment-svg"/>

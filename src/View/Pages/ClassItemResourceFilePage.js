@@ -310,34 +310,28 @@ class ClassItemResourceFilePage extends PureComponent
         }
     }
 
-    copy = () =>
+    shareLink = () =>
     {
         if (navigator.share)
         {
             navigator.share({
                 title: document.title,
-                text: "این لینک رو در KRED ببین!",
+                text: "این لینک رو در KRED ببین! \n",
                 url: window.location.href,
             })
                 .then(() => console.log("Successful share"))
                 .catch(error =>
                 {
                     console.log("Error sharing:", error)
-                    const {file} = this.state
-                    const {type, parent, item} = this.props
-                    copyToClipboard(`https://www.kred.ir/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `class/${type}/${item._id}/resources/${file._id}`}`,
-                        () => NotificationManager.success("لینک با موفقیت کپی شد"),
-                    )
+                    this.copy()
                 })
         }
-        else
-        {
-            const {file} = this.state
-            const {type, parent, item} = this.props
-            copyToClipboard(`https://www.kred.ir/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `class/${type}/${item._id}/resources/${file._id}`}`,
-                () => NotificationManager.success("لینک با موفقیت کپی شد"),
-            )
-        }
+        else this.copy()
+    }
+
+    copy()
+    {
+        copyToClipboard(window.location.href, () => NotificationManager.success("لینک با موفقیت کپی شد"))
     }
 
     download = () =>
@@ -412,9 +406,12 @@ class ClassItemResourceFilePage extends PureComponent
                                         <LikeSvg className={`post-like-svg ${file.is_liked ? "liked" : ""}`}/>
                                         <div className={`pavilion-item-like ${file.is_liked ? "liked" : ""}`}>{file.likes_count} پسند</div>
                                     </Material>
-                                    <Material className="post-like-count-cont copy file" onClick={this.copy}>
+                                    <Material className="post-like-count-cont copy file" onClick={this.shareLink}>
                                         <CopySvg className="post-comment-svg"/>
-                                        <div className="pavilion-item-like">کپی لینک</div>
+                                        <div className="pavilion-item-like">
+                                            <span className="only-desktop">کپی لینک</span>
+                                            <span className="only-mobile">اشتراک گذری</span>
+                                        </div>
                                     </Material>
                                     <Material className="post-like-count-cont comment">
                                         <CommentSvg className="post-comment-svg"/>

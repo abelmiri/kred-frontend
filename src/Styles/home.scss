@@ -374,3 +374,17 @@
     margin-bottom: 15px;
   }
 }
+
+.only-mobile {
+  display: none;
+  @media screen and (max-width: 480px) {
+    display: block;
+  }
+}
+
+.only-desktop {
+  display: block;
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+}
