@@ -106,12 +106,12 @@ function sendEducationHtml(id, res, html, err)
             {
                 res.send(html.toString().replace(
                     `<title>گام هایی جذاب در دنیای پزشکی | KRED</title><meta property="og:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="twitter:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:image" content="/logo512.png"/><meta name="twitter:image" content="/logo512.png"/><meta name="twitter:card" content="summary_large_image"/>`,
-                    `<title>${education.title}، ${education.subject} | KRED</title>
-                                 <meta property="og:title" content="${education.title}، ${education.subject} | KRED"/>
-                                 <meta name="twitter:title" content="${education.title}، ${education.subject} | KRED"/>
-                                 <meta name="description" content="${education.university + education.teacher ? " - " + education.teacher : ""}"/>
-                                 <meta property="og:description" content="${education.university + education.teacher ? " - " + education.teacher : ""}"/>
-                                 <meta name="twitter:description" content="${education.university + education.teacher ? " - " + education.teacher : ""}"/>
+                    `<title>${education.title}${education.subject ? "، " + education.subject : ""} | KRED</title>
+                                 <meta property="og:title" content="${education.title}${education.subject ? "، " + education.subject : ""} | KRED"/>
+                                 <meta name="twitter:title" content="${education.title}${education.subject ? "، " + education.subject : ""} | KRED"/>
+                                 <meta name="description" content="${education.university + (education.teacher ? " - " + education.teacher : "")}"/>
+                                 <meta property="og:description" content="${education.university + (education.teacher ? " - " + education.teacher : "")}"/>
+                                 <meta name="twitter:description" content="${education.university + (education.teacher ? " - " + education.teacher : "")}"/>
                                  <meta property="og:image" content="https://restful.kred.ir${education.picture}"/>
                                  <meta name="twitter:image" content="https://restful.kred.ir${education.picture}"/>
                                  <meta name="twitter:card" content="summary_large_image"/>`,
