@@ -367,7 +367,7 @@
 
 .home-slider-img {
   width: 40%;
-  object-fit: cover;
+  object-fit: contain;
   margin-left: 5%;
   @media screen and (max-width: 480px) {
     width: 100%;
