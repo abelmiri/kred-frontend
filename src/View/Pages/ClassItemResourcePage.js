@@ -127,12 +127,12 @@ class ClassItemResourcePage extends PureComponent
                         }
                         {
                             !resLoading &&
-                            <div className="class-a-resource-container" id="question">
+                            <div className="class-a-resource-container">
                                 <div className="class-a-resource-container-anchor" id="question"/>
                                 <div className="class-a-resource-container-title">نمونه سوالات</div>
                                 {question.length === 0 && <div className={`exchange-page-loading empty-text ${!resLoading ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>}
                                 {
-                                    question.map(item => <ClassResourcesItems key={item._id} item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
+                                    question.map(item => <ClassResourcesItems key={item._id} type="question" item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
                                 }
                                 <div className="class-handout-item-hide"/>
                                 <div className="class-handout-item-hide"/>

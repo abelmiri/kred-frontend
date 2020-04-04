@@ -5,7 +5,7 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 
 export function ClassResourcesItems(props)
 {
-    const {item, svg} = props
+    const {item, svg, type} = props
     return (
         <Link to={`resources/${item._id}`} className="class-handout-item">
             {svg}
@@ -17,7 +17,7 @@ export function ClassResourcesItems(props)
                     {item.university}{item.teacher && ` - ${item.teacher}`}
                 </div>
                 <div className="class-handout-item-description">
-                    {item.pages_count} صفحه
+                    {type === "question" ? `${item.pages_count} صفحه` : item.subject}
                 </div>
                 <div className="class-handout-item-like">
                     <LikeSvg className="class-handout-item-detail-like-svg"/>
