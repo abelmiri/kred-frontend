@@ -172,16 +172,18 @@ class ClassItemPage extends PureComponent
                     />
                 }/>
 
-                <div className="class-item-page-container">
-                    <div className="class-location-container">
-                        <Link to={"/class"} className="class-location-link">کلاس درس</Link>
-                        <SmoothArrowSvg className="class-left-arrow"/>
-                        {parent?.title}
+                <React.Fragment>
+                    <div className="class-item-page-container">
+                        <div className="class-location-container">
+                            <Link to={"/class"} className="class-location-link">کلاس درس</Link>
+                            <SmoothArrowSvg className="class-left-arrow"/>
+                            {parent?.title}
+                        </div>
+                        {items[0] === 0 ? this.singleItemView() : Object.values(items).length > 0 ? this.itemsView() : null}
+                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                     </div>
-                    {items[0] === 0 ? this.singleItemView() : Object.values(items).length > 0 ? this.itemsView() : null}
-                    <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                    <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
-                </div>
+                </React.Fragment>
             </Switch>
         )
     }

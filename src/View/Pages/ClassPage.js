@@ -4,7 +4,6 @@ import api, {REST_URL} from "../../Functions/api"
 import Material from "../Components/Material"
 import Booklet from "../../Media/Svgs/Booklet"
 import Questions from "../../Media/Svgs/Questions"
-import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 import AudioSvg from "../../Media/Svgs/AudioSvg"
 import QuestionsNew from "../../Media/Svgs/QuestionsNew"
 import LikeSvg from "../../Media/Svgs/LikeSvg"
@@ -68,7 +67,7 @@ class ClassPage extends PureComponent
                 <React.Fragment>
                     <div className="page-background-img class">
                         <div className="page-des-cont">
-                            <h2 className="exchange-desc class">گپ و گفت</h2>
+                            <h2 className="exchange-desc class">کلاس درس</h2>
                             <h3 className="exchange-text class">
                                 اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و
                                 <br/>
@@ -79,7 +78,8 @@ class ClassPage extends PureComponent
 
                     <div className="lessons-blocks-list-con">
                         {
-                            !loading && <div className="class-switch-box">
+                            !loading && !error &&
+                            <div className="class-switch-box">
                                 <input type="checkbox" id="switch" checked={isBlockView} onChange={(e) => this.changeSubjects(e.target.checked)}/>
                                 <label htmlFor="switch"/>
                                 <div className="class-subject-text">چینش بر اساس</div>
@@ -117,12 +117,12 @@ class ClassPage extends PureComponent
                                                 </div>
                                                 <AudioSvg className={"class-info-svg"}/>
                                             </div>
-                                            <div className="class-tall-info-section-box">
-                                                <div>
-                                                    فیلم
-                                                </div>
-                                                <VideoPlayer className={"class-info-svg"}/>
-                                            </div>
+                                            {/*<div className="class-tall-info-section-box">*/}
+                                            {/*    <div>*/}
+                                            {/*        فیلم*/}
+                                            {/*    </div>*/}
+                                            {/*    <VideoPlayer className={"class-info-svg"}/>*/}
+                                            {/*</div>*/}
                                         </div>
                                     }
                                     {
@@ -154,12 +154,12 @@ class ClassPage extends PureComponent
                                         </div>
                                     }
 
-                                    <Material className="class-subject-box" backgroundColor="rgba(255,255,255,0.35)">
-                                        <Link to={`/class/${isBlockView ? "block" : "lesson"}/${les._id}`}>
+                                    <Link className="class-subject-box" to={`/class/${isBlockView ? "block" : "lesson"}/${les._id}`}>
+                                        <Material className="class-subject-box-material" backgroundColor="rgba(255,255,255,0.35)">
                                             <img alt="svg" src={REST_URL + les.svg} className="class-subject-svg"/>
                                             <div className="class-subject-text">{les.title}</div>
-                                        </Link>
-                                    </Material>
+                                        </Material>
+                                    </Link>
                                 </React.Fragment>,
                             )
                         }

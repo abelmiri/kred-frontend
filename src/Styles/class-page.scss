@@ -3,7 +3,7 @@
 .lessons-blocks-list-con {
   width: 90.7%;
   padding: 40px 4.65%;
-  min-height: 10vh;
+  min-height: 70vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -57,16 +57,23 @@
   background-color: var(--primary-color);
   margin: 7px;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  padding: 21px;
+  width: 180px;
+  height: 180px;
   cursor: pointer;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 16px 20px;
+    width: 140px;
+    height: 140px;
   }
+}
+
+.class-subject-box-material {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  height: calc(100% - 40px);
 }
 
 .class-switch-box {
@@ -76,30 +83,36 @@
   position: relative;
   display: flex;
   justify-content: center;
-  align-content: center;
-  padding: 60px 31px;
+  align-items: center;
+  width: 140px;
+  padding: 20px;
+  height: 140px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 40px 15px;
+    width: 100px;
+    height: 100px;
   }
 }
 
 .class-tall-info-box {
-  flex-grow: 1;
+  flex-grow: 2;
   margin: 7px;
   background-color: var(--secondary-color);
   position: relative;
   display: flex;
   justify-content: center;
-  align-content: center;
-  padding: 48px 5px;
+  align-items: center;
+  width: 334px;
+  padding: 20px;
+  height: 140px;
   color: var(--background-color);
   font-size: $regular-font-size;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 35px 5px;
+    width: 150px;
+    height: 100px;
   }
 }
 
@@ -109,6 +122,10 @@
   justify-content: center;
   align-items: center;
   margin: 0 9px;
+
+  @media screen and (max-width: 480px) {
+    font-size: $really-small-font;
+  }
 }
 
 .class-counter-box {
@@ -118,11 +135,14 @@
   position: relative;
   display: flex;
   justify-content: center;
-  padding: 85px 81px;
+  width: 140px;
+  padding: 20px;
+  height: 140px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 65px 65px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -143,12 +163,15 @@
   position: relative;
   display: flex;
   justify-content: center;
-  align-content: center;
-  padding: 25px 31px;
+  align-items: center;
+  width: 140px;
+  padding: 20px;
+  height: 140px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 15px 25px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -159,12 +182,15 @@
   position: relative;
   display: flex;
   justify-content: center;
-  align-content: center;
-  padding: 45px 41px;
+  align-items: center;
+  width: 140px;
+  padding: 20px;
+  height: 140px;
 
   @media screen and (max-width: 480px) {
     margin: 5px;
-    padding: 30px 30px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -246,7 +272,7 @@
   justify-content: center;
   align-items: center;
   font-size: $regular-font-size;
-  transform: translateX(26px) translateY(15px);
+  transform: translateX(26px);
   color: var(--primary-color);
   transition-duration: $normal-animation-duration;
   cursor: pointer;
@@ -263,7 +289,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateX(-26px) translateY(15px);
+  transform: translateX(-26px);
   color: var(--background-color);
   transition-duration: $normal-animation-duration;
   cursor: pointer;

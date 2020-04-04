@@ -24,7 +24,7 @@ export function ClassResourcesItems(props)
                     {item.likes_count}
                 </div>
                 <div className="class-handout-item-comment">
-                    {item.comments_count ? item.comments_count : 0}
+                    {item.comments_count}
                     <CommentSvg className="class-handout-item-detail-comment-svg"/>
                 </div>
             </div>
