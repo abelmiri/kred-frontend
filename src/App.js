@@ -257,7 +257,7 @@ class App extends PureComponent
                                                   getCategories={this.getCategories}/>}
                             />
                             <Route path="/pavilions" render={() => <PavilionPage user={user}/>}/>
-                            {process.env.NODE_ENV !== "production" && <Route path="/class" render={() => <ClassPage user={user}/>}/>}
+                            {user?.role === "admin" && <Route path="/class" render={() => <ClassPage user={user}/>}/>}
                             <Route path="/videos" render={() =>
                                 <VideoPacksPage user={user}
                                                 getVideoPacks={this.getVideoPacks}
@@ -269,7 +269,7 @@ class App extends PureComponent
                             }/>
                             <Route path="/payment/:type" render={(route) => <PaymentPage type={route.match.params.type}/>}/>
                             <Route path="/panel" render={() => <Panel user={user}/>}/>
-                            <Route path="*" render={() => <HomePage goToExchangeBook={this.goToExchangeBook}/>}/>
+                            <Route path="*" render={() => <HomePage user={user} goToExchangeBook={this.goToExchangeBook}/>}/>
                         </Switch>
                     </Suspense>
                     <NotificationContainer/>

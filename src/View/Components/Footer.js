@@ -13,7 +13,7 @@ import ClassSvg from "../../Media/Svgs/ClassSvg"
 
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
-const Footer = () =>
+const Footer = (props) =>
     <div className="footer-container" id="footer">
         <div className="footer-logo-cont">
             <Link to="/" className="footer-logo-section" onClick={goUp}>
@@ -36,10 +36,13 @@ const Footer = () =>
                     <VideoPlayer className="footer-part-svg"/>
                     فیلم‌های آموزشی
                 </Link>
-                <Link to="/class" className="footer-part-text">
-                    <ClassSvg className="footer-part-svg"/>
-                    کلاس درس
-                </Link>
+                {
+                    props.user?.role === "admin" &&
+                    <Link to="/class" className="footer-part-text">
+                        <ClassSvg className="footer-part-svg"/>
+                        کلاس درس
+                    </Link>
+                }
                 <Link to="/pavilions" className="footer-part-text">
                     <PavilionSvg className="footer-part-svg"/>
                     گپ و گفت

@@ -86,6 +86,7 @@ class HomePage extends PureComponent
     render()
     {
         const {freeVideos, videoError} = this.state
+        const {user} = this.props
         return (
             <React.Fragment>
                 <div className="home-background-img">
@@ -135,7 +136,7 @@ class HomePage extends PureComponent
                     </div>
                 </div>
                 {
-                    process.env.NODE_ENV !== "production" &&
+                    user?.role === "admin" &&
                     <div className="home-exchange">
                         <img className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
                         <div className="home-exchange-text">
@@ -182,7 +183,7 @@ class HomePage extends PureComponent
                         <a href="https://t.me/KRED_admin" target="_blank" rel="noopener noreferrer"><Material type="button" className="home-collab-butt">همکاری با KRED</Material></a>
                     </div>
                 </div>
-                <Footer/>
+                <Footer user={user}/>
             </React.Fragment>
         )
     }

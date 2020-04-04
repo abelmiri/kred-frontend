@@ -283,7 +283,7 @@ class Header extends PureComponent
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>فیلم‌های آموزشی</Material>
                                     </Link>
                                     {
-                                        process.env.NODE_ENV !== "production" &&
+                                        user?.role === "admin" &&
                                         <Link className="header-buttons-menu-drop-link" to="/class">
                                             <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>کلاس درس</Material>
                                         </Link>
@@ -338,7 +338,7 @@ class Header extends PureComponent
                         <Link to="/" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">صفحه اصلی</Material></Link>
                         {user && <Link to="/profile" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></Link>}
                         <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
-                        {process.env.NODE_ENV !== "production" && <Link to="/class" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></Link>}
+                        {user?.role === "admin" && <Link to="/class" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></Link>}
                         <Link to="/pavilions" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">گپ و گفت</Material></Link>
                         <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
                         {
