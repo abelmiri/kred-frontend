@@ -287,7 +287,7 @@ class ClassItemResourceFilePage extends PureComponent
     {
         const {file} = this.state
         const {type, parent, item} = this.props
-        copyToClipboard(`https://www.kred.ir/${parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `/class/${type}/${item._id}/resources/${file._id}`}`,
+        copyToClipboard(`https://www.kred.ir/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `class/${type}/${item._id}/resources/${file._id}`}`,
             () => NotificationManager.success("لینک با موفقیت کپی شد"),
         )
     }
