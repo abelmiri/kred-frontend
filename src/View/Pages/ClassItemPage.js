@@ -93,60 +93,55 @@ class ClassItemPage extends PureComponent
     {
         const {items} = this.state
         const {type, id} = this.props
-        return (
-            <React.Fragment>
-                {
-                    Object.values(items).map((lesson, index) =>
-                        <div className="class-item-container" key={lesson._id}>
-                            <div className={`class-lesson-item ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
-                                <div className="class-lesson-item-media">
-                                    <div className={`class-lesson-item-media-svg-container ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
-                                        <Link to={`/class/${type}/${id}/${lesson._id}/resources`}>
-                                            <img alt="svg" src={lesson.svg && REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="class-lesson-item-info">
-                                    <div className={`class-lesson-item-info-title ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
-                                        <Link className="class-lesson-item-info-title-text" to={`/class/${type}/${id}/${lesson._id}/resources`}>{lesson.title}</Link>
-                                    </div>
-                                    <div className="class-lesson-item-info-description">
-                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#handout`}>
-                                            <div>
-                                                جزوه
-                                            </div>
-                                            <Booklet className={"class-lesson-item-info-description-section-svg"}/>
-                                        </HashLink>
-                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#summary`}>
-                                            <div>
-                                                خلاصه دروس
-                                            </div>
-                                            <Questions className={"class-lesson-item-info-description-section-svg"}/>
-                                        </HashLink>
-                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#question`}>
-                                            <div>
-                                                نمونه سوال
-                                            </div>
-                                            <QuestionsNew className={"class-lesson-item-info-description-section-svg"}/>
-                                        </HashLink>
-                                        <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#voice`}>
-                                            <div>
-                                                ویس‌آموزشی
-                                            </div>
-                                            <AudioSvg className={"class-lesson-item-info-description-section-svg"}/>
-                                        </HashLink>
-                                        {/*<HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#video`}>*/}
-                                        {/*    <div>*/}
-                                        {/*        فیلم*/}
-                                        {/*    </div>*/}
-                                        {/*    <VideoPlayer className={"class-lesson-item-info-description-section-svg"}/>*/}
-                                        {/*</HashLink>*/}
-                                    </div>
-                                </div>
+        return Object.values(items).map((lesson, index) =>
+            <div className="class-item-container" key={lesson._id}>
+                <div className={`class-lesson-item ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
+                    <div className="class-lesson-item-media">
+                        <Link to={`/class/${type}/${id}/${lesson._id}/resources`}>
+                            <div className={`class-lesson-item-media-svg-container ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
+                                <img alt="svg" src={lesson.svg && REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
                             </div>
-                        </div>)
-                }
-            </React.Fragment>
+                        </Link>
+                    </div>
+                    <div className="class-lesson-item-info">
+                        <div className={`class-lesson-item-info-title ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
+                            <Link className="class-lesson-item-info-title-text" to={`/class/${type}/${id}/${lesson._id}/resources`}>{lesson.title}</Link>
+                        </div>
+                        <div className="class-lesson-item-info-description">
+                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#handout`}>
+                                <div>
+                                    جزوه
+                                </div>
+                                <Booklet className={"class-lesson-item-info-description-section-svg"}/>
+                            </HashLink>
+                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#summary`}>
+                                <div>
+                                    خلاصه دروس
+                                </div>
+                                <Questions className={"class-lesson-item-info-description-section-svg"}/>
+                            </HashLink>
+                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#question`}>
+                                <div>
+                                    نمونه سوال
+                                </div>
+                                <QuestionsNew className={"class-lesson-item-info-description-section-svg"}/>
+                            </HashLink>
+                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#voice`}>
+                                <div>
+                                    ویس‌آموزشی
+                                </div>
+                                <AudioSvg className={"class-lesson-item-info-description-section-svg"}/>
+                            </HashLink>
+                            {/*<HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#video`}>*/}
+                            {/*    <div>*/}
+                            {/*        فیلم*/}
+                            {/*    </div>*/}
+                            {/*    <VideoPlayer className={"class-lesson-item-info-description-section-svg"}/>*/}
+                            {/*</HashLink>*/}
+                        </div>
+                    </div>
+                </div>
+            </div>,
         )
     }
 

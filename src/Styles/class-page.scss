@@ -306,7 +306,7 @@
 }
 
 .class-item-page-container {
-  padding: $header-size 5% 0 5%;
+  padding: $header-size 5% 5% 5%;
   background-color: var(--light-color);
   min-height: calc(100vh - 81px);
   display: flex;
@@ -671,6 +671,10 @@
   width: 25%;
   text-align: center;
 
+  @media screen and (max-width: 480px) {
+    width: 24%;
+  }
+
   &:hover {
     transition: all linear $short-animation-duration;
     background-color: var(--secondary-color-hover);
@@ -769,6 +773,10 @@
   margin: 20px;
   text-align: center;
   transition: all ease $normal-animation-duration;
+
+  &:hover {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  }
 
   @media screen and (max-width: 480px) {
     margin: 10px 0;
