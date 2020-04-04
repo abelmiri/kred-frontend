@@ -24,6 +24,7 @@ class ClassItemResourcePage extends PureComponent
             voice: [],
             video: [],
         }
+        this.sentView = false
     }
 
     componentDidMount()
@@ -42,6 +43,42 @@ class ClassItemResourcePage extends PureComponent
                 video: res.filter((p) => p.type === "video"),
             }))
             .catch(() => this.setState({...this.state, error: true}))
+
+        const {parent, item} = this.props
+        if (parent && parent.title && item && item.title)
+        {
+            this.sentView = true
+            // statistics
+            process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title} | ${item.title}`}).catch(err => console.log(err))
+            console.log(`کلاس درس | ${parent.title} | ${item.title}`)
+        }
+        else if (!parentId && item && item.title)
+        {
+            this.sentView = true
+            // statistics
+            process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${item.title} | منابع درسی`}).catch(err => console.log(err))
+            console.log(`کلاس درس | ${item.title} | منابع درسی`)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        if (!this.sentView)
+        {
+            const {parent, item, parentId} = this.props
+            if (parent && parent.title && item && item.title)
+            {
+                this.sentView = true
+                // statistics
+                process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title} | ${item.title}`}).catch(err => console.log(err))
+            }
+            else if (!parentId && item && item.title)
+            {
+                this.sentView = true
+                // statistics
+                process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${item.title} | منابع درسی`}).catch(err => console.log(err))
+            }
+        }
     }
 
     render()
@@ -76,6 +113,7 @@ class ClassItemResourcePage extends PureComponent
                         <ClassItemResourceFilePage user={user}
                                                    type={route.match.params.type}
                                                    item={item}
+                                                   parentId={true}
                                                    parent={parent}
                                                    id={route.match.params.id}
                                                    fileId={route.match.params.fileId}

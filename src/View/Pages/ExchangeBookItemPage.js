@@ -28,12 +28,16 @@ class ExchangeBookItemPage extends PureComponent
             this.setState({...this.state, exchange}, () =>
             {
                 api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`)
-                    .then((exchange) => this.setState({...this.state, exchange}))
+                    .then((exchange) =>
+                    {
+                        this.setState({...this.state, exchange}, () =>
+                        {
+                            // statistics
+                            process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `تبادل کتاب | ${exchange.title}`, content_id: exchangeId}).catch(err => console.log(err))
+                        })
+                    })
                     .catch((e) => e?.response?.status === 404 ? this.setState({...this.state, notFound: true}) : this.setState({...this.state, error: true}))
             })
-
-            // statistics
-            process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "تبادل کتاب | صفحه کتاب", content_id: exchangeId}).catch(err => console.log(err))
         }
     }
 

@@ -45,8 +45,12 @@ class ShowPackPage extends PureComponent
             .then(videoPack =>
             {
                 this.setState({...this.state, videoPack}, () =>
-                    localStorage.setItem(packId, JSON.stringify(videoPack)),
-                )
+                {
+                    // statistics
+                    process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `ویدیوها | ${videoPack.title}`, content_id: packId}).catch(err => console.log(err))
+
+                    localStorage.setItem(packId, JSON.stringify(videoPack))
+                })
             })
             .catch(() =>
             {
@@ -59,9 +63,6 @@ class ShowPackPage extends PureComponent
                 }
                 else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
             })
-
-        // statistics
-        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "صفحه‌ی مجموعه ویدیوها", content_id: packId}).catch(err => console.log(err))
 
         if (process.env.NODE_ENV === "production")
         {

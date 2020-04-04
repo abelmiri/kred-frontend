@@ -50,6 +50,7 @@ class PavilionItemPage extends PureComponent
                                     .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false})),
                             )
                         }
+
                         setTimeout(() =>
                         {
                             if (location.includes("/comments")) window.scroll({top: this.comments.offsetTop - 100, behavior: "smooth"})

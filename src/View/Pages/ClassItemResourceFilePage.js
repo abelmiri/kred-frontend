@@ -27,6 +27,8 @@ class ClassItemResourceFilePage extends PureComponent
             sendLoading: false,
             focused: false,
         }
+        this.sentView = false
+
         this.page = 2
         this.activeScrollHeight = 0
     }
@@ -36,20 +38,59 @@ class ClassItemResourceFilePage extends PureComponent
         window.scroll({top: 0})
         const {fileId} = this.props
         api.get(`education-resource`, fileId)
-            .then((item) => this.setState({...this.state, fileLoading: false, file: item}, () =>
+            .then((file) => this.setState({...this.state, fileLoading: false, file}, () =>
             {
-                if (item.comments_count > 0)
+                if (file.comments_count > 0)
                 {
                     this.setState({...this.state, commentsLoading: true}, () =>
                         api.get(`education-resource/comments/${fileId}`, `?limit=5&page=1&time=${new Date().toISOString()}`)
                             .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false})),
                     )
                 }
+
+                if (!this.sentView)
+                {
+                    const {parent, item, parentId} = this.props
+                    if (parent && parent.title && item && item.title)
+                    {
+                        this.sentView = true
+                        // statistics
+                        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title} | ${item.title} | ${file.title}`, content_id: file._id}).catch(err => console.log(err))
+                    }
+                    else if (!parentId && item && item.title)
+                    {
+                        this.sentView = true
+                        // statistics
+                        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${item.title} | ${file.title} | منابع درسی`, content_id: file._id}).catch(err => console.log(err))
+                    }
+                }
+
             }))
             .catch((e) => this.setState({...this.state, error: e?.response?.status !== 404, fileLoading: false}))
 
         document.addEventListener("scroll", this.onScroll)
         window.addEventListener("popstate", this.onPopState)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        if (!this.sentView)
+        {
+            const {parent, item, parentId} = this.props
+            const {file} = this.state
+            if (parent && parent.title && item && item.title && file && file.title)
+            {
+                this.sentView = true
+                // statistics
+                process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title} | ${item.title} | ${file.title}`, content_id: file._id}).catch(err => console.log(err))
+            }
+            else if (!parentId && item && item.title && file && file.title)
+            {
+                this.sentView = true
+                // statistics
+                process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${item.title} | ${file.title} | منابع درسی`, content_id: file._id}).catch(err => console.log(err))
+            }
+        }
     }
 
     componentWillUnmount()
@@ -251,6 +292,13 @@ class ClassItemResourceFilePage extends PureComponent
         )
     }
 
+    download = () =>
+    {
+        const {file} = this.state
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "click", content: `دانلود ${file.title}`, content_id: file._id}).catch(err => console.log(err))
+    }
+
     render()
     {
         const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading} = this.state
@@ -328,7 +376,7 @@ class ClassItemResourceFilePage extends PureComponent
                             </div>
                             <div className="class-file-page-download">
                                 <img className='class-file-page-pic' src={REST_URL + file.picture} alt={file.title}/>
-                                <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file}>
+                                <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file} onClick={this.download}>
                                     <Material className="class-file-page-download-btn">دانلود</Material>
                                 </a>
                             </div>

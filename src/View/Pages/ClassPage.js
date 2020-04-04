@@ -48,6 +48,9 @@ class ClassPage extends PureComponent
         api.get("education-resource/count")
             .then((itemsCount) => this.setState({...this.state, loading: false, itemsCount: itemsCount.count}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
+
+        // statistics
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "کلاس درس"}).catch(err => console.log(err))
     }
 
     changeSubjects = (value) => this.setState({...this.state, isBlockView: value})

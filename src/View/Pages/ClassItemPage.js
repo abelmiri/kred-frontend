@@ -21,6 +21,7 @@ class ClassItemPage extends PureComponent
             error: false,
             items: {},
         }
+        this.sentView = false
     }
 
     componentDidMount()
@@ -31,6 +32,28 @@ class ClassItemPage extends PureComponent
         api.get(`${type === "block" ? "block" : "lesson"}/category`, `?${type === "block" ? "block" : "lesson"}_id=${id}`)
             .then((data) => data.length > 0 ? this.setState({...this.state, items: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {}), loading: false}) : this.setState({...this.state, loading: false, items: {0: 0}}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
+
+        const {parent} = this.props
+        if (parent && parent.title)
+        {
+            this.sentView = true
+            // statistics
+            process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title}`}).catch(err => console.log(err))
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        if (!this.sentView)
+        {
+            const {parent} = this.props
+            if (parent && parent.title)
+            {
+                this.sentView = true
+                // statistics
+                process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title}`}).catch(err => console.log(err))
+            }
+        }
     }
 
     singleItemView()
@@ -153,15 +176,15 @@ class ClassItemPage extends PureComponent
         return (
             <React.Fragment>
                 {
-                   parent && parent.title &&
-                   <Helmet>
-                       <title>کلاس درس، {parent.title} | KRED</title>
-                       <meta property="og:title" content="کلاس درس | KRED"/>
-                       <meta name="twitter:title" content="کلاس درس | KRED"/>
-                       <meta name="description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
-                       <meta property="og:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
-                       <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
-                   </Helmet>
+                    parent && parent.title &&
+                    <Helmet>
+                        <title>کلاس درس، {parent.title} | KRED</title>
+                        <meta property="og:title" content="کلاس درس | KRED"/>
+                        <meta name="twitter:title" content="کلاس درس | KRED"/>
+                        <meta name="description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
+                        <meta property="og:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
+                        <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
+                    </Helmet>
                 }
                 <Switch>
                     <Route path={`/class/:type/:parentId/:id/resources`} render={(route) =>
