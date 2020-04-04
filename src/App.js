@@ -194,14 +194,14 @@ class App extends PureComponent
 
     getVideoPacks = () =>
     {
-        api.get("video-pack", `?limit=100`, true).then((videoPacks) =>
+        api.get("video-pack", `?limit=100`).then((videoPacks) =>
             this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}),
         )
     }
 
     getCompanies = () =>
     {
-        api.get("company", `?limit=100`, true).then((companies) =>
+        api.get("company", `?limit=100`).then((companies) =>
             this.setState({...this.state, companies: companies.reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}),
         )
     }
