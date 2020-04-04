@@ -11,6 +11,7 @@ import copyToClipboard from "../../Helpers/copyToClipboard"
 import {NotificationManager} from "react-notifications"
 import StickersMenu from "../Components/StickerMenu"
 import Comment from "../Components/Comment"
+import Helmet from "react-helmet"
 
 class ClassItemResourceFilePage extends PureComponent
 {
@@ -256,6 +257,27 @@ class ClassItemResourceFilePage extends PureComponent
         const {type, user, parent, item} = this.props
         return (
             <div className="class-resources-page-container">
+                {
+                    parent && parent.title && item && item.title && file && file.title ?
+                        <Helmet>
+                            <title>{parent.title}، {item.title}، {file.title} | KRED</title>
+                            <meta property="og:title" content="کلاس درس | KRED"/>
+                            <meta name="twitter:title" content="کلاس درس | KRED"/>
+                            <meta name="description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            <meta property="og:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            <meta name="twitter:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                        </Helmet>
+                        :
+                        item && item.title && file && file.title &&
+                        <Helmet>
+                            <title>کلاس درس، {item.title}، {file.title} | KRED</title>
+                            <meta property="og:title" content="کلاس درس | KRED"/>
+                            <meta name="twitter:title" content="کلاس درس | KRED"/>
+                            <meta name="description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            <meta property="og:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            <meta name="twitter:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                        </Helmet>
+                }
                 <div className="class-location-container">
                     <Link to="/class" className="class-location-link">کلاس درس</Link>
                     <SmoothArrowSvg className="class-left-arrow"/>
@@ -275,7 +297,7 @@ class ClassItemResourceFilePage extends PureComponent
                                 <SmoothArrowSvg className="class-left-arrow"/>
                                 <Link to={`/class/${type}/${item._id}/resources`} className="class-location-link">منابع درسی</Link>
                                 <SmoothArrowSvg className="class-left-arrow"/>
-                                {file.title}
+                                {file?.title}
                             </React.Fragment>
                     }
                 </div>

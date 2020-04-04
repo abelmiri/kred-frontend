@@ -8,6 +8,7 @@ import {BeatLoader} from "react-spinners"
 import api from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
 import LogoSvg from "../../Media/Svgs/LogoSvg"
+import Helmet from "react-helmet"
 
 class SignUpPage extends PureComponent
 {
@@ -87,14 +88,14 @@ class SignUpPage extends PureComponent
                     {
                         if (data.count > 0)
                         {
-                            this.phoneInput.style.borderBottom = "1px solid red"
-                            this.phoneError.style.height = "20px"
+                            if (this.phoneInput) this.phoneInput.style.borderBottom = "1px solid red"
+                            if (this.phoneError) this.phoneError.style.height = "20px"
                             this.phoneValid = false
                         }
                         else
                         {
-                            this.phoneInput.style.borderBottom = ""
-                            this.phoneError.style.height = ""
+                            if (this.phoneInput) this.phoneInput.style.borderBottom = ""
+                            if (this.phoneError) this.phoneError.style.height = ""
                             this.phoneValid = true
                         }
                     })
@@ -178,6 +179,15 @@ class SignUpPage extends PureComponent
         const {sliderIndex, previousSlider, redirectHome, loading, phone, level} = this.state
         return (
             <div className="login-container">
+
+                <Helmet>
+                    <title>ثبت نام | KRED</title>
+                    <meta property="og:title" content="ثبت نام | KRED"/>
+                    <meta name="twitter:title" content="ثبت نام | KRED"/>
+                    <meta name="description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
+                    <meta property="og:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
+                    <meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
+                </Helmet>
 
                 {redirectHome && <Redirect to="/"/>}
 

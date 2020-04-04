@@ -8,6 +8,7 @@ import TickSvg from "../../Media/Svgs/TickSvg"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import {NotificationManager} from "react-notifications"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
+import Helmet from "react-helmet"
 
 class VideoPacksPage extends PureComponent
 {
@@ -141,126 +142,136 @@ class VideoPacksPage extends PureComponent
         const {buyLoading, buyModal, level, offCodeLoading, code, buyPack} = this.state
         const {videoPacks, companies, user, setUser} = this.props
         return (
-            <Switch>
-                <Route path="/videos/:id" render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
+            <React.Fragment>
+                <Helmet>
+                    <title>فیلم‌های آموزشی | KRED</title>
+                    <meta property="og:title" content="فیلم‌های آموزشی | KRED"/>
+                    <meta name="twitter:title" content="فیلم‌های آموزشی | KRED"/>
+                    <meta name="description" content="اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین دانشگاه‌های دنیا... آماده‌ای؟"/>
+                    <meta property="og:description" content="اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین دانشگاه‌های دنیا... آماده‌ای؟"/>
+                    <meta name="twitter:description" content="اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین دانشگاه‌های دنیا... آماده‌ای؟"/>
+                </Helmet>
+                <Switch>
+                    <Route path="/videos/:id" render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
 
-                <React.Fragment>
-                    <div className="page-background-img video">
-                        <div className="page-des-cont">
-                            <h2 className="video-page-desc">فیلم‌های آموزشی</h2>
-                            <h3 className="video-page-text">
-                                اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین
-                                دانشگاه‌های دنیا... آماده‌ای؟
-                            </h3>
+                    <React.Fragment>
+                        <div className="page-background-img video">
+                            <div className="page-des-cont">
+                                <h2 className="video-page-desc">فیلم‌های آموزشی</h2>
+                                <h3 className="video-page-text">
+                                    اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین
+                                    دانشگاه‌های دنیا... آماده‌ای؟
+                                </h3>
+                            </div>
                         </div>
-                    </div>
-                    <div className="video-packs-page-cont">
-                        {
-                            Object.values(companies).length > 0 ?
-                                Object.values(companies).map(company =>
-                                    <div key={company._id} className="company-item-cont">
-                                        <div className="company-item">
-                                            <div>مجموعه فیلم‌های آموزشی<span> </span>{company.name}</div>
-                                            <div className="company-item-left-side">
-                                                <div className="company-item-english">{company.english_name}</div>
-                                                <img className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
+                        <div className="video-packs-page-cont">
+                            {
+                                Object.values(companies).length > 0 ?
+                                    Object.values(companies).map(company =>
+                                        <div key={company._id} className="company-item-cont">
+                                            <div className="company-item">
+                                                <div>مجموعه فیلم‌های آموزشی<span> </span>{company.name}</div>
+                                                <div className="company-item-left-side">
+                                                    <div className="company-item-english">{company.english_name}</div>
+                                                    <img className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="company-item-desc">{company.description}</div>
-                                        {
-                                            Object.values(videoPacks).length > 0 ?
-                                                Object.values(videoPacks).map(pack =>
-                                                    <Link key={pack._id} to={`/videos/${pack._id}`}>
-                                                        <div className="video-pack-item">
-                                                            <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
-                                                            {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
-                                                            <div className="video-pack-item-title">
-                                                                <div className="video-pack-item-title-text">
-                                                                    مجموعه فیلم‌های<span> </span>{pack.title}
-                                                                    {pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>}
+                                            <div className="company-item-desc">{company.description}</div>
+                                            {
+                                                Object.values(videoPacks).length > 0 ?
+                                                    Object.values(videoPacks).map(pack =>
+                                                        <Link key={pack._id} to={`/videos/${pack._id}`}>
+                                                            <div className="video-pack-item">
+                                                                <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
+                                                                {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
+                                                                <div className="video-pack-item-title">
+                                                                    <div className="video-pack-item-title-text">
+                                                                        مجموعه فیلم‌های<span> </span>{pack.title}
+                                                                        {pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>}
+                                                                    </div>
+                                                                    {
+                                                                        !pack.have_permission &&
+                                                                        <React.Fragment>
+                                                                            <Material className="video-pack-item-title-buy view">
+                                                                                مشاهده
+                                                                            </Material>
+                                                                            <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
+                                                                                خرید ({addCommaPrice(pack.price)} تومان)
+                                                                            </Material>
+                                                                        </React.Fragment>
+                                                                    }
                                                                 </div>
+                                                            </div>
+                                                        </Link>,
+                                                    )
+                                                    :
+                                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                                            }
+                                        </div>,
+                                    )
+                                    :
+                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                            }
+                        </div>
+
+                        {
+                            (buyLoading || buyModal) &&
+                            <React.Fragment>
+                                <div className="create-exchange-back" onClick={this.hideCompleteProfile}/>
+                                {
+                                    buyLoading ?
+                                        <div className="buy-loading">
+                                            <ClipLoader size={24} color="#3AAFA9"/>
+                                        </div>
+                                        :
+                                        <div className="buy-loading profile">
+                                            <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
+                                                <div className="buy-slide">
+                                                    <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
+                                                </div>
+                                                <div className="buy-slide">
+                                                    <div className="profile-introduction-title">تایید خرید</div>
+                                                    <div className="profile-info-description">
+                                                        <div>
+                                                            <p>کد تخفیف</p>
+                                                            <input type="text" ref={e => this.offCode = e} onChange={this.changeOffCode}/>
+                                                        </div>
+                                                        <div className="buy-off-code">
+                                                            <div className="buy-off-code-amount-cont">
                                                                 {
-                                                                    !pack.have_permission &&
-                                                                    <React.Fragment>
-                                                                        <Material className="video-pack-item-title-buy view">
-                                                                            مشاهده
-                                                                        </Material>
-                                                                        <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
-                                                                            خرید ({addCommaPrice(pack.price)} تومان)
-                                                                        </Material>
-                                                                    </React.Fragment>
+                                                                    code && <div className="buy-off-code-amount">تخفیف {code.amount_type === "fix" ? addCommaPrice(code.amount) : code.amount} {code.amount_type === "fix" ? "تومانی" : "درصدی"}</div>
                                                                 }
                                                             </div>
-                                                        </div>
-                                                    </Link>,
-                                                )
-                                                :
-                                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-                                        }
-                                    </div>,
-                                )
-                                :
-                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-                        }
-                    </div>
-
-                    {
-                        (buyLoading || buyModal) &&
-                        <React.Fragment>
-                            <div className="create-exchange-back" onClick={this.hideCompleteProfile}/>
-                            {
-                                buyLoading ?
-                                    <div className="buy-loading">
-                                        <ClipLoader size={24} color="#3AAFA9"/>
-                                    </div>
-                                    :
-                                    <div className="buy-loading profile">
-                                        <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
-                                            <div className="buy-slide">
-                                                <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
-                                            </div>
-                                            <div className="buy-slide">
-                                                <div className="profile-introduction-title">تایید خرید</div>
-                                                <div className="profile-info-description">
-                                                    <div>
-                                                        <p>کد تخفیف</p>
-                                                        <input type="text" ref={e => this.offCode = e} onChange={this.changeOffCode}/>
-                                                    </div>
-                                                    <div className="buy-off-code">
-                                                        <div className="buy-off-code-amount-cont">
                                                             {
-                                                                code && <div className="buy-off-code-amount">تخفیف {code.amount_type === "fix" ? addCommaPrice(code.amount) : code.amount} {code.amount_type === "fix" ? "تومانی" : "درصدی"}</div>
+                                                                buyPack &&
+                                                                <div className="buy-off-code-pay">
+                                                                    مبلغ قابل پرداخت:
+                                                                    <span> </span>
+                                                                    {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
+                                                                    <span> </span>
+                                                                    تومان
+                                                                </div>
                                                             }
                                                         </div>
-                                                        {
-                                                            buyPack &&
-                                                            <div className="buy-off-code-pay">
-                                                                مبلغ قابل پرداخت:
-                                                                <span> </span>
-                                                                {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
-                                                                <span> </span>
-                                                                تومان
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                    <div className="profile-info-submit-buttons-container">
-                                                        <Material type="button" style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
-                                                            {code ? "حذف کد تخفیف" : "ثبت"}
-                                                        </Material>
-                                                        <Material type="button" style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
-                                                            تکمیل خرید
-                                                        </Material>
+                                                        <div className="profile-info-submit-buttons-container">
+                                                            <Material type="button" style={{flexGrow: 1}} onClick={this.validateOffCode} className={`profile-info-submit-button ${offCodeLoading ? "loading" : ""}`}>
+                                                                {code ? "حذف کد تخفیف" : "ثبت"}
+                                                            </Material>
+                                                            <Material type="button" style={{flexGrow: 1}} className={`profile-info-submit-button ${buyLoading ? "loading" : ""}`} onClick={this.submitShop}>
+                                                                تکمیل خرید
+                                                            </Material>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                            }
-                        </React.Fragment>
-                    }
+                                }
+                            </React.Fragment>
+                        }
 
-                </React.Fragment>
-            </Switch>
+                    </React.Fragment>
+                </Switch>
+            </React.Fragment>
         )
     }
 }

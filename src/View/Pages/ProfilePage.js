@@ -13,6 +13,7 @@ import ProfilePageDashboard from "../Components/ProfilePageDashboard"
 import Footer from "../Components/Footer"
 import {ClipLoader} from "react-spinners"
 import {Link} from "react-router-dom"
+import Helmet from "react-helmet"
 
 class ProfilePage extends PureComponent
 {
@@ -76,6 +77,11 @@ class ProfilePage extends PureComponent
         const {setUser, user, videoPacks} = this.props
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>پروفایل من | KRED</title>
+                    <meta property="og:title" content="پروفایل من | KRED"/>
+                    <meta name="twitter:title" content="پروفایل من | KRED"/>
+                </Helmet>
                 <div className="profile-container">
                     {redirectHome && <Redirect to="/"/>}
                     <div className="profile-right-menus" ref={e => this.rightSide = e}>

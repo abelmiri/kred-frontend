@@ -344,6 +344,7 @@
   border: 1px solid var(--primary-color);
   display: flex;
   justify-content: center;
+  align-items: center;
   transition: all linear 0.2s;
 
   &:hover {
@@ -356,7 +357,6 @@
 }
 
 .home-slider-img-text {
-  object-fit: contain;
   width: 50%;
   @media screen and (max-width: 480px) {
     width: 100%;
@@ -367,7 +367,6 @@
 
 .home-slider-img {
   width: 40%;
-  object-fit: contain;
   margin-left: 5%;
   @media screen and (max-width: 480px) {
     width: 100%;

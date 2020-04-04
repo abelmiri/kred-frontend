@@ -7,6 +7,7 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 import PavilionItemPage from "./PavilionItemPage"
 import {NotificationManager} from "react-notifications"
 import Material from "../Components/Material"
+import Helmet from "react-helmet"
 
 class PavilionPage extends PureComponent
 {
@@ -101,63 +102,73 @@ class PavilionPage extends PureComponent
         const {posts, postsLoading} = this.state
         const {user} = this.props
         return (
-            <Switch>
-                <Route path="/pavilions/:id" render={route =>
-                    <PavilionItemPage pavilion={posts[route.match.params.id]}
-                                      setPavilionUpdate={this.setPavilionUpdate}
-                                      pavilionId={route.match.params.id}
-                                      location={route.location.pathname}
-                                      user={user}
-                    />
-                }/>
+            <React.Fragment>
+                <Helmet>
+                    <title>گپ و گفت | KRED</title>
+                    <meta property="og:title" content="گپ و گفت | KRED"/>
+                    <meta name="twitter:title" content="گپ و گفت | KRED"/>
+                    <meta name="description" content="دوست داری بدونی پزشک های موفق توی دوران دانشجویی شون چیکار ها میکردن؟ یا این که از تجربیات دانشجوهای موفق استفاده کنی؟ توی گپ و گفت میتونی جواب سوال هات رو پیدا کنی"/>
+                    <meta property="og:description" content="دوست داری بدونی پزشک های موفق توی دوران دانشجویی شون چیکار ها میکردن؟ یا این که از تجربیات دانشجوهای موفق استفاده کنی؟ توی گپ و گفت میتونی جواب سوال هات رو پیدا کنی"/>
+                    <meta name="twitter:description" content="دوست داری بدونی پزشک های موفق توی دوران دانشجویی شون چیکار ها میکردن؟ یا این که از تجربیات دانشجوهای موفق استفاده کنی؟ توی گپ و گفت میتونی جواب سوال هات رو پیدا کنی"/>
+                </Helmet>
+                <Switch>
+                    <Route path="/pavilions/:id" render={route =>
+                        <PavilionItemPage pavilion={posts[route.match.params.id]}
+                                          setPavilionUpdate={this.setPavilionUpdate}
+                                          pavilionId={route.match.params.id}
+                                          location={route.location.pathname}
+                                          user={user}
+                        />
+                    }/>
 
-                <React.Fragment>
-                    <div className="page-background-img pavilion">
-                        <div className="page-des-cont">
-                            <h2 className="exchange-desc pavilion">گپ و گفت</h2>
-                            <h3 className="exchange-text">
-                                دوست داری بدونی پزشک های موفق توی دوران دانشجویی شون چیکار ها میکردن؟
-                                <br/>
-                                یا این که از تجربیات دانشجوهای موفق استفاده کنی؟
-                                {/*<br/>*/}
-                                {/*توی گپ و گفت میتونی جواب سوال هات رو پیدا کنی*/}
-                            </h3>
+                    <React.Fragment>
+                        <div className="page-background-img pavilion">
+                            <div className="page-des-cont">
+                                <h2 className="exchange-desc pavilion">گپ و گفت</h2>
+                                <h3 className="exchange-text">
+                                    دوست داری بدونی پزشک های موفق توی دوران دانشجویی شون چیکار ها میکردن؟
+                                    <br/>
+                                    یا این که از تجربیات دانشجوهای موفق استفاده کنی؟
+                                    {/*<br/>*/}
+                                    {/*توی گپ و گفت میتونی جواب سوال هات رو پیدا کنی*/}
+                                </h3>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="posts-list-con">
-                        {
-                            Object.values(posts).map((post) =>
-                                <div className="post-con" key={post._id}>
-                                    <div className="post-info-section">
-                                        <Link to={`/pavilions/${post._id}`}>
-                                            <div className="post-title">{post.title}</div>
-                                            <div className="post-name">{post.interviewee_name} "{post.interviewee_bio}"</div>
-                                        </Link>
-                                        <Link to={`/pavilions/${post._id}`} className="post-bold-description">{post.bold_description}</Link>
-                                        <Link to={`/pavilions/${post._id}`} className="post-continue desktop">ادامه مطلب...</Link>
-                                        <div className="post-likes-comment-section">
-                                            <Material className="post-like-count-cont" onClick={() => this.likeAndDisLike(post)}>
-                                                <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
-                                                <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
-                                            </Material>
-                                            <Link to={`/pavilions/${post._id}/comments`} className="post-like-count-cont">
-                                                <div className="post-like-count">{post.comments_count}</div>
-                                                <CommentSvg className="post-comment-svg"/>
+                        <div className="posts-list-con">
+                            {
+                                Object.values(posts).map((post) =>
+                                    <div className="post-con" key={post._id}>
+                                        <div className="post-info-section">
+                                            <Link to={`/pavilions/${post._id}`}>
+                                                <div className="post-title">{post.title}</div>
+                                                <div className="post-name">{post.interviewee_name} "{post.interviewee_bio}"</div>
                                             </Link>
+                                            <Link to={`/pavilions/${post._id}`} className="post-bold-description">{post.bold_description}</Link>
+                                            <Link to={`/pavilions/${post._id}`} className="post-continue desktop">ادامه مطلب...</Link>
+                                            <div className="post-likes-comment-section">
+                                                <Material className="post-like-count-cont" onClick={() => this.likeAndDisLike(post)}>
+                                                    <div className={`post-like-count ${post.is_liked ? "liked" : ""}`}>{post.likes_count}</div>
+                                                    <LikeSvg className={`post-like-svg ${post.is_liked ? "liked" : ""}`}/>
+                                                </Material>
+                                                <Link to={`/pavilions/${post._id}/comments`} className="post-like-count-cont">
+                                                    <div className="post-like-count">{post.comments_count}</div>
+                                                    <CommentSvg className="post-comment-svg"/>
+                                                </Link>
+                                            </div>
+                                            <Link to={`/pavilions/${post._id}`} className="post-continue mobile">ادامه مطلب...</Link>
                                         </div>
-                                        <Link to={`/pavilions/${post._id}`} className="post-continue mobile">ادامه مطلب...</Link>
-                                    </div>
-                                    <Link to={`/pavilions/${post._id}`} className="post-circle-image-link">
-                                        <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
-                                    </Link>
-                                </div>,
-                            )
-                        }
-                        <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
-                    </div>
-                </React.Fragment>
-            </Switch>
+                                        <Link to={`/pavilions/${post._id}`} className="post-circle-image-link">
+                                            <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
+                                        </Link>
+                                    </div>,
+                                )
+                            }
+                            <div className={`exchange-page-loading ${postsLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
+                        </div>
+                    </React.Fragment>
+                </Switch>
+            </React.Fragment>
         )
     }
 }

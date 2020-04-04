@@ -14,6 +14,7 @@ import {ClipLoader} from "react-spinners"
 import {Link} from "react-router-dom"
 import copyToClipboard from "../../Helpers/copyToClipboard"
 import {NotificationManager} from "react-notifications"
+import Helmet from "react-helmet"
 
 class HomePage extends PureComponent
 {
@@ -89,6 +90,14 @@ class HomePage extends PureComponent
         const {user} = this.props
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>گام هایی جذاب در دنیای پزشکی | KRED</title>
+                    <meta property="og:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/>
+                    <meta name="twitter:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/>
+                    <meta name="description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
+                    <meta property="og:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
+                    <meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
+                </Helmet>
                 <div className="home-background-img">
                     <h2 className="home-title">K<span>RED</span></h2>
                     <h3 className="home-desc">گام هایی جذاب در دنیای پزشکی</h3>

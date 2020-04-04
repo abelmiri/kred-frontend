@@ -9,6 +9,7 @@ import SmoothArrowSvg from "../../Media/Svgs/SmoothArrowSvg"
 import {Link, Route, Switch} from "react-router-dom"
 import {HashLink} from "react-router-hash-link"
 import ClassItemResourcePage from "./ClassItemResourcePage"
+import Helmet from "react-helmet"
 
 class ClassItemPage extends PureComponent
 {
@@ -150,37 +151,50 @@ class ClassItemPage extends PureComponent
         const {items, loading, error} = this.state
         const {parent, user} = this.props
         return (
-            <Switch>
-                <Route path={`/class/:type/:parentId/:id/resources`} render={(route) =>
-                    <ClassItemResourcePage user={user}
-                                           type={route.match.params.type}
-                                           parentId={true}
-                                           item={items[route.match.params.id]}
-                                           parent={parent}
-                                           id={route.match.params.id}
-                    />
-                }/>
-                <Route path={`/class/:type/:id/resources`} render={(route) =>
-                    <ClassItemResourcePage user={user}
-                                           type={route.match.params.type}
-                                           item={parent}
-                                           id={route.match.params.id}
-                    />
-                }/>
+            <React.Fragment>
+                {
+                   parent && parent.title &&
+                   <Helmet>
+                       <title>کلاس درس، {parent.title} | KRED</title>
+                       <meta property="og:title" content="کلاس درس | KRED"/>
+                       <meta name="twitter:title" content="کلاس درس | KRED"/>
+                       <meta name="description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
+                       <meta property="og:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
+                       <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
+                   </Helmet>
+                }
+                <Switch>
+                    <Route path={`/class/:type/:parentId/:id/resources`} render={(route) =>
+                        <ClassItemResourcePage user={user}
+                                               type={route.match.params.type}
+                                               parentId={true}
+                                               item={items[route.match.params.id]}
+                                               parent={parent}
+                                               id={route.match.params.id}
+                        />
+                    }/>
+                    <Route path={`/class/:type/:id/resources`} render={(route) =>
+                        <ClassItemResourcePage user={user}
+                                               type={route.match.params.type}
+                                               item={parent}
+                                               id={route.match.params.id}
+                        />
+                    }/>
 
-                <React.Fragment>
-                    <div className="class-item-page-container">
-                        <div className="class-location-container">
-                            <Link to={"/class"} className="class-location-link">کلاس درس</Link>
-                            <SmoothArrowSvg className="class-left-arrow"/>
-                            {parent?.title}
+                    <React.Fragment>
+                        <div className="class-item-page-container">
+                            <div className="class-location-container">
+                                <Link to={"/class"} className="class-location-link">کلاس درس</Link>
+                                <SmoothArrowSvg className="class-left-arrow"/>
+                                {parent?.title}
+                            </div>
+                            {items[0] === 0 ? this.singleItemView() : Object.values(items).length > 0 ? this.itemsView() : null}
+                            <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
+                            <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                         </div>
-                        {items[0] === 0 ? this.singleItemView() : Object.values(items).length > 0 ? this.itemsView() : null}
-                        <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
-                        <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
-                    </div>
-                </React.Fragment>
-            </Switch>
+                    </React.Fragment>
+                </Switch>
+            </React.Fragment>
         )
     }
 }

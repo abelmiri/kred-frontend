@@ -13,6 +13,7 @@ import AllUsers from "./AllUsers"
 import PanelSidebar from "./PanelSidebar"
 import Pavilion from "./Pavilion"
 import Class from "./Class"
+import Helmet from "react-helmet"
 
 class Panel extends PureComponent
 {
@@ -28,6 +29,11 @@ class Panel extends PureComponent
         {
             return (
                 <div className="panel-page-container">
+                    <Helmet>
+                        <title>پنل ادمین | KRED</title>
+                        <meta property="og:title" content="پنل ادمین | KRED"/>
+                        <meta name="twitter:title" content="پنل ادمین | KRED"/>
+                    </Helmet>
                     <PanelSidebar/>
                     <div className="panel-page-content">
                         <Switch>

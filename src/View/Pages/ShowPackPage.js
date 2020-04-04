@@ -5,6 +5,7 @@ import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import axios from "axios"
 import Footer from "../Components/Footer"
+import Helmet from "react-helmet"
 
 class ShowPackPage extends PureComponent
 {
@@ -269,6 +270,17 @@ class ShowPackPage extends PureComponent
         const {videoPack, loading, loadingPercent, video, subtitle, selected} = this.state
         return (
             <React.Fragment>
+                {
+                    videoPack && videoPack.title &&
+                    <Helmet>
+                        <title>فیلم‌های آموزشی، {videoPack.title} | KRED</title>
+                        <meta property="og:title" content="کلاس درس | KRED"/>
+                        <meta name="twitter:title" content="کلاس درس | KRED"/>
+                        <meta name="description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
+                        <meta property="og:description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
+                        <meta name="twitter:description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
+                    </Helmet>
+                }
                 <div className="video-page-cont">
                     {
                         videoPack ?

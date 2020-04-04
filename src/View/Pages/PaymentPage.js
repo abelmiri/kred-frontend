@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import Material from "../Components/Material"
 import UnTickSvg from "../../Media/Svgs/UnTickSvg"
 import Footer from "../Components/Footer"
+import Helmet from "react-helmet"
 
 class PaymentPage extends PureComponent
 {
@@ -12,6 +13,11 @@ class PaymentPage extends PureComponent
         const {type} = this.props
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>پرداخت | KRED</title>
+                    <meta property="og:title" content="پرداخت | KRED"/>
+                    <meta name="twitter:title" content="پرداخت | KRED"/>
+                </Helmet>
                 <div className="payment-page-cont">
                     <div>
                         {
