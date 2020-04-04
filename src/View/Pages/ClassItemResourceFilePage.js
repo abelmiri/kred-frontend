@@ -12,6 +12,8 @@ import {NotificationManager} from "react-notifications"
 import StickersMenu from "../Components/StickerMenu"
 import Comment from "../Components/Comment"
 import Helmet from "react-helmet"
+import SaveSvg from "../../Media/Svgs/SaveSvg"
+import SavedSvg from "../../Media/Svgs/SavedSvg"
 
 class ClassItemResourceFilePage extends PureComponent
 {
@@ -193,7 +195,7 @@ class ClassItemResourceFilePage extends PureComponent
                 window.history.pushState(
                     "",
                     "",
-                    `/${parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}/add-comment` : `/class/${type}/${item._id}/resources/${file._id}/add-comment`}`,
+                    `/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}/add-comment` : `class/${type}/${item._id}/resources/${file._id}/add-comment`}`,
                 )
             }
             document.body.style.overflow = "hidden"
@@ -259,17 +261,42 @@ class ClassItemResourceFilePage extends PureComponent
             if (file.is_liked)
             {
                 api.del(`education-resource/like/${file._id}`)
-                    .then(() =>
-                        this.setState({...this.state, file: {...file, is_liked: false, likes_count: file.likes_count - 1}}),
-                    )
+                    .then(() => this.setState({...this.state, file: {...file, is_liked: false, likes_count: file.likes_count - 1}}))
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
             else
             {
                 api.post("education-resource/like", {education_id: file._id})
-                    .then(() =>
-                        this.setState({...this.state, file: {...file, is_liked: true, likes_count: file.likes_count + 1}}),
-                    )
+                    .then(() => this.setState({...this.state, file: {...file, is_liked: true, likes_count: file.likes_count + 1}}))
+                    .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            }
+        }
+        else
+        {
+            if (document.getElementById("header-login"))
+            {
+                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                document.getElementById("header-login").click()
+            }
+        }
+    }
+
+    saveAndDisSave = () =>
+    {
+        const {user} = this.props
+        if (user)
+        {
+            const {file} = this.state
+            if (file.is_saved)
+            {
+                api.del(`education-resource/save/${file._id}`)
+                    .then(() => this.setState({...this.state, file: {...file, is_saved: false}}))
+                    .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
+            }
+            else
+            {
+                api.post("education-resource/save", {education_id: file._id})
+                    .then(() => this.setState({...this.state, file: {...file, is_saved: true}}))
                     .catch(() => NotificationManager.error("اینترنت خود را بررسی کنید!"))
             }
         }
@@ -285,11 +312,32 @@ class ClassItemResourceFilePage extends PureComponent
 
     copy = () =>
     {
-        const {file} = this.state
-        const {type, parent, item} = this.props
-        copyToClipboard(`https://www.kred.ir/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `class/${type}/${item._id}/resources/${file._id}`}`,
-            () => NotificationManager.success("لینک با موفقیت کپی شد"),
-        )
+        if (navigator.share)
+        {
+            navigator.share({
+                title: document.title,
+                text: "این لینک رو در KRED ببین!",
+                url: window.location.href,
+            })
+                .then(() => console.log("Successful share"))
+                .catch(error =>
+                {
+                    console.log("Error sharing:", error)
+                    const {file} = this.state
+                    const {type, parent, item} = this.props
+                    copyToClipboard(`https://www.kred.ir/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `class/${type}/${item._id}/resources/${file._id}`}`,
+                        () => NotificationManager.success("لینک با موفقیت کپی شد"),
+                    )
+                })
+        }
+        else
+        {
+            const {file} = this.state
+            const {type, parent, item} = this.props
+            copyToClipboard(`https://www.kred.ir/${parent && parent.title ? `class/${type}/${parent._id}/${item._id}/resources/${file._id}` : `class/${type}/${item._id}/resources/${file._id}`}`,
+                () => NotificationManager.success("لینک با موفقیت کپی شد"),
+            )
+        }
     }
 
     download = () =>
@@ -364,13 +412,22 @@ class ClassItemResourceFilePage extends PureComponent
                                         <LikeSvg className={`post-like-svg ${file.is_liked ? "liked" : ""}`}/>
                                         <div className={`pavilion-item-like ${file.is_liked ? "liked" : ""}`}>{file.likes_count} پسند</div>
                                     </Material>
-                                    <Material className="post-like-count-cont copy" onClick={this.copy}>
+                                    <Material className="post-like-count-cont copy file" onClick={this.copy}>
                                         <CopySvg className="post-comment-svg"/>
                                         <div className="pavilion-item-like">کپی لینک</div>
                                     </Material>
                                     <Material className="post-like-count-cont comment">
                                         <CommentSvg className="post-comment-svg"/>
                                         <div className="pavilion-item-like">{file.comments_count} دیدگاه</div>
+                                    </Material>
+                                    <Material className="post-like-count-cont save" onClick={this.saveAndDisSave}>
+                                        {
+                                            file.is_saved ?
+                                                <SavedSvg className="post-comment-svg save"/>
+                                                :
+                                                <SaveSvg className="post-comment-svg save"/>
+                                        }
+                                        <div className="pavilion-item-like">ذخیره</div>
                                     </Material>
                                 </div>
                             </div>

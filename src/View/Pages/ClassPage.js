@@ -14,11 +14,11 @@ import ClassItemPage from "./ClassItemPage"
 import Helmet from "react-helmet"
 
 const indexes = [
-    Math.round(Math.random() * 20),
-    Math.round(Math.random() * 20),
-    Math.round(Math.random() * 20),
-    Math.round(Math.random() * 20),
-    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 21),
+    Math.round(Math.random() * 21),
+    Math.round(Math.random() * 21),
+    Math.round(Math.random() * 21),
+    Math.round(Math.random() * 21),
 ]
 
 class ClassPage extends PureComponent

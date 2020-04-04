@@ -346,7 +346,7 @@ class Class extends PureComponent
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.teacher} className="panel-add-pav-title" backgroundColor="white" label="استاد" getValue={this.setTeacher}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.subject} className="panel-add-pav-title" backgroundColor="white" label="موضوع" getValue={this.setSubject}/>
                                 <MaterialInput disabled={loading} defaultValue={isUpdating.writer} className="panel-add-pav-title" backgroundColor="white" label="نویسنده" getValue={this.setWriter}/>
-                                <select disabled={loading} defaultValue={isUpdating.type} className="panel-class-type" onChange={this.changeType}>
+                                <select disabled={loading || isUpdating.type} defaultValue={isUpdating.type} className="panel-class-type" onChange={this.changeType}>
                                     <option value="">انتخاب نوع</option>
                                     <option value="handout">جزوه</option>
                                     <option value="voice">ویس‌آموزشی</option>

@@ -50,14 +50,12 @@ class ClassItemResourcePage extends PureComponent
             this.sentView = true
             // statistics
             process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${parent.title} | ${item.title}`}).catch(err => console.log(err))
-            console.log(`کلاس درس | ${parent.title} | ${item.title}`)
         }
         else if (!parentId && item && item.title)
         {
             this.sentView = true
             // statistics
             process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کلاس درس | ${item.title} | منابع درسی`}).catch(err => console.log(err))
-            console.log(`کلاس درس | ${item.title} | منابع درسی`)
         }
     }
 
@@ -172,11 +170,11 @@ class ClassItemResourcePage extends PureComponent
                             {
                                 !resLoading &&
                                 <div className="class-a-resource-container">
-                                    <div className="class-a-resource-container-anchor" id="summary"/>
-                                    <div className="class-a-resource-container-title">خلاصه درس</div>
-                                    {summary.length === 0 && <div className={`exchange-page-loading empty-text ${!resLoading ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>}
+                                    <div className="class-a-resource-container-anchor" id="question"/>
+                                    <div className="class-a-resource-container-title">نمونه سوالات</div>
+                                    {question.length === 0 && <div className={`exchange-page-loading empty-text ${!resLoading ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>}
                                     {
-                                        summary.map(item => <ClassResourcesItems key={item._id} item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
+                                        question.map(item => <ClassResourcesItems key={item._id} type="question" item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
                                     }
                                     <div className="class-handout-item-hide"/>
                                     <div className="class-handout-item-hide"/>
@@ -189,11 +187,11 @@ class ClassItemResourcePage extends PureComponent
                             {
                                 !resLoading &&
                                 <div className="class-a-resource-container">
-                                    <div className="class-a-resource-container-anchor" id="question"/>
-                                    <div className="class-a-resource-container-title">نمونه سوالات</div>
-                                    {question.length === 0 && <div className={`exchange-page-loading empty-text ${!resLoading ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>}
+                                    <div className="class-a-resource-container-anchor" id="summary"/>
+                                    <div className="class-a-resource-container-title">خلاصه درس</div>
+                                    {summary.length === 0 && <div className={`exchange-page-loading empty-text ${!resLoading ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>}
                                     {
-                                        question.map(item => <ClassResourcesItems key={item._id} type="question" item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
+                                        summary.map(item => <ClassResourcesItems key={item._id} item={item} svg={<PdfSvg className="class-handout-item-svg"/>}/>)
                                     }
                                     <div className="class-handout-item-hide"/>
                                     <div className="class-handout-item-hide"/>

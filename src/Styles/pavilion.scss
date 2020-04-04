@@ -175,6 +175,13 @@
     order: 3;
   }
 
+  &.save {
+    order: 3;
+    @media screen and (max-width: 480px) {
+      order: 2;
+    }
+  }
+
   @media screen and (max-width: 480px) {
     height: 25px;
   }
@@ -187,6 +194,13 @@
     @media screen and (max-width: 480px) {
       margin: 0 10px;
       order: 2;
+
+      &.file {
+        order: 4;
+        margin: 15px auto;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }
@@ -232,9 +246,19 @@
   fill: var(--post-like-comment-color);
   stroke: var(--post-like-comment-color);
 
+  &.save {
+    width: 18px;
+    height: 18px;
+  }
+
   @media screen and (max-width: 480px) {
     width: 25px;
     height: 25px;
+
+    &.save {
+      width: 23px;
+      height: 23px;
+    }
   }
 }
 
