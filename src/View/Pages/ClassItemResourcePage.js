@@ -91,8 +91,8 @@ class ClassItemResourcePage extends PureComponent
                     parent && parent.title && item && item.title ?
                         <Helmet>
                             <title>{parent.title}، {item.title} | KRED</title>
-                            <meta property="og:title" content="کلاس درس | KRED"/>
-                            <meta name="twitter:title" content="کلاس درس | KRED"/>
+                            <meta property="og:title" content={`${parent.title}، ${item.title} | KRED`}/>
+                            <meta name="twitter:title" content={`${parent.title}، ${item.title} | KRED`}/>
                             <meta name="description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                             <meta property="og:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                             <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
@@ -101,8 +101,8 @@ class ClassItemResourcePage extends PureComponent
                         item && item.title &&
                         <Helmet>
                             <title>کلاس درس، {item.title} | KRED</title>
-                            <meta property="og:title" content="کلاس درس | KRED"/>
-                            <meta name="twitter:title" content="کلاس درس | KRED"/>
+                            <meta property="og:title" content={`کلاس درس، ${item.title} | KRED`}/>
+                            <meta name="twitter:title" content={`کلاس درس، ${item.title} | KRED`}/>
                             <meta name="description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                             <meta property="og:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                             <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>

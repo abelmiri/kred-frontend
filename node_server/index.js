@@ -70,14 +70,50 @@ function sendExchangeHtml(id, res, html, err)
             {
                 res.send(html.toString().replace(
                     `<title>گام هایی جذاب در دنیای پزشکی | KRED</title><meta property="og:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="twitter:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:image" content="/logo512.png"/><meta name="twitter:image" content="/logo512.png"/><meta name="twitter:card" content="summary_large_image"/>`,
-                    `<title>تبادل کتاب ${exchange.title} | کرد</title>
-                                 <meta property="og:title" content="تبادل کتاب ${exchange.title} | کرد"/>
-                                 <meta name="twitter:title" content="تبادل کتاب ${exchange.title} | کرد"/>
+                    `<title>تبادل کتاب ${exchange.title} | KRED</title>
+                                 <meta property="og:title" content="تبادل کتاب ${exchange.title} | KRED"/>
+                                 <meta name="twitter:title" content="تبادل کتاب ${exchange.title} | KRED"/>
                                  <meta name="description" content="${exchange.description}"/>
                                  <meta property="og:description" content="${exchange.description}"/>
                                  <meta name="twitter:description" content="${exchange.description}"/>
                                  <meta property="og:image" content="https://restful.kred.ir/${exchange.picture}"/>
                                  <meta name="twitter:image" content="https://restful.kred.ir/${exchange.picture}"/>
+                                 <meta name="twitter:card" content="summary_large_image"/>`,
+                ))
+            }
+            else res.sendFile(path.join(__dirname, "index.html"))
+        }
+        catch (e)
+        {
+            console.log(e.message)
+            res.sendFile(path.join(__dirname, "index.html"))
+        }
+    })
+}
+
+app.route("/class/:type/:parent/resources/:id").get((req, res) => fs.readFile("./index.html", null, (err, data) => sendEducationHtml(req.params.id, res, data, err)))
+app.route("/class/:type/:parent/:item/resources/:id").get((req, res) => fs.readFile("./index.html", null, (err, data) => sendEducationHtml(req.params.id, res, data, err)))
+
+function sendEducationHtml(id, res, html, err)
+{
+    if (err) res.sendFile(path.join(__dirname, "index.html"))
+    else request(`https://restful.kred.ir/education-resource/${id}`, (error, response, body) =>
+    {
+        try
+        {
+            const education = JSON.parse(body)
+            if (education && education._id)
+            {
+                res.send(html.toString().replace(
+                    `<title>گام هایی جذاب در دنیای پزشکی | KRED</title><meta property="og:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="twitter:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:image" content="/logo512.png"/><meta name="twitter:image" content="/logo512.png"/><meta name="twitter:card" content="summary_large_image"/>`,
+                    `<title>${education.title}، ${education.subject} | KRED</title>
+                                 <meta property="og:title" content="${education.title}، ${education.subject} | KRED"/>
+                                 <meta name="twitter:title" content="${education.title}، ${education.subject} | KRED"/>
+                                 <meta name="description" content="${education.university + education.teacher ? " - " + education.teacher : ""}"/>
+                                 <meta property="og:description" content="${education.university + education.teacher ? " - " + education.teacher : ""}"/>
+                                 <meta name="twitter:description" content="${education.university + education.teacher ? " - " + education.teacher : ""}"/>
+                                 <meta property="og:image" content="https://restful.kred.ir${education.picture}"/>
+                                 <meta name="twitter:image" content="https://restful.kred.ir${education.picture}"/>
                                  <meta name="twitter:card" content="summary_large_image"/>`,
                 ))
             }
@@ -106,9 +142,9 @@ function sendPavilionHtml(id, res, html, err)
             {
                 res.send(html.toString().replace(
                     `<title>گام هایی جذاب در دنیای پزشکی | KRED</title><meta property="og:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="twitter:title" content="گام هایی جذاب در دنیای پزشکی | KRED"/><meta name="description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/><meta property="og:image" content="/logo512.png"/><meta name="twitter:image" content="/logo512.png"/><meta name="twitter:card" content="summary_large_image"/>`,
-                    `<title>گپ و گفت ${gap.title} | کرد</title>
-                                 <meta property="og:title" content="گپ و گفت ${gap.title} | کرد"/>
-                                 <meta name="twitter:title" content="گپ و گفت ${gap.title} | کرد"/>
+                    `<title>گپ و گفت ${gap.title} | KRED</title>
+                                 <meta property="og:title" content="گپ و گفت ${gap.title} | KRED"/>
+                                 <meta name="twitter:title" content="گپ و گفت ${gap.title} | KRED"/>
                                  <meta name="description" content="${gap.bold_description}"/>
                                  <meta property="og:description" content="${gap.bold_description}"/>
                                  <meta name="twitter:description" content="${gap.bold_description}"/>

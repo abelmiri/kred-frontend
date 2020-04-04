@@ -275,8 +275,8 @@ class ShowPackPage extends PureComponent
                     videoPack && videoPack.title &&
                     <Helmet>
                         <title>فیلم‌های آموزشی، {videoPack.title} | KRED</title>
-                        <meta property="og:title" content="کلاس درس | KRED"/>
-                        <meta name="twitter:title" content="کلاس درس | KRED"/>
+                        <meta property="og:title" content={`فیلم‌های آموزشی، ${videoPack.title} | KRED`}/>
+                        <meta name="twitter:title" content={`فیلم‌های آموزشی، ${videoPack.title} | KRED`}/>
                         <meta name="description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
                         <meta property="og:description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
                         <meta name="twitter:description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>

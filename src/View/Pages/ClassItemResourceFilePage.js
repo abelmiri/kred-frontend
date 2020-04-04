@@ -309,8 +309,8 @@ class ClassItemResourceFilePage extends PureComponent
                     parent && parent.title && item && item.title && file && file.title ?
                         <Helmet>
                             <title>{parent.title}، {item.title}، {file.title} | KRED</title>
-                            <meta property="og:title" content="کلاس درس | KRED"/>
-                            <meta name="twitter:title" content="کلاس درس | KRED"/>
+                            <meta property="og:title" content={`${parent.title}، ${item.title}، ${file.title} | KRED`}/>
+                            <meta name="twitter:title" content={`${parent.title}، ${item.title}، ${file.title} | KRED`}/>
                             <meta name="description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta property="og:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta name="twitter:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
@@ -319,8 +319,8 @@ class ClassItemResourceFilePage extends PureComponent
                         item && item.title && file && file.title &&
                         <Helmet>
                             <title>کلاس درس، {item.title}، {file.title} | KRED</title>
-                            <meta property="og:title" content="کلاس درس | KRED"/>
-                            <meta name="twitter:title" content="کلاس درس | KRED"/>
+                            <meta property="og:title" content={`کلاس درس، ${item.title}، ${file.title} | KRED`}/>
+                            <meta name="twitter:title" content={`کلاس درس، ${item.title}، ${file.title} | KRED`}/>
                             <meta name="description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta property="og:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta name="twitter:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>

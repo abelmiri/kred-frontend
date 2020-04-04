@@ -179,8 +179,8 @@ class ClassItemPage extends PureComponent
                     parent && parent.title &&
                     <Helmet>
                         <title>کلاس درس، {parent.title} | KRED</title>
-                        <meta property="og:title" content="کلاس درس | KRED"/>
-                        <meta name="twitter:title" content="کلاس درس | KRED"/>
+                        <meta property="og:title" content={`کلاس درس، ${parent.title} | KRED`}/>
+                        <meta name="twitter:title" content={`کلاس درس، ${parent.title} | KRED`}/>
                         <meta name="description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                         <meta property="og:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                         <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
