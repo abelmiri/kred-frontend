@@ -17,7 +17,7 @@ class AllBuys extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/all/pack-users", `?time=${new Date().toISOString()}`)
+        api.get("view/all/pack-users")
             .then(packUsers => this.setState({...this.state, packUsers, isLoading: false}))
             .catch((err) =>
             {

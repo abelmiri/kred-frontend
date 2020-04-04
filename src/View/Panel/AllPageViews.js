@@ -15,7 +15,7 @@ class AllPageViews extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/all/page", `?time=${new Date().toISOString()}`)
+        api.get("view/all/page")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>
             {

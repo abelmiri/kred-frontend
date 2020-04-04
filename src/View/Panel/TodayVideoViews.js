@@ -15,7 +15,7 @@ class TodayVideoViews extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/today/video", `?time=${new Date().toISOString()}`)
+        api.get("view/today/video")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>
             {

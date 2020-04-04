@@ -27,7 +27,7 @@ class ExchangeBookItemPage extends PureComponent
 
             this.setState({...this.state, exchange}, () =>
             {
-                api.get(`exchange/${exchangeId}`, `?time=${new Date().toISOString()}`)
+                api.get(`exchange/${exchangeId}`)
                     .then((exchange) =>
                     {
                         this.setState({...this.state, exchange}, () =>

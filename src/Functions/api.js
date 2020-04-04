@@ -8,12 +8,25 @@ function get(url, param = "", dontToast)
 {
     const token = !localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user") ? null : JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user")).token
     return axios.get(encodeURI(REST_URL + "/" + url + "/" + param), {headers: token ? {"Authorization": `${token}`} : null})
-        .then((res) => res.data)
+        .then((res) =>
+        {
+            localStorage.setItem(url + "/" + param, JSON.stringify(res.data))
+            return res.data
+        })
         .catch((err) =>
         {
             console.log(" %cERROR ", "color: orange; font-size:12px; font-family: 'Helvetica',consolas,sans-serif; font-weight:900;", err.response)
-            if (err?.response?.status !== 404 && !dontToast) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
-            throw err
+            const cacheData = localStorage.getItem(url + "/" + param)
+            if (cacheData)
+            {
+                if (err?.response?.status !== 404 && !dontToast) NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین...")
+                return JSON.parse(cacheData)
+            }
+            else
+            {
+                if (err?.response?.status !== 404 && !dontToast) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+                throw err
+            }
         })
 }
 

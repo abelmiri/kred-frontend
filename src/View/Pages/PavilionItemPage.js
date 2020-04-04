@@ -37,7 +37,7 @@ class PavilionItemPage extends PureComponent
 
         this.setState({...this.state, pavilion}, () =>
         {
-            api.get(`conversation/${pavilionId}`, `?time=${new Date().toISOString()}`)
+            api.get(`conversation/${pavilionId}`)
                 .then((pavilion) =>
                 {
                     this.setState({...this.state, pavilion}, () =>
@@ -46,7 +46,7 @@ class PavilionItemPage extends PureComponent
                         if (pavilion.comments_count > 0)
                         {
                             this.setState({...this.state, commentsLoading: true}, () =>
-                                api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=1&time=${new Date().toISOString()}`)
+                                api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=1`)
                                     .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false})),
                             )
                         }
@@ -86,7 +86,7 @@ class PavilionItemPage extends PureComponent
                 this.setState({...this.state, commentsLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=${this.page}&time=${new Date().toISOString()}`).then((data) =>
+                    api.get(`conversation/comments/${pavilionId}`, `?limit=5&page=${this.page}`).then((data) =>
                     {
                         this.page += 1
                         this.setState({...this.state, commentsLoading: false, comments: {...comments, ...data.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {})}})

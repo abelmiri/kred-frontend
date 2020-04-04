@@ -43,7 +43,7 @@ class ClassItemResourceFilePage extends PureComponent
                 if (file.comments_count > 0)
                 {
                     this.setState({...this.state, commentsLoading: true}, () =>
-                        api.get(`education-resource/comments/${fileId}`, `?limit=5&page=1&time=${new Date().toISOString()}`)
+                        api.get(`education-resource/comments/${fileId}`, `?limit=5&page=1`)
                             .then((comments) => this.setState({...this.state, comments: comments.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {}), commentsLoading: false})),
                     )
                 }
@@ -112,7 +112,7 @@ class ClassItemResourceFilePage extends PureComponent
                 this.setState({...this.state, commentsLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    api.get(`education-resource/comments/${fileId}`, `?limit=5&page=${this.page}&time=${new Date().toISOString()}`).then((data) =>
+                    api.get(`education-resource/comments/${fileId}`, `?limit=5&page=${this.page}`).then((data) =>
                     {
                         this.page += 1
                         this.setState({...this.state, commentsLoading: false, comments: {...comments, ...data.reduce((sum, comment) => ({...sum, [comment._id]: {...comment}}), {})}})

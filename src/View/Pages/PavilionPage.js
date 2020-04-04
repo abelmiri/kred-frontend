@@ -26,7 +26,7 @@ class PavilionPage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
-        api.get("conversation", `?limit=9&page=1&time=${new Date().toISOString()}`)
+        api.get("conversation", `?limit=9&page=1`)
             .then((data) => this.setState({...this.state, postsLoading: false, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
             .catch(() => this.setState({...this.state, error: true, postsLoading: false}))
 
@@ -53,7 +53,7 @@ class PavilionPage extends PureComponent
                 this.setState({...this.state, postsLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    api.get("conversation", `?limit=9&page=${this.page}&time=${new Date().toISOString()}`).then((data) =>
+                    api.get("conversation", `?limit=9&page=${this.page}`).then((data) =>
                     {
                         this.page += 1
                         this.setState({...this.state, postsLoading: false, posts: {...posts, ...data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}})

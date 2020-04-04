@@ -32,7 +32,7 @@ class ProfilePage extends PureComponent
         window.scroll({top: 0})
         if (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
 
-        api.get("conversation", `?limit=2&page=1&time=${new Date().toISOString()}`)
+        api.get("conversation", `?limit=2&page=1`)
             .then((data) => this.setState({...this.state, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
 
         this.props.getVideoPacks()

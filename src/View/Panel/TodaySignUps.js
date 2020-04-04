@@ -15,7 +15,7 @@ class TodaySignUps extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/today/sign-up", `?time=${new Date().toISOString()}`)
+        api.get("view/today/sign-up")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>
             {

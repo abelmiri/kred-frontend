@@ -15,7 +15,7 @@ class TodayPageViews extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/today/page", `?time=${new Date().toISOString()}`)
+        api.get("view/today/page")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>
             {

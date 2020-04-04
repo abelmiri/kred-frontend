@@ -15,7 +15,7 @@ class AllVideoViews extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/all/video", `?time=${new Date().toISOString()}`)
+        api.get("view/all/video")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>
             {

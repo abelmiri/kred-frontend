@@ -24,7 +24,7 @@ class OffCodes extends PureComponent
 
     componentDidMount()
     {
-        api.get("off-code", `?time=${new Date().toISOString()}`)
+        api.get("off-code")
             .then(results => this.setState({...this.state, offCodes: results.reduce((sum, code) => ({...sum, [code._id]: {...code}}), {})}))
             .catch((err) =>
             {
@@ -85,7 +85,7 @@ class OffCodes extends PureComponent
         {
             if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/off-codes/users")
             document.body.style.overflow = "hidden"
-            api.get(`off-code/users/${id}`, `?time=${new Date().toISOString()}`)
+            api.get(`off-code/users/${id}`)
                 .then(users => this.setState({...this.state, users}))
                 .catch((err) =>
                 {

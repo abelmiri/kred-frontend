@@ -1,8 +1,8 @@
-import React, {lazy, Suspense, PureComponent} from "react"
+import React, {lazy, PureComponent, Suspense} from "react"
 import Header from "./View/Components/Header"
 import {Redirect, Route, Switch} from "react-router-dom"
 import api from "./Functions/api"
-import {NotificationContainer, NotificationManager} from "react-notifications"
+import {NotificationContainer} from "react-notifications"
 import versionMigrations from "./Functions/versionMigration"
 
 const SignUpPage = lazy(() => import("./View/Pages/SignUpPage"))
@@ -180,60 +180,30 @@ class App extends PureComponent
 
     getCities = () =>
     {
-        api.get("city", `?limit=100&time=${new Date().toISOString()}`).then((cities) =>
+        api.get("city", `?limit=100`).then((cities) =>
             this.setState({...this.state, cities: cities.reduce((sum, city) => ({...sum, [city._id]: {...city}}), {})}),
         )
     }
 
     getCategories = () =>
     {
-        api.get("category", `?limit=100&time=${new Date().toISOString()}`).then((categories) =>
+        api.get("category", `?limit=100`).then((categories) =>
             this.setState({...this.state, categories: categories.reduce((sum, category) => ({...sum, [category._id]: {...category}}), {})}),
         )
     }
 
     getVideoPacks = () =>
     {
-        api.get("video-pack", `?limit=100&time=${new Date().toISOString()}`, true)
-            .then((videoPacks) =>
-            {
-                this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}, () =>
-                    localStorage.setItem("video-pack", JSON.stringify(videoPacks)),
-                )
-            })
-            .catch(() =>
-            {
-                const videoPacks = localStorage.getItem("video-pack")
-                if (videoPacks)
-                {
-                    this.setState({...this.state, videoPacks: JSON.parse(videoPacks).reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}, () =>
-                        NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین..."),
-                    )
-                }
-                else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
-            })
+        api.get("video-pack", `?limit=100`, true).then((videoPacks) =>
+            this.setState({...this.state, videoPacks: videoPacks.reduce((sum, videoPack) => ({...sum, [videoPack._id]: {...videoPack}}), {})}),
+        )
     }
 
     getCompanies = () =>
     {
-        api.get("company", `?limit=100&time=${new Date().toISOString()}`, true)
-            .then((companies) =>
-            {
-                this.setState({...this.state, companies: companies.reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}, () =>
-                    localStorage.setItem("company", JSON.stringify(companies)),
-                )
-            })
-            .catch(() =>
-            {
-                const companies = localStorage.getItem("company")
-                if (companies)
-                {
-                    this.setState({...this.state, companies: JSON.parse(companies).reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}, () =>
-                        NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین..."),
-                    )
-                }
-                else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
-            })
+        api.get("company", `?limit=100`, true).then((companies) =>
+            this.setState({...this.state, companies: companies.reduce((sum, company) => ({...sum, [company._id]: {...company}}), {})}),
+        )
     }
 
     render()

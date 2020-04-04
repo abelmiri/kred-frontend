@@ -17,7 +17,7 @@ class TodayBuys extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/today/pack-users", `?time=${new Date().toISOString()}`)
+        api.get("view/today/pack-users")
             .then(packUsers => this.setState({...this.state, packUsers, isLoading: false}))
             .catch((err) =>
             {

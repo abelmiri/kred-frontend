@@ -20,7 +20,7 @@ class AllUsers extends PureComponent
 
     componentDidMount()
     {
-        api.get("view/all/sign-up", `?limit=20&page=1&time=${new Date().toISOString()}`)
+        api.get("view/all/sign-up", `?limit=20&page=1`)
             .then(results => this.setState({...this.state, results, isLoading: false}))
             .catch((err) =>
             {
@@ -47,7 +47,7 @@ class AllUsers extends PureComponent
                 this.setState({...this.state, isLoading: true}, () =>
                 {
                     this.activeScrollHeight = scrollHeight
-                    api.get("view/all/sign-up", `?limit=20&page=${this.page}&time=${new Date().toISOString()}`).then(results =>
+                    api.get("view/all/sign-up", `?limit=20&page=${this.page}`).then(results =>
                     {
                         this.page += 1
                         this.setState({...this.state, results: {users: [...this.state.results.users, ...results.users], count: results.count}, isLoading: false})
