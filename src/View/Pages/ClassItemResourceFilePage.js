@@ -31,6 +31,8 @@ class ClassItemResourceFilePage extends PureComponent
         }
         this.sentView = false
 
+        this.showPicture = false
+
         this.page = 2
         this.activeScrollHeight = 0
     }
@@ -134,6 +136,8 @@ class ClassItemResourceFilePage extends PureComponent
                 this.setState({...this.state, focused: false})
             }
         }
+
+        if (this.showPicture) this.closeImage()
     }
 
     sendComment = () =>
@@ -341,6 +345,50 @@ class ClassItemResourceFilePage extends PureComponent
         process.env.NODE_ENV === "production" && api.post("view", {type: "click", content: `دانلود ${file.title}`, content_id: file._id}).catch(err => console.log(err))
     }
 
+    openImage = () =>
+    {
+        this.showPicture = true
+        document.body.style.overflow = "hidden"
+        window.history.pushState("", "", `${window.location.href}/show-picture`)
+        const copyImage = this.img.cloneNode(true)
+        copyImage.id = "picture"
+        const rect = this.img.getBoundingClientRect()
+        copyImage.style.position = "fixed"
+        copyImage.style.top = rect.top + "px"
+        copyImage.style.height = rect.height + "px"
+        copyImage.style.width = rect.width + "px"
+        copyImage.style.left = rect.left + "px"
+        copyImage.style.right = "auto"
+        copyImage.style.opacity = "0.7"
+        copyImage.style.zIndex = "4"
+        document.body.append(copyImage)
+        copyImage.style.transition = "all linear 0.2s"
+        setTimeout(() =>
+        {
+            copyImage.style.opacity = "1"
+            copyImage.style.top = "0px"
+            copyImage.style.left = "0px"
+            copyImage.style.height = window.innerHeight + "px"
+            copyImage.style.width = document.body.clientWidth + "px"
+        }, 50)
+    }
+
+    closeImage = () =>
+    {
+        this.showPicture = false
+        document.body.style.overflow = "auto"
+        const copyImage = document.getElementById("picture")
+        const rect = this.img.getBoundingClientRect()
+        copyImage.style.top = rect.top + "px"
+        copyImage.style.height = rect.height + "px"
+        copyImage.style.width = rect.width + "px"
+        copyImage.style.left = rect.left + "px"
+        copyImage.style.right = "auto"
+        copyImage.style.opacity = "0.7"
+        copyImage.style.zIndex = "4"
+        setTimeout(() => copyImage.remove(), 300)
+    }
+
     render()
     {
         const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading} = this.state
@@ -429,7 +477,9 @@ class ClassItemResourceFilePage extends PureComponent
                                 </div>
                             </div>
                             <div className="class-file-page-download">
-                                <img className='class-file-page-pic' src={REST_URL + file.picture} alt={file.title}/>
+                                <Material className="class-file-page-pic-material" onClick={this.openImage}>
+                                    <img className="class-file-page-pic" src={REST_URL + file.picture} alt={file.title} ref={e => this.img = e}/>
+                                </Material>
                                 <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file} onClick={this.download}>
                                     <Material className="class-file-page-download-btn">دانلود</Material>
                                 </a>

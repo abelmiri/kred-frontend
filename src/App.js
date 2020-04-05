@@ -60,6 +60,7 @@ class App extends PureComponent
         if (
             location.pathname.includes("login-modal") ||
             location.pathname.includes("add-exchange") ||
+            location.pathname.includes("show-picture") ||
             location.pathname.includes("complete-profile") ||
             location.pathname.includes("add-comment")
         )
@@ -67,6 +68,7 @@ class App extends PureComponent
             let currentPath = location.pathname
                 .replace("/login-modal", "")
                 .replace("/add-exchange", "")
+                .replace("/show-picture", "")
                 .replace("/complete-profile", "")
                 .replace("/add-comment", "")
             window.history.replaceState("", "", currentPath ? currentPath : "/")
