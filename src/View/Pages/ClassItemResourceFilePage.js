@@ -359,13 +359,11 @@ class ClassItemResourceFilePage extends PureComponent
         copyImage.style.width = rect.width + "px"
         copyImage.style.left = rect.left + "px"
         copyImage.style.right = "auto"
-        copyImage.style.opacity = "0.7"
         copyImage.style.zIndex = "4"
         document.body.append(copyImage)
         copyImage.style.transition = "all linear 0.2s"
         setTimeout(() =>
         {
-            copyImage.style.opacity = "1"
             copyImage.style.top = "0px"
             copyImage.style.left = "0px"
             copyImage.style.height = window.innerHeight + "px"
@@ -379,13 +377,12 @@ class ClassItemResourceFilePage extends PureComponent
         document.body.style.overflow = "auto"
         const copyImage = document.getElementById("picture")
         const rect = this.img.getBoundingClientRect()
+        copyImage.style.zIndex = "0"
         copyImage.style.top = rect.top + "px"
         copyImage.style.height = rect.height + "px"
         copyImage.style.width = rect.width + "px"
         copyImage.style.left = rect.left + "px"
         copyImage.style.right = "auto"
-        copyImage.style.opacity = "0.7"
-        copyImage.style.zIndex = "4"
         setTimeout(() => copyImage.remove(), 300)
     }
 
