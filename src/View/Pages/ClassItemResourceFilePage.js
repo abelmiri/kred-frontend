@@ -391,7 +391,7 @@ class ClassItemResourceFilePage extends PureComponent
 
     render()
     {
-        const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading} = this.state
+        const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading, showPicture} = this.state
         const {type, user, parent, item} = this.props
         return (
             <div className="class-resources-page-container">
@@ -404,6 +404,12 @@ class ClassItemResourceFilePage extends PureComponent
                             <meta name="description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta property="og:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta name="twitter:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            {
+                                showPicture ?
+                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+                                    :
+                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+                            }
                         </Helmet>
                         :
                         item && item.title && file && file.title &&
@@ -414,6 +420,12 @@ class ClassItemResourceFilePage extends PureComponent
                             <meta name="description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta property="og:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta name="twitter:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            {
+                                showPicture ?
+                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+                                    :
+                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+                            }
                         </Helmet>
                 }
                 <div className="class-location-container">
