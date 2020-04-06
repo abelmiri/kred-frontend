@@ -122,6 +122,7 @@
 }
 
 .home-section-butt {
+  font-size: $title-font-size;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -131,7 +132,8 @@
   cursor: pointer;
   transition: all ease $normal-animation-duration, border-radius linear $short-animation-duration, opacity ease $opacity-animation-duration, scale ease $scale-animation-duration, color ease $color-animation-duration;
   border: 1px solid var(--primary-color);
-  min-width: 120px;
+  min-width: 100px;
+  text-align: center;
 
   &:hover {
     background-color: var(--very-light-color);
