@@ -155,7 +155,7 @@
   @media screen and (max-width: 800px) {
     right: 5%;
     left: 5%;
-    width: 90%;
+    width: calc(90% - 20px);
     bottom: 20px;
   }
 }
