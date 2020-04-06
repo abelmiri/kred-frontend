@@ -25,7 +25,7 @@ class Panel extends PureComponent
     render()
     {
         const {user} = this.props
-        if (user && user.role === "admin")
+        if (user?.role === "admin")
         {
             return (
                 <div className="panel-page-container">

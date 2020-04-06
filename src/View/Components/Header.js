@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react"
-import {Link} from "react-router-dom"
+import {Link, NavLink} from "react-router-dom"
 import Hamburger from "./Hamburger"
 import Material from "./Material"
 import LoginModal from "./LoginModal"
@@ -238,7 +238,7 @@ class Header extends PureComponent
                                 location.slice(0, 10) === "/pavilions" ||
                                 location.slice(0, 6) === "/class" ||
                                 location.slice(0, 9) === "/payment/" ||
-                                (user && user.role === "admin" && location.slice(0, 6) === "/panel")
+                                (user?.role === "admin" && location.slice(0, 6) === "/panel")
                             ) &&
                             <div className={`header-buttons-menu-cont ${isTransparent && location === "/" ? `styled ${hideDropDown ? "" : "open-drop"}` : ""}`} ref={e => this.dropDownCont = e}>
                                 <Material backgroundColor="rgba(255,255,255,0.3)" className="header-buttons-menu" onClick={this.toggleDropDown}>
@@ -268,7 +268,7 @@ class Header extends PureComponent
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>صفحه اصلی</Material>
                                     </Link>
                                     {
-                                        user && user.role === "admin" &&
+                                        user?.role === "admin" &&
                                         <Link className="header-buttons-menu-drop-link" to="/panel/dashboard">
                                             <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پنل ادمین</Material>
                                         </Link>
@@ -336,17 +336,12 @@ class Header extends PureComponent
                     <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>
                     <div className="header-sidebar-container" style={{transform: "translateX(100%)"}} ref={e => this.sidebar = e}>
                         <Link to="/" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">صفحه اصلی</Material></Link>
-                        {user && <Link to="/profile" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></Link>}
-                        <Link to="/videos" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></Link>
-                        {user?.role === "admin" && <Link to="/class" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></Link>}
-                        <Link to="/pavilions" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">گپ و گفت</Material></Link>
-                        <Link to="/exchanges" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></Link>
-                        {
-                            user && user.role === "admin" &&
-                            <React.Fragment>
-                                <Link to="/panel/dashboard" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پنل ادمین</Material></Link>
-                            </React.Fragment>
-                        }
+                        {user && <NavLink to="/profile" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></NavLink>}
+                        <NavLink to="/videos" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></NavLink>
+                        {user?.role === "admin" && <NavLink to="/class" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></NavLink>}
+                        <NavLink to="/pavilions" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">گپ و گفت</Material></NavLink>
+                        <NavLink to="/exchanges" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></NavLink>
+                        {user?.role === "admin" && <NavLink to="/panel/dashboard" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پنل ادمین</Material></NavLink>}
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
 

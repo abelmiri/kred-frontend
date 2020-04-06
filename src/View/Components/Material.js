@@ -1,8 +1,8 @@
 import React from "react"
 import * as PropTypes from "prop-types"
 
-class Material extends React.PureComponent {
-
+class Material extends React.PureComponent
+{
     static propTypes = {
         className: PropTypes.string,
         onClick: PropTypes.func,
@@ -11,19 +11,29 @@ class Material extends React.PureComponent {
         style: PropTypes.object,
     }
 
-    constructor(props) {
+    constructor(props)
+    {
         super(props)
         this.pageX = 0
         this.pageY = 0
         this.onMouseDown = this.onMouseDown.bind(this)
         this.handleButtonRelease = this.handleButtonRelease.bind(this)
         this.handleLeave = this.handleLeave.bind(this)
+        this.onContext = this.onContext.bind(this)
     }
 
-    handleButtonRelease(e) {
+    onContext(e)
+    {
+        this.handleLeave(e)
+    }
+
+    handleButtonRelease(e)
+    {
         clearTimeout(this.buttonPressTimer)
-        if (!this.ripple) {
-            if (this.container && this.pageX !== null) {
+        if (!this.ripple)
+        {
+            if (this.container && this.pageX !== null)
+            {
                 let target = this.container
                 let rect = target.getBoundingClientRect()
                 let ripple = document.createElement("span")
@@ -35,25 +45,33 @@ class Material extends React.PureComponent {
                 let left = (e.clientX || this.pageX) - rect.left - ripple.offsetWidth / 2
                 ripple.style.top = top + "px"
                 ripple.style.left = left + "px"
-                setTimeout(() => {
-                    try {
+                setTimeout(() =>
+                {
+                    try
+                    {
                         target.removeChild(ripple)
                     }
-                    catch (e) {
+                    catch (e)
+                    {
                         console.log("material failed")
                     }
                 }, 600)
             }
         }
-        else {
+        else
+        {
             this.ripple.style.opacity = "0"
-            setTimeout(() => {
-                if (this.ripple && this.container) {
-                    try {
+            setTimeout(() =>
+            {
+                if (this.ripple && this.container)
+                {
+                    try
+                    {
                         this.container.removeChild(this.ripple)
                         this.ripple = null
                     }
-                    catch (e) {
+                    catch (e)
+                    {
                         console.log("material failed")
                     }
                 }
@@ -61,11 +79,14 @@ class Material extends React.PureComponent {
         }
     }
 
-    onMouseDown(e) {
+    onMouseDown(e)
+    {
         let pageY = e.clientY || (e.touches ? e.touches[0].clientY : 0)
         let pageX = e.clientX || (e.touches ? e.touches[0].clientX : 0)
-        this.buttonPressTimer = setTimeout(() => {
-            if (this.container) {
+        this.buttonPressTimer = setTimeout(() =>
+        {
+            if (this.container)
+            {
                 let target = this.container
                 let rect = target.getBoundingClientRect()
                 let ripple = document.createElement("span")
@@ -80,24 +101,31 @@ class Material extends React.PureComponent {
                 ripple.style.left = left + "px"
             }
         }, 300)
-        if (e.touches) {
+        if (e.touches)
+        {
             this.pageX = e.touches[0].clientX
             this.pageY = e.touches[0].clientY
         }
     }
 
-    handleLeave(e) {
+    handleLeave(e)
+    {
         clearTimeout(this.buttonPressTimer)
-        if (this.ripple) {
+        if (this.ripple)
+        {
             this.ripple.style.opacity = "0"
             this.ripple.style.transform = "scale(0)"
-            setTimeout(() => {
-                if (this.ripple && this.container) {
-                    try {
+            setTimeout(() =>
+            {
+                if (this.ripple && this.container)
+                {
+                    try
+                    {
                         this.container.removeChild(this.ripple)
                         this.ripple = null
                     }
-                    catch (e) {
+                    catch (e)
+                    {
                         console.log("material failed")
                     }
                 }
@@ -107,9 +135,11 @@ class Material extends React.PureComponent {
         this.pageY = e.touches ? null : 0
     }
 
-    render() {
+    render()
+    {
         const isMobile = document.body.clientWidth <= 480
         return <div id={this.props.id} ref={e => this.container = e}
+                    onContextMenu={isMobile ? this.onContext : null}
                     style={this.props.style ? this.props.style : {}}
                     className={this.props.className ? "material " + this.props.className : "material"}
                     onMouseDown={isMobile ? null : this.onMouseDown}

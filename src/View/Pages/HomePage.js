@@ -42,6 +42,7 @@ class HomePage extends PureComponent
 
     changeRoute(e, location)
     {
+        e.preventDefault()
         const {goToExchangeBook} = this.props
         const {target} = e
         goToExchangeBook(target, location)
@@ -112,7 +113,7 @@ class HomePage extends PureComponent
                     <div className="home-videos-text">
                         <h3 className="home-videos-title">فیلم‌های آموزشی</h3>
                         <div className="home-exchange-description">به دنیای جدید آموزش بیا! دیگه نیازی نیست دغدغه یادگیری درسات رو داشته باشی</div>
-                        <button className="home-section-butt" onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</button>
+                        <a href="/videos" className="home-section-butt" onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</a>
                     </div>
                     <img className="home-videos-img mobile" src={Nurses} alt="فیلم‌های آموزشی"/>
                     <div className="home-videos-img desktop">
@@ -151,7 +152,7 @@ class HomePage extends PureComponent
                         <div className="home-exchange-text">
                             <h3 className="home-exchange-title">کلاس درس</h3>
                             <div className="home-exchange-description">دیگه سر کلاس جزوه ننویس! بخواب.</div>
-                            <button className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/class")}>برو تو کلاس درس</button>
+                            <a href="/class" className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/class")}>برو تو کلاس درس</a>
                         </div>
                     </div>
                 }
@@ -159,7 +160,7 @@ class HomePage extends PureComponent
                     <div className="home-videos-text">
                         <h3 className="home-videos-title">گپ و گفت</h3>
                         <div className="home-exchange-description">اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
-                        <button className="home-section-butt" onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو گپ و گفت</button>
+                        <a href="/pavilions" className="home-section-butt" onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو گپ و گفت</a>
                     </div>
                     <img className="home-videos-img" src={Pavion} alt="گپ و گفت"/>
                 </div>
@@ -168,7 +169,7 @@ class HomePage extends PureComponent
                     <div className="home-exchange-text">
                         <h3 className="home-exchange-title">تبادل کتاب</h3>
                         <div className="home-exchange-description">تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>
-                        <button className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</button>
+                        <a href="/exchanges" className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/exchanges")}>برو تو تبادل کتاب</a>
                     </div>
                 </div>
                 <div className="home-about">

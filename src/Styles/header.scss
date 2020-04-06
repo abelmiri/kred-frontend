@@ -343,6 +343,11 @@
 .header-sidebar-link {
   font-size: $title-font-size;
   font-weight: bold;
+  transition: all linear 0.2s;
+
+  &.active {
+    background-color: var(--transparent-third);
+  }
 }
 
 .header-sidebar-btn {
@@ -350,6 +355,7 @@
   border-bottom: 1px solid var(--login-page-background-color);
   padding: 20px 15px;
   margin-top: -1px;
+  background-color: inherit;
 
   &.margin-top {
     margin-top: 80px;
