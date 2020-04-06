@@ -28,11 +28,9 @@ class ClassItemResourceFilePage extends PureComponent
             comments: {},
             sendLoading: false,
             focused: false,
+            showPicture: false,
         }
         this.sentView = false
-
-        this.showPicture = false
-
         this.page = 2
         this.activeScrollHeight = 0
     }
@@ -137,7 +135,7 @@ class ClassItemResourceFilePage extends PureComponent
             }
         }
 
-        if (this.showPicture) this.closeImage()
+        if (this.state.showPicture) this.closeImage()
     }
 
     sendComment = () =>
@@ -347,43 +345,48 @@ class ClassItemResourceFilePage extends PureComponent
 
     openImage = () =>
     {
-        this.showPicture = true
-        document.body.style.overflow = "hidden"
-        window.history.pushState("", "", `${window.location.href}/show-picture`)
-        const copyImage = this.img.cloneNode(true)
-        copyImage.id = "picture"
-        const rect = this.img.getBoundingClientRect()
-        copyImage.style.position = "fixed"
-        copyImage.style.top = rect.top + "px"
-        copyImage.style.height = rect.height + "px"
-        copyImage.style.width = rect.width + "px"
-        copyImage.style.left = rect.left + "px"
-        copyImage.style.right = "auto"
-        copyImage.style.zIndex = "4"
-        document.body.append(copyImage)
-        copyImage.style.transition = "all linear 0.2s"
-        setTimeout(() =>
+        this.setState({...this.state, showPicture: true}, () =>
         {
-            copyImage.style.top = "0px"
-            copyImage.style.left = "0px"
-            copyImage.style.height = window.innerHeight + "px"
-            copyImage.style.width = document.body.clientWidth + "px"
-        }, 50)
+            document.body.style.overflow = "hidden"
+            window.history.pushState("", "", `${window.location.href}/show-picture`)
+            const rect = this.img.getBoundingClientRect()
+            const copyImage = this.img.cloneNode(true)
+            copyImage.onclick = () => document.body.clientWidth > 480 && window.history.back()
+            copyImage.id = "picture"
+            copyImage.style.position = "fixed"
+            copyImage.style.top = rect.top + "px"
+            copyImage.style.height = rect.height + "px"
+            copyImage.style.width = rect.width + "px"
+            copyImage.style.left = rect.left + "px"
+            copyImage.style.right = "auto"
+            copyImage.style.zIndex = "4"
+            document.body.append(copyImage)
+            copyImage.style.transition = "all linear 0.2s"
+            setTimeout(() =>
+            {
+                copyImage.style.top = "0px"
+                copyImage.style.left = "0px"
+                copyImage.style.height = window.innerHeight + "px"
+                copyImage.style.width = document.body.clientWidth + "px"
+            }, 50)
+        })
     }
 
     closeImage = () =>
     {
-        this.showPicture = false
-        document.body.style.overflow = "auto"
-        const copyImage = document.getElementById("picture")
-        const rect = this.img.getBoundingClientRect()
-        copyImage.style.zIndex = "0"
-        copyImage.style.top = rect.top + "px"
-        copyImage.style.height = rect.height + "px"
-        copyImage.style.width = rect.width + "px"
-        copyImage.style.left = rect.left + "px"
-        copyImage.style.right = "auto"
-        setTimeout(() => copyImage.remove(), 300)
+        this.setState({...this.state, showPicture: false}, () =>
+        {
+            document.body.style.overflow = "auto"
+            const rect = this.img.getBoundingClientRect()
+            const copyImage = document.getElementById("picture")
+            copyImage.style.zIndex = "0"
+            copyImage.style.top = rect.top + "px"
+            copyImage.style.height = rect.height + "px"
+            copyImage.style.width = rect.width + "px"
+            copyImage.style.left = rect.left + "px"
+            copyImage.style.right = "auto"
+            setTimeout(() => copyImage.remove(), 300)
+        })
     }
 
     render()
