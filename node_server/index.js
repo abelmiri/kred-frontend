@@ -31,10 +31,7 @@ app.route("/site-map").get((req, res) =>
     res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate") // HTTP 1.1.
     res.setHeader("Pragma", "no-cache") // HTTP 1.0.
     res.setHeader("Expires", "0") // Proxies.
-    res.send(
-        "https://www.kred.ir\nhttps://www.kred.ir/sign-up\nhttps://www.kred.ir/exchanges\nhttps://www.kred.ir/videos\nhttps://www.kred.ir/pavilions\n" +
-        "https://www.kred.ir/videos/5e480095ac00841b52a27ee1\nhttps://www.kred.ir/videos/5e6c0610b2d4c22d1799cadd\nhttps://www.kred.ir/videos/5e6c1d15b2d4c22d1799cb20\n",
-    )
+    request({url: `https://restful.kred.ir/site-map?time=${new Date().toISOString()}`}, (error, response, body) => res.send(body))
 })
 
 app.route("/.well-known/assetlinks.json").get((req, res) => res.sendFile(path.join(__dirname, "assetlinks.json")))

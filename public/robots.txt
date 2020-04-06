@@ -1,4 +1,6 @@
-# https://www.robotstxt.org/robotstxt.html
+# robots.txt for https://www.kred.ir/
+Sitemap: https://www.kred.ir/site-map
 User-agent: *
 Disallow: /panel/*
-Disallow: /profile
+Disallow: /profile/*
+Disallow: /payment/*
