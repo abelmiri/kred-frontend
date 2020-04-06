@@ -356,7 +356,10 @@ class Class extends PureComponent
                                 <select disabled={loading} defaultValue={isUpdating.lesson_category_id} className="panel-class-type" onChange={this.changeLessonCategory}>
                                     <option value="">انتخاب دسته بندی درسی</option>
                                     {
-                                        lessonCategories.map(item =>
+                                        lessonCategories
+                                            .sort((a, b) => a.lesson_id < b.lesson_id ? -1 : 1)
+                                            .sort((a, b) => lessons[a.lesson_id].title < lessons[b.lesson_id].title ? -1 : 1)
+                                            .map(item =>
                                             <option key={item._id} value={item._id}>{lessons[item.lesson_id].title} -> {item.title}</option>,
                                         )
                                     }
@@ -364,7 +367,9 @@ class Class extends PureComponent
                                 <select disabled={loading} defaultValue={isUpdating.lesson_id} className="panel-class-type" onChange={this.changeLesson}>
                                     <option value="">انتخاب درس</option>
                                     {
-                                        Object.values(lessons).map(item =>
+                                        Object.values(lessons)
+                                            .sort((a, b) => a.title < b.title ? -1 : 1)
+                                            .map(item =>
                                             lessonCategories.filter(cat => cat.lesson_id === item._id).length === 0 && <option key={item._id} value={item._id}>{item.title}</option>,
                                         )
                                     }
@@ -372,15 +377,18 @@ class Class extends PureComponent
                                 <select disabled={loading} defaultValue={isUpdating.block_category_id} className="panel-class-type" onChange={this.changeBlockCategory}>
                                     <option value="">انتخاب دسته بندی بلوکی</option>
                                     {
-                                        blockCategories.map(item =>
-                                            <option key={item._id} value={item._id}>{blocks[item.block_id].title} -> {item.title}</option>,
-                                        )
+                                        blockCategories
+                                            .sort((a, b) => a.block_id < b.block_id ? -1 : 1)
+                                            .sort((a, b) => blocks[a.block_id].title < blocks[b.block_id].title ? -1 : 1)
+                                            .map(item =>
+                                                <option key={item._id} value={item._id}>{blocks[item.block_id].title} -> {item.title}</option>,
+                                            )
                                     }
                                 </select>
                                 <select disabled={loading} defaultValue={isUpdating.block_id} className="panel-class-type" onChange={this.changeBlock}>
                                     <option value="">انتخاب بلوک</option>
                                     {
-                                        Object.values(blocks).map(item =>
+                                        Object.values(blocks).sort((a, b) => a.title < b.title ? -1 : 1).map(item =>
                                             blockCategories.filter(cat => cat.block_id === item._id).length === 0 && <option key={item._id} value={item._id}>{item.title}</option>,
                                         )
                                     }
