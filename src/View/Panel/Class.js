@@ -28,6 +28,7 @@ class Class extends PureComponent
             lessons: {},
             lessonCategories: [],
             blockCategories: [],
+            is_many: false,
         }
         this.title = ""
         this.university = ""
@@ -42,6 +43,7 @@ class Class extends PureComponent
         this.block_id = ""
         this.selectedImage = false
         this.selectedFile = false
+        this.is_many = ""
 
         this.activeScrollHeight = 0
         this.page = 2
@@ -159,6 +161,7 @@ class Class extends PureComponent
         const lesson_id = this.lesson_id
         const block_category_id = this.block_category_id
         const block_id = this.block_id
+        const is_many = this.is_many
 
         if (!loading)
         {
@@ -172,6 +175,7 @@ class Class extends PureComponent
                         form.append("title", title)
                         form.append("type", type)
                         form.append("file", this.selectedFile)
+                        form.append("is_many", is_many === "" ? false : is_many)
                         if (university) form.append("university", university)
                         if (teacher) form.append("teacher", teacher)
                         if (writer) form.append("writer", writer)
@@ -205,13 +209,14 @@ class Class extends PureComponent
             {
                 if (
                     title.length > 0 || university.length > 0 || teacher.length > 0 || writer.length > 0 || subject.length > 0 || pages_count.length > 0 ||
-                    type.length > 0 || this.selectedFile || this.selectedImage || lesson_category_id || lesson_id || block_category_id || block_id
+                    type.length > 0 || this.selectedFile || this.selectedImage || lesson_category_id || lesson_id || block_category_id || block_id || is_many !== ""
                 )
                 {
                     let form = new FormData()
                     form.append("education_id", isUpdating._id)
                     if (title) form.append("title", title)
                     if (type) form.append("type", type)
+                    if (is_many !== "") form.append("is_many", is_many)
                     if (this.selectedFile) form.append("file", this.selectedFile)
                     if (university) form.append("university", university)
                     if (teacher) form.append("teacher", teacher)
@@ -279,7 +284,7 @@ class Class extends PureComponent
             {
                 if (document.body.clientWidth <= 480) window.history.back()
                 document.body.style.overflow = "auto"
-                this.setState({...this.state, add, isUpdating: false, loading: false, loadingPercent: 0, selectedFile: null, selectedImagePreview: null}, () =>
+                this.setState({...this.state, add, isUpdating: false, loading: false, is_many: false, loadingPercent: 0, selectedFile: null, selectedImagePreview: null}, () =>
                 {
                     this.title = ""
                     this.university = ""
@@ -292,6 +297,7 @@ class Class extends PureComponent
                     this.lesson_id = ""
                     this.block_category_id = ""
                     this.block_id = ""
+                    this.is_many = ""
                     this.selectedImage = false
                     this.selectedFile = false
                 })
@@ -301,12 +307,18 @@ class Class extends PureComponent
 
     goForUpdate(post)
     {
-        this.setState({...this.state, isUpdating: {...post}}, () => this.toggleAddModal())
+        this.setState({...this.state, isUpdating: {...post}, is_many: post.is_many}, () => this.toggleAddModal())
+    }
+
+    toggleIsMany = () =>
+    {
+        const is_many = !this.state.is_many
+        this.setState({...this.state, is_many}, () => this.is_many = is_many)
     }
 
     render()
     {
-        const {add, posts, postsLoading, selectedImagePreview, loading, loadingPercent, isUpdating, selectedFile, blocks, lessons, lessonCategories, blockCategories} = this.state
+        const {add, posts, postsLoading, selectedImagePreview, loading, loadingPercent, isUpdating, selectedFile, blocks, lessons, lessonCategories, blockCategories, is_many} = this.state
         return (
             <section className="panel-page-section">
                 <div className="panel-page-section-title">کلاس درس</div>
@@ -360,8 +372,8 @@ class Class extends PureComponent
                                             .sort((a, b) => a.lesson_id < b.lesson_id ? -1 : 1)
                                             .sort((a, b) => lessons[a.lesson_id].title < lessons[b.lesson_id].title ? -1 : 1)
                                             .map(item =>
-                                            <option key={item._id} value={item._id}>{lessons[item.lesson_id].title} -> {item.title}</option>,
-                                        )
+                                                <option key={item._id} value={item._id}>{lessons[item.lesson_id].title} -> {item.title}</option>,
+                                            )
                                     }
                                 </select>
                                 <select disabled={loading} defaultValue={isUpdating.lesson_id} className="panel-class-type" onChange={this.changeLesson}>
@@ -370,8 +382,8 @@ class Class extends PureComponent
                                         Object.values(lessons)
                                             .sort((a, b) => a.title < b.title ? -1 : 1)
                                             .map(item =>
-                                            lessonCategories.filter(cat => cat.lesson_id === item._id).length === 0 && <option key={item._id} value={item._id}>{item.title}</option>,
-                                        )
+                                                lessonCategories.filter(cat => cat.lesson_id === item._id).length === 0 && <option key={item._id} value={item._id}>{item.title}</option>,
+                                            )
                                     }
                                 </select>
                                 <select disabled={loading} defaultValue={isUpdating.block_category_id} className="panel-class-type" onChange={this.changeBlockCategory}>
@@ -393,6 +405,10 @@ class Class extends PureComponent
                                         )
                                     }
                                 </select>
+                                <Material className="login-modal-forget class" onClick={this.toggleIsMany}>
+                                    <div className={`login-modal-forget-checkbox ${is_many ? "" : "hide"}`}/>
+                                    گروه
+                                </Material>
                                 <label className="panel-add-audio">
                                     {
                                         selectedFile || isUpdating.file ?

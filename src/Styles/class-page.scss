@@ -722,6 +722,8 @@
 
 .class-resources-page-container {
   padding: $header-size 5% 0 5%;
+  width: 90%;
+  overflow: hidden;
   background-color: var(--light-color);
   min-height: calc(100vh - 81px);
 }
@@ -748,7 +750,7 @@
 }
 
 .class-a-resource-container-title {
-  min-width: 100%;
+  min-width: calc(100% - 40px);
   color: white;
   padding: 10px 20px;
   font-weight: bold;
@@ -853,11 +855,13 @@
 }
 
 .class-handout-item-svg {
+  min-width: 70px;
   width: 70px;
   height: 70px;
   margin: 10px 0;
 
   @media screen and (max-width: 480px) {
+    min-width: 55px;
     width: 55px;
     height: 55px;
     margin-bottom: 40px;

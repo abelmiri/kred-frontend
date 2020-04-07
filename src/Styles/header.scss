@@ -402,6 +402,12 @@
   padding: 10px 5px;
   cursor: pointer;
   display: inline-block;
+
+  &.class {
+    display: block;
+    text-align: right;
+    margin-bottom: 15px;
+  }
 }
 
 .login-modal-forget-checkbox {

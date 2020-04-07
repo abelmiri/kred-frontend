@@ -325,11 +325,11 @@ class Header extends PureComponent
                         </Link>
                         {
                             user ?
-                                <Link to="/profile" onClick={this.hideSidebar}
-                                      className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>{user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}</Link>
+                                <Link to="/profile" onClick={this.hideSidebar} className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>
+                                    {user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}
+                                </Link>
                                 :
-                                <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}
-                                          onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
+                                <Material className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`} onClick={!collapseSidebar ? this.showLoginModalOnSide : this.showLoginModal}>ورود</Material>
                         }
                     </div>
 
