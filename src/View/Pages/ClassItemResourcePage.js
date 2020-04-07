@@ -159,7 +159,7 @@ class ClassItemResourcePage extends PureComponent
                                         handout.map(item =>
                                             <ClassResourcesItems key={item._id}
                                                                  item={item}
-                                                                 svg={item.is_many ? <PdfGroupSvg className="class-handout-item-svg group"/> : <PdfSvg className="class-handout-item-svg"/>}
+                                                                 svg={item.is_many ? <PdfGroupSvg className="class-handout-item-svg"/> : <PdfSvg className="class-handout-item-svg"/>}
                                             />,
                                         )
                                     }
@@ -181,7 +181,7 @@ class ClassItemResourcePage extends PureComponent
                                         question.map(item => <ClassResourcesItems key={item._id}
                                                                                   type="question"
                                                                                   item={item}
-                                                                                  svg={item.is_many ? <PdfGroupSvg className="class-handout-item-svg group"/> : <PdfSvg className="class-handout-item-svg"/>}
+                                                                                  svg={item.is_many ? <PdfGroupSvg className="class-handout-item-svg"/> : <PdfSvg className="class-handout-item-svg"/>}
                                             />,
                                         )
                                     }
@@ -202,7 +202,7 @@ class ClassItemResourcePage extends PureComponent
                                     {
                                         summary.map(item => <ClassResourcesItems key={item._id}
                                                                                  item={item}
-                                                                                 svg={item.is_many ? <PdfGroupSvg className="class-handout-item-svg group"/> : <PdfSvg className="class-handout-item-svg"/>}
+                                                                                 svg={item.is_many ? <PdfGroupSvg className="class-handout-item-svg"/> : <PdfSvg className="class-handout-item-svg"/>}
                                             />,
                                         )
                                     }

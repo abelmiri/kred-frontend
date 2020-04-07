@@ -138,17 +138,17 @@ class ClassItemPage extends PureComponent
                                 </div>
                                 <Booklet className={"class-lesson-item-info-description-section-svg"}/>
                             </HashLink>
-                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#summary`}>
-                                <div>
-                                    خلاصه دروس
-                                </div>
-                                <Questions className={"class-lesson-item-info-description-section-svg"}/>
-                            </HashLink>
                             <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#question`}>
                                 <div>
                                     نمونه سوال
                                 </div>
                                 <QuestionsNew className={"class-lesson-item-info-description-section-svg"}/>
+                            </HashLink>
+                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#summary`}>
+                                <div>
+                                    خلاصه دروس
+                                </div>
+                                <Questions className={"class-lesson-item-info-description-section-svg"}/>
                             </HashLink>
                             <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#voice`}>
                                 <div>
