@@ -15,11 +15,11 @@ import Helmet from "react-helmet"
 import Footer from "../Components/Footer"
 
 const indexes = [
-    Math.round(Math.random() * 21),
-    Math.round(Math.random() * 21),
-    Math.round(Math.random() * 21),
-    Math.round(Math.random() * 21),
-    Math.round(Math.random() * 21),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
+    Math.round(Math.random() * 20),
 ]
 
 class ClassPage extends PureComponent
