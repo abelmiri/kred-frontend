@@ -12,6 +12,7 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 import {Link, Route, Switch} from "react-router-dom"
 import ClassItemPage from "./ClassItemPage"
 import Helmet from "react-helmet"
+import Footer from "../Components/Footer"
 
 const indexes = [
     Math.round(Math.random() * 21),
@@ -180,6 +181,7 @@ class ClassPage extends PureComponent
                         </div>
                     </React.Fragment>
                 </Switch>
+                <Footer/>
             </React.Fragment>
         )
     }

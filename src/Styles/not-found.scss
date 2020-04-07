@@ -1,0 +1,36 @@
+@import "variables";
+
+.not-found-cont {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.not-found-img {
+  margin-top: 50px;
+  width: 30%;
+
+  @media screen and (max-width: 480px) {
+    width: 80%;
+  }
+}
+
+.not-found-code {
+  font-weight: bold;
+  font-size: $enormous-title-font-size;
+  margin: 15px 0;
+}
+
+.not-found-text {
+  font-weight: bold;
+  font-size: $big-title-font-size;
+}
+
+.not-found-btn {
+  display: inline-block;
+  font-size: $big-title-font-size;
+  margin: 25px 0 70px 0;
+  font-weight: bold;
+  background-color: var(--login-page-background-color);
+  color: var(--secondary-color);
+  padding: 7px 12px;
+}

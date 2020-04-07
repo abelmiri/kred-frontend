@@ -1,8 +1,8 @@
 @import "variables";
 
 .lessons-blocks-list-con {
-  width: 90.7%;
-  padding: 40px 4.65%;
+  width: calc(90% + 14px);
+  padding: calc(5% - 7px);
   min-height: 70vh;
   display: flex;
   flex-wrap: wrap;
@@ -894,6 +894,7 @@
   background-color: white;
   margin-top: 25px;
   padding: 40px;
+  margin-bottom: 5%;
 
   @media screen and (max-width: 480px) {
     padding: 20px;

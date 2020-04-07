@@ -9,6 +9,7 @@ import addCommaPrice from "../../Helpers/addCommaPrice"
 import {NotificationManager} from "react-notifications"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
 import Helmet from "react-helmet"
+import Footer from "../Components/Footer"
 
 class VideoPacksPage extends PureComponent
 {
@@ -271,6 +272,7 @@ class VideoPacksPage extends PureComponent
 
                     </React.Fragment>
                 </Switch>
+                <Footer/>
             </React.Fragment>
         )
     }

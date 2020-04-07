@@ -14,6 +14,7 @@ const PaymentPage = lazy(() => import("./View/Pages/PaymentPage"))
 const Panel = lazy(() => import("./View/Panel/Panel"))
 const PavilionPage = lazy(() => import("./View/Pages/PavilionPage"))
 const ClassPage = lazy(() => import("./View/Pages/ClassPage"))
+const NotFound = lazy(() => import("./View/Pages/NotFound"))
 
 class App extends PureComponent
 {
@@ -219,8 +220,8 @@ class App extends PureComponent
                     <Header user={user} location={location.pathname} setUser={this.setUser} logout={this.logout}/>
                     <Suspense fallback={null}>
                         <Switch>
-                            <Route exact path="/sign-up" render={() => <SignUpPage setUser={this.setUser}/>}/>
-                            <Route exact path="/profile" render={() => <ProfilePage user={user} setUser={this.setUser} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks}/>}/>
+                            <Route path="/sign-up" render={() => <SignUpPage setUser={this.setUser}/>}/>
+                            <Route path="/profile" render={() => <ProfilePage user={user} setUser={this.setUser} getVideoPacks={this.getVideoPacks} videoPacks={videoPacks}/>}/>
                             <Route path="/exchanges" render={() =>
                                 <ExchangeBookPage defaultPhone={user ? user.phone : ""}
                                                   cities={cities}
@@ -241,7 +242,8 @@ class App extends PureComponent
                             }/>
                             <Route path="/payment/:type" render={(route) => <PaymentPage type={route.match.params.type}/>}/>
                             <Route path="/panel" render={() => <Panel user={user}/>}/>
-                            <Route path="*" render={() => <HomePage user={user} goToExchangeBook={this.goToExchangeBook}/>}/>
+                            <Route exact path="/" render={() => <HomePage user={user} goToExchangeBook={this.goToExchangeBook}/>}/>
+                            <Route path="*" status={404} render={() => <NotFound/>}/>
                         </Switch>
                     </Suspense>
                     <NotificationContainer/>
