@@ -159,7 +159,7 @@ class PavilionPage extends PureComponent
                                             <Link to={`/pavilions/${post._id}`} className="post-continue mobile">ادامه مطلب...</Link>
                                         </div>
                                         <Link to={`/pavilions/${post._id}`} className="post-circle-image-link">
-                                            <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.title}/>
+                                            <img className="post-circle-image" src={REST_URL + "/" + post.picture} alt={post.interviewee_name + " " + post.interviewee_bio}/>
                                         </Link>
                                     </div>,
                                 )

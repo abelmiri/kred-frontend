@@ -10,6 +10,7 @@ import copyToClipboard from "../../Helpers/copyToClipboard"
 import StickersMenu from "../Components/StickerMenu"
 import Comment from "../Components/Comment"
 import questionDetection from "../../Helpers/questionDetection"
+import Helmet from "react-helmet"
 
 class PavilionItemPage extends PureComponent
 {
@@ -299,6 +300,14 @@ class PavilionItemPage extends PureComponent
                             :
                             pavilion ?
                                 <React.Fragment>
+                                    <Helmet>
+                                        <title>گپ و گفت {pavilion.title} | KRED</title>
+                                        <meta property="og:title" content={`گپ و گفت ${pavilion.title} | KRED`}/>
+                                        <meta name="twitter:title" content={`گپ و گفت ${pavilion.title} | KRED`}/>
+                                        <meta name="description" content={`${pavilion.bold_description}`}/>
+                                        <meta property="og:description" content={`${pavilion.bold_description}`}/>
+                                        <meta name="twitter:description" content={`${pavilion.bold_description}`}/>
+                                    </Helmet>
                                     <h1 className="pavilion-item-title">{pavilion.title}</h1>
                                     <div className="pavilion-item-pic-cont">
                                         <div className="pavilion-item-pic-detail">
@@ -307,7 +316,7 @@ class PavilionItemPage extends PureComponent
                                                 <div className="pavilion-item-pic-detail-desc">{pavilion.interviewee_bio}</div>
                                             </div>
                                         </div>
-                                        <img className="pavilion-item-pic" src={REST_URL + "/" + pavilion.picture} alt={pavilion.title}/>
+                                        <img className="pavilion-item-pic" src={REST_URL + "/" + pavilion.picture} alt={pavilion.interviewee_name + " " + pavilion.interviewee_bio}/>
                                     </div>
                                     <div className="pavilion-item-bold-desc">{pavilion.bold_description}</div>
                                     <div className="pavilion-item-desc" ref={e => this.descriptionText = e}>{pavilion.description}</div>

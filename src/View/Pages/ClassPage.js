@@ -169,7 +169,7 @@ class ClassPage extends PureComponent
 
                                         <Link className="class-subject-box" to={`/class/${isBlockView ? "block" : "lesson"}/${les._id}`}>
                                             <Material className="class-subject-box-material" backgroundColor="rgba(255,255,255,0.35)">
-                                                <img alt="svg" src={REST_URL + les.svg} className="class-subject-svg"/>
+                                                <img alt={les.title} src={REST_URL + les.svg} className="class-subject-svg"/>
                                                 <div className="class-subject-text">{les.title}</div>
                                             </Material>
                                         </Link>

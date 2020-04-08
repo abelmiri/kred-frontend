@@ -63,7 +63,7 @@ class ClassItemPage extends PureComponent
             <div className="class-single-item-container">
                 <div className="class-single-item-main-svg-container">
                     <div className="class-single-item-main-svg-circle">
-                        <Link to={`${parent?._id}/resources`}><img alt="svg" src={parent?.svg && REST_URL + parent?.svg} className="class-single-item-main-svg"/></Link>
+                        <Link to={`${parent?._id}/resources`}><img alt={parent?.title} src={parent?.svg && REST_URL + parent?.svg} className="class-single-item-main-svg"/></Link>
                     </div>
                 </div>
                 <div className="class-single-item-title">
@@ -123,7 +123,7 @@ class ClassItemPage extends PureComponent
                     <div className="class-lesson-item-media">
                         <Link to={`/class/${type}/${id}/${lesson._id}/resources`}>
                             <div className={`class-lesson-item-media-svg-container ${(index + 1) % 2 === 0 ? "even" : "odd"}`}>
-                                <img alt="svg" src={lesson.svg && REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
+                                <img alt={lesson.title} src={lesson.svg && REST_URL + lesson.svg} className="class-lesson-item-media-svg"/>
                             </div>
                         </Link>
                     </div>

@@ -21,7 +21,7 @@ const Footer = (props) =>
                 <div className="footer-desc">K<span>RED</span></div>
             </Link>
             <a href="/KRED.apk" className="footer-logo-section app" download>
-                <img src={Android} className="footer-logo app" alt="application"/>
+                <img src={Android} className="footer-logo app" alt="kred android application"/>
                 <div className="footer-desc app">اپلیکیشن ما رو دانلود کن!</div>
             </a>
         </div>

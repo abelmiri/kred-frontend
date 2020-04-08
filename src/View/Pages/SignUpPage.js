@@ -243,7 +243,7 @@ class SignUpPage extends PureComponent
                         {
                             this.slides.map((item, index) =>
                                 <div key={"slide" + index} style={{opacity: sliderIndex === index ? "1" : "0", left: sliderIndex === index ? "0" : previousSlider === index ? "30px" : "-30px"}} className="login-slider-item">
-                                    <img src={item.img} alt="" className="login-slider-img"/>
+                                    <img src={item.img} alt={item.text} className="login-slider-img"/>
                                     <div className="login-slider-text">{item.text}</div>
                                 </div>,
                             )

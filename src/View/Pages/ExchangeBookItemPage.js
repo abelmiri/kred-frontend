@@ -77,7 +77,7 @@ class ExchangeBookItemPage extends PureComponent
                                             </div>
                                             <Material className="exchange-show-buy" onClick={this.toggleContact}>می‌خوام بخرم</Material>
                                         </div>
-                                        <img className="exchange-show-img" src={REST_URL + "/" + exchange.picture} alt=""/>
+                                        <img className="exchange-show-img" src={REST_URL + "/" + exchange.picture} alt={exchange.title}/>
 
                                         {
                                             showContact &&
