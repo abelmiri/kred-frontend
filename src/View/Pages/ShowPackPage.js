@@ -5,6 +5,8 @@ import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import axios from "axios"
 import Helmet from "react-helmet"
+import CopySvg from "../../Media/Svgs/CopySvg"
+import copyToClipboard from "../../Helpers/copyToClipboard"
 
 class ShowPackPage extends PureComponent
 {
@@ -19,6 +21,9 @@ class ShowPackPage extends PureComponent
             loading: false,
             loadingPercent: null,
         }
+
+        this.offsetTop = null
+        this.staticWidth = null
     }
 
     componentDidMount()
@@ -39,12 +44,27 @@ class ShowPackPage extends PureComponent
             objectStoreSubtitle.transaction.oncomplete = event => console.log("store created", event)
         }
 
-        const {packId} = this.props
+        const {packId, videoId} = this.props
         api.get(`video-pack/${packId}`, `?limit=100&time=${new Date().toISOString()}`, true)
             .then(videoPack =>
             {
                 this.setState({...this.state, videoPack}, () =>
                 {
+                    if (videoId)
+                    {
+                        for (let i = 0; i < videoPack.categories.length; i++)
+                        {
+                            for (let j = 0; j < videoPack.categories[i].videos.length; j++)
+                            {
+                                if (videoPack.categories[i].videos[j]._id === videoId)
+                                {
+                                    this.showVideo(videoPack.categories[i].videos[j])
+                                    return
+                                }
+                            }
+                        }
+                    }
+
                     // statistics
                     process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `ویدیوها | ${videoPack.title}`, content_id: packId}).catch(err => console.log(err))
 
@@ -67,9 +87,9 @@ class ShowPackPage extends PureComponent
         {
             document.addEventListener("contextmenu", this.osContextMenu)
         }
-    }
 
-    osContextMenu = (e) => e.preventDefault()
+        document.addEventListener("scroll", this.onScroll)
+    }
 
     componentWillUnmount()
     {
@@ -85,7 +105,46 @@ class ShowPackPage extends PureComponent
         {
             document.removeEventListener("contextmenu", this.osContextMenu)
         }
+
+        document.removeEventListener("scroll", this.onScroll)
     }
+
+    onScroll = () =>
+    {
+        if (document.body.clientWidth <= 480 && this.video)
+        {
+            if (this.offsetTop === null)
+            {
+                this.staticWidth = this.video.clientWidth
+                this.offsetTop = this.video.offsetTop
+            }
+
+            if (window.scrollY + 81 >= this.offsetTop)
+            {
+                if (this.video.style.position !== "fixed")
+                {
+                    this.cont.style.paddingTop = `${this.video.clientHeight}px`
+                    this.video.style.border = "1px solid transparent"
+                    this.video.style.width = document.body.clientWidth + "px"
+                    this.video.style.marginLeft = "calc(-5% - 3px)"
+                    this.video.style.position = "fixed"
+                }
+            }
+            else
+            {
+                if (this.video.style.position !== "static")
+                {
+                    this.cont.style.paddingTop = "0"
+                    this.video.style.border = "1px solid var(--secondary-color)"
+                    this.video.style.width = this.staticWidth + "px"
+                    this.video.style.marginLeft = "0"
+                    this.video.style.position = "static"
+                }
+            }
+        }
+    }
+
+    osContextMenu = (e) => e.preventDefault()
 
     getSubtitle(url)
     {
@@ -186,7 +245,7 @@ class ShowPackPage extends PureComponent
             const objectStoreVideo = transactionVideo.objectStore("videos")
             const requestGetVideo = objectStoreVideo.get(`${REST_URL}${url}`)
 
-            requestGetVideo.onerror = _ => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+            requestGetVideo.onerror = _ => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
                 this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
             )
 
@@ -197,26 +256,26 @@ class ShowPackPage extends PureComponent
                     try
                     {
                         requestGetVideo.result.blob.arrayBuffer()
-                            .then((buffer) => this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: title}))
+                            .then((buffer) => this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: {...video}}))
                             .catch(() =>
-                                this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+                                this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
                                     this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
                                 ),
                             )
                     }
                     catch (e)
                     {
-                        this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+                        this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
                             this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
                         )
                     }
                 }
-                else this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+                else this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
                     this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
                 )
             }
         }
-        request.onerror = _ => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: title}, () =>
+        request.onerror = _ => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
             this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
         )
 
@@ -270,6 +329,28 @@ class ShowPackPage extends PureComponent
         )
     }
 
+    shareLink = () =>
+    {
+        const {selected, videoPack} = this.state
+        if (navigator.share)
+        {
+            navigator.share({
+                title: document.title,
+                text: "این لینک رو در KRED ببین! \n",
+                url: `https://www.kred.ir/videos/${videoPack._id}/${selected._id}`,
+            })
+                .then(() => console.log("Successful share"))
+                .catch(error => console.log("Error sharing:", error))
+        }
+        else this.copy()
+    }
+
+    copy()
+    {
+        const {selected, videoPack} = this.state
+        copyToClipboard(`https://www.kred.ir/videos/${videoPack._id}/${selected._id}`, () => NotificationManager.success("لینک با موفقیت کپی شد"))
+    }
+
     render()
     {
         const {videoPack, loading, loadingPercent, video, subtitle, selected} = this.state
@@ -294,12 +375,25 @@ class ShowPackPage extends PureComponent
                             </h1>
                             {
                                 video ?
-                                    <div className="video-page-video-container">
-                                        <video className="video-page-video" controls controlsList="nodownload" autoPlay>
+                                    <div ref={e => this.cont = e} className="video-page-video-container">
+                                        <video ref={e => this.video = e} className="video-page-video" controls controlsList="nodownload" autoPlay>
                                             <source src={video}/>
                                             {subtitle && <track label="Farsi" kind="subtitles" srcLang="en" src={subtitle} default/>}
                                         </video>
-                                        <span className="video-page-video-title">{selected}</span>
+                                        <div className="video-page-video-nav">
+                                            {/*<Material className="post-like-count-cont like" onClick={this.likeAndDisLike}>*/}
+                                            {/*    <LikeSvg className={`post-like-svg ${videoPack.is_liked ? "liked" : ""}`}/>*/}
+                                            {/*    <div className={`pavilion-item-like ${videoPack.is_liked ? "liked" : ""}`}>{videoPack.likes_count || 0} پسند</div>*/}
+                                            {/*</Material>*/}
+                                            <Material className="post-like-count-cont copy " onClick={this.shareLink}>
+                                                <CopySvg className="post-comment-svg"/>
+                                                <div className="pavilion-item-like">
+                                                    <span className="only-desktop">کپی لینک</span>
+                                                    <span className="only-mobile">اشتراک گذری</span>
+                                                </div>
+                                            </Material>
+                                            <span className="video-page-video-title">{selected?.title}</span>
+                                        </div>
                                     </div>
                                     :
                                     <div className="video-page-video-container pre">
@@ -314,7 +408,7 @@ class ShowPackPage extends PureComponent
                                                 <div className="video-page-aside-videos-title">{category.title}</div>
                                                 {
                                                     category.videos.map(video =>
-                                                        <Material key={"video" + video._id} className={`video-page-aside-videos-item ${selected === video.title ? "selected" : ""}`} onClick={() => this.showVideo(video)}>
+                                                        <Material key={"video" + video._id} className={`video-page-aside-videos-item ${selected?._id === video._id ? "selected" : ""}`} onClick={() => this.showVideo(video)}>
                                                             {video.title}
                                                             {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
                                                         </Material>,

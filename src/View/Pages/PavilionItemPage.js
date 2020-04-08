@@ -158,11 +158,7 @@ class PavilionItemPage extends PureComponent
                 url: window.location.href,
             })
                 .then(() => console.log("Successful share"))
-                .catch(error =>
-                {
-                    console.log("Error sharing:", error)
-                    this.copy()
-                })
+                .catch(error => console.log("Error sharing:", error))
         }
         else this.copy()
     }
