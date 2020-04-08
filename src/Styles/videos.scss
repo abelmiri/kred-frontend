@@ -130,6 +130,7 @@
 .video-pack-item-title-text {
   flex-grow: 1;
   text-align: center;
+  min-width: calc(100% + 10px);
 }
 
 .video-pack-item-title-svg {

@@ -183,11 +183,11 @@ class VideoPacksPage extends PureComponent
                                                 Object.values(companyCategories).filter(category => category.company_id === company._id).map(category =>
                                                     <div key={category._id}>
                                                         <div className="company-category-title">{category.title}</div>
-                                                        {
-                                                            Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).length > 0 ?
-                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).sort((a, b) => a.order > b.order ? -1 : 1).map(pack =>
-                                                                    <Link key={pack._id} to={`/videos/${pack._id}`}>
-                                                                        <div className="video-pack-item">
+                                                        <div className="video-pack-cont">
+                                                            {
+                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).length > 0 ?
+                                                                    Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).sort((a, b) => a.order > b.order ? -1 : 1).map(pack =>
+                                                                        <Link key={pack._id} className="video-pack-item" to={`/videos/${pack._id}`}>
                                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
                                                                             {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
                                                                             <div className="video-pack-item-title">
@@ -212,12 +212,12 @@ class VideoPacksPage extends PureComponent
                                                                                     </React.Fragment>
                                                                                 }
                                                                             </div>
-                                                                        </div>
-                                                                    </Link>,
-                                                                )
-                                                                :
-                                                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-                                                        }
+                                                                        </Link>,
+                                                                    )
+                                                                    :
+                                                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                                                            }
+                                                        </div>
                                                     </div>,
                                                 )
                                             }
