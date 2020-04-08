@@ -21,7 +21,15 @@ class AllUsers extends PureComponent
     componentDidMount()
     {
         api.get("view/all/sign-up", `?limit=20&page=1`)
-            .then(results => this.setState({...this.state, results, isLoading: false}))
+            .then(results => this.setState({
+                ...this.state,
+                results: {
+                    count: results.count,
+                    users: results.users,
+                    stats: results.stats.reduce((sum, item) => ({...sum, [item._id]: item.count}), {}),
+                },
+                isLoading: false,
+            }))
             .catch((err) =>
             {
                 console.log(err)
@@ -50,7 +58,15 @@ class AllUsers extends PureComponent
                     api.get("view/all/sign-up", `?limit=20&page=${this.page}`).then(results =>
                     {
                         this.page += 1
-                        this.setState({...this.state, results: {users: [...this.state.results.users, ...results.users], count: results.count}, isLoading: false})
+                        this.setState({
+                            ...this.state,
+                            results: {
+                                ...this.state.results,
+                                users: [...this.state.results.users, ...results.users],
+                                stats: {...this.state.results.stats, ...results.stats.reduce((sum, item) => ({...sum, [item._id]: item.count}), {})},
+                            }
+                            , isLoading: false,
+                        })
                     })
                 })
             }
@@ -87,7 +103,7 @@ class AllUsers extends PureComponent
         if (error) return "خطایی پیش اومد ادمین جان!"
         else
         {
-            const {count, users} = results
+            const {count, users, stats} = results
             return (
                 <section className="panel-page-section">
                     <div className="panel-page-section-title">ثبت‌نام‌ها {count ? `(${count})` : ""}</div>
@@ -95,25 +111,29 @@ class AllUsers extends PureComponent
                         {
                             users &&
                             <React.Fragment>
-                                <div ref={e => this.title = e} className="panel-0ff-code-cont title scroll-wide">
+                                <div ref={e => this.title = e} className="panel-0ff-code-cont title scroll-wider">
                                     <div className="panel-0ff-code-item-big">نام</div>
                                     <div className="panel-0ff-code-item">شماره</div>
-                                    <div className="panel-0ff-code-item">دانشگاه</div>
-                                    <div className="panel-0ff-code-item">سال ورودی</div>
-                                    <div className="panel-0ff-code-item">تاریخ تولد</div>
+                                    <div className="panel-0ff-code-item-big">دانشگاه</div>
+                                    <div className="panel-0ff-code-item">سال‌ورودی</div>
+                                    <div className="panel-0ff-code-item">تاریخ‌تولد</div>
                                     <div className="panel-0ff-code-item">رشته</div>
                                     <div className="panel-0ff-code-item">مقطع</div>
+                                    <div className="panel-0ff-code-item-small">بازدید</div>
+                                    <div className="panel-0ff-code-item">ثبت‌نام</div>
                                 </div>
                                 {
                                     users.map(user =>
-                                        <div key={"today-sign-ups" + user.phone} className="panel-0ff-code-cont scroll-wide">
+                                        <div key={"today-sign-ups" + user.phone} className="panel-0ff-code-cont scroll-wider">
                                             <div className="panel-0ff-code-item-big">{user.name}</div>
                                             <div className="panel-0ff-code-item">{user.phone}</div>
-                                            <div className="panel-0ff-code-item">{user.university}</div>
+                                            <div className="panel-0ff-code-item-big">{user.university}</div>
                                             <div className="panel-0ff-code-item">{user.entrance}</div>
                                             <div className="panel-0ff-code-item">{user.birth_date}</div>
                                             <div className="panel-0ff-code-item">{user.major}</div>
                                             <div className="panel-0ff-code-item">{user.grade}</div>
+                                            <div className="panel-0ff-code-item-small">{stats[user._id] || 0}</div>
+                                            <div className="panel-0ff-code-item">{new Date(user.created_date).toLocaleDateString("fa-ir")}</div>
                                         </div>,
                                     )
                                 }

@@ -39,13 +39,13 @@ class AllPageViews extends PureComponent
                                 <React.Fragment>
                                     <div className="panel-0ff-code-cont title">
                                         <div className="panel-0ff-code-item">صفحه</div>
-                                        <div className="panel-0ff-code-item">بازدید</div>
+                                        <div className="panel-0ff-code-item-small">بازدید</div>
                                     </div>
                                     {
                                         results.map(item =>
                                             <div key={"today-pages" + item._id} className="panel-0ff-code-cont">
                                                 <div className="panel-0ff-code-item">{item._id}</div>
-                                                <div className="panel-0ff-code-item">{item.count}</div>
+                                                <div className="panel-0ff-code-item-small">{item.count}</div>
                                             </div>,
                                         )
                                     }

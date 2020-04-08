@@ -90,6 +90,12 @@
     }
   }
 
+  &.scroll-wider {
+    @media screen and (max-width: 480px) {
+      width: 230% !important;
+    }
+  }
+
   &:hover {
     background-color: var(--third-color);
   }
