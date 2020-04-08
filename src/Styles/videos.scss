@@ -38,25 +38,10 @@
   padding: 15px;
   text-align: center;
   margin: 5% 0;
+  background-color: var(--login-page-background-color);
 
   @media screen and (max-width: 480px) {
     margin: 20px 0;
-  }
-
-  &:nth-child(odd) {
-    background-color: var(--login-page-background-color);
-
-    .video-pack-item {
-      background-color: white;
-    }
-  }
-
-  &:nth-child(even) {
-    background-color: var(--third-color);
-
-    .video-pack-item {
-      background-color: var(--login-page-background-color);
-    }
   }
 }
 
@@ -94,6 +79,7 @@
 
 .video-pack-item {
   display: inline-block;
+  background-color: white;
   width: 300px;
   text-align: center;
   padding: 15px;

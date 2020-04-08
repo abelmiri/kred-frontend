@@ -185,7 +185,7 @@ class VideoPacksPage extends PureComponent
                                                         <div className="company-category-title">{category.title}</div>
                                                         {
                                                             Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).length > 0 ?
-                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).map(pack =>
+                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).sort((a, b) => a.order > b.order ? -1 : 1).map(pack =>
                                                                     <Link key={pack._id} to={`/videos/${pack._id}`}>
                                                                         <div className="video-pack-item">
                                                                             <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
