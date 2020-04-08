@@ -4,6 +4,7 @@ import {ClipLoader} from "react-spinners"
 import Material from "../Components/Material"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import Footer from "../Components/Footer"
+import Helmet from "react-helmet"
 
 class ExchangeBookItemPage extends PureComponent
 {
@@ -59,6 +60,14 @@ class ExchangeBookItemPage extends PureComponent
                                 :
                                 exchange ?
                                     <React.Fragment>
+                                        <Helmet>
+                                            <title>تبادل کتاب {exchange.title} | KRED</title>
+                                            <meta property="og:title" content={`تبادل کتاب ${exchange.title} | KRED`}/>
+                                            <meta name="twitter:title" content={`تبادل کتاب ${exchange.title} | KRED`}/>
+                                            <meta name="description" content={`${exchange.description}`}/>
+                                            <meta property="og:description" content={`${exchange.description}`}/>
+                                            <meta name="twitter:description" content={`${exchange.description}`}/>
+                                        </Helmet>
                                         <div className="exchange-show-content">
                                             <h1 className="exchange-show-title">{exchange.title}</h1>
                                             {

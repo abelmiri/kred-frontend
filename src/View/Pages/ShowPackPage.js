@@ -274,12 +274,12 @@ class ShowPackPage extends PureComponent
                     videoPack ?
                         <React.Fragment>
                             <Helmet>
-                                <title>فیلم‌های آموزشی، {videoPack.title} | KRED</title>
-                                <meta property="og:title" content={`فیلم‌های آموزشی، ${videoPack.title} | KRED`}/>
-                                <meta name="twitter:title" content={`فیلم‌های آموزشی، ${videoPack.title} | KRED`}/>
-                                <meta name="description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
-                                <meta property="og:description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
-                                <meta name="twitter:description" content={`فیلم های آموزشی، ${videoPack.title} | KRED`}/>
+                                <title>فیلم‌های آموزشی {videoPack.title} | KRED</title>
+                                <meta property="og:title" content={`فیلم‌های آموزشی ${videoPack.title} | KRED`}/>
+                                <meta name="twitter:title" content={`فیلم‌های آموزشی ${videoPack.title} | KRED`}/>
+                                <meta name="description" content={`فیلم های آموزشی پزشکی ${videoPack.title} | KRED`}/>
+                                <meta property="og:description" content={`فیلم های آموزشی پزشکی ${videoPack.title} | KRED`}/>
+                                <meta name="twitter:description" content={`فیلم های آموزشی پزشکی ${videoPack.title} | KRED`}/>
                             </Helmet>
                             <div className={`video-page-loading-dark ${loading ? "show" : ""}`}>
                                 {loadingPercent && <div className="video-page-loading-dark-text">{loadingPercent}</div>}
