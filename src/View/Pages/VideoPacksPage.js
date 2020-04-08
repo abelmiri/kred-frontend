@@ -30,6 +30,7 @@ class VideoPacksPage extends PureComponent
     {
         window.scroll({top: 0})
         this.props.getCompanies()
+        this.props.getCompanyCategories()
         this.props.getVideoPacks()
 
         // statistics
@@ -141,7 +142,7 @@ class VideoPacksPage extends PureComponent
     render()
     {
         const {buyLoading, buyModal, level, offCodeLoading, code, buyPack} = this.state
-        const {videoPacks, companies, user, setUser} = this.props
+        const {videoPacks, companies, companyCategories, user, setUser} = this.props
         return (
             <React.Fragment>
                 <Helmet>
@@ -179,34 +180,46 @@ class VideoPacksPage extends PureComponent
                                             </div>
                                             <div className="company-item-desc">{company.description}</div>
                                             {
-                                                Object.values(videoPacks).length > 0 ?
-                                                    Object.values(videoPacks).map(pack =>
-                                                        <Link key={pack._id} to={`/videos/${pack._id}`}>
-                                                            <div className="video-pack-item">
-                                                                <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
-                                                                {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
-                                                                <div className="video-pack-item-title">
-                                                                    <div className="video-pack-item-title-text">
-                                                                        مجموعه فیلم‌های<span> </span>{pack.title}
-                                                                        {pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>}
-                                                                    </div>
-                                                                    {
-                                                                        !pack.have_permission &&
-                                                                        <React.Fragment>
-                                                                            <Material className="video-pack-item-title-buy view">
-                                                                                مشاهده
-                                                                            </Material>
-                                                                            <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
-                                                                                خرید ({addCommaPrice(pack.price)} تومان)
-                                                                            </Material>
-                                                                        </React.Fragment>
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        </Link>,
-                                                    )
-                                                    :
-                                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                                                Object.values(companyCategories).filter(category => category.company_id === company._id).map(category =>
+                                                    <div key={category._id}>
+                                                        <div className="company-category-title">{category.title}</div>
+                                                        {
+                                                            Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).length > 0 ?
+                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).map(pack =>
+                                                                    <Link key={pack._id} to={`/videos/${pack._id}`}>
+                                                                        <div className="video-pack-item">
+                                                                            <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
+                                                                            {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
+                                                                            <div className="video-pack-item-title">
+                                                                                <div className="video-pack-item-title-text">
+                                                                                    مجموعه فیلم‌های<span> </span>{pack.title}
+                                                                                    {
+                                                                                        pack.price === 0 ?
+                                                                                            <div className="video-page-aside-videos-free videos">Free</div>
+                                                                                            :
+                                                                                            pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>
+                                                                                    }
+                                                                                </div>
+                                                                                {
+                                                                                    !pack.have_permission && pack.price !== 0 &&
+                                                                                    <React.Fragment>
+                                                                                        <Material className="video-pack-item-title-buy view">
+                                                                                            مشاهده
+                                                                                        </Material>
+                                                                                        <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
+                                                                                            خرید ({addCommaPrice(pack.price)} تومان)
+                                                                                        </Material>
+                                                                                    </React.Fragment>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </Link>,
+                                                                )
+                                                                :
+                                                                <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                                                        }
+                                                    </div>,
+                                                )
                                             }
                                         </div>,
                                     )

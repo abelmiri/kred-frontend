@@ -93,36 +93,41 @@ class ShowPackPage extends PureComponent
         {
             if (this.props.user)
             {
-                const request = indexedDB.open("videoDb", 1)
-                request.onsuccess = event =>
+                const {videoPack} = this.state
+                if (videoPack.price !== 0)
                 {
-                    const db = event.target.result
-                    const transactionSubtitle = db.transaction(["subtitles"])
-                    const objectStoreSubtitle = transactionSubtitle.objectStore("subtitles")
-                    const requestGetSubtitle = objectStoreSubtitle.get(`${REST_URL}${url}`)
-
-                    requestGetSubtitle.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
-
-                    requestGetSubtitle.onsuccess = _ =>
+                    const request = indexedDB.open("videoDb", 1)
+                    request.onsuccess = event =>
                     {
-                        if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
+                        const db = event.target.result
+                        const transactionSubtitle = db.transaction(["subtitles"])
+                        const objectStoreSubtitle = transactionSubtitle.objectStore("subtitles")
+                        const requestGetSubtitle = objectStoreSubtitle.get(`${REST_URL}${url}`)
+
+                        requestGetSubtitle.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
+
+                        requestGetSubtitle.onsuccess = _ =>
                         {
-                            try
+                            if (requestGetSubtitle.result && requestGetSubtitle.result.blob)
                             {
-                                requestGetSubtitle.result.blob.arrayBuffer()
-                                    .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)))
-                                    .catch(() => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve))
+                                try
+                                {
+                                    requestGetSubtitle.result.blob.arrayBuffer()
+                                        .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)))
+                                        .catch(() => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve))
+                                }
+                                catch (e)
+                                {
+                                    NotificationManager.error("مرورگر شما از پخش آفلاین ساپورت نمیکند، برای پخش آفلاین از Chrome استفاده کنید!")
+                                    this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
+                                }
                             }
-                            catch (e)
-                            {
-                                NotificationManager.error("مرورگر شما از پخش آفلاین ساپورت نمیکند، برای پخش آفلاین از Chrome استفاده کنید!")
-                                this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
-                            }
+                            else this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
                         }
-                        else this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
                     }
+                    request.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
                 }
-                request.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
+                else resolve(false)
             }
             else
             {

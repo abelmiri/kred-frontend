@@ -29,6 +29,7 @@ class App extends PureComponent
             categories: {},
             videoPacks: {},
             companies: {},
+            companyCategories: {},
             devtoolsOpen: false,
         }
         this.goToExchangeBook = this.goToExchangeBook.bind(this)
@@ -209,9 +210,16 @@ class App extends PureComponent
         )
     }
 
+    getCompanyCategories = () =>
+    {
+        api.get("company/category", `?limit=100`).then((categories) =>
+            this.setState({...this.state, companyCategories: categories.reduce((sum, category) => ({...sum, [category._id]: {...category}}), {})}),
+        )
+    }
+
     render()
     {
-        const {redirect, page, user, cities, categories, videoPacks, companies, devtoolsOpen} = this.state
+        const {redirect, page, user, cities, categories, videoPacks, companies, companyCategories, devtoolsOpen} = this.state
         const {location} = this.props
         if (!devtoolsOpen)
             return (
@@ -236,7 +244,9 @@ class App extends PureComponent
                                                 getVideoPacks={this.getVideoPacks}
                                                 videoPacks={videoPacks}
                                                 getCompanies={this.getCompanies}
+                                                getCompanyCategories={this.getCompanyCategories}
                                                 companies={companies}
+                                                companyCategories={companyCategories}
                                                 setUser={this.setUser}
                                 />
                             }/>
