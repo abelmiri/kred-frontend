@@ -500,10 +500,32 @@
   width: 100%;
   margin-top: 30px;
   display: flex;
-  justify-content: flex-end;
 
   &:nth-child(even) {
     justify-content: flex-start;
+  }
+
+  &:nth-child(odd) {
+    justify-content: flex-end;
+
+    .class-lesson-item {
+      margin-right: 0;
+      margin-left: 90px;
+
+      @media screen and (max-width: 480px) {
+        margin-left: 60px;
+      }
+    }
+
+    .class-lesson-item-media-svg-container {
+      order: 2;
+      margin-right: 0;
+      margin-left: -90px;
+
+      @media screen and (max-width: 480px) {
+        margin-left: -60px;
+      }
+    }
   }
 
   &:last-child {
@@ -512,102 +534,43 @@
 }
 
 .class-lesson-item {
+  margin-right: 90px;
   width: 40%;
-  height: 180px;
   background-color: var(--secondary-color);
   display: flex;
 
-  @media screen and (max-width: 480px) {
-    width: 100%;
-    height: 120px;
-  }
-
-  &.odd {
-    margin-right: 90px;
-    @media screen and (max-width: 480px) {
-      margin-right: 60px;
-    }
-
-    .class-lesson-item-media {
-      order: 1;
-    }
-
-    .class-lesson-item-info {
-      order: 2;
-    }
-  }
-
-  &.even {
-    margin-left: 90px;
-    @media screen and (max-width: 480px) {
-      margin-left: 60px;
-    }
-
-    .class-lesson-item-media {
-      order: 2;
-    }
-
-    .class-lesson-item-info {
-      order: 1;
-    }
-  }
-}
-
-.class-lesson-item-media {
-  width: 14%;
-  position: relative;
-  @media screen and (max-width: 1300px) {
-    width: 20%;
-  }
   @media screen and (max-width: 1000px) {
-    width: 25%;
+    width: 100%;
   }
+
   @media screen and (max-width: 480px) {
-    width: 18%;
+    margin-right: 60px;
   }
 }
 
 .class-lesson-item-info {
-  width: 88%;
-  color: var(--background-color);
-  @media screen and (max-width: 1300px) {
-    width: 80%;
-  }
-  @media screen and (max-width: 1000px) {
-    width: 75%;
-  }
+  width: calc(100% - 90px);
+  color: white;
+
   @media screen and (max-width: 480px) {
-    width: 82%;
+    width: calc(100% - 60px);
   }
 }
 
 .class-lesson-item-media-svg-container {
-  position: absolute;
   height: 180px;
   width: 180px;
+  margin-right: -90px;
   background-color: var(--background-color);
-  border-radius: 100%;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 
   @media screen and (max-width: 480px) {
+    margin-right: -60px;
     height: 120px;
     width: 120px;
-  }
-
-  &.odd {
-    right: -90px;
-    @media screen and (max-width: 480px) {
-      right: -60px;
-    }
-  }
-
-  &.even {
-    left: -90px;
-    @media screen and (max-width: 480px) {
-      left: -60px;
-    }
   }
 }
 
@@ -621,29 +584,20 @@
 }
 
 .class-lesson-item-info-title {
-  width: 86%;
   height: 80px;
   font-size: $home-title-font-size;
   display: flex;
   align-items: center;
-  padding: 0 7%;
+  padding: 0 6%;
 
   @media screen and (max-width: 480px) {
+    padding: 0 4%;
     height: 50px;
     font-size: $home-regular-font-size;
-  }
-
-  &.odd {
-    justify-content: flex-start;
-  }
-
-  &.even {
-    justify-content: flex-end;
   }
 }
 
 .class-lesson-item-info-title-text {
-  color: var(--background-color);
   transition: all linear 0.1s;
 
   &:hover {
@@ -668,11 +622,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 25%;
+  width: 20%;
   text-align: center;
 
   @media screen and (max-width: 480px) {
-    width: 24%;
+    min-width: 21%;
+    &:first-child {
+      margin-right: -3%;
+    }
   }
 
   &:hover {

@@ -13,6 +13,7 @@ import {Link, Route, Switch} from "react-router-dom"
 import ClassItemPage from "./ClassItemPage"
 import Helmet from "react-helmet"
 import Footer from "../Components/Footer"
+import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 
 const indexes = [
     Math.round(Math.random() * 20),
@@ -107,35 +108,25 @@ class ClassPage extends PureComponent
                                             index === indexes[0] &&
                                             <div className="class-tall-info-box">
                                                 <div className="class-tall-info-section-box">
-                                                    <div>
-                                                        جزوه
-                                                    </div>
+                                                    <div>جزوه</div>
                                                     <Booklet className={"class-info-svg"}/>
                                                 </div>
                                                 <div className="class-tall-info-section-box">
-                                                    <div>
-                                                        خلاصه دروس
-                                                    </div>
-                                                    <Questions className={"class-info-svg"}/>
-                                                </div>
-                                                <div className="class-tall-info-section-box">
-                                                    <div>
-                                                        نمونه سوال
-                                                    </div>
+                                                    <div>نمونه‌سوال</div>
                                                     <QuestionsNew className={"class-info-svg"}/>
                                                 </div>
                                                 <div className="class-tall-info-section-box">
-                                                    <div>
-                                                        ویس‌آموزشی
-                                                    </div>
+                                                    <div>خلاصه‌درس</div>
+                                                    <Questions className={"class-info-svg"}/>
+                                                </div>
+                                                <div className="class-tall-info-section-box">
+                                                    <div>ویس</div>
                                                     <AudioSvg className={"class-info-svg"}/>
                                                 </div>
-                                                {/*<div className="class-tall-info-section-box">*/}
-                                                {/*    <div>*/}
-                                                {/*        فیلم*/}
-                                                {/*    </div>*/}
-                                                {/*    <VideoPlayer className={"class-info-svg"}/>*/}
-                                                {/*</div>*/}
+                                                <div className="class-tall-info-section-box">
+                                                    <div>فیلم</div>
+                                                    <VideoPlayer className={"class-info-svg"}/>
+                                                </div>
                                             </div>
                                         }
                                         {
