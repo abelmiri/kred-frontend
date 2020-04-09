@@ -72,7 +72,7 @@ class ClassPage extends PureComponent
                     <meta name="twitter:description" content="اینجا میتونی هرچی برای درس خوندن لازم داری؛ از خلاصه درس و نمونه سوال گرفته تا کلاس آموزشی پیدا کنی"/>
                 </Helmet>
                 <Switch>
-                    <Route path={`/class/:type/:id`} render={(route) =>
+                    <Route path={`/class/:type/:id`} render={route =>
                         <ClassItemPage user={user}
                                        parent={route.match.params.type === "block" ? blocks[route.match.params.id] : lessons[route.match.params.id]}
                                        type={route.match.params.type}

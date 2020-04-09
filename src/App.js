@@ -250,7 +250,7 @@ class App extends PureComponent
                                                 setUser={this.setUser}
                                 />
                             }/>
-                            <Route path="/payment/:type" render={(route) => <PaymentPage type={route.match.params.type}/>}/>
+                            <Route path="/payment/:type" render={route => <PaymentPage type={route.match.params.type}/>}/>
                             <Route path="/panel" render={() => <Panel user={user}/>}/>
                             <Route exact path="/" render={() => <HomePage user={user} goToExchangeBook={this.goToExchangeBook}/>}/>
                             <Route path="*" status={404} render={() => <NotFound/>}/>

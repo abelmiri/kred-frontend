@@ -106,7 +106,7 @@ class ClassItemResourcePage extends PureComponent
                         </Helmet>
                 }
                 <Switch>
-                    <Route path={`/class/:type/:parentId/:id/resources/:fileId`} render={(route) =>
+                    <Route path={`/class/:type/:parentId/:id/resources/:fileId`} render={route =>
                         <ClassItemResourceFilePage user={user}
                                                    type={route.match.params.type}
                                                    item={item}
@@ -117,7 +117,7 @@ class ClassItemResourcePage extends PureComponent
                                                    setFileUpdate={this.setFileUpdate}
                         />
                     }/>
-                    <Route path={`/class/:type/:id/resources/:fileId`} render={(route) =>
+                    <Route path={`/class/:type/:id/resources/:fileId`} render={route =>
                         <ClassItemResourceFilePage user={user}
                                                    type={route.match.params.type}
                                                    item={item}

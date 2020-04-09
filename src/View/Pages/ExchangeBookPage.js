@@ -225,7 +225,7 @@ class ExchangeBookPage extends PureComponent
                     <meta name="twitter:description" content="اینجا میتونی کتابای ترم های قبلت رو، به ترم پایینی‌ها بدی، اینجوری هم کتابخونه‌ت خلوت‌تر میشه، هم درختای کمتری قطع میشن"/>
                 </Helmet>
                 <Switch>
-                    <Route path="/exchanges/:id" render={(route) => <ExchangeBookItemPage exchange={exchanges[route.match.params.id] || newExchanges[route.match.params.id]} exchangeId={route.match.params.id} cities={cities}/>}/>
+                    <Route path="/exchanges/:id" render={route => <ExchangeBookItemPage exchange={exchanges[route.match.params.id] || newExchanges[route.match.params.id]} exchangeId={route.match.params.id} cities={cities}/>}/>
 
                     <React.Fragment>
                         <div className="page-background-img exchange">

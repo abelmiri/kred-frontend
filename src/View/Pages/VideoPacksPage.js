@@ -154,8 +154,8 @@ class VideoPacksPage extends PureComponent
                     <meta name="twitter:description" content="اینجا قراره یه جوره دیگه درس بخونیم، مثل دانشجوهای بهترین دانشگاه‌های دنیا... آماده‌ای؟"/>
                 </Helmet>
                 <Switch>
-                    <Route path="/videos/:id/:videoId" render={(route) => <ShowPackPage packId={route.match.params.id} videoId={route.match.params.videoId} user={user}/>}/>
-                    <Route path="/videos/:id" render={(route) => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
+                    <Route path="/videos/:id/:videoId" render={route => <ShowPackPage packId={route.match.params.id} videoId={route.match.params.videoId} user={user}/>}/>
+                    <Route path="/videos/:id" render={route => <ShowPackPage packId={route.match.params.id} user={user}/>}/>
 
                     <React.Fragment>
                         <div className="page-background-img video">
