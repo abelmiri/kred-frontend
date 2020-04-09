@@ -4,17 +4,17 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
-    "browser-image-compression": "^1.0.6",
+    "browser-image-compression": "^1.0.9",
     "react-helmet": "^5.2.1",
     "node-sass": "^4.13.1",
     "prop-types": "latest",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-notifications": "^1.5.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-notifications": "^1.6.0",
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
-    "react-scripts": "^3.4.0",
-    "react-spinners": "^0.8.0"
+    "react-scripts": "^3.4.1",
+    "react-spinners": "^0.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
