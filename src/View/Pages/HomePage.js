@@ -145,17 +145,14 @@ class HomePage extends PureComponent
                         }
                     </div>
                 </div>
-                {
-                    user?.role === "admin" &&
-                    <div className="home-exchange">
-                        <img className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
-                        <div className="home-exchange-text">
-                            <h3 className="home-exchange-title">کلاس درس</h3>
-                            <div className="home-exchange-description">دیگه سر کلاس جزوه ننویس! بخواب.</div>
-                            <a href="/class" className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/class")}>برو تو کلاس درس</a>
-                        </div>
+                <div className="home-exchange">
+                    <img className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
+                    <div className="home-exchange-text">
+                        <h3 className="home-exchange-title">کلاس درس</h3>
+                        <div className="home-exchange-description">دیگه سر کلاس جزوه ننویس! بخواب.</div>
+                        <a href="/class" className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/class")}>برو تو کلاس درس</a>
                     </div>
-                }
+                </div>
                 <div className="home-videos">
                     <div className="home-videos-text">
                         <h3 className="home-videos-title">گپ و گفت</h3>

@@ -282,12 +282,9 @@ class Header extends PureComponent
                                     <Link className="header-buttons-menu-drop-link" to="/videos">
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>فیلم‌های آموزشی</Material>
                                     </Link>
-                                    {
-                                        user?.role === "admin" &&
-                                        <Link className="header-buttons-menu-drop-link" to="/class">
-                                            <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>کلاس درس</Material>
-                                        </Link>
-                                    }
+                                    <Link className="header-buttons-menu-drop-link" to="/class">
+                                        <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>کلاس درس</Material>
+                                    </Link>
                                     <Link className="header-buttons-menu-drop-link" to="/pavilions">
                                         <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>گپ و گفت</Material>
                                     </Link>
@@ -338,7 +335,7 @@ class Header extends PureComponent
                         <Link to="/" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">صفحه اصلی</Material></Link>
                         {user && <NavLink to="/profile" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></NavLink>}
                         <NavLink to="/videos" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></NavLink>
-                        {user?.role === "admin" && <NavLink to="/class" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></NavLink>}
+                        <NavLink to="/class" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></NavLink>
                         <NavLink to="/pavilions" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">گپ و گفت</Material></NavLink>
                         <NavLink to="/exchanges" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">تبادل کتاب</Material></NavLink>
                         {user?.role === "admin" && <NavLink to="/panel/dashboard" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پنل ادمین</Material></NavLink>}

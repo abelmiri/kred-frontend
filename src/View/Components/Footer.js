@@ -36,13 +36,10 @@ const Footer = (props) =>
                     <VideoPlayer className="footer-part-svg"/>
                     فیلم‌های آموزشی
                 </Link>
-                {
-                    props.user?.role === "admin" &&
-                    <Link to="/class" className="footer-part-text">
-                        <ClassSvg className="footer-part-svg"/>
-                        کلاس درس
-                    </Link>
-                }
+                <Link to="/class" className="footer-part-text">
+                    <ClassSvg className="footer-part-svg"/>
+                    کلاس درس
+                </Link>
                 <Link to="/pavilions" className="footer-part-text">
                     <PavilionSvg className="footer-part-svg"/>
                     گپ و گفت
