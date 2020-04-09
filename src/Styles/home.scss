@@ -112,12 +112,12 @@
   margin-top: 5px;
   font-size: $home-regular-font-size;
   text-align: justify;
+  line-height: 26px;
 
   @media screen and (max-width: 800px) {
     width: 45%;
     padding: 5px;
     margin-top: 5px;
-    line-height: 26px;
   }
 }
 

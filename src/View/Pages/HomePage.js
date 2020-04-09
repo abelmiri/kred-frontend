@@ -149,7 +149,12 @@ class HomePage extends PureComponent
                     <img className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
                     <div className="home-exchange-text">
                         <h3 className="home-exchange-title">کلاس درس</h3>
-                        <div className="home-exchange-description">دیگه سر کلاس جزوه ننویس! بخواب.</div>
+                        <div className="home-exchange-description">
+                            یه کلاس برای کل دانشجوهای پزشکی ایران
+                            دوست داری همه ی جزوه ها، وویس ها و نمونه سوالات بهترین استاد های پزشکی ایران رو داشته باشی؟؟
+                            پس توی کلاس درس، منتظرتم
+                            <span role="img" aria-label=""> 😉</span>
+                        </div>
                         <a href="/class" className="home-section-butt reverse" onClick={(e) => this.changeRoute(e, "/class")}>برو تو کلاس درس</a>
                     </div>
                 </div>
