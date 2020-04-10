@@ -77,10 +77,28 @@
   line-height: 25px;
 }
 
+.video-pack-cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.video-pack-item-hide {
+  display: none;
+  @media screen and (min-width: 480px) {
+    display: inline-block;
+    width: 330px;
+    height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    margin: 0 10px;
+  }
+}
+
 .video-pack-item {
   display: inline-block;
   background-color: white;
-  width: 300px;
+  width: 330px;
   text-align: center;
   padding: 15px;
   margin: 10px;

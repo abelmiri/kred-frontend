@@ -149,7 +149,7 @@ class Comment extends PureComponent
                 </div>
                 <div className="pavilion-comment-like-cont">
                     {
-                        comment.user._id === user._id &&
+                        comment?.user?._id === user?._id &&
                         <Material className="pavilion-comment-delete" onClick={() => this.removeComment(comment._id)}>حذف</Material>
                     }
                     <Material className="pavilion-comment-reply" onClick={this.showReplay}>
