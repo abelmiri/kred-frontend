@@ -64,13 +64,13 @@ class ClassItemPage extends PureComponent
     {
         const {parent} = this.props
         return (
-            <div className="class-single-item-container">
+            <div className={`class-single-item-container ${parent?.videos ? "have-videos" : ""}`}>
                 <div className="class-single-item-main-svg-container">
                     <div className="class-single-item-main-svg-circle">
                         <Link to={`${parent?._id}/resources`}><img alt={parent?.title} src={parent?.svg && REST_URL + parent?.svg} className="class-single-item-main-svg"/></Link>
                     </div>
                 </div>
-                <div className="class-single-item-title">
+                <div className={`class-single-item-title ${parent?.videos ? "have-videos" : ""}`}>
                     <Link className="class-lesson-item-info-title-text" to={`${parent?._id}/resources`}> {parent?.title} </Link>
                 </div>
                 <div className="class-single-item-right-side">
@@ -80,38 +80,47 @@ class ClassItemPage extends PureComponent
                             جزوه
                         </div>
                     </HashLink>
-                    <HashLink to={`${parent?._id}/resources#summary`} className="class-single-item-option-section class-single-item-option-section-r">
-                        <Questions className="class-single-item-svg"/>
-                        <div>
-                            خلاصه دروس
-                        </div>
+                    <HashLink to={`${parent?._id}/resources#question`} className="class-single-item-option-section class-single-item-option-section-r">
+                        <QuestionsNew className="class-single-item-svg"/>
+                        <div>نمونه‌سوال</div>
                     </HashLink>
-                    {/*<HashLink to={`${parent?._id}/resources#question`} className="class-single-item-option-section class-single-item-option-section-r">*/}
-                    {/*    <QuestionsNew className="class-single-item-svg"/>*/}
-                    {/*    <div>*/}
-                    {/*        نمونه سوال*/}
-                    {/*    </div>*/}
-                    {/*</HashLink>*/}
+                    {
+                        parent?.videos &&
+                        <HashLink to={`${parent?._id}/resources#summary`} className="class-single-item-option-section class-single-item-option-section-r">
+                            <Questions className="class-single-item-svg"/>
+                            <div>خلاصه‌درس</div>
+                        </HashLink>
+                    }
                 </div>
                 <div className="class-single-item-left-side">
-                    <HashLink to={`${parent?._id}/resources#question`} className="class-single-item-option-section">
-                        <div>
-                            نمونه سوال
-                        </div>
-                        <QuestionsNew className="class-single-item-svg"/>
-                    </HashLink>
                     <HashLink to={`${parent?._id}/resources#voice`} className="class-single-item-option-section">
                         <div>
-                            ویس‌آموزشی
+                            ویس
                         </div>
                         <AudioSvg className="class-single-item-svg"/>
                     </HashLink>
-                    {/*<HashLink to={`${parent?._id}/resources#video`} className="class-single-item-option-section ">*/}
-                    {/*    <div>*/}
-                    {/*        فیلم*/}
-                    {/*    </div>*/}
-                    {/*    <VideoPlayer className="class-single-item-svg"/>*/}
-                    {/*</HashLink>*/}
+                    {
+                        !parent?.videos ?
+                            <HashLink to={`${parent?._id}/resources#summary`} className="class-single-item-option-section ">
+                                <div>خلاصه‌درس</div>
+                                <Questions className="class-single-item-svg"/>
+                            </HashLink>
+                            :
+                            parent?.videos?.length === 1 ?
+                                <HashLink to={`${parent?._id}/resources#video`} className="class-single-item-option-section ">
+                                    <div>
+                                        فیلم
+                                    </div>
+                                    <VideoPlayer className="class-single-item-svg"/>
+                                </HashLink>
+                                :
+                                <Material className="class-single-item-option-section " onClick={() => this.toggleVideoModal(parent?.videos)}>
+                                    <div>
+                                        فیلم
+                                    </div>
+                                    <VideoPlayer className="class-single-item-svg"/>
+                                </Material>
+                    }
                 </div>
             </div>
         )
@@ -230,7 +239,7 @@ class ClassItemPage extends PureComponent
                                 <div className="create-exchange-cont login">
                                     {
                                         videos.map(video =>
-                                            <Link className="class-item-video-pack-link" to={`/videos/${video._id}`}><Material className="class-item-video-pack">{video.title}</Material></Link>,
+                                            <Link key={video._id} className="class-item-video-pack-link" to={`/videos/${video._id}`}><Material className="class-item-video-pack">{video.title}</Material></Link>,
                                         )
                                     }
                                 </div>
