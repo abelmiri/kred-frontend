@@ -129,11 +129,15 @@
 }
 
 .video-pack-item-img {
-  width: 60%;
+  width: 50%;
   margin: auto;
   display: block;
-  height: 320px;
+  height: 300px;
   object-fit: contain;
+
+  @media screen and (max-width: 480px) {
+    height: 200px;
+  }
 }
 
 .video-pack-item-title {
@@ -148,7 +152,7 @@
 .video-pack-item-title-text {
   flex-grow: 1;
   text-align: center;
-  min-width: calc(100% + 10px);
+  min-width: calc(100% + 21px);
 }
 
 .video-pack-item-title-svg {
