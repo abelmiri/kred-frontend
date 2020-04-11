@@ -397,9 +397,9 @@ class ClassItemResourceFilePage extends PureComponent
                             <title>{parent.title}، {item.title}، {file.title} | KRED</title>
                             <meta property="og:title" content={`${parent.title}، ${item.title}، ${file.title} | KRED`}/>
                             <meta name="twitter:title" content={`${parent.title}، ${item.title}، ${file.title} | KRED`}/>
-                            <meta name="description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
-                            <meta property="og:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
-                            <meta name="twitter:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject} | KRED`}/>
+                            <meta name="description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject}، ${file.university}${file.teacher ? `، ${file.teacher}` : ""} | KRED`}/>
+                            <meta property="og:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject}، ${file.university}${file.teacher ? `، ${file.teacher}` : ""} | KRED`}/>
+                            <meta name="twitter:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject}، ${file.university}${file.teacher ? `، ${file.teacher}` : ""} | KRED`}/>
                             {
                                 showPicture ?
                                     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
