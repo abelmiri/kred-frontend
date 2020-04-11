@@ -14,6 +14,7 @@ import Comment from "../Components/Comment"
 import Helmet from "react-helmet"
 import SaveSvg from "../../Media/Svgs/SaveSvg"
 import SavedSvg from "../../Media/Svgs/SavedSvg"
+import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
 
 class ClassItemResourceFilePage extends PureComponent
 {
@@ -29,6 +30,7 @@ class ClassItemResourceFilePage extends PureComponent
             sendLoading: false,
             focused: false,
             showPicture: false,
+            completeProfileModal: false,
         }
         this.sentView = false
         this.page = 2
@@ -132,6 +134,11 @@ class ClassItemResourceFilePage extends PureComponent
             {
                 document.body.style.overflow = "auto"
                 this.setState({...this.state, focused: false})
+            }
+            else if (this.state.completeProfileModal)
+            {
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, completeProfileModal: false})
             }
         }
 
@@ -339,6 +346,45 @@ class ClassItemResourceFilePage extends PureComponent
         process.env.NODE_ENV === "production" && api.post("view", {type: "click", content: `دانلود ${file.title}`, content_id: file._id}).catch(err => console.log(err))
     }
 
+    downloadAfterComplete = () =>
+    {
+        const {file} = this.state
+        document.body.style.overflow = "auto"
+        this.setState({...this.state, completeProfileModal: false}, () =>
+            window.open(REST_URL + file.file),
+        )
+    }
+
+    requestDownload = () =>
+    {
+        const {user} = this.props
+        if (user)
+        {
+            if (document.body.clientWidth <= 480) window.history.pushState("", "", `${window.location.href}/complete-profile`)
+            document.body.style.overflow = "hidden"
+            this.setState({...this.state, completeProfileModal: true})
+        }
+        else
+        {
+            if (document.getElementById("header-login")) document.getElementById("header-login").click()
+            NotificationManager.error("برای دانلود، در سایت ثبت نام و یا وارد شوید.")
+        }
+    }
+
+    hideCompleteProfile = () =>
+    {
+        const {completeProfileModal} = this.state
+        if (completeProfileModal)
+        {
+            if (document.body.clientWidth <= 480) window.history.back()
+            else
+            {
+                document.body.style.overflow = "auto"
+                this.setState({...this.state, completeProfileModal: false})
+            }
+        }
+    }
+
     openImage = () =>
     {
         this.setState({...this.state, showPicture: true}, () =>
@@ -387,8 +433,8 @@ class ClassItemResourceFilePage extends PureComponent
 
     render()
     {
-        const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading, showPicture} = this.state
-        const {type, user, parent, item} = this.props
+        const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading, showPicture, completeProfileModal} = this.state
+        const {type, user, parent, item, setUser} = this.props
         return (
             <div className="class-resources-page-container">
                 {
@@ -488,9 +534,14 @@ class ClassItemResourceFilePage extends PureComponent
                                 <Material className="class-file-page-pic-material" onClick={this.openImage}>
                                     <img className="class-file-page-pic" src={REST_URL + file.picture} alt={file.title} ref={e => this.img = e}/>
                                 </Material>
-                                <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file} onClick={this.download}>
-                                    <Material className="class-file-page-download-btn">دانلود</Material>
-                                </a>
+                                {
+                                    user && user.name && user.university ?
+                                        <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file} onClick={this.download}>
+                                            <Material className="class-file-page-download-btn">دانلود</Material>
+                                        </a>
+                                        :
+                                        <Material className="class-file-page-download-btn" onClick={this.requestDownload}>دانلود</Material>
+                                }
                             </div>
                         </div>
 
@@ -547,6 +598,16 @@ class ClassItemResourceFilePage extends PureComponent
                 <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
                 <div className={`exchange-page-loading ${fileLoading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                 <div className={`exchange-page-loading error-text ${!fileLoading && !file._id && !error ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>
+
+                {
+                    completeProfileModal &&
+                    <React.Fragment>
+                        <div className="create-exchange-back" onClick={this.hideCompleteProfile}/>
+                        <div className="buy-loading profile">
+                            <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={this.downloadAfterComplete}/>
+                        </div>
+                    </React.Fragment>
+                }
             </div>
         )
     }

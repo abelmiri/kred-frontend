@@ -81,7 +81,7 @@ class ClassItemResourcePage extends PureComponent
     render()
     {
         const {resLoading, error, handout, summary, question, voice} = this.state
-        const {type, parent, item, user} = this.props
+        const {type, parent, item, user, setUser} = this.props
         return (
             <React.Fragment>
                 {
@@ -108,6 +108,7 @@ class ClassItemResourcePage extends PureComponent
                 <Switch>
                     <Route path={`/class/:type/:parentId/:id/resources/:fileId`} render={route =>
                         <ClassItemResourceFilePage user={user}
+                                                   setUser={setUser}
                                                    type={route.match.params.type}
                                                    item={item}
                                                    parentId={true}
@@ -119,6 +120,7 @@ class ClassItemResourcePage extends PureComponent
                     }/>
                     <Route path={`/class/:type/:id/resources/:fileId`} render={route =>
                         <ClassItemResourceFilePage user={user}
+                                                   setUser={setUser}
                                                    type={route.match.params.type}
                                                    item={item}
                                                    parent={parent}

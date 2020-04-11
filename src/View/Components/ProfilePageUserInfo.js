@@ -94,7 +94,15 @@ class ProfilePageUserInfo extends Component
         {
             this.setState({...this.state, loading: true, done: false}, () =>
             {
-                api.patch("user", {email, name, major, grade, entrance, birth_date: birth_date ? birth_date : null, university}, "")
+                api.patch("user", {
+                    email: email ? email : undefined,
+                    name: name ? name : undefined,
+                    major: major ? major : undefined,
+                    grade: grade ? grade : undefined,
+                    entrance: entrance ? entrance : undefined,
+                    birth_date: birth_date ? birth_date : undefined,
+                    university: university ? university : undefined,
+                }, "")
                     .then((res) =>
                     {
                         this.setState({...this.state, loading: false, done: !resolve}, () =>

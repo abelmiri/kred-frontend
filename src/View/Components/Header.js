@@ -223,7 +223,7 @@ class Header extends PureComponent
     render()
     {
         const {location, user, setUser} = this.props
-        if (location !== "/sign-up")
+        if (location.slice(0, 8) !== "/sign-up")
         {
             const {isTransparent, showLoginModal, collapseSidebar, hideDropDown} = this.state
             return (

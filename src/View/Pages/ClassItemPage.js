@@ -189,7 +189,7 @@ class ClassItemPage extends PureComponent
     render()
     {
         const {items, loading, error, videoModal, videos} = this.state
-        const {parent, user} = this.props
+        const {parent, user, setUser} = this.props
         return (
             <React.Fragment>
                 {
@@ -206,6 +206,7 @@ class ClassItemPage extends PureComponent
                 <Switch>
                     <Route path={`/class/:type/:parentId/:id/resources`} render={route =>
                         <ClassItemResourcePage user={user}
+                                               setUser={setUser}
                                                type={route.match.params.type}
                                                parentId={true}
                                                item={items[route.match.params.id]}
@@ -215,6 +216,7 @@ class ClassItemPage extends PureComponent
                     }/>
                     <Route path={`/class/:type/:id/resources`} render={route =>
                         <ClassItemResourcePage user={user}
+                                               setUser={setUser}
                                                type={route.match.params.type}
                                                item={parent}
                                                id={route.match.params.id}

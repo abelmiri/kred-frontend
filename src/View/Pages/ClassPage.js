@@ -59,7 +59,7 @@ class ClassPage extends PureComponent
 
     render()
     {
-        const {user} = this.props
+        const {user, setUser} = this.props
         const {lessons, blocks, isBlockView, itemsCount, loading, error} = this.state
         return (
             <React.Fragment>
@@ -74,6 +74,7 @@ class ClassPage extends PureComponent
                 <Switch>
                     <Route path={`/class/:type/:id`} render={route =>
                         <ClassItemPage user={user}
+                                       setUser={setUser}
                                        parent={route.match.params.type === "block" ? blocks[route.match.params.id] : lessons[route.match.params.id]}
                                        type={route.match.params.type}
                                        id={route.match.params.id}
