@@ -250,10 +250,11 @@
 }
 
 .home-about-description {
+  text-align: justify;
   margin-top: 5px;
   font-weight: bold;
   font-size: $menu-title-font-size;
-  line-height: 25px;
+  line-height: 28px;
   background-color: rgba(255, 255, 255, 0.2);
   display: inline-block;
   padding: 10px;
