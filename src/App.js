@@ -142,7 +142,7 @@ class App extends PureComponent
 
     setUser = (user, dontRememberMe) =>
     {
-        if (dontRememberMe)
+        if (dontRememberMe || sessionStorage.hasOwnProperty("user"))
         {
             if (sessionStorage.hasOwnProperty("user") && !user.token)
             {
