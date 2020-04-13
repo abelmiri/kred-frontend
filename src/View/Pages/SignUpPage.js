@@ -20,6 +20,7 @@ class SignUpPage extends PureComponent
             {img: Slider2, text: "دیگه وقتشه حرفه ای درس بخونی!"},
             {img: Slider3, text: "توی KRED از حال و هوای دانشجوهای موفق باخبر شو!"},
         ]
+        this.usernameValid = false
         this.phoneValid = false
         this.passwordValid = false
         this.state = {
@@ -30,6 +31,8 @@ class SignUpPage extends PureComponent
             phone: "",
             level: 1,
         }
+        this.changeUsername = this.changeUsername.bind(this)
+        this.blurUsername = this.blurUsername.bind(this)
         this.changePhone = this.changePhone.bind(this)
         this.blurPassword = this.blurPassword.bind(this)
         this.blurPhone = this.blurPhone.bind(this)
@@ -109,6 +112,54 @@ class SignUpPage extends PureComponent
         if (e.target.value.length < 11) this.phoneInput.style.borderBottom = "1px solid red"
     }
 
+    changeUsername(e)
+    {
+        this.usernameValid = false
+        const value = e.target.value.trim()
+        this.setState({...this.state, username: value})
+        if (value.length > 2 && /^[a-zA-Z]+[a-zA-Z0-9_.-]+$/.test(value))
+        {
+            api.post("user/username_check", {username: value}, "")
+                .then((data) =>
+                {
+                    if (data.count > 0)
+                    {
+                        if (this.usernameInput) this.usernameInput.style.borderBottom = "1px solid red"
+                        if (this.usernameError)
+                        {
+                            this.usernameError.innerText = "نام کاربری وارد شده قبلا استفاده شده است!"
+                            this.usernameError.style.height = "20px"
+                        }
+                        this.usernameValid = false
+                    }
+                    else
+                    {
+                        if (this.usernameInput) this.usernameInput.style.borderBottom = ""
+                        if (this.usernameError) this.usernameError.style.height = ""
+                        this.usernameValid = true
+                    }
+                })
+        }
+        else
+        {
+            if (value.length > 1 && !/^[a-zA-Z]+[a-zA-Z0-9_.-]+$/.test(value))
+            {
+                if (this.usernameInput) this.usernameInput.style.borderBottom = "1px solid red"
+                if (this.usernameError)
+                {
+                    this.usernameError.innerText = "فقط حروف و اعداد و _ مجاز است."
+                    this.usernameError.style.height = "20px"
+                }
+                this.usernameValid = false
+            }
+        }
+    }
+
+    blurUsername(e)
+    {
+        if (e.target.value.length < 3) this.usernameInput.style.borderBottom = "1px solid red"
+    }
+
     changePassword(e)
     {
         const {value} = e.target
@@ -141,7 +192,7 @@ class SignUpPage extends PureComponent
     {
         const {loading, level} = this.state
         const {setUser} = this.props
-        if (!loading && this.phoneValid && this.passwordValid)
+        if (!loading && this.phoneValid && this.passwordValid && this.usernameValid)
         {
             this.setState({...this.state, loading: true}, () =>
             {
@@ -155,7 +206,7 @@ class SignUpPage extends PureComponent
                 {
                     if (this.codeInput.value.length === 4)
                     {
-                        api.post("user", {phone: this.phoneInput.value, name: this.nameInput.value, password: this.passwordInput.value, code: this.codeInput.value}, "")
+                        api.post("user", {phone: this.phoneInput.value, username: this.usernameInput.value, name: this.nameInput.value, password: this.passwordInput.value, code: this.codeInput.value}, "")
                             .then((data) =>
                             {
                                 setUser(data)
@@ -171,12 +222,13 @@ class SignUpPage extends PureComponent
         {
             if (!this.phoneValid) this.phoneInput.style.borderBottom = "1px solid red"
             if (!this.passwordValid) this.passwordInput.style.borderBottom = "1px solid red"
+            if (!this.usernameValid) this.usernameInput.style.borderBottom = "1px solid red"
         }
     }
 
     render()
     {
-        const {sliderIndex, previousSlider, redirectHome, loading, phone, level} = this.state
+        const {sliderIndex, previousSlider, redirectHome, loading, phone, username, level} = this.state
         return (
             <div className="login-container">
 
@@ -211,6 +263,11 @@ class SignUpPage extends PureComponent
                                 <input name="name" type="text" className="login-input-input" placeholder="مثال: محمد شریفی" ref={e => this.nameInput = e}/>
                             </div>
                             <div className="login-input-error"/>
+                            <div className="login-input-field">
+                                <label className="login-input-label">نام کاربری <span>*</span></label>
+                                <input name="username" value={username} type="text" maxLength={40} className="login-input-input" placeholder="مثال: seyed" ref={e => this.usernameInput = e} onChange={this.changeUsername} onBlur={this.blurUsername}/>
+                            </div>
+                            <div className="login-input-error" ref={e => this.usernameError = e}></div>
                             <div className="login-input-field">
                                 <label className="login-input-label">شماره موبایل <span>*</span></label>
                                 <input name="phone" value={phone} type="text" maxLength={11} className="login-input-input" placeholder="مثال: 09123456789" ref={e => this.phoneInput = e} onChange={this.changePhone} onBlur={this.blurPhone}/>

@@ -160,6 +160,14 @@
   width: calc(100% - 100px);
   text-align: center;
 
+  @media screen and (min-width: 1350px) {
+    .error {
+      width: 345px;
+      padding-right: 150px;
+      margin: auto;
+    }
+  }
+
   @media screen and (max-width: 1350px) {
     padding: 0 20px;
     width: calc(100% - 40px);

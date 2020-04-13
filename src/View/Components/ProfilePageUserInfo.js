@@ -10,6 +10,7 @@ class ProfilePageUserInfo extends Component
         super(props)
         this.state = {
             email: "",
+            username: "",
             name: "",
             major: "",
             grade: "",
@@ -23,6 +24,7 @@ class ProfilePageUserInfo extends Component
             done_pass: false,
             wrong_pass: false,
         }
+        this.usernameValid = false
     }
 
     componentDidMount()
@@ -38,6 +40,7 @@ class ProfilePageUserInfo extends Component
             this.setState({
                     ...this.state,
                     name: user.name && user.name,
+                    username: user.username && user.username,
                     email: user.email && user.email,
                     birth_date: user.birth_date && user.birth_date,
                     university: user.university && user.university,
@@ -45,7 +48,11 @@ class ProfilePageUserInfo extends Component
                     major: user.major && user.major,
                     grade: user.grade && user.grade,
                 },
-                () => document.body.clientWidth > 480 && this.name.focus(),
+                () =>
+                {
+                    if (user.username && user.username) this.usernameValid = true
+                    document.body.clientWidth > 480 && this.name.focus()
+                },
             )
         }
     }
@@ -80,57 +87,107 @@ class ProfilePageUserInfo extends Component
         }
     }
 
-    handleSubmit = () =>
+    changeUsername = (e) =>
     {
-        const {email, name, major, grade, entrance, birth_date, university} = this.state
-        const {setUser, resolve} = this.props
-
-        if (!name || !university)
+        this.usernameValid = false
+        const value = e.target.value.trim()
+        this.setState({...this.state, username: value})
+        if (value.length > 2 && /^[a-zA-Z]+[a-zA-Z0-9_.-]+$/.test(value))
         {
-            if (!name) NotificationManager.error("لطفا اسم خودتون رو وارد کنید!")
-            if (!university) NotificationManager.error("لطفا دانشگاه خودتون رو وارد کنید!")
+            api.post("user/username_check", {username: value}, "")
+                .then((data) =>
+                {
+                    if (data.count > 0)
+                    {
+                        if (this.usernameInput) this.usernameInput.style.borderBottom = "1px solid red"
+                        if (this.usernameError)
+                        {
+                            this.usernameError.innerText = "نام کاربری وارد شده قبلا استفاده شده است!"
+                            this.usernameError.style.height = "20px"
+                        }
+                        this.usernameValid = false
+                    }
+                    else
+                    {
+                        if (this.usernameInput) this.usernameInput.style.borderBottom = ""
+                        if (this.usernameError) this.usernameError.style.height = ""
+                        this.usernameValid = true
+                    }
+                })
         }
         else
         {
-            this.setState({...this.state, loading: true, done: false}, () =>
+            if (value.length > 1 && !/^[a-zA-Z]+[a-zA-Z0-9_.-]+$/.test(value))
             {
-                api.patch("user", {
-                    email: email ? email : undefined,
-                    name: name ? name : undefined,
-                    major: major ? major : undefined,
-                    grade: grade ? grade : undefined,
-                    entrance: entrance ? entrance : undefined,
-                    birth_date: birth_date ? birth_date : undefined,
-                    university: university ? university : undefined,
-                }, "")
-                    .then((res) =>
-                    {
-                        this.setState({...this.state, loading: false, done: !resolve}, () =>
+                if (this.usernameInput) this.usernameInput.style.borderBottom = "1px solid red"
+                if (this.usernameError)
+                {
+                    this.usernameError.innerText = "فقط حروف و اعداد و _ مجاز است."
+                    this.usernameError.style.height = "20px"
+                }
+                this.usernameValid = false
+            }
+        }
+    }
+
+    blurUsername = (e) =>
+    {
+        if (e.target.value.length < 3) this.usernameInput.style.borderBottom = "1px solid red"
+    }
+
+    handleSubmit = () =>
+    {
+        const {email, name, major, username, grade, entrance, birth_date, university, loading} = this.state
+        const {setUser, resolve} = this.props
+
+        if (!loading && this.usernameValid)
+        {
+            if (!name || !university || !username)
+            {
+                if (!name) NotificationManager.error("لطفا اسم خودتون رو وارد کنید!")
+                if (!university) NotificationManager.error("لطفا دانشگاه خودتون رو وارد کنید!")
+                if (!username) NotificationManager.error("لطفا نام کاربری رو وارد کنید!")
+            }
+            else
+            {
+                this.setState({...this.state, loading: true, done: false}, () =>
+                {
+                    api.patch("user", {
+                        email: email ? email : undefined,
+                        name: name ? name : undefined,
+                        username: username ? username : undefined,
+                        major: major ? major : undefined,
+                        grade: grade ? grade : undefined,
+                        entrance: entrance ? entrance : undefined,
+                        birth_date: birth_date ? birth_date : undefined,
+                        university: university ? university : undefined,
+                    }, "")
+                        .then((res) =>
                         {
-                            setUser(res)
-                            setTimeout(() => resolve && resolve(), 50)
+                            this.setState({...this.state, loading: false, done: !resolve}, () =>
+                            {
+                                setUser(res)
+                                setTimeout(() => resolve && resolve(), 50)
+                            })
                         })
-                    })
-                    .catch((e) =>
-                    {
-                        if (e?.response?.status === 404)
+                        .catch((e) =>
                         {
-                            localStorage.removeItem("user")
-                            sessionStorage.removeItem("user")
-                            this.setState({...this.state, loading: false})
-                        }
-                    })
-            })
+                            if (e?.response?.status === 404)
+                            {
+                                localStorage.removeItem("user")
+                                sessionStorage.removeItem("user")
+                                this.setState({...this.state, loading: false})
+                            }
+                        })
+                })
+            }
         }
     }
 
     handlePassModal = () =>
     {
         const {pass_modal, loading} = this.state
-        if (!loading)
-        {
-            this.setState({...this.state, pass_modal: !pass_modal, done_pass: false, wrong_pass: false})
-        }
+        if (!loading) this.setState({...this.state, pass_modal: !pass_modal, done_pass: false, wrong_pass: false})
     }
 
     handlePassChange = () =>
@@ -160,7 +217,7 @@ class ProfilePageUserInfo extends Component
 
     render()
     {
-        const {email, name, major, grade, entrance, birth_date, university, pass_modal, loading, done, done_pass, wrong_pass} = this.state
+        const {email, username, name, major, grade, entrance, birth_date, university, pass_modal, loading, done, done_pass, wrong_pass} = this.state
         const {showPrompt, dontShowPasswordBtn} = this.props
         return (
             <div className="profile-introduction">
@@ -170,6 +227,11 @@ class ProfilePageUserInfo extends Component
                         <div>
                             <p>نام کامل <span>*</span></p>
                             <input ref={e => this.name = e} type="text" placeholder="نام و نام خانوادگی" defaultValue={name ? name : ""} onBlur={(e) => this.setUserData(e, "name")}/>
+                        </div>
+                        <div>
+                            <p>نام کاربری <span>*</span></p>
+                            <input ref={e => this.usernameInput = e} type="text" placeholder="seyed" value={username} maxLength={40} onChange={this.changeUsername} onBlur={this.blurUsername}/>
+                            <div className="login-input-error error" ref={e => this.usernameError = e}></div>
                         </div>
                         <div>
                             <p>ایمیل</p>
