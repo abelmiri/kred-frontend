@@ -9,6 +9,7 @@ import {ClassResourcesItems} from "../Components/ClassResourcesItems"
 import ClassItemResourceFilePage from "./ClassItemResourceFilePage"
 import Helmet from "react-helmet"
 import PdfGroupSvg from "../../Media/Svgs/PdfGroupSvg"
+import Pack from "../Components/Pack"
 
 class ClassItemResourcePage extends PureComponent
 {
@@ -231,6 +232,21 @@ class ClassItemResourcePage extends PureComponent
                                     <div className="class-handout-item-hide"/>
                                     <div className="class-handout-item-hide"/>
                                     <div className="class-handout-item-hide"/>
+                                </div>
+                            }
+                            {
+                                !resLoading &&
+                                <div className="class-a-resource-container">
+                                    <div className="class-a-resource-container-anchor" id="video"/>
+                                    <div className="class-a-resource-container-title">فیلم آموزشی</div>
+                                    {(item?.videos?.length === 0 || !item?.videos) && <div className={`exchange-page-loading empty-text ${!resLoading ? "" : "none"}`}>متأسفانه محتوایی برای نمایش پیدا نشد</div>}
+                                    <div className="video-pack-cont">
+                                        {
+                                            item?.videos?.map(item => <Pack key={item._id} pack={item}/>)
+                                        }
+                                        <div className="video-pack-item-hide"/>
+                                        <div className="video-pack-item-hide"/>
+                                    </div>
                                 </div>
                             }
                             <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>

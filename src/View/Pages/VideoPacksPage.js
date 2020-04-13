@@ -2,14 +2,14 @@ import React, {PureComponent} from "react"
 import {ClipLoader} from "react-spinners"
 import api, {REST_URL} from "../../Functions/api"
 import Material from "../Components/Material"
-import {Link, Route, Switch} from "react-router-dom"
+import {Route, Switch} from "react-router-dom"
 import ShowPackPage from "./ShowPackPage"
-import TickSvg from "../../Media/Svgs/TickSvg"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import {NotificationManager} from "react-notifications"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
 import Helmet from "react-helmet"
 import Footer from "../Components/Footer"
+import Pack from "../Components/Pack"
 
 class VideoPacksPage extends PureComponent
 {
@@ -61,7 +61,7 @@ class VideoPacksPage extends PureComponent
         }
     }
 
-    buyPack(e, pack)
+    buyPack = (e, pack) =>
     {
         e && e.preventDefault()
         const {user} = this.props
@@ -190,32 +190,7 @@ class VideoPacksPage extends PureComponent
                                                                     <React.Fragment>
                                                                         {
                                                                             Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).sort((a, b) => a.order > b.order ? -1 : 1).map(pack =>
-                                                                                <Link key={pack._id} className="video-pack-item" to={`/videos/${pack._id}`}>
-                                                                                    <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
-                                                                                    {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
-                                                                                    <div className="video-pack-item-title">
-                                                                                        <div className="video-pack-item-title-text">
-                                                                                            مجموعه فیلم‌های<span> </span>{pack.title}
-                                                                                            {
-                                                                                                pack.price === 0 ?
-                                                                                                    <div className="video-page-aside-videos-free videos">Free</div>
-                                                                                                    :
-                                                                                                    pack.have_permission && <TickSvg className="video-pack-item-title-svg"/>
-                                                                                            }
-                                                                                        </div>
-                                                                                        {
-                                                                                            !pack.have_permission && pack.price !== 0 &&
-                                                                                            <React.Fragment>
-                                                                                                <Material className="video-pack-item-title-buy view">
-                                                                                                    مشاهده
-                                                                                                </Material>
-                                                                                                <Material className="video-pack-item-title-buy" onClick={(e) => this.buyPack(e, pack)}>
-                                                                                                    خرید ({addCommaPrice(pack.price)} تومان)
-                                                                                                </Material>
-                                                                                            </React.Fragment>
-                                                                                        }
-                                                                                    </div>
-                                                                                </Link>,
+                                                                                <Pack key={pack._id} pack={pack} buyPack={this.buyPack}/>,
                                                                             )
                                                                         }
                                                                         <div className="video-pack-item-hide"/>
@@ -248,7 +223,7 @@ class VideoPacksPage extends PureComponent
                                         <div className="buy-loading profile">
                                             <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
                                                 <div className="buy-slide">
-                                                    <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={() => this.buyPack()}/>
+                                                    <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={this.buyPack}/>
                                                 </div>
                                                 <div className="buy-slide">
                                                     <div className="profile-introduction-title">تایید خرید</div>

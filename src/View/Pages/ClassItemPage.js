@@ -11,7 +11,6 @@ import {HashLink} from "react-router-hash-link"
 import ClassItemResourcePage from "./ClassItemResourcePage"
 import Helmet from "react-helmet"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
-import Material from "../Components/Material"
 
 class ClassItemPage extends PureComponent
 {
@@ -22,8 +21,6 @@ class ClassItemPage extends PureComponent
             loading: true,
             error: false,
             items: {},
-            videoModal: false,
-            videos: [],
         }
         this.sentView = false
     }
@@ -64,13 +61,13 @@ class ClassItemPage extends PureComponent
     {
         const {parent} = this.props
         return (
-            <div className={`class-single-item-container ${parent?.videos ? "have-videos" : ""}`}>
+            <div className="class-single-item-container">
                 <div className="class-single-item-main-svg-container">
                     <div className="class-single-item-main-svg-circle">
                         <Link to={`${parent?._id}/resources`}><img alt={parent?.title} src={parent?.svg && REST_URL + parent?.svg} className="class-single-item-main-svg"/></Link>
                     </div>
                 </div>
-                <div className={`class-single-item-title ${parent?.videos ? "have-videos" : ""}`}>
+                <div className="class-single-item-title">
                     <Link className="class-lesson-item-info-title-text" to={`${parent?._id}/resources`}> {parent?.title} </Link>
                 </div>
                 <div className="class-single-item-right-side">
@@ -84,13 +81,10 @@ class ClassItemPage extends PureComponent
                         <QuestionsNew className="class-single-item-svg"/>
                         <div>نمونه‌سوال</div>
                     </HashLink>
-                    {
-                        parent?.videos &&
-                        <HashLink to={`${parent?._id}/resources#summary`} className="class-single-item-option-section class-single-item-option-section-r">
-                            <Questions className="class-single-item-svg"/>
-                            <div>خلاصه‌درس</div>
-                        </HashLink>
-                    }
+                    <HashLink to={`${parent?._id}/resources#summary`} className="class-single-item-option-section class-single-item-option-section-r">
+                        <Questions className="class-single-item-svg"/>
+                        <div>خلاصه‌درس</div>
+                    </HashLink>
                 </div>
                 <div className="class-single-item-left-side">
                     <HashLink to={`${parent?._id}/resources#voice`} className="class-single-item-option-section">
@@ -99,28 +93,12 @@ class ClassItemPage extends PureComponent
                         </div>
                         <AudioSvg className="class-single-item-svg"/>
                     </HashLink>
-                    {
-                        !parent?.videos ?
-                            <HashLink to={`${parent?._id}/resources#summary`} className="class-single-item-option-section ">
-                                <div>خلاصه‌درس</div>
-                                <Questions className="class-single-item-svg"/>
-                            </HashLink>
-                            :
-                            parent?.videos?.length === 1 ?
-                                <HashLink to={`${parent?._id}/resources#video`} className="class-single-item-option-section ">
-                                    <div>
-                                        فیلم
-                                    </div>
-                                    <VideoPlayer className="class-single-item-svg"/>
-                                </HashLink>
-                                :
-                                <Material className="class-single-item-option-section " onClick={() => this.toggleVideoModal(parent?.videos)}>
-                                    <div>
-                                        فیلم
-                                    </div>
-                                    <VideoPlayer className="class-single-item-svg"/>
-                                </Material>
-                    }
+                    <HashLink to={`${parent?._id}/resources#video`} className="class-single-item-option-section ">
+                        <div>
+                            فیلم
+                        </div>
+                        <VideoPlayer className="class-single-item-svg"/>
+                    </HashLink>
                 </div>
             </div>
         )
@@ -157,21 +135,10 @@ class ClassItemPage extends PureComponent
                                 <div>ویس</div>
                                 <AudioSvg className="class-lesson-item-info-description-section-svg"/>
                             </HashLink>
-                            {
-                                lesson.videos && lesson.videos.length > 0 ?
-                                    lesson.videos.length === 1 ?
-                                        <HashLink className="class-lesson-item-info-description-section" to={`/videos/${lesson.videos && lesson.videos[0]._id}`}>
-                                            <div>فیلم</div>
-                                            <VideoPlayer className="class-lesson-item-info-description-section-svg"/>
-                                        </HashLink>
-                                        :
-                                        <Material className="class-lesson-item-info-description-section" onClick={() => this.toggleVideoModal(lesson.videos)}>
-                                            <div>فیلم</div>
-                                            <VideoPlayer className="class-lesson-item-info-description-section-svg"/>
-                                        </Material>
-                                    :
-                                    null
-                            }
+                            <HashLink className="class-lesson-item-info-description-section" to={`/class/${type}/${id}/${lesson._id}/resources#video`}>
+                                <div>فیلم</div>
+                                <VideoPlayer className="class-lesson-item-info-description-section-svg"/>
+                            </HashLink>
                         </div>
                     </div>
                 </div>
@@ -179,16 +146,9 @@ class ClassItemPage extends PureComponent
         )
     }
 
-    toggleVideoModal(videos)
-    {
-        const videoModal = !this.state.videoModal
-        if (videoModal) this.setState({...this.state, videoModal, videos})
-        else this.setState({...this.state, videoModal, videos: []})
-    }
-
     render()
     {
-        const {items, loading, error, videoModal, videos} = this.state
+        const {items, loading, error} = this.state
         const {parent, user, setUser} = this.props
         return (
             <React.Fragment>
@@ -234,19 +194,6 @@ class ClassItemPage extends PureComponent
                             <div className={`exchange-page-loading error-text ${error ? "" : "none"}`}>مشکل در دریافت اطلاعات!</div>
                             <div className={`exchange-page-loading ${loading ? "" : "none"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                         </div>
-                        {
-                            videoModal &&
-                            <React.Fragment>
-                                <div className="create-exchange-back" onClick={() => this.toggleVideoModal()}/>
-                                <div className="create-exchange-cont login">
-                                    {
-                                        videos.map(video =>
-                                            <Link key={video._id} className="class-item-video-pack-link" to={`/videos/${video._id}`}><Material className="class-item-video-pack">{video.title}</Material></Link>,
-                                        )
-                                    }
-                                </div>
-                            </React.Fragment>
-                        }
                     </React.Fragment>
                 </Switch>
             </React.Fragment>

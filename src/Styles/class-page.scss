@@ -318,7 +318,7 @@
 .class-single-item-container {
   position: relative;
   width: 70%;
-  height: 180px;
+  height: 210px;
   background-color: var(--secondary-color);
   display: flex;
   justify-content: space-between;
@@ -336,11 +336,7 @@
     margin-top: 100px;
     display: block;
     padding-top: 80px;
-    height: 450px;
-
-    &.have-videos {
-      height: 550px;
-    }
+    height: 550px;
   }
 }
 
@@ -352,14 +348,10 @@
   font-size: $enormous-title-font-size;
   z-index: 0;
   @media screen and (max-width: 480px) {
-    top: 455px;
     border-top: 2px solid var(--background-color);
     padding-top: 25px;
     font-size: 28px;
-
-    &.have-videos {
-      top: 555px;
-    }
+    top: 555px;
   }
 }
 
