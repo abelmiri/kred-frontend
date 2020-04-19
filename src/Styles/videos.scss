@@ -210,6 +210,10 @@
   }
 }
 
+.video-pack-price-off {
+  text-decoration: line-through;
+}
+
 .buy-loading {
   position: fixed;
   left: 50%;
@@ -257,6 +261,13 @@
   font-size: $title-font-size;
   text-align: right;
   position: relative;
+}
+
+.buy-code-input {
+  &::placeholder {
+    opacity: 0.6;
+    color: var(--error-color);
+  }
 }
 
 .buy-off-code-amount-cont {

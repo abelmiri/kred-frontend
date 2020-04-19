@@ -230,7 +230,7 @@ class VideoPacksPage extends PureComponent
                                                     <div className="profile-info-description">
                                                         <div>
                                                             <p>کد تخفیف</p>
-                                                            <input type="text" ref={e => this.offCode = e} onChange={this.changeOffCode}/>
+                                                            <input className="buy-code-input" type="text" disabled={buyPack.off_percent !== 0} placeholder={buyPack.off_percent !== 0 && "کد تخفیف برای مجموعه تخفیف دار مجاز نمیباشد"} ref={e => this.offCode = e} onChange={this.changeOffCode}/>
                                                         </div>
                                                         <div className="buy-off-code">
                                                             <div className="buy-off-code-amount-cont">
@@ -243,7 +243,12 @@ class VideoPacksPage extends PureComponent
                                                                 <div className="buy-off-code-pay">
                                                                     مبلغ قابل پرداخت:
                                                                     <span> </span>
-                                                                    {addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))}
+                                                                    {
+                                                                        buyPack.off_percent !== 0 ?
+                                                                            addCommaPrice(buyPack.off_percent !== 0 ? ((100 - buyPack.off_percent) / 100) * buyPack.price : buyPack.price)
+                                                                            :
+                                                                            addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))
+                                                                    }
                                                                     <span> </span>
                                                                     تومان
                                                                 </div>

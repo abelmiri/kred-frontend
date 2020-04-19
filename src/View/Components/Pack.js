@@ -29,7 +29,7 @@ const Pack = (props) =>
                             مشاهده
                         </Material>
                         <Material className="video-pack-item-title-buy" onClick={(e) => buyPack(e, pack)}>
-                            خرید ({addCommaPrice(pack.price)} تومان)
+                            خرید ({addCommaPrice(pack.off_percent !== 0 ? ((100 - pack.off_percent) / 100) * pack.price : pack.price)} تومان) {pack.off_percent !== 0 && <span className="video-pack-price-off">{addCommaPrice(pack.price)}</span>}
                         </Material>
                     </React.Fragment>
                 }
