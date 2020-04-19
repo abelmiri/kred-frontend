@@ -142,7 +142,7 @@ class PavilionItemPage extends PureComponent
         {
             if (document.getElementById("header-login"))
             {
-                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                 document.getElementById("header-login").click()
             }
         }
@@ -210,7 +210,7 @@ class PavilionItemPage extends PureComponent
             {
                 if (document.getElementById("header-login"))
                 {
-                    NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                    NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                     document.getElementById("header-login").click()
                 }
             }
@@ -292,7 +292,7 @@ class PavilionItemPage extends PureComponent
                         <div className="exchange-page-loading">مصاحبه مورد نظر یافت نشد!</div>
                         :
                         error ?
-                            <div className="exchange-page-loading">سایت در گرفتن اطلاعات با مشکل مواجه شد!</div>
+                            <div className="exchange-page-loading">برنامه در گرفتن اطلاعات با مشکل مواجه شد!</div>
                             :
                             pavilion ?
                                 <React.Fragment>

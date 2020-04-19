@@ -186,7 +186,7 @@ class ClassItemResourceFilePage extends PureComponent
             {
                 if (document.getElementById("header-login"))
                 {
-                    NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                    NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                     document.getElementById("header-login").click()
                 }
             }
@@ -284,7 +284,7 @@ class ClassItemResourceFilePage extends PureComponent
         {
             if (document.getElementById("header-login"))
             {
-                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                 document.getElementById("header-login").click()
             }
         }
@@ -313,7 +313,7 @@ class ClassItemResourceFilePage extends PureComponent
         {
             if (document.getElementById("header-login"))
             {
-                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                 document.getElementById("header-login").click()
             }
         }
@@ -367,7 +367,7 @@ class ClassItemResourceFilePage extends PureComponent
         else
         {
             if (document.getElementById("header-login")) document.getElementById("header-login").click()
-            NotificationManager.error("برای دانلود، در سایت ثبت نام و یا وارد شوید.")
+            NotificationManager.error("برای دانلود، ثبت نام کنید یا وارد شوید.")
         }
     }
 

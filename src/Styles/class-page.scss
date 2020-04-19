@@ -732,6 +732,11 @@
   text-align: center;
   transition: all ease $normal-animation-duration;
 
+  &.save {
+    background-color: var(--login-page-background-color);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  }
+
   &:hover {
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
   }

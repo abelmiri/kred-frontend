@@ -41,7 +41,7 @@ class Comment extends PureComponent
         {
             if (document.getElementById("header-login"))
             {
-                NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                 document.getElementById("header-login").click()
             }
         }
@@ -106,7 +106,7 @@ class Comment extends PureComponent
             {
                 if (document.getElementById("header-login"))
                 {
-                    NotificationManager.error("لطفا ابتدا در سایت ثبت نام و یا وارد شوید.")
+                    NotificationManager.error("لطفا ابتدا ثبت نام کنید یا وارد شوید.")
                     document.getElementById("header-login").click()
                 }
             }

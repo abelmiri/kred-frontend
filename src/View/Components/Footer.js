@@ -27,7 +27,7 @@ const Footer = (props) =>
         </div>
         <div className="footer-parts">
             <div className="footer-part">
-                <div className="footer-part-title">بخش‌های سایت</div>
+                <div className="footer-part-title">بخش‌های برنامه</div>
                 {/*<div className="footer-part-text">*/}
                 {/*    <AboutUsSvg className="footer-part-svg"/>*/}
                 {/*    درباره ما*/}

@@ -40,7 +40,7 @@
   flex-grow: 1;
   align-items: center;
   cursor: pointer;
-  font-size: $menu-title-font-size;
+  font-size: $home-regular-font-size;
   background-color: var(--background-color);
   padding: 0 17px;
   transition-duration: $long-animation-duration;
@@ -74,6 +74,8 @@
   @media screen and (max-width: 480px) {
     margin-left: 0;
     width: 25px;
+    height: 25px;
+    margin-bottom: 5px;
   }
 }
 
@@ -372,4 +374,46 @@
   color: white;
   font-weight: bold;
   margin: 15px 0;
+}
+
+.profile-save-section {
+  border: 1px solid var(--border-color);
+}
+
+.profile-save-section-err {
+  color: var(--error-color);
+  font-size: $title-font-size;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-save-part-cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 20px;
+  position: relative;
+}
+
+.profile-save-part {
+  color: white;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: $title-font-size;
+}
+
+.profile-save-part-svg {
+  fill: white;
+  width: 30px;
+  height: 30px;
+}
+
+.profile-save-part-empty {
+  padding: 140px 0;
+  text-align: center;
+  font-size: $regular-font-size;
 }

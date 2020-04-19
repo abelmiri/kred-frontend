@@ -75,7 +75,7 @@ class VideoPacksPage extends PureComponent
         else
         {
             if (document.getElementById("header-login")) document.getElementById("header-login").click()
-            NotificationManager.error("برای استفاده از فیلم ها، در سایت ثبت نام و یا وارد شوید.")
+            NotificationManager.error("برای استفاده از فیلم ها، ثبت نام کنید یا وارد شوید.")
         }
     }
 
@@ -230,7 +230,7 @@ class VideoPacksPage extends PureComponent
                                                     <div className="profile-info-description">
                                                         <div>
                                                             <p>کد تخفیف</p>
-                                                            <input className="buy-code-input" type="text" disabled={buyPack.off_percent !== 0} placeholder={buyPack.off_percent !== 0 && "کد تخفیف برای مجموعه تخفیف دار مجاز نمیباشد"} ref={e => this.offCode = e} onChange={this.changeOffCode}/>
+                                                            <input className="buy-code-input" type="text" placeholder={buyPack.off_percent !== 0 && "کد تخفیف بر روی قیمت اصلی محاسبه می‌شود"} ref={e => this.offCode = e} onChange={this.changeOffCode}/>
                                                         </div>
                                                         <div className="buy-off-code">
                                                             <div className="buy-off-code-amount-cont">
@@ -244,10 +244,10 @@ class VideoPacksPage extends PureComponent
                                                                     مبلغ قابل پرداخت:
                                                                     <span> </span>
                                                                     {
-                                                                        buyPack.off_percent !== 0 ?
-                                                                            addCommaPrice(buyPack.off_percent !== 0 ? ((100 - buyPack.off_percent) / 100) * buyPack.price : buyPack.price)
+                                                                        code ?
+                                                                            addCommaPrice(buyPack.price - (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price))
                                                                             :
-                                                                            addCommaPrice(buyPack.price - (code ? (code.amount_type === "fix" ? code.amount : code.amount / 100 * buyPack.price) : 0))
+                                                                            addCommaPrice(buyPack.off_percent !== 0 ? ((100 - buyPack.off_percent) / 100) * buyPack.price : buyPack.price)
                                                                     }
                                                                     <span> </span>
                                                                     تومان

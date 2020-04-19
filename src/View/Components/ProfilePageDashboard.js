@@ -38,24 +38,9 @@ class ProfilePageDashboard extends PureComponent
         }, 5000)
 
         const {user} = this.props
-
-        if (user)
-        {
-            this.getExchanges = false
-            api.get("exchange", `?limit=100&page=1&user_id=${user._id}`)
-                .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot)
-    {
-        if (this.getExchanges && this.props.user)
-        {
-            this.getExchanges = false
-            const {user} = this.props
-            api.get("exchange", `?limit=100&page=1&user_id=${user._id}`)
-                .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
-        }
+        this.getExchanges = false
+        api.get("exchange", `?limit=100&page=1&user_id=${user._id}`)
+            .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
     }
 
     componentWillUnmount()
@@ -101,7 +86,7 @@ class ProfilePageDashboard extends PureComponent
                             <p>به KRED خوش اومدی <span role="img" aria-label="">😊</span></p>
                             <p>اینجا برای نتیجه گیریه! یک جمع صمیمی از دانشجوهای علوم پزشکی با کلی تجربه و محتوا و اتفاق جالب... خوشحال میشیم تو هم بیای.</p>
                             <p>کرِد یک کلمه باستانیه که ریشه‌ی تمام کلماتی حساب میشه که معنیشون قلبه... <span role="img" aria-label="">🧡</span></p>
-                            <p>حالا بیا با قسمت های مختلف سایت آشنا بشیم:</p>
+                            <p>حالا بیا با قسمت های مختلف آشنا بشیم:</p>
                             <div className="profile-introduction-links">
                                 <Link to="/videos" className="link">فیلم‌های آموزشی</Link>
                                 <Link to="/pavilions" className="link">گپ و گفت</Link>

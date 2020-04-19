@@ -96,6 +96,7 @@
 }
 
 .video-pack-item {
+  position: relative;
   display: inline-block;
   background-color: white;
   width: 330px;
@@ -265,8 +266,7 @@
 
 .buy-code-input {
   &::placeholder {
-    opacity: 0.6;
-    color: var(--error-color);
+    color: var(--text-light-color);
   }
 }
 
@@ -305,4 +305,13 @@
   text-align: right;
   margin-top: 50px;
   font-size: $title-font-size;
+}
+
+.video-pack-banner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  padding: 10px;
+  background-color: var(--dark-color);
 }

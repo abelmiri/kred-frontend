@@ -126,6 +126,7 @@
   @media screen and (max-width: 480px) {
     justify-content: space-between;
     width: calc(100% + 10px);
+    margin-top: 15px;
   }
 }
 
@@ -138,6 +139,7 @@
 
   @media screen and (max-width: 480px) {
     order: 3;
+    max-width: calc(100% - 140px);
   }
 }
 

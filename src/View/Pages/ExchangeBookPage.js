@@ -126,7 +126,7 @@ class ExchangeBookPage extends PureComponent
         else
         {
             if (document.getElementById("header-login")) document.getElementById("header-login").click()
-            NotificationManager.error("برای ثبت آگهی، در سایت ثبت نام و یا وارد شوید.")
+            NotificationManager.error("برای ثبت آگهی، ثبت نام کنید یا وارد شوید.")
         }
     }
 

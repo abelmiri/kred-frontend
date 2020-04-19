@@ -5,9 +5,9 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 
 export function ClassResourcesItems(props)
 {
-    const {item, svg, type} = props
+    const {item, svg, type, isSaveView, link} = props
     return (
-        <Link to={`resources/${item._id}`} className="class-handout-item">
+        <Link to={link ? link : `resources/${item._id}`} className={`class-handout-item ${isSaveView ? "save" : ""}`}>
             {svg}
             <div className="class-handout-item-title-cont">
                 <div className="class-handout-item-title">

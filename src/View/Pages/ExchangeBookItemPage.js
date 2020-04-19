@@ -56,7 +56,7 @@ class ExchangeBookItemPage extends PureComponent
                             <div className="exchange-page-loading">آگهی مورد نظر یافت نشد!</div>
                             :
                             error ?
-                                <div className="exchange-page-loading">سایت در گرفتن آگهی با مشکل مواجه شد!</div>
+                                <div className="exchange-page-loading">برنامه در گرفتن آگهی با مشکل مواجه شد!</div>
                                 :
                                 exchange ?
                                     <React.Fragment>

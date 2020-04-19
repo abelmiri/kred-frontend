@@ -80,7 +80,7 @@ class ShowPackPage extends PureComponent
                         NotificationManager.warning("عدم دسترسی به اینترنت، بارگزاری آفلاین..."),
                     )
                 }
-                else NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+                else NotificationManager.error("برنامه در گرفتن اطلاعات با خطا مواجه شد!")
             })
 
         if (process.env.NODE_ENV === "production")
@@ -193,7 +193,7 @@ class ShowPackPage extends PureComponent
                 this.setState({...this.state, loading: false}, () =>
                 {
                     if (document.getElementById("header-login")) document.getElementById("header-login").click()
-                    NotificationManager.error("برای استفاده از فیلم ها، در سایت ثبت نام و یا وارد شوید.")
+                    NotificationManager.error("برای استفاده از فیلم ها، ثبت نام کنید یا وارد شوید.")
                 })
             }
         })

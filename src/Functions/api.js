@@ -24,7 +24,7 @@ function get(url, param = "", dontToast)
             }
             else
             {
-                if (err?.response?.status !== 404 && !dontToast) NotificationManager.error("سایت در گرفتن اطلاعات با خطا مواجه شد!")
+                if (err?.response?.status !== 404 && !dontToast) NotificationManager.error("برنامه در گرفتن اطلاعات با خطا مواجه شد!")
                 throw err
             }
         })
