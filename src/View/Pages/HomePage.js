@@ -12,8 +12,6 @@ import axios from "axios"
 import Footer from "../Components/Footer"
 import {ClipLoader} from "react-spinners"
 import {Link} from "react-router-dom"
-import copyToClipboard from "../../Helpers/copyToClipboard"
-import {NotificationManager} from "react-notifications"
 import Helmet from "react-helmet"
 
 class HomePage extends PureComponent
@@ -83,8 +81,6 @@ class HomePage extends PureComponent
         process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: freeVideos[e.target.id].title, content_id: e.target.id}).catch(err => console.log(err))
     }
 
-    sliderClick = () => copyToClipboard("corona_off", () => NotificationManager.success("کد تخفیف کپی شد"))
-
     render()
     {
         const {freeVideos, videoError} = this.state
@@ -103,7 +99,7 @@ class HomePage extends PureComponent
                     <h2 className="home-title">K<span>RED</span></h2>
                     <h3 className="home-desc">گام هایی جذاب در دنیای پزشکی</h3>
                 </div>
-                <Link to="/videos" onClick={this.sliderClick} className="home-slider-cont">
+                <Link to="/videos" className="home-slider-cont">
                     <div className="home-slider">
                         <img className="home-slider-img" src={Slider} alt="KRED CORONA OFF"/>
                         <img className="home-slider-img-text" src={SliderText} alt="KRED CORONA OFF"/>
