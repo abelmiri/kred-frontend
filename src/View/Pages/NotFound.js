@@ -1,5 +1,5 @@
 import React from "react"
-import NotFoundImg from "../../Media/Images/404.png"
+import NotFoundImg from "../../Media/Images/404.webp"
 import Material from "../Components/Material"
 import {Link} from "react-router-dom"
 import Footer from "../Components/Footer"

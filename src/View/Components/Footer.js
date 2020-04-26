@@ -7,7 +7,7 @@ import TelegramSvg from "../../Media/Svgs/TelegramSvg"
 import {Link} from "react-router-dom"
 import ExchangeSvg from "../../Media/Svgs/ExchangeSvg"
 import LogoSvg from "../../Media/Svgs/LogoSvg"
-import Android from "../../Media/Images/Android.png"
+import Android from "../../Media/Images/Android.webp"
 import PavilionSvg from "../../Media/Svgs/PavilionSvg"
 import ClassSvg from "../../Media/Svgs/ClassSvg"
 
