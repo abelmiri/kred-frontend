@@ -77,30 +77,30 @@ class App extends PureComponent
             document.location.reload()
         }
 
-        if (process.env.NODE_ENV === "production" && user?.role !== "admin")
-        {
-            const element = new Image()
-            let devtoolsOpen = false
-            element.__defineGetter__("id", () => devtoolsOpen = true) // change to "Object.defineProperty" later
-            setInterval(() =>
-            {
-                devtoolsOpen = false
-                console.log(element)
-                if (devtoolsOpen !== this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
-            }, 1000)
-            document.addEventListener("keydown", this.onKeyDown)
-        }
+        // if (process.env.NODE_ENV === "production" && user?.role !== "admin")
+        // {
+        //     const element = new Image()
+        //     let devtoolsOpen = false
+        //     element.__defineGetter__("id", () => devtoolsOpen = true) // change to "Object.defineProperty" later
+        //     setInterval(() =>
+        //     {
+        //         devtoolsOpen = false
+        //         console.log(element)
+        //         if (devtoolsOpen !== this.state.devtoolsOpen) this.setState({...this.state, devtoolsOpen})
+        //     }, 1000)
+        //     document.addEventListener("keydown", this.onKeyDown)
+        // }
     }
 
-    onKeyDown = (e) => e.keyCode === 123 && e.preventDefault()
-
-    componentWillUnmount()
-    {
-        if (process.env.NODE_ENV === "production")
-        {
-            document.removeEventListener("keydown", this.onKeyDown)
-        }
-    }
+    // onKeyDown = (e) => e.keyCode === 123 && e.preventDefault()
+    //
+    // componentWillUnmount()
+    // {
+    //     if (process.env.NODE_ENV === "production")
+    //     {
+    //         document.removeEventListener("keydown", this.onKeyDown)
+    //     }
+    // }
 
     goToExchangeBook(target, page)
     {
