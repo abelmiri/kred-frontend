@@ -141,7 +141,6 @@ class AllUsers extends PureComponent
                         }
                         <div className={`exchange-page-loading ${isLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
                     </div>
-
                 </section>
             )
         }
