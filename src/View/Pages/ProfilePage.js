@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react"
-import {Link, Redirect} from "react-router-dom"
+import {Link, Redirect, Switch, Route, NavLink} from "react-router-dom"
 import Material from "../Components/Material"
 import Dashboard from "../../Media/Svgs/Dashboard"
 import Profile from "../../Media/Svgs/Profile"
@@ -18,7 +18,6 @@ class ProfilePage extends PureComponent
     {
         super(props)
         this.state = {
-            selected: "dashboard",
             redirectHome: false,
             posts: {},
         }
@@ -66,11 +65,9 @@ class ProfilePage extends PureComponent
         }
     }
 
-    changeSelected = (selectedName) => this.state.selected !== selectedName && this.setState({...this.state, selected: selectedName})
-
     render()
     {
-        const {selected, redirectHome, posts} = this.state
+        const {redirectHome, posts} = this.state
         const {setUser, user, videoPacks} = this.props
         if (redirectHome) return <Redirect to="/"/>
         else if (user)
@@ -87,40 +84,31 @@ class ProfilePage extends PureComponent
                     </Helmet>
                     <div className="profile-container">
                         <div className="profile-right-menus" ref={e => this.rightSide = e}>
-                            <Material backgroundColor={selected === "dashboard" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("dashboard")}
-                                      className={`profile-main-right-menu-element ${selected === "dashboard" ? "selected" : ""}`}>
-                                <Dashboard className="dashboard-svg"/>
-                                داشبورد من
-                            </Material>
-                            <Material backgroundColor={selected === "profile" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("profile")}
-                                      className={`profile-main-right-menu-element ${selected === "profile" ? "selected" : ""}`}>
-                                <Profile className="dashboard-svg"/>
-                                اطلاعات حساب
-                            </Material>
-                            {/*<Material backgroundColor={selected === "videoPlayer" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("videoPlayer")}*/}
-                            {/*          className={`profile-main-right-menu-element ${selected === "videoPlayer" ? "selected" : ""}`}>*/}
-                            {/*    <VideoPlayer className="dashboard-svg"/>*/}
-                            {/*    فیلم‌های آموزشی*/}
-                            {/*</Material>*/}
-                            <Material backgroundColor={selected === "saved" ? "rgba(255,255,255,.25)" : "rgba(23,37,42,.25)"} onClick={() => this.changeSelected("saved")}
-                                      className={`profile-main-right-menu-element ${selected === "saved" ? "selected" : ""}`}>
-                                <SaveSvg className="dashboard-svg"/>
-                                ذخیره دونی
-                            </Material>
+                            <NavLink activeClassName="profile-main-right-menu-element-active" replace to="/profile/dashboard">
+                                <Material className="profile-main-right-menu-element">
+                                    <Dashboard className="dashboard-svg"/>
+                                    داشبورد من
+                                </Material>
+                            </NavLink>
+                            <NavLink activeClassName="profile-main-right-menu-element-active" replace to="/profile/info">
+                                <Material className="profile-main-right-menu-element">
+                                    <Profile className="dashboard-svg"/>
+                                    اطلاعات حساب
+                                </Material>
+                            </NavLink>
+                            <NavLink activeClassName="profile-main-right-menu-element-active" replace to="/profile/saved">
+                                <Material className="profile-main-right-menu-element">
+                                    <SaveSvg className="dashboard-svg"/>
+                                    ذخیره دونی
+                                </Material>
+                            </NavLink>
                         </div>
                         <div className="profile-content">
-                            {
-                                selected === "profile" ?
-                                    <ProfilePageUserInfo setUser={setUser}/>
-                                    :
-                                    selected === "dashboard" ?
-                                        <ProfilePageDashboard user={user}/>
-                                        :
-                                        selected === "saved" ?
-                                            <ProfileSaves/>
-                                            :
-                                            <div>بزودی...</div>
-                            }
+                            <Switch>
+                                <Route path="/profile/info" render={() => <ProfilePageUserInfo setUser={setUser}/>}/>
+                                <Route path="/profile/saved" render={() => <ProfileSaves/>}/>
+                                <Route path="*" render={() => <ProfilePageDashboard user={user}/>}/>
+                            </Switch>
                         </div>
                         <div className="profile-left-menus" ref={e => this.leftSide = e}>
                             <div className="profile-left-menus-subject">

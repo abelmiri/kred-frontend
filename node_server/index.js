@@ -54,7 +54,6 @@ app.route("/:file").get((req, res) =>
             req.params.file === "class" ||
             req.params.file === "pavilions" ||
             req.params.file === "exchanges" ||
-            req.params.file === "profile" ||
             req.params.file === "sign-up"
         )
         {
@@ -196,6 +195,9 @@ app.route("*").get((req, res) =>
         url === "/" ||
         url === "/payment/fail" ||
         url === "/payment/success" ||
+        url === "/profile/info" ||
+        url === "/profile/dashboard" ||
+        url === "/profile/saved" ||
         url.slice(0, 13) === "/class/lesson" ||
         url.slice(0, 12) === "/class/block"
     )
