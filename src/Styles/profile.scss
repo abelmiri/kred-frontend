@@ -33,13 +33,17 @@
   }
 }
 
-.profile-main-right-menu-element-active {
-  .profile-main-right-menu-element {
-    color: var(--background-color);
-    background-color: var(--dark-color);
+.profile-main-right-menu-element-link {
+  flex-grow: 1;
 
-    .dashboard-svg {
-      fill: var(--background-color);
+  &.active {
+    .profile-main-right-menu-element {
+      color: var(--background-color);
+      background-color: var(--dark-color);
+
+      .dashboard-svg {
+        fill: var(--background-color);
+      }
     }
   }
 }
@@ -48,7 +52,6 @@
   height: 70px;
   display: flex;
   justify-content: flex-start;
-  flex-grow: 1;
   align-items: center;
   cursor: pointer;
   font-size: $home-regular-font-size;

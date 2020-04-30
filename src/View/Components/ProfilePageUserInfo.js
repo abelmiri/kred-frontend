@@ -29,10 +29,7 @@ class ProfilePageUserInfo extends Component
 
     componentDidMount()
     {
-        if (document.body.clientWidth <= 480)
-        {
-            window.scroll({top: 0})
-        }
+        window.scroll({top: 0})
 
         if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user"))
         {

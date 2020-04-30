@@ -21,15 +21,11 @@ class ProfilePageDashboard extends PureComponent
             previousSlider: this.slides.length - 1,
             exchanges: {},
         }
-        this.getExchanges = true
     }
 
     componentDidMount()
     {
-        if (document.body.clientWidth <= 480)
-        {
-            window.scroll({top: 0})
-        }
+        window.scroll({top: 0})
 
         this.sliderInterval = setInterval(() =>
         {
@@ -38,7 +34,6 @@ class ProfilePageDashboard extends PureComponent
         }, 5000)
 
         const {user} = this.props
-        this.getExchanges = false
         api.get("exchange", `?limit=100&page=1&user_id=${user._id}`)
             .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
     }

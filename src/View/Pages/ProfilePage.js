@@ -84,19 +84,19 @@ class ProfilePage extends PureComponent
                     </Helmet>
                     <div className="profile-container">
                         <div className="profile-right-menus" ref={e => this.rightSide = e}>
-                            <NavLink activeClassName="profile-main-right-menu-element-active" replace to="/profile/dashboard">
+                            <NavLink activeClassName="active" className="profile-main-right-menu-element-link" replace to="/profile/dashboard">
                                 <Material className="profile-main-right-menu-element">
                                     <Dashboard className="dashboard-svg"/>
                                     داشبورد من
                                 </Material>
                             </NavLink>
-                            <NavLink activeClassName="profile-main-right-menu-element-active" replace to="/profile/info">
+                            <NavLink activeClassName="active" className="profile-main-right-menu-element-link" replace to="/profile/info">
                                 <Material className="profile-main-right-menu-element">
                                     <Profile className="dashboard-svg"/>
                                     اطلاعات حساب
                                 </Material>
                             </NavLink>
-                            <NavLink activeClassName="profile-main-right-menu-element-active" replace to="/profile/saved">
+                            <NavLink activeClassName="active" className="profile-main-right-menu-element-link" replace to="/profile/saved">
                                 <Material className="profile-main-right-menu-element">
                                     <SaveSvg className="dashboard-svg"/>
                                     ذخیره دونی

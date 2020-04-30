@@ -27,6 +27,8 @@ class ProfileSaves extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("education-resource/save")
             .then(educations => this.setState({
                 ...this.state,
