@@ -275,7 +275,7 @@ class Header extends PureComponent
                                     }
                                     {
                                         user &&
-                                        <Link className="header-buttons-menu-drop-link" to="/profile">
+                                        <Link className="header-buttons-menu-drop-link" to="/profile/dashboard">
                                             <Material className="header-buttons-menu-drop-item" onClick={this.toggleDropDown}>پروفایل من</Material>
                                         </Link>
                                     }
@@ -298,7 +298,7 @@ class Header extends PureComponent
                         {
                             user ?
                                 <React.Fragment>
-                                    <Link to="/profile" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
+                                    <Link to="/profile/dashboard" className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`}>
                                         سلام {user.name ? user.name.split(" ")[0] : user.phone}
                                     </Link>
                                     <div className={`header-buttons-title ${isTransparent && location === "/" ? "styled" : ""}`} onClick={this.logout}>خروج</div>
@@ -322,7 +322,7 @@ class Header extends PureComponent
                         </Link>
                         {
                             user ?
-                                <Link to="/profile" onClick={this.hideSidebar} className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>
+                                <Link to="/profile/dashboard" onClick={this.hideSidebar} className={`header-mobile-name ${!collapseSidebar ? "on-side" : ""}`}>
                                     {user.name ? collapseSidebar ? user.name.split(" ")[0] : user.name : user.phone}
                                 </Link>
                                 :
@@ -333,7 +333,7 @@ class Header extends PureComponent
                     <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>
                     <div className="header-sidebar-container" style={{transform: "translateX(100%)"}} ref={e => this.sidebar = e}>
                         <Link to="/" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn margin-top">صفحه اصلی</Material></Link>
-                        {user && <NavLink to="/profile" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></NavLink>}
+                        {user && <NavLink to="/profile/dashboard" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">پروفایل من</Material></NavLink>}
                         <NavLink to="/videos" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">فیلم‌های آموزشی</Material></NavLink>
                         <NavLink to="/class" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">کلاس درس</Material></NavLink>
                         <NavLink to="/pavilions" activeClassName="active" className="header-sidebar-link" onClick={this.hideSidebar}><Material className="header-sidebar-btn">گپ و گفت</Material></NavLink>
