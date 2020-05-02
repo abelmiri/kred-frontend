@@ -7,6 +7,8 @@ import axios from "axios"
 import Helmet from "react-helmet"
 import CopySvg from "../../Media/Svgs/CopySvg"
 import copyToClipboard from "../../Helpers/copyToClipboard"
+import PdfSvg from "../../Media/Svgs/PdfSvg"
+import ImageShow from "../Components/ImageShow"
 
 class ShowPackPage extends PureComponent
 {
@@ -20,6 +22,7 @@ class ShowPackPage extends PureComponent
             selected: null,
             loading: false,
             loadingPercent: null,
+            documents: {},
         }
 
         this.offsetTop = null
@@ -279,6 +282,9 @@ class ShowPackPage extends PureComponent
             this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
         )
 
+        api.get("video-document", _id)
+            .then(docs => this.setState({...this.state, documents: {...this.state.documents, [_id]: docs}}))
+
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: title, content_id: _id}).catch(err => console.log(err))
     }
@@ -353,7 +359,7 @@ class ShowPackPage extends PureComponent
 
     render()
     {
-        const {videoPack, loading, loadingPercent, video, subtitle, selected} = this.state
+        const {videoPack, loading, loadingPercent, video, subtitle, selected, documents} = this.state
         return (
             <div className="video-page-cont">
                 {
@@ -393,6 +399,23 @@ class ShowPackPage extends PureComponent
                                                 </div>
                                             </Material>
                                             <span className="video-page-video-title">{selected?.title}</span>
+                                        </div>
+                                        <div className="video-page-document-cont">
+                                            {
+                                                documents[selected?._id] &&
+                                                documents[selected?._id]?.map(item =>
+                                                    item.type === "image" ?
+                                                        <div className="video-page-document">
+                                                            <ImageShow className="video-page-document-img" src={REST_URL + item.file} alt={selected?.title}/>
+                                                            <div className="video-page-document-desc">{item.description}</div>
+                                                        </div>
+                                                        :
+                                                        <a href={REST_URL + item.file} target="_blank" rel="noopener noreferrer" className="video-page-document">
+                                                            <PdfSvg className="video-page-document-svg"/>
+                                                            <div className="video-page-document-desc">{item.description}</div>
+                                                        </a>,
+                                                )
+                                            }
                                         </div>
                                     </div>
                                     :

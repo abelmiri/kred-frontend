@@ -86,8 +86,7 @@ class ProfilePageDashboard extends PureComponent
                                 <Link to="/videos" className="link">فیلم‌های آموزشی</Link>
                                 <Link to="/pavilions" className="link">گپ و گفت</Link>
                                 <Link to="/exchanges" className="link">تبادل کتاب</Link>
-                                {/*<Link to="/profile" className="link">جزوات و خلاصه درس ها</Link>*/}
-                                {/*<Link to="/profile" className="link">نمونه سوالات</Link>*/}
+                                <Link to="/class" className="link">کلاس درس</Link>
                             </div>
                         </div>
                     </div>

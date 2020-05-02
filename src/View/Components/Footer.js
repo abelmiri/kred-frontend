@@ -13,7 +13,7 @@ import ClassSvg from "../../Media/Svgs/ClassSvg"
 
 const goUp = () => window.scroll({top: 0, behavior: "smooth"})
 
-const Footer = (props) =>
+const Footer = () =>
     <div className="footer-container" id="footer">
         <div className="footer-logo-cont">
             <Link to="/" className="footer-logo-section" onClick={goUp}>

@@ -15,6 +15,7 @@ import Helmet from "react-helmet"
 import SaveSvg from "../../Media/Svgs/SaveSvg"
 import SavedSvg from "../../Media/Svgs/SavedSvg"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
+import ImageShow from "../Components/ImageShow"
 
 class ClassItemResourceFilePage extends PureComponent
 {
@@ -29,7 +30,6 @@ class ClassItemResourceFilePage extends PureComponent
             comments: {},
             sendLoading: false,
             focused: false,
-            showPicture: false,
             completeProfileModal: false,
         }
         this.sentView = false
@@ -141,8 +141,6 @@ class ClassItemResourceFilePage extends PureComponent
                 this.setState({...this.state, completeProfileModal: false})
             }
         }
-
-        if (this.state.showPicture) this.closeImage()
     }
 
     sendComment = () =>
@@ -385,55 +383,9 @@ class ClassItemResourceFilePage extends PureComponent
         }
     }
 
-    openImage = () =>
-    {
-        this.setState({...this.state, showPicture: true}, () =>
-        {
-            document.body.style.overflow = "hidden"
-            window.history.pushState("", "", `${window.location.href}/show-picture`)
-            const rect = this.img.getBoundingClientRect()
-            const copyImage = this.img.cloneNode(true)
-            copyImage.onclick = () => document.body.clientWidth > 480 && window.history.back()
-            copyImage.id = "picture"
-            copyImage.style.position = "fixed"
-            copyImage.style.top = rect.top + "px"
-            copyImage.style.height = rect.height + "px"
-            copyImage.style.width = rect.width + "px"
-            copyImage.style.left = rect.left + "px"
-            copyImage.style.right = "auto"
-            copyImage.style.zIndex = "4"
-            document.body.append(copyImage)
-            copyImage.style.transition = "all linear 0.2s"
-            setTimeout(() =>
-            {
-                copyImage.style.top = "0px"
-                copyImage.style.left = "0px"
-                copyImage.style.height = window.innerHeight + "px"
-                copyImage.style.width = document.body.clientWidth + "px"
-            }, 50)
-        })
-    }
-
-    closeImage = () =>
-    {
-        this.setState({...this.state, showPicture: false}, () =>
-        {
-            document.body.style.overflow = "auto"
-            const rect = this.img.getBoundingClientRect()
-            const copyImage = document.getElementById("picture")
-            copyImage.style.zIndex = "0"
-            copyImage.style.top = rect.top + "px"
-            copyImage.style.height = rect.height + "px"
-            copyImage.style.width = rect.width + "px"
-            copyImage.style.left = rect.left + "px"
-            copyImage.style.right = "auto"
-            setTimeout(() => copyImage.remove(), 300)
-        })
-    }
-
     render()
     {
-        const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading, showPicture, completeProfileModal} = this.state
+        const {fileLoading, error, file, focused, sendLoading, comments, commentsLoading, completeProfileModal} = this.state
         const {type, user, parent, item, setUser} = this.props
         return (
             <div className="class-resources-page-container">
@@ -446,12 +398,6 @@ class ClassItemResourceFilePage extends PureComponent
                             <meta name="description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject}، ${file.university}${file.teacher ? `، ${file.teacher}` : ""} | KRED`}/>
                             <meta property="og:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject}، ${file.university}${file.teacher ? `، ${file.teacher}` : ""} | KRED`}/>
                             <meta name="twitter:description" content={`${parent.title}، ${item.title}، ${file.title}، ${file.subject}، ${file.university}${file.teacher ? `، ${file.teacher}` : ""} | KRED`}/>
-                            {
-                                showPicture ?
-                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
-                                    :
-                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-                            }
                         </Helmet>
                         :
                         item && item.title && file && file.title &&
@@ -462,12 +408,6 @@ class ClassItemResourceFilePage extends PureComponent
                             <meta name="description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta property="og:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
                             <meta name="twitter:description" content={`${item.title}، ${file.title}، ${file.subject} | KRED`}/>
-                            {
-                                showPicture ?
-                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
-                                    :
-                                    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-                            }
                         </Helmet>
                 }
                 <div className="class-location-container">
@@ -531,9 +471,7 @@ class ClassItemResourceFilePage extends PureComponent
                                 </div>
                             </div>
                             <div className="class-file-page-download">
-                                <Material className="class-file-page-pic-material" onClick={this.openImage}>
-                                    <img className="class-file-page-pic" src={REST_URL + file.picture} alt={file.title} ref={e => this.img = e}/>
-                                </Material>
+                                <ImageShow className="class-file-page-pic" src={REST_URL + file.picture} alt={file.title}/>
                                 {
                                     user && user.name && user.university ?
                                         <a target="_blank" rel="noopener noreferrer" href={REST_URL + file.file} onClick={this.download}>

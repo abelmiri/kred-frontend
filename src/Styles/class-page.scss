@@ -910,21 +910,19 @@
   font-size: $menu-title-font-size;
 }
 
-.class-file-page-pic-material {
-  cursor: pointer;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-  @media screen and (max-width: 480px) {
-    width: 200px;
-    margin: auto;
-  }
-}
-
 .class-file-page-pic {
   width: 100%;
   height: 280px;
   object-fit: contain;
   background-color: white;
   display: block;
+  cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+  @media screen and (max-width: 480px) {
+    width: 200px;
+    margin: auto;
+  }
 }
 
 .class-file-page-download {
