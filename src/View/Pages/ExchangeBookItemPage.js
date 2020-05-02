@@ -4,7 +4,7 @@ import {ClipLoader} from "react-spinners"
 import Material from "../Components/Material"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import Footer from "../Components/Footer"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class ExchangeBookItemPage extends PureComponent
 {

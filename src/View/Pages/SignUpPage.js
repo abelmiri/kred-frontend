@@ -8,7 +8,7 @@ import {BeatLoader} from "react-spinners"
 import api from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
 import LogoSvg from "../../Media/Svgs/LogoSvg"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class SignUpPage extends PureComponent
 {

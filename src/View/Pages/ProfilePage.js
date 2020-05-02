@@ -8,7 +8,7 @@ import api, {REST_URL} from "../../Functions/api"
 import ProfilePageDashboard from "../Components/ProfilePageDashboard"
 import Footer from "../Components/Footer"
 import {ClipLoader} from "react-spinners"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 import SaveSvg from "../../Media/Svgs/SaveSvg"
 import ProfileSaves from "../Components/ProfileSaves"
 

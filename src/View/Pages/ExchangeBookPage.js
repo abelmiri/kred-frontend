@@ -10,7 +10,7 @@ import MySlider from "../Components/MySlider"
 import {Route, Switch} from "react-router-dom"
 import ExchangeBookItemPage from "./ExchangeBookItemPage"
 import {NotificationManager} from "react-notifications"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class ExchangeBookPage extends PureComponent
 {

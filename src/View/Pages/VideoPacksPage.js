@@ -7,7 +7,7 @@ import ShowPackPage from "./ShowPackPage"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import {NotificationManager} from "react-notifications"
 import ProfilePageUserInfo from "../Components/ProfilePageUserInfo"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 import Footer from "../Components/Footer"
 import Pack from "../Components/Pack"
 

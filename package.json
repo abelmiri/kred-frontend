@@ -5,8 +5,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "browser-image-compression": "^1.0.9",
-    "react-helmet": "^5.2.1",
-    "node-sass": "^4.13.1",
+    "react-helmet": "^6.0.0",
+    "node-sass": "^4.14.0",
     "prop-types": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -14,7 +14,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
     "react-scripts": "^3.4.1",
-    "react-spinners": "^0.8.1"
+    "react-spinners": "^0.8.3"
   },
   "scripts": {
     "start": "react-scripts start",

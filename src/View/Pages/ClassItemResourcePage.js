@@ -7,7 +7,7 @@ import VoiceSvg from "../../Media/Svgs/VoiceSvg"
 import {ClipLoader} from "react-spinners"
 import {ClassResourcesItems} from "../Components/ClassResourcesItems"
 import ClassItemResourceFilePage from "./ClassItemResourceFilePage"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 import PdfGroupSvg from "../../Media/Svgs/PdfGroupSvg"
 import Pack from "../Components/Pack"
 

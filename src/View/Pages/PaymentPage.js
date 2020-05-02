@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 import Material from "../Components/Material"
 import UnTickSvg from "../../Media/Svgs/UnTickSvg"
 import Footer from "../Components/Footer"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class PaymentPage extends PureComponent
 {

@@ -9,7 +9,7 @@ import SmoothArrowSvg from "../../Media/Svgs/SmoothArrowSvg"
 import {Link, Route, Switch} from "react-router-dom"
 import {HashLink} from "react-router-hash-link"
 import ClassItemResourcePage from "./ClassItemResourcePage"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 
 class ClassItemPage extends PureComponent

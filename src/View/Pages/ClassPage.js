@@ -11,7 +11,7 @@ import LogoSvg from "../../Media/Svgs/LogoSvg"
 import CommentSvg from "../../Media/Svgs/CommentSvg"
 import {Link, Route, Switch} from "react-router-dom"
 import ClassItemPage from "./ClassItemPage"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 import Footer from "../Components/Footer"
 import VideoPlayer from "../../Media/Svgs/VideoPlayer"
 

@@ -13,7 +13,7 @@ import AllUsers from "./AllUsers"
 import PanelSidebar from "./PanelSidebar"
 import Pavilion from "./Pavilion"
 import Class from "./Class"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 import NotFound from "../Pages/NotFound"
 
 class Panel extends PureComponent

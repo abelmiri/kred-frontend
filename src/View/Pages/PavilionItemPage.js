@@ -10,7 +10,7 @@ import copyToClipboard from "../../Helpers/copyToClipboard"
 import StickersMenu from "../Components/StickerMenu"
 import Comment from "../Components/Comment"
 import questionDetection from "../../Helpers/questionDetection"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class PavilionItemPage extends PureComponent
 {

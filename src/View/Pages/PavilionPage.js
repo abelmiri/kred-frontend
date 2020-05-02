@@ -7,7 +7,7 @@ import CommentSvg from "../../Media/Svgs/CommentSvg"
 import PavilionItemPage from "./PavilionItemPage"
 import {NotificationManager} from "react-notifications"
 import Material from "../Components/Material"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class PavilionPage extends PureComponent
 {

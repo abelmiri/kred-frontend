@@ -12,7 +12,7 @@ import axios from "axios"
 import Footer from "../Components/Footer"
 import {ClipLoader} from "react-spinners"
 import {Link} from "react-router-dom"
-import Helmet from "react-helmet"
+import {Helmet} from "react-helmet"
 
 class HomePage extends PureComponent
 {
