@@ -14,15 +14,15 @@
   overflow: hidden;
 
   &.exchange {
-    background-image: url("../Media/Images/Exchange.webp");
+    background-image: url("../Media/Images/Exchange.jpg");
   }
 
   &.video {
-    background-image: url("../Media/Images/VideoPage.webp");
+    background-image: url("../Media/Images/VideoPage.jpg");
   }
 
   &.pavilion {
-    background-image: url("../Media/Images/Pavilion.webp");
+    background-image: url("../Media/Images/Pavilion.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -35,7 +35,7 @@
   }
 
   &.class {
-    background-image: url("../Media/Images/Class.webp");
+    background-image: url("../Media/Images/Class.jpg");
     @media screen and (max-width: 480px) {
       background-position: -78% 0;
     }

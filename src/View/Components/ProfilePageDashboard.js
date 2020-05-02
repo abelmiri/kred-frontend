@@ -1,8 +1,8 @@
 import React, {PureComponent} from "react"
 import {Link} from "react-router-dom"
-import Slider1 from "../../Media/Images/login-slider1.webp"
-import Slider2 from "../../Media/Images/login-slider2.webp"
-import Slider3 from "../../Media/Images/login-slider3.webp"
+import Slider1 from "../../Media/Images/login-slider1.png"
+import Slider2 from "../../Media/Images/login-slider2.png"
+import Slider3 from "../../Media/Images/login-slider3.png"
 import api from "../../Functions/api"
 import ExchangeItem from "./ExchangeItem"
 
