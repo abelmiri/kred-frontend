@@ -46,6 +46,7 @@ class ImageShow extends PureComponent
             copyImage.style.right = "auto"
             copyImage.style.zIndex = "11"
             document.body.append(copyImage)
+            this.img.style.opacity = "0"
             copyImage.style.transition = "all ease-in-out 0.2s"
             setTimeout(() =>
             {
@@ -82,7 +83,11 @@ class ImageShow extends PureComponent
             copyImage.style.left = rect.left + "px"
             copyImage.style.borderRadius = this.img.style.borderRadius
             copyImage.style.right = "auto"
-            setTimeout(() => this.setState({...this.state, showBack: false}, () => copyImage.remove()), 300)
+            setTimeout(() => this.setState({...this.state, showBack: false}, () =>
+            {
+                this.img.style.opacity = "1"
+                copyImage.remove()
+            }), 300)
         })
     }
 

@@ -167,48 +167,53 @@ class VideoPacksPage extends PureComponent
                                 </h3>
                             </div>
                         </div>
-                        <div className="video-packs-page-cont">
-                            {
-                                Object.values(companies).length > 0 ?
-                                    Object.values(companies).map(company =>
-                                        <div key={company._id} className="company-item-cont">
-                                            <div className="company-item">
-                                                <div>مجموعه فیلم‌های آموزشی<span> </span>{company.name}</div>
-                                                <div className="company-item-left-side">
-                                                    <div className="company-item-english">{company.english_name}</div>
-                                                    <img className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
+
+                        {
+                            Object.values(companies).length > 0 ?
+                                <div className="video-packs-page-cont">
+                                    {
+                                        Object.values(companies).map(company =>
+                                            <div key={company._id} className="company-item-cont">
+                                                <div className="company-item">
+                                                    <div>مجموعه فیلم‌های آموزشی<span> </span>{company.name}</div>
+                                                    <div className="company-item-left-side">
+                                                        <div className="company-item-english">{company.english_name}</div>
+                                                        <img className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="company-item-desc">{company.description}</div>
-                                            {
-                                                Object.values(companyCategories).filter(category => category.company_id === company._id).map(category =>
-                                                    <div key={category._id}>
-                                                        <div className="company-category-title">{category.title}</div>
-                                                        <div className="video-pack-cont">
-                                                            {
-                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).length > 0 ?
-                                                                    <React.Fragment>
-                                                                        {
-                                                                            Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).sort((a, b) => a.order > b.order ? -1 : 1).map(pack =>
-                                                                                <Pack key={pack._id} pack={pack} buyPack={this.buyPack}/>,
-                                                                            )
-                                                                        }
-                                                                        <div className="video-pack-item-hide"/>
-                                                                        <div className="video-pack-item-hide"/>
-                                                                    </React.Fragment>
-                                                                    :
-                                                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-                                                            }
-                                                        </div>
-                                                    </div>,
-                                                )
-                                            }
-                                        </div>,
-                                    )
-                                    :
+                                                <div className="company-item-desc">{company.description}</div>
+                                                {
+                                                    Object.values(companyCategories).filter(category => category.company_id === company._id).map(category =>
+                                                        <div key={category._id}>
+                                                            <div className="company-category-title">{category.title}</div>
+                                                            <div className="video-pack-cont">
+                                                                {
+                                                                    Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).length > 0 ?
+                                                                        <React.Fragment>
+                                                                            {
+                                                                                Object.values(videoPacks).filter(pack => pack.company_category_id === category._id).sort((a, b) => a.order > b.order ? -1 : 1).map(pack =>
+                                                                                    <Pack key={pack._id} pack={pack} buyPack={this.buyPack}/>,
+                                                                                )
+                                                                            }
+                                                                            <div className="video-pack-item-hide"/>
+                                                                            <div className="video-pack-item-hide"/>
+                                                                        </React.Fragment>
+                                                                        :
+                                                                        <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                                                                }
+                                                            </div>
+                                                        </div>,
+                                                    )
+                                                }
+                                            </div>,
+                                        )
+                                    }
+                                </div>
+                                :
+                                <div className="video-packs-page-cont loading">
                                     <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
-                            }
-                        </div>
+                                </div>
+                        }
 
                         {
                             (buyLoading || buyModal) &&

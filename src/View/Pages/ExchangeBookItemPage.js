@@ -5,6 +5,7 @@ import Material from "../Components/Material"
 import addCommaPrice from "../../Helpers/addCommaPrice"
 import Footer from "../Components/Footer"
 import {Helmet} from "react-helmet"
+import ImageShow from "../Components/ImageShow"
 
 class ExchangeBookItemPage extends PureComponent
 {
@@ -86,7 +87,7 @@ class ExchangeBookItemPage extends PureComponent
                                             </div>
                                             <Material className="exchange-show-buy" onClick={this.toggleContact}>می‌خوام بخرم</Material>
                                         </div>
-                                        <img className="exchange-show-img" src={REST_URL + "/" + exchange.picture} alt={exchange.title}/>
+                                        <ImageShow className="exchange-show-img" src={REST_URL + "/" + exchange.picture} alt={exchange.title}/>
 
                                         {
                                             showContact &&
