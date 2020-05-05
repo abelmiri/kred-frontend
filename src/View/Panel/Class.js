@@ -96,13 +96,26 @@ class Class extends PureComponent
 
     onPopState = () =>
     {
-        if (document.body.clientWidth <= 480)
+        if (this.state.add)
         {
-            if (this.state.add)
+            document.body.style.overflow = "auto"
+            this.setState({...this.state, add: false, isUpdating: false, loading: false, is_many: false, loadingPercent: 0, selectedFile: null, selectedImagePreview: null}, () =>
             {
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, add: false})
-            }
+                this.title = ""
+                this.university = ""
+                this.writer = ""
+                this.subject = ""
+                this.teacher = ""
+                this.type = ""
+                this.pages_count = ""
+                this.lesson_category_id = ""
+                this.lesson_id = ""
+                this.block_category_id = ""
+                this.block_id = ""
+                this.is_many = ""
+                this.selectedImage = false
+                this.selectedFile = false
+            })
         }
     }
 
@@ -276,32 +289,11 @@ class Class extends PureComponent
             const add = !this.state.add
             if (add)
             {
-                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/class/add")
+                window.history.pushState("", "", "/panel/class/add-education")
                 document.body.style.overflow = "hidden"
                 this.setState({...this.state, add})
             }
-            else
-            {
-                if (document.body.clientWidth <= 480) window.history.back()
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, add, isUpdating: false, loading: false, is_many: false, loadingPercent: 0, selectedFile: null, selectedImagePreview: null}, () =>
-                {
-                    this.title = ""
-                    this.university = ""
-                    this.writer = ""
-                    this.subject = ""
-                    this.teacher = ""
-                    this.type = ""
-                    this.pages_count = ""
-                    this.lesson_category_id = ""
-                    this.lesson_id = ""
-                    this.block_category_id = ""
-                    this.block_id = ""
-                    this.is_many = ""
-                    this.selectedImage = false
-                    this.selectedFile = false
-                })
-            }
+            else window.history.back()
         }
     }
 

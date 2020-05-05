@@ -60,11 +60,14 @@ class App extends PureComponent
 
         const {location} = this.props
         if (
-            location.pathname.includes("login-modal") ||
-            location.pathname.includes("add-exchange") ||
-            location.pathname.includes("show-picture") ||
-            location.pathname.includes("complete-profile") ||
-            location.pathname.includes("add-comment")
+            location.pathname.includes("/login-modal") ||
+            location.pathname.includes("/add-exchange") ||
+            location.pathname.includes("/show-picture") ||
+            location.pathname.includes("/complete-profile") ||
+            location.pathname.includes("/add-education") ||
+            location.pathname.includes("/add-pavilion") ||
+            location.pathname.includes("/add-off") ||
+            location.pathname.includes("/add-comment")
         )
         {
             let currentPath = location.pathname
@@ -72,6 +75,9 @@ class App extends PureComponent
                 .replace("/add-exchange", "")
                 .replace("/show-picture", "")
                 .replace("/complete-profile", "")
+                .replace("/add-education", "")
+                .replace("/add-pavilion", "")
+                .replace("/add-off", "")
                 .replace("/add-comment", "")
             window.history.replaceState("", "", currentPath ? currentPath : "/")
             document.location.reload()

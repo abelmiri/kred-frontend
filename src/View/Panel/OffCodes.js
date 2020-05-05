@@ -42,18 +42,15 @@ class OffCodes extends PureComponent
 
     onPopState = () =>
     {
-        if (document.body.clientWidth <= 480)
+        if (this.state.addOffCode)
         {
-            if (this.state.addOffCode)
-            {
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, addOffCode: false})
-            }
-            if (this.state.showUsers)
-            {
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, showUsers: false, users: []})
-            }
+            document.body.style.overflow = "auto"
+            this.setState({...this.state, addOffCode: false})
+        }
+        if (this.state.showUsers)
+        {
+            document.body.style.overflow = "auto"
+            this.setState({...this.state, showUsers: false, users: []})
         }
     }
 
@@ -62,15 +59,11 @@ class OffCodes extends PureComponent
         const addOffCode = !this.state.addOffCode
         if (addOffCode)
         {
-            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/off-codes/add")
+            window.history.pushState("", "", "/panel/off-codes/add-off")
             document.body.style.overflow = "hidden"
+            this.setState({...this.state, addOffCode})
         }
-        else
-        {
-            if (document.body.clientWidth <= 480) window.history.back()
-            document.body.style.overflow = "auto"
-        }
-        this.setState({...this.state, addOffCode})
+        else window.history.back()
     }
 
     selectOffType(amount_type)
@@ -83,7 +76,7 @@ class OffCodes extends PureComponent
         const showUsers = !this.state.showUsers
         if (showUsers)
         {
-            if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/off-codes/users")
+            window.history.pushState("", "", "/panel/off-codes/users")
             document.body.style.overflow = "hidden"
             api.get(`off-code/users/${id}`)
                 .then(users => this.setState({...this.state, users}))
@@ -94,12 +87,7 @@ class OffCodes extends PureComponent
                 })
             this.setState({...this.state, showUsers})
         }
-        else
-        {
-            if (document.body.clientWidth <= 480) window.history.back()
-            document.body.style.overflow = "auto"
-            this.setState({...this.state, showUsers, users: []})
-        }
+        else window.history.back()
     }
 
     createCode = () =>

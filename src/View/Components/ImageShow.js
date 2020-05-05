@@ -27,8 +27,9 @@ class ImageShow extends PureComponent
         if (this.state.showPicture) this.closeImage()
     }
 
-    openImage = () =>
+    openImage = e =>
     {
+        e.stopPropagation()
         this.setState({...this.state, showPicture: true, showBack: true}, () =>
         {
             document.body.style.overflow = "hidden"
@@ -38,6 +39,7 @@ class ImageShow extends PureComponent
             copyImage.onclick = () => document.body.clientWidth > 480 && window.history.back()
             copyImage.id = "picture"
             copyImage.style.margin = "0"
+            copyImage.style.maxHeight = "initial"
             copyImage.style.position = "fixed"
             copyImage.style.top = rect.top + "px"
             copyImage.style.height = rect.height + "px"

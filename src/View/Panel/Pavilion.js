@@ -76,13 +76,19 @@ class Pavilion extends PureComponent
 
     onPopState = () =>
     {
-        if (document.body.clientWidth <= 480)
+        if (this.state.add)
         {
-            if (this.state.add)
+            document.body.style.overflow = "auto"
+            this.setState({...this.state, add: false, isUpdating: false, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
             {
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, add: false})
-            }
+                this.title = ""
+                this.interviewee_name = ""
+                this.interviewee_bio = ""
+                this.bold_description = ""
+                this.description = ""
+                this.selectedImage = false
+                this.selectedAudio = false
+            })
         }
     }
 
@@ -221,25 +227,11 @@ class Pavilion extends PureComponent
             const add = !this.state.add
             if (add)
             {
-                if (document.body.clientWidth <= 480) window.history.pushState("", "", "/panel/pavilion/add")
+                window.history.pushState("", "", "/panel/pavilion/add-pavilion")
                 document.body.style.overflow = "hidden"
                 this.setState({...this.state, add})
             }
-            else
-            {
-                if (document.body.clientWidth <= 480) window.history.back()
-                document.body.style.overflow = "auto"
-                this.setState({...this.state, add, isUpdating: false, loading: false, loadingPercent: 0, selectedAudioPreview: null, selectedImagePreview: null}, () =>
-                {
-                    this.title = ""
-                    this.interviewee_name = ""
-                    this.interviewee_bio = ""
-                    this.bold_description = ""
-                    this.description = ""
-                    this.selectedImage = false
-                    this.selectedAudio = false
-                })
-            }
+            else window.history.back()
         }
     }
 
