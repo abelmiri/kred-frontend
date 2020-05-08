@@ -120,6 +120,8 @@
 .panel-0ff-code-item-big {
   width: 300px;
   text-align: center;
+  padding: 0 10px;
+  word-break: break-word;
 }
 
 .panel-0ff-code-item-all {
@@ -144,10 +146,13 @@
   font-size: 20px;
   font-weight: bold;
 
+  &.filter {
+    height: 50px;
+    padding-top: 0;
+  }
+
   @media screen and (max-width: 480px) {
     bottom: 60px;
-    width: 50px;
-    height: 48px;
   }
 }
 
@@ -408,5 +413,67 @@
 
   &:focus {
     border: 1px solid #2A3542;
+  }
+}
+
+.filter-item {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 5%;
+  background-color: var(--background-color);
+  border-radius: 50%;
+  color: var(--primary-color);
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  transition: all ease 0.2s;
+
+  &.first {
+    bottom: calc(5% + 60px);
+    @media screen and (max-width: 480px) {
+      bottom: 120px;
+    }
+  }
+
+  &.second {
+    bottom: calc(5% + 120px);
+    @media screen and (max-width: 480px) {
+      bottom: 180px;
+    }
+  }
+
+  &.third {
+    bottom: calc(5% + 180px);
+    @media screen and (max-width: 480px) {
+      bottom: 240px;
+    }
+  }
+
+  &.hide {
+    bottom: 5%;
+    opacity: 0;
+  }
+}
+
+.filter-item-btn {
+  width: 50%;
+  fill: var(--primary-color);
+
+  &.mail {
+    width: 45%;
+  }
+
+  &.main {
+    width: 45%;
+    fill: var(--background-color);
+  }
+
+  &.cancel {
+    width: 100%;
   }
 }

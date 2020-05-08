@@ -8,7 +8,6 @@ class ImageShow extends PureComponent
         super(props)
         this.state = {
             showPicture: false,
-            showBack: false,
         }
     }
 
@@ -30,7 +29,7 @@ class ImageShow extends PureComponent
     openImage = e =>
     {
         e.stopPropagation()
-        this.setState({...this.state, showPicture: true, showBack: true}, () =>
+        this.setState({...this.state, showPicture: true}, () =>
         {
             document.body.style.overflow = "hidden"
             window.history.pushState("", "", `${window.location.href}/show-picture`)
@@ -40,6 +39,7 @@ class ImageShow extends PureComponent
             copyImage.id = "picture"
             copyImage.style.margin = "0"
             copyImage.style.maxHeight = "initial"
+            copyImage.style.maxWidth = "initial"
             copyImage.style.position = "fixed"
             copyImage.style.top = rect.top + "px"
             copyImage.style.height = rect.height + "px"
@@ -47,6 +47,11 @@ class ImageShow extends PureComponent
             copyImage.style.left = rect.left + "px"
             copyImage.style.right = "auto"
             copyImage.style.zIndex = "11"
+            const backGround = document.createElement("div")
+            backGround.id = "backGround"
+            backGround.className = "back-cont"
+            backGround.onclick = () => window.history.back()
+            document.body.append(backGround)
             document.body.append(copyImage)
             this.img.style.opacity = "0"
             copyImage.style.transition = "all ease-in-out 0.2s"
@@ -79,38 +84,40 @@ class ImageShow extends PureComponent
             document.body.style.overflow = "auto"
             const rect = this.img.getBoundingClientRect()
             const copyImage = document.getElementById("picture")
+            const backGround = document.getElementById("backGround")
+            backGround.className = "back-cont hide"
             copyImage.style.top = rect.top + "px"
             copyImage.style.height = rect.height + "px"
             copyImage.style.width = rect.width + "px"
             copyImage.style.left = rect.left + "px"
             copyImage.style.borderRadius = this.img.style.borderRadius
             copyImage.style.right = "auto"
-            setTimeout(() => this.setState({...this.state, showBack: false}, () =>
+            setTimeout(() =>
             {
                 this.img.style.opacity = "1"
                 copyImage.remove()
-            }), 300)
+                backGround.remove()
+            }, 300)
         })
     }
 
-    back = () => window.history.back()
-
     render()
     {
-        const {showBack, showPicture} = this.state
+        const {showPicture} = this.state
         const {className, src, alt} = this.props
-        return <React.Fragment>
-            <img className={className} src={src} alt={alt} ref={e => this.img = e} onClick={this.openImage}/>
-            {showBack && <div className={`back-cont ${showPicture ? "" : "hide"}`} onClick={this.back}/>}
-            <Helmet>
-                {
-                    showBack ?
-                        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
-                        :
-                        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-                }
-            </Helmet>
-        </React.Fragment>
+        return (
+            <React.Fragment>
+                <img className={className} src={src} alt={alt} ref={e => this.img = e} onClick={this.openImage}/>
+                <Helmet>
+                    {
+                        showPicture ?
+                            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes"/>
+                            :
+                            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+                    }
+                </Helmet>
+            </React.Fragment>
+        )
     }
 }
 
