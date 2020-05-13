@@ -200,7 +200,21 @@ class SignUpPage extends PureComponent
                 {
                     api.post("code", {phone: this.phoneInput.value}, "")
                         .then(() => this.setState({...this.state, level: 2, loading: false}))
-                        .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
+                        .catch(e => this.setState({...this.state, loading: false}, () =>
+                        {
+                            if (e?.response?.status === 500 && e?.response.data.message === "kavenegar err!")
+                            {
+                                NotificationManager.warning("سرویس پیامکی ما دچار مشکل شده! بعدا برای تایید شماره مزاحمتون میشیم!")
+                                api.post("user", {phone: this.phoneInput.value, username: this.usernameInput.value, name: this.nameInput.value, password: this.passwordInput.value, error: true}, "")
+                                    .then((data) =>
+                                    {
+                                        setUser(data)
+                                        this.setState({...this.state, loading: false, redirectHome: true})
+                                    })
+                                    .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
+                            }
+                            else NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")
+                        }))
                 }
                 else
                 {

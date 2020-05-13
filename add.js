@@ -18,7 +18,6 @@ self.addEventListener("push", event =>
         data: {url: data.url},
     })
 })
-
 self.onnotificationclick = event =>
 {
     event.notification.close()
