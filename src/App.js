@@ -14,6 +14,7 @@ const PaymentPage = lazy(() => import("./View/Pages/PaymentPage"))
 const Panel = lazy(() => import("./View/Panel/Panel"))
 const PavilionPage = lazy(() => import("./View/Pages/PavilionPage"))
 const ClassPage = lazy(() => import("./View/Pages/ClassPage"))
+const ShowQuiz = lazy(() => import("./View/Pages/ShowQuiz"))
 const NotFound = lazy(() => import("./View/Pages/NotFound"))
 
 class App extends PureComponent
@@ -257,6 +258,7 @@ class App extends PureComponent
                         }/>
                         <Route path="/payment/:type" render={route => <PaymentPage type={route.match.params.type}/>}/>
                         <Route path="/panel" render={() => <Panel user={user}/>}/>
+                        {user && <Route path="/quiz/:id" render={route => <ShowQuiz quizId={route.match.params.id}/>}/>}
                         <Route exact path="/" render={() => <HomePage user={user} goToExchangeBook={this.goToExchangeBook}/>}/>
                         <Route path="*" status={404} render={() => <NotFound/>}/>
                     </Switch>

@@ -1,0 +1,95 @@
+@import "variables";
+
+.quiz-show-cont {
+  padding: 100px 5%;
+}
+
+.quiz-title {
+  font-weight: bold;
+  font-size: $home-title-font-size;
+}
+
+.quiz-title-field {
+  font-size: $title-font-size;
+  margin: 15px 0;
+}
+
+.quiz-go {
+  margin-top: 10px;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: $title-font-size;
+  padding: 15px 50px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.seyed-radio-cont {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+
+  &.no-padding {
+    padding: 5px;
+    margin-right: 10px;
+  }
+
+  &:hover {
+    .seyed-radio {
+      border: 1px solid var(--primary-color);
+    }
+  }
+}
+
+.seyed-radio {
+  min-width: 15px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  position: relative;
+  transition: all linear 0.2s;
+
+  &.color-border {
+    border: 1px solid var(--text-light-color);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background-color: var(--primary-color);
+    transition: all linear 0.2s;
+  }
+
+  &.selected {
+    border: 1px solid var(--primary-color);
+
+    &:after {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+.seyed-radio-label {
+  font-size: $regular-font-size;
+  margin-right: 10px;
+
+  &.colored {
+    color: var(--primary-color);
+  }
+}
+
+.quiz-text {
+  font-weight: bold;
+  font-size: $home-title-font-size;
+  margin-bottom: 10px;
+}

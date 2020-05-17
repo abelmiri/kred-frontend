@@ -15,6 +15,7 @@ import Pavilion from "./Pavilion"
 import Class from "./Class"
 import {Helmet} from "react-helmet"
 import NotFound from "../Pages/NotFound"
+import Quiz from "./Quiz"
 
 class Panel extends PureComponent
 {
@@ -53,6 +54,7 @@ class Panel extends PureComponent
                             <Route path="/panel/sign-ups" render={() => <TodaySignUps/>}/>
                             <Route path="/panel/pavilion" render={() => <Pavilion/>}/>
                             <Route path="/panel/class" render={() => <Class/>}/>
+                            <Route path="/panel/quiz" render={() => <Quiz/>}/>
                             <Route path="*" render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
                         </Switch>
                     </div>
