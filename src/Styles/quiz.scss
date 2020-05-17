@@ -93,3 +93,10 @@
   font-size: $home-title-font-size;
   margin-bottom: 10px;
 }
+
+.quiz-end {
+  color: var(--error-color);
+  font-size: $title-font-size;
+  margin-top: 10px;
+  font-weight: bold;
+}

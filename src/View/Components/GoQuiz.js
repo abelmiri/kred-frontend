@@ -9,6 +9,7 @@ class GoQuiz extends PureComponent
         this.state = {
             started: false,
             ended: false,
+            endedTime: false,
             questionIndex: 0,
             trues: 0,
             falses: 0,
@@ -22,7 +23,7 @@ class GoQuiz extends PureComponent
             const {quiz} = this.props
             this.timer = setTimeout(() =>
             {
-                this.setState({...this.state, ended: true})
+                this.setState({...this.state, ended: true, endedTime: true})
             }, quiz.minutes * 60 * 1000)
         })
     }
@@ -31,26 +32,19 @@ class GoQuiz extends PureComponent
     {
         let {trues, falses, answer, questionIndex} = this.state
         const {quiz} = this.props
-        if (answer === undefined)
+        if (answer)
         {
-
+            if (answer === quiz.questions[questionIndex].correct_answer) trues++
+            else falses++
         }
-        else if (answer === quiz.questions[questionIndex].correct_answer) trues++
-        else falses++
-        this.setState({...this.state, trues, falses, questionIndex: questionIndex + 1, answer: undefined})
-    }
-
-    end = () =>
-    {
-        let {trues, falses, answer, questionIndex} = this.state
-        const {quiz} = this.props
-        if (answer === undefined)
-        {
-
-        }
-        else if (answer === quiz.questions[questionIndex].correct_answer) trues++
-        else falses++
-        this.setState({...this.state, ended: true, trues, falses, questionIndex: questionIndex + 1, answer: undefined}, () => clearTimeout(this.timer))
+        this.setState({
+            ...this.state,
+            ended: questionIndex >= quiz.questions.length - 1,
+            trues,
+            falses,
+            questionIndex: questionIndex < quiz.questions.length - 1 ? questionIndex + 1 : questionIndex,
+            answer: undefined,
+        }, () => questionIndex >= quiz.questions.length - 1 && clearTimeout(this.timer))
     }
 
     setAnswer(answer)
@@ -61,7 +55,7 @@ class GoQuiz extends PureComponent
     render()
     {
         const {quiz} = this.props
-        const {questionIndex, started, answer, ended, trues, falses} = this.state
+        const {questionIndex, started, answer, ended, trues, falses, endedTime} = this.state
         return (
             <div>
                 {
@@ -72,6 +66,9 @@ class GoQuiz extends PureComponent
                             <div className="quiz-title-field">تعداد صحیح ها: {trues}</div>
                             <div className="quiz-title-field">تعداد غلط ها: {falses}</div>
                             <div className="quiz-title-field">تعداد نزده ها: {quiz.questions.length - trues - falses}</div>
+                            <div className="quiz-end">
+                                {endedTime ? "تایم شما تمام شد" : "پایان"}
+                            </div>
                         </div>
                         :
                         !started ?
@@ -104,7 +101,7 @@ class GoQuiz extends PureComponent
                                     questionIndex < quiz.questions.length - 1 ?
                                         <Material className="quiz-go" onClick={this.next}>سوال بعدی</Material>
                                         :
-                                        <Material className="quiz-go" onClick={this.end}>پایان</Material>
+                                        <Material className="quiz-go" onClick={this.next}>پایان</Material>
                                 }
                             </div>
                 }
