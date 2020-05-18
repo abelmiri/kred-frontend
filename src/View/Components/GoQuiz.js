@@ -34,7 +34,7 @@ class GoQuiz extends PureComponent
         const {quiz} = this.props
         if (answer)
         {
-            if (answer === quiz.questions[questionIndex].correct_answer) trues++
+            if (parseInt(answer) === parseInt(quiz.questions[questionIndex].correct_answer)) trues++
             else falses++
         }
         this.setState({

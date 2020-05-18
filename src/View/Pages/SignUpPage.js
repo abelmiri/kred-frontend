@@ -213,6 +213,7 @@ class SignUpPage extends PureComponent
                                     })
                                     .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
                             }
+                            else if (e?.response?.status === 403) NotificationManager.error("شما صلاحیت کافی برای ثبت نام ندارید.")
                             else NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")
                         }))
                 }
