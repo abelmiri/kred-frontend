@@ -24,8 +24,8 @@ class QuizItem extends PureComponent
                 <div className="panel-page-section-title">سوالات آزمون {quiz?.title}</div>
                 {
                     questions && Object.values(questions).length > 0 &&
-                    <React.Fragment>
-                        <div className="panel-0ff-code-cont title">
+                    <div className="panel-0ff-code-scroll dont-gesture">
+                        <div className="panel-0ff-code-cont title scroll-wider">
                             <div className="panel-0ff-code-item-big">سوال</div>
                             <div className="panel-0ff-code-item">گزینه 1</div>
                             <div className="panel-0ff-code-item">گزینه 2</div>
@@ -36,7 +36,7 @@ class QuizItem extends PureComponent
                         </div>
                         {
                             Object.values(questions).map((post) =>
-                                <div key={post._id} className="panel-0ff-code-cont">
+                                <div key={post._id} className="panel-0ff-code-cont scroll-wider">
                                     <div className="panel-0ff-code-item-big">{post.title}</div>
                                     <div className="panel-0ff-code-item">{post.first_answer}</div>
                                     <div className="panel-0ff-code-item">{post.second_answer}</div>
@@ -47,7 +47,7 @@ class QuizItem extends PureComponent
                                 </div>,
                             )
                         }
-                    </React.Fragment>
+                    </div>
                 }
 
                 <Material className="panel-0ff-code-add" onClick={this.toggleAddModal}>
