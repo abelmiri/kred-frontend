@@ -196,7 +196,7 @@ class Pavilion extends PureComponent
 
     postData(form)
     {
-        api.post("conversation", form, "", (e) => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
+        api.post("conversation", form, "", e => this.setState({...this.state, loadingPercent: Math.floor((e.loaded * 100) / e.total)}))
             .then((conversation) =>
                 this.setState({...this.state, posts: {[conversation._id]: {...conversation}, ...this.state.posts}, loading: false}, () =>
                 {

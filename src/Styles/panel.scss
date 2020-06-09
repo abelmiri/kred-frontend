@@ -118,6 +118,14 @@
   padding: 0 10px;
 }
 
+.panel-0ff-code-item-img {
+  width: 100%;
+}
+
+.panel-0ff-code-item-link {
+  color: var(--secondary-color);
+}
+
 .panel-0ff-code-item-big {
   width: 300px;
   text-align: center;
@@ -163,6 +171,30 @@
 
   @media screen and (min-width: 480px) {
     max-height: 80vh;
+  }
+}
+
+.panel-add-off-main-menu-cont {
+  position: relative;
+}
+
+.panel-add-off-main-menu {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 1px;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.panel-add-off-main-menu-item {
+  font-size: $regular-font-size;
+  padding: 10px;
+  cursor: pointer;
+
+  &:nth-child(odd) {
+    background-color: var(--login-page-background-color);
   }
 }
 
@@ -476,4 +508,36 @@
   &.cancel {
     width: 100%;
   }
+}
+
+.panel-add-doc-selected-video {
+  height: 50px;
+  border: 1px solid var(--border-color);
+  font-size: $regular-font-size;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.panel-add-doc-selected-video-cancel {
+  width: 25px;
+  cursor: pointer;
+}
+
+.panel-add-doc-select-type {
+  width: 50%;
+  text-align: right;
+  margin-bottom: 15px;
+
+  .login-modal-forget {
+    margin-left: 20px;
+  }
+}
+
+.panel-add-doc-pdf {
+  width: 150px;
+  fill: var(--success-color);
 }

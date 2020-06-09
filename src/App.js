@@ -68,6 +68,7 @@ class App extends PureComponent
             location.pathname.includes("/add-education") ||
             location.pathname.includes("/add-pavilion") ||
             location.pathname.includes("/add-off") ||
+            location.pathname.includes("/add-doc") ||
             location.pathname.includes("/add-comment")
         )
         {
@@ -79,6 +80,7 @@ class App extends PureComponent
                 .replace("/add-education", "")
                 .replace("/add-pavilion", "")
                 .replace("/add-off", "")
+                .replace("/add-doc", "")
                 .replace("/add-comment", "")
             window.history.replaceState("", "", currentPath ? currentPath : "/")
             document.location.reload()
