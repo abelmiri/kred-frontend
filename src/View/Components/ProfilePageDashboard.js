@@ -5,6 +5,8 @@ import Slider2 from "../../Media/Images/login-slider2.png"
 import Slider3 from "../../Media/Images/login-slider3.png"
 import api from "../../Functions/api"
 import ExchangeItem from "./ExchangeItem"
+import {ClipLoader} from "react-spinners"
+import ExchangeSvg from "../../Media/Svgs/ExchangeSvg"
 
 class ProfilePageDashboard extends PureComponent
 {
@@ -20,6 +22,7 @@ class ProfilePageDashboard extends PureComponent
             sliderIndex: 0,
             previousSlider: this.slides.length - 1,
             exchanges: {},
+            exchangeLoading: true,
         }
     }
 
@@ -35,7 +38,8 @@ class ProfilePageDashboard extends PureComponent
 
         const {user} = this.props
         api.get("exchange", `?limit=100&page=1&user_id=${user._id}`)
-            .then((exchanges) => this.setState({...this.state, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
+            .then((exchanges) => this.setState({...this.state, exchangeLoading: false, exchanges: exchanges.reduce((sum, exchange) => ({...sum, [exchange._id]: {...exchange}}), {})}))
+            .catch(() => this.setState({...this.state, exchangeErr: true}))
     }
 
     componentWillUnmount()
@@ -69,7 +73,7 @@ class ProfilePageDashboard extends PureComponent
 
     render()
     {
-        const {sliderIndex, previousSlider, exchanges} = this.state
+        const {sliderIndex, previousSlider, exchanges, exchangeErr, exchangeLoading} = this.state
         return (
             <React.Fragment>
                 <div className="profile-introduction">
@@ -110,12 +114,14 @@ class ProfilePageDashboard extends PureComponent
                         </div>
                     </div>
                 </div>
-                {
-                    Object.values(exchanges).length > 0 &&
-                    <React.Fragment>
-                        <div className="profile-my-books">کتاب‌های من</div>
-                        <div className="exchange-list">
-                            <React.Fragment>
+                <div className="profile-my-books">
+                    <div className="profile-save-part">
+                        <div>آگهی های من</div>
+                        <ExchangeSvg className="profile-save-part-svg"/>
+                    </div>
+                    {
+                        Object.values(exchanges).length > 0 ?
+                            <div className="exchange-list in-profile">
                                 {Object.values(exchanges).map(exchange => <ExchangeItem key={exchange._id} exchange={exchange} onProfile={true} deleteExchange={this.deleteExchange}/>)}
                                 <div className="exchange-item-cont-hide"/>
                                 <div className="exchange-item-cont-hide"/>
@@ -123,10 +129,17 @@ class ProfilePageDashboard extends PureComponent
                                 <div className="exchange-item-cont-hide"/>
                                 <div className="exchange-item-cont-hide"/>
                                 <div className="exchange-item-cont-hide"/>
-                            </React.Fragment>
-                        </div>
-                    </React.Fragment>
-                }
+                            </div>
+                            :
+                            exchangeErr ?
+                                <div className="profile-save-section-err">برنامه در گرفتن اطلاعات با خطا مواجه شد!</div>
+                                :
+                                exchangeLoading ?
+                                    <div className="exchange-page-loading"><ClipLoader size={24} color="#3AAFA9"/></div>
+                                    :
+                                    <div className="profile-save-part-empty">موردی یافت نشد!</div>
+                    }
+                </div>
             </React.Fragment>
         )
     }

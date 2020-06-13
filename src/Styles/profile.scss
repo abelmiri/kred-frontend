@@ -371,13 +371,8 @@
 }
 
 .profile-my-books {
-  background-color: var(--secondary-color);
-  padding: 10px 0;
-  text-align: center;
-  font-size: $title-font-size;
-  color: white;
-  font-weight: bold;
-  margin: 15px 0;
+  border: 1px solid var(--border-color);
+  border-top: none;
 }
 
 .profile-save-section {

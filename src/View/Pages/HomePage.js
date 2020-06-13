@@ -60,23 +60,9 @@ class HomePage extends PureComponent
         })
     }
 
-    onLinkClick = (e) =>
-    {
-        if (this.linkTimer)
-        {
-            e.preventDefault()
-            this.linkTimer = false
-        }
-    }
-
-    onLinkDown = () => this.linkTime = setTimeout(() => this.linkTimer = true, 100)
-
-    onLinkUp = () => clearTimeout(this.linkTime)
-
     onVideoPlay = (e) =>
     {
         const {freeVideos} = this.state
-        Object.values(freeVideos).forEach(video => video._id !== e.target.id && document.getElementById(video._id).pause())
         // statistics
         process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: freeVideos[e.target.id].title, content_id: e.target.id}).catch(err => console.log(err))
     }
@@ -116,16 +102,13 @@ class HomePage extends PureComponent
                         <div className="home-videos-img-title">پربازدیدترین فیلم‌ها</div>
                         {
                             Object.values(freeVideos).length > 0 ?
-                                <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" nodes={
+                                <MySlider dots={true} marginDots="5px 0 15px 0" dotColor="#3AAFA9" dotSelectedColor="#2B7A78" timer={false} nodes={
                                     (Object.values(freeVideos)).map(video =>
                                         <div className="home-videos-item-cont">
                                             <video key={video._id} preload="none" id={video._id} controls controlsList="nodownload"
                                                    className="home-videos-item"
                                                    poster={video.poster ? REST_URL + video.poster : null}
-                                                   onPlay={this.onVideoPlay}
-                                                   onMouseDown={this.onLinkDown}
-                                                   onMouseUp={this.onLinkUp}
-                                                   onClick={this.onLinkClick}>
+                                                   onPlay={this.onVideoPlay}>
                                                 <source src={REST_URL + video.video_url}/>
                                                 <track label="Farsi" kind="subtitles" srcLang="en" src={video.subtitle} default/>
                                             </video>

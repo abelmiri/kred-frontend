@@ -386,6 +386,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
 
+  &.in-profile {
+    padding: 20px;
+  }
+
   @media screen and (max-width: 480px) {
     padding: 0;
   }
