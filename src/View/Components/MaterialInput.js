@@ -34,10 +34,7 @@ class MaterialInput extends Component
     componentDidMount()
     {
         const {defaultValue} = this.props
-        if (defaultValue)
-        {
-            this.setState({...this.state, value: defaultValue})
-        }
+        if (defaultValue) this.setState({...this.state, value: defaultValue})
     }
 
     handleChange(e)
@@ -110,7 +107,7 @@ class MaterialInput extends Component
                         />
                 }
 
-                <label className={focused || value.length > 0 ? "material-input-label-out" : "material-input-label"}
+                <label className={focused || value.toString().length > 0 ? "material-input-label-out" : "material-input-label"}
                        style={{backgroundColor: backgroundColor ? backgroundColor : "white"}}
                        onClick={this.handleClick}>
                     {label}

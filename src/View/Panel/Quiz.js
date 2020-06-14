@@ -34,6 +34,7 @@ class Quiz extends PureComponent
     addQuiz = quiz => this.setState({...this.state, quizes: {[quiz._id]: {...quiz}, ...this.state.quizes}})
 
     addQuestionFunc = question => this.setState({...this.state, questions: {[question._id]: {...question}, ...this.state.questions}})
+    updateQuestionFunc = question => this.setState({...this.state, questions: {...this.state.questions, [question._id]: {...question}}})
 
     toggleAddModal = () => this.setState({...this.state, addQuiz: !this.state.addQuiz})
 
@@ -55,8 +56,9 @@ class Quiz extends PureComponent
         }
     }
 
-    removeQuestion = (id) =>
+    removeQuestion = (id, e) =>
     {
+        e.stopPropagation()
         let result = window.confirm("مطمئنی ادمین؟!")
         if (result)
         {
@@ -77,7 +79,7 @@ class Quiz extends PureComponent
         return (
             <section className="panel-page-section">
                 <Switch>
-                    <Route path="/panel/quiz/:id" render={route => <QuizItem removeQuestion={this.removeQuestion} addQuestionFunc={this.addQuestionFunc} quiz={quizes[route.match.params.id]} questions={Object.values(questions).filter(item => item.quiz_id === route.match.params.id)}/>}/>
+                    <Route path="/panel/quiz/:id" render={route => <QuizItem removeQuestion={this.removeQuestion} addQuestionFunc={this.addQuestionFunc} updateQuestionFunc={this.updateQuestionFunc} quiz={quizes[route.match.params.id]} questions={Object.values(questions).filter(item => item.quiz_id === route.match.params.id)}/>}/>
 
                     <React.Fragment>
                         <div className="panel-page-section-title">آزمون ها</div>

@@ -15,12 +15,17 @@ class QuizItem extends PureComponent
         }
     }
 
-    toggleAddModal = () => this.setState({...this.state, addQuestion: !this.state.addQuestion})
+    toggleAddModal = () => this.setState({...this.state, addQuestion: !this.state.addQuestion, update: undefined})
+
+    toggleUpdate(update)
+    {
+        this.setState({...this.state, addQuestion: true, update})
+    }
 
     render()
     {
-        const {addQuestion} = this.state
-        const {quiz, questions, addQuestionFunc, removeQuestion} = this.props
+        const {addQuestion, update} = this.state
+        const {quiz, questions, addQuestionFunc, updateQuestionFunc, removeQuestion} = this.props
         return (
             <section className="panel-page-section">
                 <div className="panel-page-section-title">سوالات آزمون {quiz?.title}</div>
@@ -39,7 +44,7 @@ class QuizItem extends PureComponent
                         </div>
                         {
                             Object.values(questions).map((post) =>
-                                <div key={post._id} className="panel-0ff-code-cont scroll-wider">
+                                <div key={post._id} className="panel-0ff-code-cont scroll-wider" onClick={() => this.toggleUpdate(post)}>
                                     <div className="panel-0ff-code-item-big">{post.title}</div>
                                     <div className="panel-0ff-code-item">{post.first_answer}</div>
                                     <div className="panel-0ff-code-item">{post.second_answer}</div>
@@ -47,7 +52,7 @@ class QuizItem extends PureComponent
                                     <div className="panel-0ff-code-item">{post.forth_answer}</div>
                                     <div className="panel-0ff-code-item">{post.correct_answer}</div>
                                     <div className="panel-0ff-code-item">{post.picture && <ImageShow className="panel-0ff-code-item-img" src={REST_URL + post.picture} alt=""/>}</div>
-                                    <CancelSvg className="panel-0ff-code-remove-cont" onClick={() => removeQuestion(post._id)}/>
+                                    <CancelSvg className="panel-0ff-code-remove-cont" onClick={e => removeQuestion(post._id, e)}/>
                                 </div>,
                             )
                         }
@@ -60,7 +65,7 @@ class QuizItem extends PureComponent
 
                 {
                     addQuestion &&
-                    <AddQuestion quiz_id={quiz?._id} addQuestionFunc={addQuestionFunc} toggleAddModal={this.toggleAddModal}/>
+                    <AddQuestion quiz_id={quiz?._id} update={update} addQuestionFunc={addQuestionFunc} updateQuestionFunc={updateQuestionFunc} toggleAddModal={this.toggleAddModal}/>
                 }
             </section>
         )
