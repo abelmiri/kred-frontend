@@ -3,6 +3,9 @@ import MaterialInput from "../Components/MaterialInput"
 import Material from "../Components/Material"
 import {NotificationManager} from "react-notifications"
 import api from "../../Functions/api"
+import CameraSvg from "../../Media/Svgs/Camera"
+import CancelSvg from "../../Media/Svgs/CancelSvg"
+import compressImage from "../../Helpers/compressImage"
 
 class AddQuestion extends PureComponent
 {
@@ -19,6 +22,22 @@ class AddQuestion extends PureComponent
     setForth = value => this.forth_answer = value
     setCorrect = value => this.correct_answer = value
 
+    selectImage = (e) =>
+    {
+        const img = e.target.files[0]
+        this.selectedImage = img
+        const reader = new FileReader()
+        reader.readAsDataURL(img)
+        reader.onload = () => this.setState({...this.state, selectedImagePreview: reader.result})
+        e.target.value = ""
+    }
+
+    removePiv = () =>
+    {
+        this.selectedImage = null
+        this.setState({...this.state, selectedImagePreview: undefined})
+    }
+
     submit = () =>
     {
         const {quiz_id} = this.props
@@ -31,13 +50,26 @@ class AddQuestion extends PureComponent
 
         if (title && first_answer && second_answer && third_answer && forth_answer && correct_answer && parseInt(correct_answer) <= 4 && parseInt(correct_answer) >= 1)
         {
-            api.post("quiz/question", {title, first_answer, second_answer, third_answer, forth_answer, correct_answer, quiz_id})
-                .then((question) =>
+            const form = new FormData()
+            form.append("quiz_id", quiz_id)
+            form.append("title", title)
+            form.append("first_answer", first_answer)
+            form.append("second_answer", second_answer)
+            form.append("third_answer", third_answer)
+            form.append("forth_answer", forth_answer)
+            form.append("correct_answer", correct_answer)
+            compressImage(this.selectedImage)
+                .then(img =>
                 {
-                    const {addQuestionFunc, toggleAddModal} = this.props
-                    NotificationManager.success("حله")
-                    addQuestionFunc(question)
-                    toggleAddModal()
+                    img && form.append("picture", img)
+                    api.post("quiz/question", form)
+                        .then((question) =>
+                        {
+                            const {addQuestionFunc, toggleAddModal} = this.props
+                            NotificationManager.success("حله")
+                            addQuestionFunc(question)
+                            toggleAddModal()
+                        })
                 })
         }
         else
@@ -54,7 +86,7 @@ class AddQuestion extends PureComponent
     render()
     {
         const {toggleAddModal} = this.props
-        const {loading} = this.state
+        const {loading, selectedImagePreview, loadingPercent} = this.state
         return (
             <React.Fragment>
                 <div className="create-exchange-cont bigger-size create-small">
@@ -66,6 +98,22 @@ class AddQuestion extends PureComponent
                         <MaterialInput disabled={loading} className="panel-add-pav-title" backgroundColor="white" label="گزینه 3" getValue={this.setThird}/>
                         <MaterialInput disabled={loading} className="panel-add-pav-title" backgroundColor="white" label="گزینه 4" getValue={this.setForth}/>
                         <MaterialInput disabled={loading} className="panel-add-pav-title" backgroundColor="white" label="گزینه صحیح" getValue={this.setCorrect}/>
+
+                        <label className="panel-add-img" onClick={selectedImagePreview ? this.removePiv : null}>
+                            {
+                                selectedImagePreview ?
+                                    <React.Fragment>
+                                        <img src={selectedImagePreview} className="create-exchange-selected-img" alt=""/>
+                                        {loading ? <div className="create-exchange-edit-svg">{loadingPercent} %</div> : <CancelSvg className="create-exchange-edit-svg"/>}
+                                    </React.Fragment>
+                                    :
+                                    <React.Fragment>
+                                        <CameraSvg className="create-exchange-svg"/>
+                                        <input disabled={loading} type="file" hidden accept="image/*" onChange={this.selectImage}/>
+                                    </React.Fragment>
+                            }
+                            <div className="create-exchange-selected-uploading" style={{transform: `scaleY(${loadingPercent / 100})`}}/>
+                        </label>
                         <Material className="panel-add-pav-submit" onClick={loading ? null : this.submit}>ثبت</Material>
                     </div>
                 </div>

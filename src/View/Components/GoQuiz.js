@@ -1,5 +1,7 @@
 import React, {PureComponent} from "react"
 import Material from "./Material"
+import ImageShow from "./ImageShow"
+import {REST_URL} from "../../Functions/api"
 
 class GoQuiz extends PureComponent
 {
@@ -81,6 +83,7 @@ class GoQuiz extends PureComponent
                             :
                             <div>
                                 <div className="quiz-text">{quiz.questions[questionIndex].title}</div>
+                                {quiz.questions[questionIndex].picture && <ImageShow className="quiz-img" src={REST_URL + quiz.questions[questionIndex].picture}/>}
                                 <Material backgroundColor="var(--transparent-second)" className="seyed-radio-cont" onClick={() => this.setAnswer("1")}>
                                     <div className={`seyed-radio ${answer === "1" ? "selected" : ""} `}/>
                                     <div className="seyed-radio-label">{quiz.questions[questionIndex].first_answer}</div>

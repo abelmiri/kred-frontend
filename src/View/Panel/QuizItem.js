@@ -2,6 +2,8 @@ import React, {PureComponent} from "react"
 import Material from "../Components/Material"
 import AddQuestion from "./AddQuestion"
 import CancelSvg from "../../Media/Svgs/CancelSvg"
+import ImageShow from "../Components/ImageShow"
+import {REST_URL} from "../../Functions/api"
 
 class QuizItem extends PureComponent
 {
@@ -32,6 +34,7 @@ class QuizItem extends PureComponent
                             <div className="panel-0ff-code-item">گزینه 3</div>
                             <div className="panel-0ff-code-item">گزینه 4</div>
                             <div className="panel-0ff-code-item">صحیح</div>
+                            <div className="panel-0ff-code-item">عکس</div>
                             <div className="panel-0ff-code-remove-cont">حذف</div>
                         </div>
                         {
@@ -43,6 +46,7 @@ class QuizItem extends PureComponent
                                     <div className="panel-0ff-code-item">{post.third_answer}</div>
                                     <div className="panel-0ff-code-item">{post.forth_answer}</div>
                                     <div className="panel-0ff-code-item">{post.correct_answer}</div>
+                                    <div className="panel-0ff-code-item">{post.picture && <ImageShow className="panel-0ff-code-item-img" src={REST_URL + post.picture} alt=""/>}</div>
                                     <CancelSvg className="panel-0ff-code-remove-cont" onClick={() => removeQuestion(post._id)}/>
                                 </div>,
                             )

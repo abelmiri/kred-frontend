@@ -31,6 +31,12 @@ class MindMaps extends PureComponent
         window.addEventListener("popstate", this.onPopState)
     }
 
+    componentWillUnmount()
+    {
+        document.removeEventListener("scroll", this.onScroll)
+        window.removeEventListener("popstate", this.onPopState)
+    }
+
     onPopState = () =>
     {
         const {showModal} = this.state
