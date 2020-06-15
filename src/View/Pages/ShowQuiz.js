@@ -13,7 +13,7 @@ class ShowQuiz extends PureComponent
         }
     }
 
-    shuffle(array)
+    shuffle(array, count)
     {
         let currentIndex = array.length, temporaryValue, randomIndex
 
@@ -31,7 +31,8 @@ class ShowQuiz extends PureComponent
             array[randomIndex] = temporaryValue
         }
 
-        return array
+        if (count) return array.slice(0, count)
+        else return array
     }
 
     componentDidMount()
@@ -41,7 +42,7 @@ class ShowQuiz extends PureComponent
             .then(quiz =>
             {
                 let questions = [...quiz.questions]
-                let shuffle = this.shuffle(questions)
+                let shuffle = this.shuffle(questions, quiz.count)
                 this.setState({...this.state, quiz: {...quiz, questions: [...shuffle]}})
             })
             .catch(err =>

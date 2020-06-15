@@ -14,16 +14,18 @@ class AddQuiz extends PureComponent
 
     setTitle = value => this.title = value
     setMinutes = value => this.minutes = value
+    setCount = value => this.count = value
 
     submit = () =>
     {
         const title = this.title?.trim()
         const minutes = this.minutes?.trim()
-        if (title && parseInt(minutes) >= 1)
+        const count = this.count?.trim()
+        if (title && parseInt(minutes) >= 1 && (!count || parseInt(count) > 0))
         {
             this.setState({...this.state, loading: true}, () =>
             {
-                api.post("quiz", {title, minutes})
+                api.post("quiz", {title, minutes, count})
                     .then((quiz) =>
                     {
                         const {addQuiz, toggleAddModal} = this.props
@@ -37,6 +39,7 @@ class AddQuiz extends PureComponent
         {
             if (!title) NotificationManager.warning("نام آزمون را وارد کن!")
             if (!(minutes && parseInt(minutes) >= 1)) NotificationManager.warning("محدودیت باید عددی بزرگتر 1 باشد")
+            if (count) NotificationManager.warning("تعداد سوالات باید عددی بزرگتر 0 باشد")
         }
     }
 
@@ -49,8 +52,9 @@ class AddQuiz extends PureComponent
                 <div className="create-exchange-cont bigger-size create-small">
                     <div className="create-exchange-title">ساخت کوئیز</div>
                     <div className="panel-add-off-main">
-                        <MaterialInput disabled={loading} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="نام آزمون" getValue={this.setTitle}/>
-                        <MaterialInput disabled={loading} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="محدودیت (دقیقه)" getValue={this.setMinutes}/>
+                        <MaterialInput disabled={loading} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="نام آزمون *" getValue={this.setTitle}/>
+                        <MaterialInput disabled={loading} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="محدودیت (دقیقه) *" getValue={this.setMinutes}/>
+                        <MaterialInput disabled={loading} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="تعداد سوالات مورد مصرف :)" getValue={this.setCount}/>
                         <Material className="panel-add-pav-submit" onClick={loading ? null : this.submit}>ثبت</Material>
                     </div>
                 </div>

@@ -86,22 +86,24 @@ class Quiz extends PureComponent
 
                         {
                             Object.values(quizes).length > 0 &&
-                            <React.Fragment>
-                                <div className="panel-0ff-code-cont title">
+                            <div className="panel-0ff-code-scroll dont-gesture">
+                                <div className="panel-0ff-code-cont title scroll-wide">
                                     <div className="panel-0ff-code-item-big">عنوان</div>
                                     <div className="panel-0ff-code-item">محدودیت</div>
+                                    <div className="panel-0ff-code-item">تعداد سوالات مصرفی</div>
                                     <div className="panel-0ff-code-remove-cont">حذف</div>
                                 </div>
                                 {
                                     Object.values(quizes).map((post) =>
-                                        <Link to={`/panel/quiz/${post._id}`} key={post._id} className="panel-0ff-code-cont">
+                                        <Link to={`/panel/quiz/${post._id}`} key={post._id} className="panel-0ff-code-cont scroll-wide">
                                             <div className="panel-0ff-code-item-big">{post.title}</div>
                                             <div className="panel-0ff-code-item">{post.minutes}</div>
+                                            <div className="panel-0ff-code-item">{post.count || "همه سوالات"}</div>
                                             <CancelSvg className="panel-0ff-code-remove-cont" onClick={(e) => this.removeQuiz(post._id, e)}/>
                                         </Link>,
                                     )
                                 }
-                            </React.Fragment>
+                            </div>
                         }
                         <div className={`exchange-page-loading ${getLoading ? "" : "hide"}`}><ClipLoader size={24} color="#3AAFA9"/></div>
 
