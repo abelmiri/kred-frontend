@@ -48,7 +48,7 @@ class App extends PureComponent
             this.setState({...this.state, user}, () =>
             {
                 api.post("user/verify-token")
-                    .then((data) => this.setUser(data))
+                    .then(data => this.setUser(data))
                     .catch((e) =>
                     {
                         if (e?.response?.status === 403)
