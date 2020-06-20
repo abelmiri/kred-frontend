@@ -12,9 +12,9 @@ class AddQuiz extends PureComponent
         this.state = {}
     }
 
-    setTitle = value => this.title = value
-    setMinutes = value => this.minutes = value
-    setCount = value => this.count = value
+    setTitle = e => this.title = e.target.value
+    setMinutes = e => this.minutes = e.target.value
+    setCount = e => this.count = e.target.value
 
     submit = () =>
     {

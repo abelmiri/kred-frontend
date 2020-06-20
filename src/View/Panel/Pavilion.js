@@ -115,15 +115,15 @@ class Pavilion extends PureComponent
         })
     }
 
-    setTitle = (title) => this.title = title
+    setTitle = e => this.title = e.target.value
 
-    setName = (interviewee_name) => this.interviewee_name = interviewee_name
+    setName = e => this.interviewee_name = e.target.value
 
-    setBio = (interviewee_bio) => this.interviewee_bio = interviewee_bio
+    setBio = e => this.interviewee_bio = e.target.value
 
-    setBold = (bold_description) => this.bold_description = bold_description
+    setBold = e => this.bold_description = e.target.value
 
-    setDesc = (description) => this.description = description
+    setDesc = e => this.description = e.target.value
 
     submit = () =>
     {

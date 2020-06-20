@@ -15,12 +15,12 @@ class AddQuestion extends PureComponent
         this.state = {}
     }
 
-    setTitle = value => this.title = value
-    setFirst = value => this.first_answer = value
-    setSecond = value => this.second_answer = value
-    setThird = value => this.third_answer = value
-    setForth = value => this.forth_answer = value
-    setCorrect = value => this.correct_answer = value
+    setTitle = e => this.title = e.target.value
+    setFirst = e => this.first_answer = e.target.value
+    setSecond = e => this.second_answer = e.target.value
+    setThird = e => this.third_answer = e.target.value
+    setForth = e => this.forth_answer = e.target.value
+    setCorrect = e => this.correct_answer = e.target.value
 
     selectImage = (e) =>
     {

@@ -139,17 +139,17 @@ class Class extends PureComponent
 
     changeType = e => this.type = e.target.value
 
-    setTitle = value => this.title = value
+    setTitle = e => this.title = e.target.value
 
-    setUniversity = value => this.university = value
+    setUniversity = e => this.university = e.target.value
 
-    setPagesCount = value => this.pages_count = value
+    setPagesCount = e => this.pages_count = e.target.value
 
-    setTeacher = value => this.teacher = value
+    setTeacher = e => this.teacher = e.target.value
 
-    setWriter = value => this.writer = value
+    setWriter = e => this.writer = e.target.value
 
-    setSubject = value => this.subject = value
+    setSubject = e => this.subject = e.target.value
 
     changeLessonCategory = e => this.lesson_category_id = e.target.value
 

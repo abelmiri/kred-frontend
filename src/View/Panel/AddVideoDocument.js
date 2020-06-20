@@ -20,8 +20,9 @@ class AddVideoDocument extends PureComponent
         }
     }
 
-    searchVideo = value =>
+    searchVideo = e =>
     {
+        const value = e.target.value
         clearTimeout(this.search)
         this.search = setTimeout(() =>
         {
@@ -36,7 +37,7 @@ class AddVideoDocument extends PureComponent
         }, 250)
     }
 
-    setDescription = value => this.description = value
+    setDescription = e => this.description = e.target.value
 
     selectVideo(video)
     {

@@ -1,7 +1,7 @@
-import React, {Component} from "react"
+import React, {PureComponent} from "react"
 import * as PropTypes from "prop-types"
 
-class MaterialInput extends Component
+class MaterialInput extends PureComponent
 {
     static propTypes = {
         className: PropTypes.string.isRequired,
@@ -34,14 +34,14 @@ class MaterialInput extends Component
 
     handleChange = e =>
     {
-        const value = e.target.value
+        const event = {...e}
+        const value = event.target.value
         const {maxLength} = this.props
         if ((!maxLength) || (maxLength && value.length <= maxLength))
         {
             this.setState({...this.state, value}, () =>
-            {
-                this.props.getValue(value)
-            })
+                this.props.getValue(event),
+            )
         }
     }
 
