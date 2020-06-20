@@ -6,7 +6,7 @@ class MaterialInput extends Component
     static propTypes = {
         className: PropTypes.string.isRequired,
         backgroundColor: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
+        label: PropTypes.any.isRequired,
         getValue: PropTypes.func.isRequired,
         type: PropTypes.string,
         maxLength: PropTypes.number,
@@ -24,11 +24,6 @@ class MaterialInput extends Component
             value: "",
             focused: false,
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleFocus = this.handleFocus.bind(this)
-        this.handleBlur = this.handleBlur.bind(this)
-        this.handleKeyDown = this.handleKeyDown.bind(this)
-        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount()
@@ -37,7 +32,7 @@ class MaterialInput extends Component
         if (defaultValue) this.setState({...this.state, value: defaultValue})
     }
 
-    handleChange(e)
+    handleChange = e =>
     {
         const value = e.target.value
         const {maxLength} = this.props
@@ -50,25 +45,13 @@ class MaterialInput extends Component
         }
     }
 
-    handleFocus()
-    {
-        this.setState({...this.state, focused: true})
-    }
+    handleFocus = () => this.setState({...this.state, focused: true})
 
-    handleBlur()
-    {
-        this.setState({...this.state, focused: false})
-    }
+    handleBlur = () => this.setState({...this.state, focused: false})
 
-    handleKeyDown(e)
-    {
-        this.props.onKeyDown && this.props.onKeyDown(e)
-    }
+    handleKeyDown = e => this.props.onKeyDown && this.props.onKeyDown(e)
 
-    handleClick()
-    {
-        this.textRef.focus()
-    }
+    handleClick = () => this.textRef.focus()
 
     render()
     {

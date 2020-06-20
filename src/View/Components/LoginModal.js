@@ -91,7 +91,7 @@ class LoginModal extends PureComponent
                         <input type="text"
                                ref={e => this.phoneInput = e}
                                className="create-exchange-section-input"
-                               placeholder={forgetPassword ? "شماره موبایل" : "ایمیل یا شماره موبایل"}
+                               placeholder={forgetPassword ? "شماره موبایل" : "شماره موبایل، ایمیل یا نام کاربری"}
                                maxLength={forgetPassword ? 11 : 60}
                                name="phone"
                                onKeyDown={this.submitOnEnter}
