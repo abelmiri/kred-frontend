@@ -6,7 +6,7 @@ import Footer from "../Components/Footer"
 
 const NotFound = () =>
     <div className="not-found-cont">
-        <img className="not-found-img" src={NotFoundImg} alt="kred not found page!" />
+        <img loading="lazy" className="not-found-img" src={NotFoundImg} alt="kred not found page!" />
         <div className="not-found-code">404</div>
         <div className="not-found-text">صفحه‌ای که دنبالشی پیدا نشد... :(</div>
         <Link to="/"><Material className="not-found-btn">برگردیم صفحه اصلی</Material></Link>

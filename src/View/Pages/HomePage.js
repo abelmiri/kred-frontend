@@ -87,8 +87,8 @@ class HomePage extends PureComponent
                 </div>
                 <Link to="/videos" className="home-slider-cont">
                     <div className="home-slider">
-                        <img className="home-slider-img" src={Slider} alt="KRED CORONA OFF"/>
-                        <img className="home-slider-img-text" src={SliderText} alt="KRED CORONA OFF"/>
+                        <img loading="lazy" className="home-slider-img" src={Slider} alt="KRED CORONA OFF"/>
+                        <img loading="lazy" className="home-slider-img-text" src={SliderText} alt="KRED CORONA OFF"/>
                     </div>
                 </Link>
                 <div className="home-videos">
@@ -97,7 +97,7 @@ class HomePage extends PureComponent
                         <div className="home-exchange-description">به دنیای جدید آموزش بیا! دیگه نیازی نیست دغدغه یادگیری درسات رو داشته باشی</div>
                         <a href="/videos" className="home-section-butt" onClick={(e) => this.changeRoute(e, "/videos")}>برو تو فیلم‌های آموزشی</a>
                     </div>
-                    <img className="home-videos-img mobile" src={Nurses} alt="فیلم‌های آموزشی"/>
+                    <img loading="lazy" className="home-videos-img mobile" src={Nurses} alt="فیلم‌های آموزشی"/>
                     <div className="home-videos-img desktop">
                         <div className="home-videos-img-title">پربازدیدترین فیلم‌ها</div>
                         {
@@ -125,7 +125,7 @@ class HomePage extends PureComponent
                     </div>
                 </div>
                 <div className="home-exchange">
-                    <img className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
+                    <img loading="lazy" className="home-exchange-img" src={Doctors} alt="کلاس درس"/>
                     <div className="home-exchange-text">
                         <h3 className="home-exchange-title">کلاس درس</h3>
                         <div className="home-exchange-description only-desktop">
@@ -145,10 +145,10 @@ class HomePage extends PureComponent
                         <div className="home-exchange-description">اینجا میتونی با بقیه سال بالایی هات در ارتباط باشی و ازشون کلی تجربه جدید کسب کنی</div>
                         <a href="/pavilions" className="home-section-butt" onClick={(e) => this.changeRoute(e, "/pavilions")}>برو تو گپ و گفت</a>
                     </div>
-                    <img className="home-videos-img" src={Pavion} alt="گپ و گفت"/>
+                    <img loading="lazy" className="home-videos-img" src={Pavion} alt="گپ و گفت"/>
                 </div>
                 <div className="home-exchange">
-                    <img className="home-exchange-img" src={Library} alt="تبادل کتاب"/>
+                    <img loading="lazy" className="home-exchange-img" src={Library} alt="تبادل کتاب"/>
                     <div className="home-exchange-text">
                         <h3 className="home-exchange-title">تبادل کتاب</h3>
                         <div className="home-exchange-description">تو اینجا میتونی هر کتابی رو لازم نداری بفروشی، هر کدومو لازم داری بخری</div>

@@ -130,7 +130,7 @@ class Comment extends PureComponent
                     <div className="pavilion-comment-header-profile">
                         {
                             comment.user.avatar ?
-                                <img className="pavilion-comment-profile" src={REST_URL + comment.user.avatar} alt={comment.user.name}/>
+                                <img loading="lazy" className="pavilion-comment-profile" src={REST_URL + comment.user.avatar} alt={comment.user.name}/>
                                 :
                                 <Profile className="pavilion-comment-profile"/>
                         }

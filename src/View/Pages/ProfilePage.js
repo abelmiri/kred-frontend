@@ -126,7 +126,7 @@ class ProfilePage extends PureComponent
                                                 <div className="profile-left-menus-contents-detail">{item.interviewee_bio}</div>
                                                 <div className="profile-left-menus-contents-text">{item.bold_description}</div>
                                             </div>
-                                            <img className="profile-left-menus-contents-img" src={REST_URL + "/" + item.picture} alt=""/>
+                                            <img loading="lazy" className="profile-left-menus-contents-img" src={REST_URL + "/" + item.picture} alt=""/>
                                         </Link>,
                                     )
                                     :
@@ -143,7 +143,7 @@ class ProfilePage extends PureComponent
                                                 <div className="profile-left-menus-contents-name">{item.title}</div>
                                                 {item.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
                                             </div>
-                                            <img className="profile-left-menus-contents-img pack" src={REST_URL + "/" + item.picture} alt=""/>
+                                            <img loading="lazy" className="profile-left-menus-contents-img pack" src={REST_URL + "/" + item.picture} alt=""/>
                                         </Link>,
                                     )
                                     :

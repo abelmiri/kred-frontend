@@ -178,7 +178,7 @@ class VideoPacksPage extends PureComponent
                                                     <div>مجموعه فیلم‌های آموزشی<span> </span>{company.name}</div>
                                                     <div className="company-item-left-side">
                                                         <div className="company-item-english">{company.english_name}</div>
-                                                        <img className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
+                                                        <img loading="lazy" className="company-item-img" src={REST_URL + "/" + company.picture} alt={company.name}/>
                                                     </div>
                                                 </div>
                                                 <div className="company-item-desc">{company.description}</div>

@@ -107,7 +107,7 @@ class ImageShow extends PureComponent
         const {className, src, alt} = this.props
         return (
             <React.Fragment>
-                <img className={className} src={src} alt={alt} ref={e => this.img = e} onClick={this.openImage}/>
+                <img loading="lazy" className={className} src={src} alt={alt} ref={e => this.img = e} onClick={this.openImage}/>
                 <Helmet>
                     {
                         showPicture ?

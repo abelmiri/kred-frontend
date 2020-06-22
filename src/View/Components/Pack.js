@@ -11,8 +11,8 @@ const Pack = (props) =>
     const {pack, buyPack} = props
     return (
         <Link className="video-pack-item" to={`/videos/${pack._id}`}>
-            {pack.off_percent !== 0 && !pack.have_permission && <img className="video-pack-banner" src={OffCorona} alt="off"/>}
-            <img className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
+            {pack.off_percent !== 0 && !pack.have_permission && <img loading="lazy" className="video-pack-banner" src={OffCorona} alt="off"/>}
+            <img loading="lazy" className="video-pack-item-img" src={REST_URL + "/" + pack.picture} alt={pack.title}/>
             {pack.price !== 0 && <div className="video-pack-item-sub">با زیرنویس فارسی</div>}
             <div className="video-pack-item-title">
                 <div className="video-pack-item-title-text">

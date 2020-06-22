@@ -39,7 +39,7 @@ class ImageLazyLoad extends PureComponent
     {
         const {className, thumbnail, src, alt} = this.props
         const {picture, loadingPercent} = this.state
-        return <img className={className} src={picture ? picture : thumbnail ? thumbnail : src} alt={alt} style={thumbnail ? {transition: "all linear 0.1s", filter: `Blur(${picture ? 0 : 100 / (loadingPercent > 0 ? loadingPercent : 1)}px)`} : {}}/>
+        return <img loading="lazy" className={className} src={picture ? picture : thumbnail ? thumbnail : src} alt={alt} style={thumbnail ? {transition: "all linear 0.1s", filter: `Blur(${picture ? 0 : 100 / (loadingPercent > 0 ? loadingPercent : 1)}px)`} : {}}/>
     }
 }
 

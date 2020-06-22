@@ -100,7 +100,7 @@ class ProfilePageDashboard extends PureComponent
                                 <div key={"slide" + index}
                                      style={{opacity: sliderIndex === index ? "1" : "0", left: sliderIndex === index ? "0" : previousSlider === index ? "30px" : "-30px"}}
                                      className="login-slider-item">
-                                    <img src={item.img} alt="" className="login-slider-img"/>
+                                    <img loading="lazy" src={item.img} alt="" className="login-slider-img"/>
                                     <div className="login-slider-text">{item.text}</div>
                                 </div>,
                             )
