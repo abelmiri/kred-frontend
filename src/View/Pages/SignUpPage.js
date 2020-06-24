@@ -84,7 +84,7 @@ class SignUpPage extends PureComponent
         if (!isNaN(value))
         {
             this.setState({...this.state, phone: value})
-            if (value.length === 11)
+            if (value.length === 11 && value.slice(0, 2) === "09")
             {
                 api.post("user/phone_check", {phone: value}, "")
                     .then((data) =>
@@ -109,7 +109,8 @@ class SignUpPage extends PureComponent
 
     blurPhone(e)
     {
-        if (e.target.value.length < 11) this.phoneInput.style.borderBottom = "1px solid red"
+        const phone = e.target.value
+        if (phone.length !== 11 || phone.slice(0, 2) !== "09") this.phoneInput.style.borderBottom = "1px solid red"
     }
 
     changeUsername(e)
