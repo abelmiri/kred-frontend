@@ -14,19 +14,9 @@ import ProfileSaves from "../Components/ProfileSaves"
 
 class ProfilePage extends PureComponent
 {
-    constructor(props)
-    {
-        super(props)
-        this.state = {
-            redirectHome: false,
-            posts: {},
-        }
-    }
-
     componentDidMount()
     {
         window.scroll({top: 0})
-        if (!localStorage.hasOwnProperty("user") && !sessionStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
 
         api.get("conversation", `?limit=2&page=1`)
             .then((data) => this.setState({...this.state, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
@@ -37,11 +27,6 @@ class ProfilePage extends PureComponent
         process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: "پروفایل"}).catch(err => console.log(err))
 
         document.addEventListener("scroll", this.onScroll)
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot)
-    {
-        if (prevProps.user && !this.props.user) this.setState({...this.state, redirectHome: true})
     }
 
     componentWillUnmount()
@@ -67,10 +52,10 @@ class ProfilePage extends PureComponent
 
     render()
     {
-        const {redirectHome, posts} = this.state
+        const {posts} = this.state || {}
         const {setUser, user, videoPacks} = this.props
-        if (redirectHome) return <Redirect to="/"/>
-        else if (user)
+        if (!user) return <Redirect to="/"/>
+        else
         {
             return (
                 <React.Fragment>
@@ -105,7 +90,7 @@ class ProfilePage extends PureComponent
                         </div>
                         <div className="profile-content">
                             <Switch>
-                                <Route path="/profile/info" render={() => <ProfilePageUserInfo setUser={setUser}/>}/>
+                                <Route path="/profile/info" render={() => <ProfilePageUserInfo user={user} setUser={setUser}/>}/>
                                 <Route path="/profile/saved" render={() => <ProfileSaves/>}/>
                                 <Route path="*" render={() => <ProfilePageDashboard user={user}/>}/>
                             </Switch>
@@ -118,7 +103,7 @@ class ProfilePage extends PureComponent
                                 گپ و گفت
                             </div>
                             {
-                                Object.values(posts).length > 0 ?
+                                posts && Object.values(posts).length > 0 ?
                                     Object.values(posts).map(item =>
                                         <Link key={item._id} to={`/pavilions/${item._id}`} className="profile-left-menus-contents">
                                             <div className="profile-left-menus-contents-desc">
@@ -155,7 +140,6 @@ class ProfilePage extends PureComponent
                 </React.Fragment>
             )
         }
-        else return null
     }
 }
 

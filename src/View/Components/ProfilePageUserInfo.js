@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import Material from "./Material"
 import api from "../../Functions/api"
 import {NotificationManager} from "react-notifications"
+import Constant from "../../Constant/Constant"
 
 class ProfilePageUserInfo extends Component
 {
@@ -31,27 +32,24 @@ class ProfilePageUserInfo extends Component
     {
         window.scroll({top: 0})
 
-        if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user"))
-        {
-            const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"))
-            this.setState({
-                    ...this.state,
-                    name: user.name && user.name,
-                    username: user.username && user.username,
-                    email: user.email && user.email,
-                    birth_date: user.birth_date && user.birth_date,
-                    university: user.university && user.university,
-                    entrance: user.entrance && user.entrance,
-                    major: user.major && user.major,
-                    grade: user.grade && user.grade,
-                },
-                () =>
-                {
-                    if (user.username && user.username) this.usernameValid = true
-                    document.body.clientWidth > 480 && this.name.focus()
-                },
-            )
-        }
+        const {user} = this.props
+        this.setState({
+                ...this.state,
+                name: user.name && user.name,
+                username: user.username && user.username,
+                email: user.email && user.email,
+                birth_date: user.birth_date && user.birth_date,
+                university: user.university && user.university,
+                entrance: user.entrance && user.entrance,
+                major: user.major && user.major,
+                grade: user.grade && user.grade,
+            },
+            () =>
+            {
+                if (user.username && user.username) this.usernameValid = true
+                document.body.clientWidth > 480 && this.name.focus()
+            },
+        )
     }
 
     setUserData = (e, type) =>
@@ -89,12 +87,13 @@ class ProfilePageUserInfo extends Component
         this.usernameValid = false
         const value = e.target.value.trim()
         this.setState({...this.state, username: value})
-        if (value.length > 2 && /^[a-zA-Z]+[a-zA-Z0-9_.-]+$/.test(value))
+        if (value.length > 2 && Constant.USERNAME_REGEX.test(value))
         {
             api.post("user/username_check", {username: value}, "")
                 .then((data) =>
                 {
-                    if (data.count > 0)
+                    const {user} = this.props
+                    if (data.count > 0 && value !== user.username)
                     {
                         if (this.usernameInput) this.usernameInput.style.borderBottom = "1px solid red"
                         if (this.usernameError)
@@ -114,7 +113,7 @@ class ProfilePageUserInfo extends Component
         }
         else
         {
-            if (value.length > 1 && !/^[a-zA-Z]+[a-zA-Z0-9_.-]+$/.test(value))
+            if (value.length > 1 && !Constant.USERNAME_REGEX.test(value))
             {
                 if (this.usernameInput) this.usernameInput.style.borderBottom = "1px solid red"
                 if (this.usernameError)
