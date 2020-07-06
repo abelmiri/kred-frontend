@@ -216,7 +216,11 @@ class ShowPackPage extends PureComponent
                         const objectStore = transaction.objectStore("subtitles")
                         const requestSave = objectStore.add({name: url, blob: res.data})
                         requestSave.onsuccess = event => console.log("saved", event)
-                        requestSave.onerror = err => console.log("error", err)
+                        requestSave.onerror = err =>
+                        {
+                            NotificationManager.error("مرورگر شما از پخش آفلاین ساپورت نمیکند، برای پخش آفلاین از Chrome استفاده کنید!")
+                            console.log("error", err)
+                        }
                     }
                 })
             })
