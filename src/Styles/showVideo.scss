@@ -22,6 +22,7 @@
   cursor: pointer;
   padding: 5px 0 5px 10px;
   font-size: $regular-font-size;
+  min-height: 25px;
 
   &.selected {
     color: var(--primary-color);

@@ -300,34 +300,37 @@ class ShowPackPage extends PureComponent
     downloadOffline = () =>
     {
         const {selected} = this.state
-        axios.get(
-            `${REST_URL}${selected.video_url}`,
-            {
-                responseType: "blob",
-                onDownloadProgress: e => this.setState({...this.state, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: Math.floor((e.loaded * 100) / e.total)}}}),
-                cancelToken: new axios.CancelToken(c => this[selected._id] = c),
-            },
-        )
-            .then((res) =>
-            {
-                const request = indexedDB.open("videoDb", 1)
-                request.onsuccess = e =>
+        this.setState({...this.state, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: 0}}}, () =>
+        {
+            axios.get(
+                `${REST_URL}${selected.video_url}`,
                 {
-                    const db = e.target.result
-                    const transaction = db.transaction(["videos"], "readwrite")
-                    const objectStore = transaction.objectStore("videos")
-                    const requestSave = objectStore.add({name: `${REST_URL}${selected.video_url}`, blob: res.data})
-                    requestSave.onsuccess = _ => this.setState({...this.state, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: 100}}})
-                    requestSave.onerror = err => console.log("error", err)
-                }
-            })
-            .catch(() =>
-            {
-                const downloadQue = {...this.state.downloadQue}
-                delete downloadQue[selected._id]
-                this.setState({...this.state, downloadQue})
-                NotificationManager.error("دانلود با مشکل مواجه شد!")
-            })
+                    responseType: "blob",
+                    onDownloadProgress: e => this.setState({...this.state, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: Math.floor((e.loaded * 100) / e.total)}}}),
+                    cancelToken: new axios.CancelToken(c => this[selected._id] = c),
+                },
+            )
+                .then((res) =>
+                {
+                    const request = indexedDB.open("videoDb", 1)
+                    request.onsuccess = e =>
+                    {
+                        const db = e.target.result
+                        const transaction = db.transaction(["videos"], "readwrite")
+                        const objectStore = transaction.objectStore("videos")
+                        const requestSave = objectStore.add({name: `${REST_URL}${selected.video_url}`, blob: res.data})
+                        requestSave.onsuccess = _ => this.setState({...this.state, offlineVideos: {...this.state.offlineVideos, [REST_URL + selected.video_url]: true}, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: 100}}})
+                        requestSave.onerror = err => console.log("error", err)
+                    }
+                })
+                .catch(() =>
+                {
+                    const downloadQue = {...this.state.downloadQue}
+                    delete downloadQue[selected._id]
+                    this.setState({...this.state, downloadQue})
+                    NotificationManager.error("دانلود با مشکل مواجه شد!")
+                })
+        })
     }
 
     showVideo(video)
