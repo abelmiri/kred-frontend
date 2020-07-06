@@ -445,7 +445,7 @@ class ShowPackPage extends PureComponent
                                                                     <div className="video-page-aside-videos-free svg">
                                                                         <TickSvg/>
                                                                         <div className="download-dialog-cont">
-                                                                            <div className="download-dialog offline">دانلود شده</div>
+                                                                            <div className="download-dialog offline">پخش آفلاین</div>
                                                                             <div className="download-dialog-arrow offline">▲</div>
                                                                         </div>
                                                                     </div>
