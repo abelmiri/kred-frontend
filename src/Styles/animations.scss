@@ -1,0 +1,39 @@
+@keyframes comes-in {
+  0% {
+    transform: translateX(100px);
+  }
+  98% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0)
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-down {
+  0% {
+    transform: scale(1);
+    height: 40px;
+  }
+  70% {
+    transform: scale(1);
+    height: 40px;
+  }
+  95% {
+    transform: scale(0);
+    height: 40px;
+  }
+  100% {
+    transform: scale(0);
+    height: 0;
+  }
+}

@@ -230,3 +230,89 @@
   padding: 15px 0;
   object-fit: contain;
 }
+
+.download-offline-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--login-page-background-color);
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $regular-font-size;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all linear 0.2s;
+  animation: comes-in ease 0.2s;
+
+  &.download {
+    margin-bottom: 10px;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    border: 1px solid white;
+    animation: scale ease 0.2s;
+
+    &.scale-down {
+      animation: scale-down ease-out 1s;
+      transform: scale(0);
+      height: 0;
+
+      &:after {
+        content: "";
+      }
+    }
+
+    &:after {
+      content: " % ";
+    }
+  }
+
+  &:hover {
+    + .download-dialog-cont {
+      display: block;
+    }
+  }
+}
+
+.download-offline-tick {
+  fill: white;
+  width: 20px;
+  animation: scale ease-in 0.2s;
+}
+
+.download-offline-cont {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+}
+
+.download-dialog-cont {
+  display: none;
+}
+
+.download-dialog {
+  white-space: nowrap;
+  position: absolute;
+  top: -31px;
+  transform: translateX(-50%);
+  font-size: 10px;
+  background-color: var(--secondary-color);
+  padding: 5px 8px;
+  left: 50%;
+  z-index: 2;
+  color: whitesmoke;
+  border-radius: 4px;
+}
+
+.download-dialog-arrow {
+  transform: rotate(180deg) translateX(50%);
+  color: var(--secondary-color);
+  position: absolute;
+  top: -20px;
+  left: 50%;
+}

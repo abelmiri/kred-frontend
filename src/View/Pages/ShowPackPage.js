@@ -9,6 +9,7 @@ import CopySvg from "../../Media/Svgs/CopySvg"
 import copyToClipboard from "../../Helpers/copyToClipboard"
 import PdfSvg from "../../Media/Svgs/PdfSvg"
 import ImageShow from "../Components/ImageShow"
+import TickSvg from "../../Media/Svgs/TickSvg"
 
 class ShowPackPage extends PureComponent
 {
@@ -23,6 +24,7 @@ class ShowPackPage extends PureComponent
             loading: false,
             loadingPercent: null,
             documents: {},
+            downloadQue: {},
         }
 
         this.offsetTop = null
@@ -96,14 +98,6 @@ class ShowPackPage extends PureComponent
 
     componentWillUnmount()
     {
-        if (this.canecl)
-        {
-            this.canecl()
-            this.canecl = null
-        }
-
-        clearTimeout(this.getVideoTimeout)
-
         if (process.env.NODE_ENV === "production")
         {
             document.removeEventListener("contextmenu", this.osContextMenu)
@@ -175,7 +169,7 @@ class ShowPackPage extends PureComponent
                                 try
                                 {
                                     requestGetSubtitle.result.blob.arrayBuffer()
-                                        .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve(true)))
+                                        .then((buffer) => this.setState({...this.state, subtitle: URL.createObjectURL(new Blob([buffer]))}, () => resolve()))
                                         .catch(() => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve))
                                 }
                                 catch (e)
@@ -189,7 +183,7 @@ class ShowPackPage extends PureComponent
                     }
                     request.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
                 }
-                else resolve(true)
+                else resolve()
             }
             else
             {
@@ -213,19 +207,16 @@ class ShowPackPage extends PureComponent
             {
                 this.setState({...this.state, subtitle: URL.createObjectURL(res.data)}, () =>
                 {
-                    resolve(res.status === 200)
-                    if (res.status === 200)
+                    resolve()
+                    const request = indexedDB.open("videoDb", 1)
+                    request.onsuccess = e =>
                     {
-                        const request = indexedDB.open("videoDb", 1)
-                        request.onsuccess = e =>
-                        {
-                            const db = e.target.result
-                            const transaction = db.transaction(["subtitles"], "readwrite")
-                            const objectStore = transaction.objectStore("subtitles")
-                            const requestSave = objectStore.add({name: url, blob: res.data})
-                            requestSave.onsuccess = event => console.log("saved", event)
-                            requestSave.onerror = err => console.log("error", err)
-                        }
+                        const db = e.target.result
+                        const transaction = db.transaction(["subtitles"], "readwrite")
+                        const objectStore = transaction.objectStore("subtitles")
+                        const requestSave = objectStore.add({name: url, blob: res.data})
+                        requestSave.onsuccess = event => console.log("saved", event)
+                        requestSave.onerror = err => console.log("error", err)
                     }
                 })
             })
@@ -237,7 +228,7 @@ class ShowPackPage extends PureComponent
             })
     }
 
-    getVideo(video, save)
+    getVideo(video)
     {
         const {video_url: url, title, _id} = video
         const request = indexedDB.open("videoDb", 1)
@@ -249,7 +240,7 @@ class ShowPackPage extends PureComponent
             const requestGetVideo = objectStoreVideo.get(`${REST_URL}${url}`)
 
             requestGetVideo.onerror = _ => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
-                this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
+                this.getVideoFromServerAndSave(),
             )
 
             requestGetVideo.onsuccess = _ =>
@@ -262,24 +253,24 @@ class ShowPackPage extends PureComponent
                             .then((buffer) => this.setState({...this.state, video: URL.createObjectURL(new Blob([buffer])), loading: false, loadingPercent: null, selected: {...video}}))
                             .catch(() =>
                                 this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
-                                    this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
+                                    this.getVideoFromServerAndSave(),
                                 ),
                             )
                     }
                     catch (e)
                     {
                         this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
-                            this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
+                            this.getVideoFromServerAndSave(),
                         )
                     }
                 }
                 else this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
-                    this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
+                    this.getVideoFromServerAndSave(),
                 )
             }
         }
         request.onerror = _ => this.setState({...this.state, video: `${REST_URL}${url}`, loading: false, loadingPercent: null, selected: {...video}}, () =>
-            this.getVideoFromServerAndSave(`${REST_URL}${url}`, save),
+            this.getVideoFromServerAndSave(),
         )
 
         api.get("video-document", _id)
@@ -289,49 +280,49 @@ class ShowPackPage extends PureComponent
         process.env.NODE_ENV === "production" && api.post("view", {type: "video", content: title, content_id: _id}).catch(err => console.log(err))
     }
 
-    getVideoFromServerAndSave(url, save)
+    getVideoFromServerAndSave()
     {
-        if (save)
-        {
-            if (this.canecl)
-            {
-                this.canecl()
-                this.canecl = null
-            }
+        this.setState({...this.state, offlineDownload: true})
+    }
 
-            clearTimeout(this.getVideoTimeout)
-            this.getVideoTimeout = setTimeout(() =>
+    downloadOffline = () =>
+    {
+        const {selected} = this.state
+        axios.get(
+            `${REST_URL}${selected.video_url}`,
             {
-                axios.get(
-                    url,
-                    {
-                        responseType: "blob",
-                        onDownloadProgress: e => console.log(`در حال دانلود ${Math.floor((e.loaded * 100) / e.total)} %`),
-                        cancelToken: new axios.CancelToken(c => this.canecl = c),
-                    },
-                )
-                    .then((res) =>
-                    {
-                        const request = indexedDB.open("videoDb", 1)
-                        request.onsuccess = e =>
-                        {
-                            const db = e.target.result
-                            const transaction = db.transaction(["videos"], "readwrite")
-                            const objectStore = transaction.objectStore("videos")
-                            const requestSave = objectStore.add({name: url, blob: res.data})
-                            requestSave.onsuccess = _ => NotificationManager.warning("ویدیو برای پخش آفلاین ذخیره شد!")
-                            requestSave.onerror = err => console.log("error", err)
-                        }
-                    })
-            }, 10000)
-        }
+                responseType: "blob",
+                onDownloadProgress: e => this.setState({...this.state, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: Math.floor((e.loaded * 100) / e.total)}}}),
+                cancelToken: new axios.CancelToken(c => this[selected._id] = c),
+            },
+        )
+            .then((res) =>
+            {
+                const request = indexedDB.open("videoDb", 1)
+                request.onsuccess = e =>
+                {
+                    const db = e.target.result
+                    const transaction = db.transaction(["videos"], "readwrite")
+                    const objectStore = transaction.objectStore("videos")
+                    const requestSave = objectStore.add({name: `${REST_URL}${selected.video_url}`, blob: res.data})
+                    requestSave.onsuccess = _ => this.setState({...this.state, downloadQue: {...this.state.downloadQue, [selected._id]: {_id: selected._id, percent: 100}}})
+                    requestSave.onerror = err => console.log("error", err)
+                }
+            })
+            .catch(() =>
+            {
+                const downloadQue = {...this.state.downloadQue}
+                delete downloadQue[selected._id]
+                this.setState({...this.state, downloadQue})
+                NotificationManager.error("دانلود با مشکل مواجه شد!")
+            })
     }
 
     showVideo(video)
     {
-        this.setState({...this.state, selected: null, subtitle: null, loading: true, loadingPercent: "0%", video: null}, () =>
+        this.setState({...this.state, selected: null, subtitle: null, loading: true, loadingPercent: "0%", video: null, offlineDownload: undefined}, () =>
             this.getSubtitle(video.subtitle_url)
-                .then((save) => this.getVideo(video, save)),
+                .then(() => this.getVideo(video)),
         )
     }
 
@@ -359,7 +350,7 @@ class ShowPackPage extends PureComponent
 
     render()
     {
-        const {videoPack, loading, loadingPercent, video, subtitle, selected, documents} = this.state
+        const {videoPack, loading, loadingPercent, video, subtitle, selected, documents, offlineDownload, downloadQue} = this.state
         return (
             <div className="video-page-cont">
                 {
@@ -442,6 +433,24 @@ class ShowPackPage extends PureComponent
                                     }
                                 </div>
                             </div>
+                            {
+                                (offlineDownload || Object.values(downloadQue).length > 0) &&
+                                <div className="download-offline-cont">
+                                    {
+                                        Object.values(downloadQue).map(item =>
+                                            <Material key={item._id} className={`download-offline-btn download ${item.percent === 100 ? "scale-down" : ""}`}>{item.percent === 100 ? <TickSvg className="download-offline-tick"/> : item.percent}</Material>,
+                                        )
+                                    }
+                                    {offlineDownload && selected && !downloadQue[selected._id] && <Material key={"download" + selected._id} className="download-offline-btn" onClick={this.downloadOffline}>دانلود</Material>}
+                                    {
+                                        Object.values(downloadQue).length === 0 &&
+                                        <div className="download-dialog-cont">
+                                            <div className="download-dialog">دانلود برای پخش آفلاین</div>
+                                            <div className="download-dialog-arrow">▲</div>
+                                        </div>
+                                    }
+                                </div>
+                            }
                         </React.Fragment>
                         :
                         <div className="exchange-show-cont">
