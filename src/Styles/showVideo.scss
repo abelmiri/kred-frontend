@@ -30,6 +30,7 @@
 }
 
 .video-page-aside-videos-free {
+  vertical-align: top;
   border: 1px solid var(--primary-color);
   color: var(--secondary-color);
   border-radius: 50%;
@@ -41,6 +42,21 @@
   justify-content: center;
   align-items: center;
   font-size: 8px;
+
+  &.svg {
+    border-color: transparent;
+
+    svg {
+      width: 17px;
+      fill: var(--success-color);
+    }
+
+    &:hover {
+      .download-dialog-cont {
+        display: block;
+      }
+    }
+  }
 
   &.videos {
     margin: 5px 7px 5px 0;
@@ -307,6 +323,12 @@
   z-index: 2;
   color: whitesmoke;
   border-radius: 4px;
+
+  &.offline {
+    top: 5px;
+    left: auto;
+    right: 5px;
+  }
 }
 
 .download-dialog-arrow {
@@ -315,4 +337,11 @@
   position: absolute;
   top: -20px;
   left: 50%;
+
+  &.offline {
+    top: 8px;
+    left: auto;
+    right: 30px;
+    transform: rotate(90deg) translateX(50%);
+  }
 }

@@ -25,6 +25,7 @@ class ShowPackPage extends PureComponent
             loadingPercent: null,
             documents: {},
             downloadQue: {},
+            offlineVideos: {},
         }
 
         this.offsetTop = null
@@ -47,6 +48,13 @@ class ShowPackPage extends PureComponent
             objectStoreSubtitle.createIndex("name", "name", {unique: true})
             objectStoreSubtitle.createIndex("blob", "blob", {unique: true})
             objectStoreSubtitle.transaction.oncomplete = event => console.log("store created", event)
+        }
+        request.onsuccess = event =>
+        {
+            const db = event.target.result
+            const transactionSubtitle = db.transaction(["videos"])
+            const objectStoreSubtitle = transactionSubtitle.objectStore("videos").getAll()
+            objectStoreSubtitle.onsuccess = e => this.setState({...this.state, offlineVideos: e && e.target && e.target.result ? e.target.result.reduce((sum, item) => ({...sum, [item.name]: true}), {}) : {}})
         }
 
         const {packId, videoId} = this.props
@@ -354,7 +362,7 @@ class ShowPackPage extends PureComponent
 
     render()
     {
-        const {videoPack, loading, loadingPercent, video, subtitle, selected, documents, offlineDownload, downloadQue} = this.state
+        const {videoPack, loading, loadingPercent, video, subtitle, selected, documents, offlineDownload, downloadQue, offlineVideos} = this.state
         return (
             <div className="video-page-cont">
                 {
@@ -428,7 +436,19 @@ class ShowPackPage extends PureComponent
                                                     category.videos.map(video =>
                                                         <Material key={"video" + video._id} className={`video-page-aside-videos-item ${selected?._id === video._id ? "selected" : ""}`} onClick={() => this.showVideo(video)}>
                                                             {video.title}
-                                                            {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
+                                                            <div>
+                                                                {
+                                                                    offlineVideos[REST_URL + video.video_url] &&
+                                                                    <div className="video-page-aside-videos-free svg">
+                                                                        <TickSvg/>
+                                                                        <div className="download-dialog-cont">
+                                                                            <div className="download-dialog offline">دانلود شده</div>
+                                                                            <div className="download-dialog-arrow offline">▲</div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                {video.is_free && !videoPack.have_permission && <div className="video-page-aside-videos-free">Free</div>}
+                                                            </div>
                                                         </Material>,
                                                     )
                                                 }
