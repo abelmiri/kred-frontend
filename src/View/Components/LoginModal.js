@@ -53,7 +53,7 @@ class LoginModal extends PureComponent
             {
                 const phone = this.phoneInput.value.trim()
                 const password = this.passwordInput.value
-                if (phone.length > 0 && password.length >= 6 && password.length <= 30)
+                if (phone.length > 0 && password.length >= 6 && password.length <= 32)
                 {
                     this.setState({...this.state, loginLoading: true}, () =>
                     {
@@ -102,7 +102,7 @@ class LoginModal extends PureComponent
                                ref={e => this.passwordInput = e}
                                className="create-exchange-section-input"
                                placeholder="رمز عبور"
-                               maxLength={30}
+                               maxLength={32}
                                name="password"
                                onKeyDown={this.submitOnEnter}
                         />

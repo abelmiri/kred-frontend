@@ -10,7 +10,6 @@ class PanelSidebar extends PureComponent
         this.posY = 0
         this.prevY = 0
         this.deltaY = 0
-        this.windowHeight = -525
         this.showingSidebar = false
     }
 
@@ -24,9 +23,9 @@ class PanelSidebar extends PureComponent
     {
         this.deltaY = this.posY - e.touches[0].clientY
         this.posY = e.touches[0].clientY
-        this.prevY = this.prevY - this.deltaY <= 0 ? this.prevY - this.deltaY >= this.windowHeight ? this.prevY - this.deltaY : this.windowHeight : 0
+        this.prevY = this.prevY - this.deltaY <= 0 ? this.prevY - this.deltaY >= (-this.sidebar.scrollHeight + 45) ? this.prevY - this.deltaY : (-this.sidebar.scrollHeight + 45) : 0
         this.sidebar.style.transform = `translateY(${this.prevY}px)`
-        this.sidebarBack.style.opacity = `${(this.prevY / this.windowHeight)}`
+        this.sidebarBack.style.opacity = `${(this.prevY / (-this.sidebar.scrollHeight + 45))}`
         this.sidebarBack.style.height = `100vh`
     }
 
@@ -34,13 +33,13 @@ class PanelSidebar extends PureComponent
     {
         if (this.deltaY > 3) this.showSidebar()
         else if (this.deltaY < -3) this.hideSidebar()
-        else if (this.prevY > this.windowHeight / 2) this.hideSidebar()
+        else if (this.prevY > (-this.sidebar.scrollHeight + 45) / 2) this.hideSidebar()
         else this.showSidebar()
     }
 
     showSidebar = () =>
     {
-        this.prevY = this.windowHeight
+        this.prevY = (-this.sidebar.scrollHeight + 45)
         this.sidebar.style.transition = "transform linear 0.2s"
         this.sidebar.style.transform = `translateY(${this.prevY}px)`
         this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
@@ -91,6 +90,7 @@ class PanelSidebar extends PureComponent
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/pavilion"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">گپ و گفت</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/mind-maps"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">مایندمپ‌ها</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-sign-ups"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کاربران</Material></NavLink>
+                    <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/diagrams"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">نمودار بازدید</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/quiz"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کوئیز</Material></NavLink>
                 </div>
                 <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>

@@ -276,10 +276,9 @@
     left: 0;
     top: calc(100% - 45px);
     width: auto;
-    z-index: 2;
+    z-index: 3;
     border-radius: 15px 15px 0 0;
     overflow: hidden;
-    height: 100vh;
     background-color: white;
   }
 }
@@ -540,4 +539,9 @@
 .panel-add-doc-pdf {
   width: 150px;
   fill: var(--success-color);
+}
+
+.panel-diagram {
+  padding-top: 20px;
+  font-size: $regular-font-size;
 }
