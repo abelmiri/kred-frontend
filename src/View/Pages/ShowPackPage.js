@@ -189,7 +189,7 @@ class ShowPackPage extends PureComponent
                     }
                     request.onerror = _ => this.getSubtitleFromServerAndSave(`${REST_URL}${url}`, resolve)
                 }
-                else resolve(false)
+                else resolve(true)
             }
             else
             {
@@ -405,12 +405,12 @@ class ShowPackPage extends PureComponent
                                                 documents[selected?._id] &&
                                                 documents[selected?._id]?.map(item =>
                                                     item.type === "image" ?
-                                                        <div className="video-page-document">
+                                                        <div key={item._id} className="video-page-document">
                                                             <ImageShow className="video-page-document-img" src={REST_URL + item.file} alt={selected?.title}/>
                                                             <div className="video-page-document-desc">{item.description}</div>
                                                         </div>
                                                         :
-                                                        <a href={REST_URL + item.file} target="_blank" rel="noopener noreferrer" className="video-page-document">
+                                                        <a key={item._id} href={REST_URL + item.file} target="_blank" rel="noopener noreferrer" className="video-page-document">
                                                             <PdfSvg className="video-page-document-svg"/>
                                                             <div className="video-page-document-desc">{item.description}</div>
                                                         </a>,

@@ -542,7 +542,7 @@ class ClassItemResourceFilePage extends PureComponent
                     <React.Fragment>
                         <div className="create-exchange-back" onClick={this.hideCompleteProfile}/>
                         <div className="buy-loading profile">
-                            <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={this.downloadAfterComplete}/>
+                            <ProfilePageUserInfo user={user} setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={this.downloadAfterComplete}/>
                         </div>
                     </React.Fragment>
                 }

@@ -228,7 +228,7 @@ class VideoPacksPage extends PureComponent
                                         <div className="buy-loading profile">
                                             <div className="buy-slide-cont" style={{transform: `translateX(${level * 100}%)`}}>
                                                 <div className="buy-slide">
-                                                    <ProfilePageUserInfo setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={this.buyPack}/>
+                                                    <ProfilePageUserInfo user={user} setUser={setUser} showPrompt={true} dontShowPasswordBtn={true} resolve={this.buyPack}/>
                                                 </div>
                                                 <div className="buy-slide">
                                                     <div className="profile-introduction-title">تایید خرید</div>
