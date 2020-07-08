@@ -15,7 +15,7 @@ class PanelSidebar extends PureComponent
 
     onTouchStart = (e) =>
     {
-        this.maxHeight = -this.sidebar.scrollHeight + 130 > -window.innerHeight + 130 ? -this.sidebar.scrollHeight + 130 : -window.innerHeight + 130
+        this.maxHeight = this.sidebar.scrollHeight - 45 <= window.innerHeight - 130 ? -this.sidebar.scrollHeight + 45 : -window.innerHeight + 130
         if (this.sidebar.scrollTop === 0 || this.sidebar.style.overflow !== "auto")
         {
             this.posY = e.touches[0].clientY
