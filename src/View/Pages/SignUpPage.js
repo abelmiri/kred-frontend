@@ -247,7 +247,7 @@ class SignUpPage extends PureComponent
                                     {
                                         const {locationSearch, setUser} = this.props
                                         setUser(data)
-                                        if (locationSearch.includes("?return=")) this.setState({...this.state, loading: false, redirect: locationSearch.replace("?return=", "")})
+                                        if (locationSearch && locationSearch.includes("?return=")) this.setState({...this.state, loading: false, redirect: locationSearch.replace("?return=", "")})
                                         else this.setState({...this.state, loading: false, redirect: "/"})
                                     })
                                     .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
@@ -265,7 +265,7 @@ class SignUpPage extends PureComponent
                             {
                                 const {locationSearch, setUser} = this.props
                                 setUser(data)
-                                if (locationSearch.includes("?return=")) this.setState({...this.state, loading: false, redirect: locationSearch.replace("?return=", "")})
+                                if (locationSearch && locationSearch.includes("?return=")) this.setState({...this.state, loading: false, redirect: locationSearch.replace("?return=", "")})
                                 else this.setState({...this.state, loading: false, redirect: "/"})
                             })
                             .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
