@@ -17,6 +17,7 @@ import {Helmet} from "react-helmet"
 import Quiz from "./Quiz"
 import MindMaps from "./MindMaps"
 import Diagrams from "./Diagrams"
+import SendNotification from "./SendNotification"
 
 class Panel extends PureComponent
 {
@@ -55,6 +56,7 @@ class Panel extends PureComponent
                         <Route path="/panel/quiz" render={() => <Quiz/>}/>
                         <Route path="/panel/mind-maps" render={() => <MindMaps/>}/>
                         <Route path="/panel/diagrams" render={() => <Diagrams/>}/>
+                        <Route path="/panel/send-notification" render={() => <SendNotification/>}/>
                         <Route path="*" render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
                     </Switch>
                 </div>

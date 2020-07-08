@@ -49,7 +49,6 @@ class AddQuestion extends PureComponent
         const correct_answer = this.correct_answer?.trim()
         const selectedImage = this.selectedImage
 
-
         if (update)
         {
             if (title || first_answer || second_answer || third_answer || forth_answer || (correct_answer && parseInt(correct_answer) <= 4 && parseInt(correct_answer) >= 1) || selectedImage)

@@ -13,6 +13,7 @@ self.addEventListener("push", event =>
         body: data.body,
         image: data.image,
         tag: data.tag,
+        vibrate: [100, 50, 100],
         requireInteraction: data.requireInteraction,
         renotify: data.renotify,
         data: {url: data.url},

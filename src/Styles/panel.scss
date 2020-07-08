@@ -376,6 +376,13 @@
     height: 200px;
     margin: 10px auto 35px auto;
   }
+
+  &.left {
+    input {
+      direction: ltr;
+      text-align: left;
+    }
+  }
 }
 
 .panel-add-pav-submit {
@@ -384,6 +391,11 @@
   font-size: $home-regular-font-size;
   padding: 10px;
   cursor: pointer;
+
+  &.loading {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
 }
 
 .panel-add-img {
@@ -406,7 +418,7 @@
 
 .panel-add-img-star {
   vertical-align: top;
-  color: grey;
+  color: var(--error-color);
 }
 
 .panel-add-audio {
@@ -544,4 +556,8 @@
 .panel-diagram {
   padding-top: 20px;
   font-size: $regular-font-size;
+}
+
+.required-star {
+  color: var(--error-color);
 }

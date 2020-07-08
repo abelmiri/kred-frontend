@@ -7,39 +7,46 @@ class PanelSidebar extends PureComponent
     constructor(props)
     {
         super(props)
+        this.state = {showingSidebar: false}
         this.posY = 0
         this.prevY = 0
         this.deltaY = 0
-        this.showingSidebar = false
     }
 
     onTouchStart = (e) =>
     {
-        this.posY = e.touches[0].clientY
-        document.body.style.overflow = "hidden"
+        this.maxHeight = -this.sidebar.scrollHeight + 130 > -window.innerHeight + 130 ? -this.sidebar.scrollHeight + 130 : -window.innerHeight + 130
+        if (this.sidebar.scrollTop === 0 || this.sidebar.style.overflow !== "auto")
+        {
+            this.posY = e.touches[0].clientY
+            document.body.style.overflow = "hidden"
+        }
     }
 
     onTouchMove = (e) =>
     {
-        this.deltaY = this.posY - e.touches[0].clientY
-        this.posY = e.touches[0].clientY
-        this.prevY = this.prevY - this.deltaY <= 0 ? this.prevY - this.deltaY >= (-this.sidebar.scrollHeight + 45) ? this.prevY - this.deltaY : (-this.sidebar.scrollHeight + 45) : 0
-        this.sidebar.style.transform = `translateY(${this.prevY}px)`
-        this.sidebarBack.style.opacity = `${(this.prevY / (-this.sidebar.scrollHeight + 45))}`
-        this.sidebarBack.style.height = `100vh`
+        if (this.sidebar.scrollTop === 0 || this.sidebar.style.overflow !== "auto")
+        {
+            this.deltaY = this.posY - e.touches[0].clientY
+            this.posY = e.touches[0].clientY
+            this.prevY = this.prevY - this.deltaY <= 0 ? this.prevY - this.deltaY >= this.maxHeight ? this.prevY - this.deltaY : this.maxHeight : 0
+            this.sidebar.style.transform = `translateY(${this.prevY}px)`
+            this.sidebarBack.style.opacity = `${(this.prevY / this.maxHeight)}`
+            this.sidebarBack.style.height = `100vh`
+        }
     }
 
     onTouchEnd = () =>
     {
         if (this.deltaY > 3) this.showSidebar()
         else if (this.deltaY < -3) this.hideSidebar()
-        else if (this.prevY > (-this.sidebar.scrollHeight + 45) / 2) this.hideSidebar()
+        else if (this.prevY > this.maxHeight / 2) this.hideSidebar()
         else this.showSidebar()
     }
 
     showSidebar = () =>
     {
-        this.prevY = (-this.sidebar.scrollHeight + 45)
+        this.prevY = this.maxHeight
         this.sidebar.style.transition = "transform linear 0.2s"
         this.sidebar.style.transform = `translateY(${this.prevY}px)`
         this.sidebarBack.style.transition = "opacity linear 0.3s, height linear 0s 0s"
@@ -47,10 +54,12 @@ class PanelSidebar extends PureComponent
         this.sidebarBack.style.height = `100vh`
         setTimeout(() =>
         {
-            this.showingSidebar = true
-            if (this.sidebar) this.sidebar.style.transition = "initial"
-            if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
-            document.body.style.overflow = "auto"
+            this.setState({...this.state, showingSidebar: true}, () =>
+            {
+                if (this.sidebar) this.sidebar.style.transition = "initial"
+                if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
+                document.body.style.overflow = "auto"
+            })
         }, 250)
     }
 
@@ -64,20 +73,23 @@ class PanelSidebar extends PureComponent
         this.sidebarBack.style.height = `0`
         setTimeout(() =>
         {
-            this.showingSidebar = false
-            if (this.sidebar) this.sidebar.style.transition = "initial"
-            if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
-            document.body.style.overflow = "auto"
+            this.setState({...this.state, showingSidebar: false}, () =>
+            {
+                if (this.sidebar) this.sidebar.style.transition = "initial"
+                if (this.sidebarBack) this.sidebarBack.style.transition = "initial"
+                document.body.style.overflow = "auto"
+            })
         }, 250)
     }
 
-    switchSide = () => this.showingSidebar ? this.hideSidebar() : this.showSidebar()
+    switchSide = () => this.state.showingSidebar ? this.hideSidebar() : this.showSidebar()
 
     render()
     {
+        const {showingSidebar} = this.state
         return (
             <React.Fragment>
-                <div className="panel-side-bar" ref={e => this.sidebar = e} onTouchStart={this.onTouchStart} onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd}>
+                <div className="panel-side-bar hide-scroll" style={showingSidebar ? {bottom: this.maxHeight, overflow: "auto"} : {}} ref={e => this.sidebar = e} onTouchStart={this.onTouchStart} onTouchMove={this.onTouchMove} onTouchEnd={this.onTouchEnd}>
                     <Material className="panel-side-bar-mobile-line" onClick={this.switchSide}>
                         <div className="panel-side-bar-line"/>
                     </Material>
@@ -91,6 +103,7 @@ class PanelSidebar extends PureComponent
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/mind-maps"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">مایندمپ‌ها</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/all-sign-ups"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کاربران</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/diagrams"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">نمودار بازدید</Material></NavLink>
+                    <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/send-notification"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">ارسال نوتیفیکیشن</Material></NavLink>
                     <NavLink onClick={this.hideSidebar} className="panel-side-bar-item-link" activeClassName="selected" to="/panel/quiz"><Material backgroundColor="rgba(0,0,0,0.5)" className="panel-side-bar-item">کوئیز</Material></NavLink>
                 </div>
                 <div className="header-sidebar-back" style={{opacity: "0", height: "0"}} ref={e => this.sidebarBack = e} onClick={this.hideSidebar}/>

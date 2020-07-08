@@ -9,6 +9,7 @@ class MaterialInput extends PureComponent
         label: PropTypes.any.isRequired,
         getValue: PropTypes.func.isRequired,
         type: PropTypes.string,
+        placeholder: PropTypes.string,
         maxLength: PropTypes.number,
         isTextArea: PropTypes.bool,
         disabled: PropTypes.bool,
@@ -55,7 +56,7 @@ class MaterialInput extends PureComponent
 
     render()
     {
-        const {className, isTextArea, maxLength, borderColor, type, label, backgroundColor, name, disabled} = this.props
+        const {className, isTextArea, maxLength, borderColor, type, label, backgroundColor, name, disabled, placeholder} = this.props
         const {focused, value} = this.state
 
         return (
@@ -73,6 +74,7 @@ class MaterialInput extends PureComponent
                                   onBlur={this.handleBlur}
                                   style={borderColor ? {borderColor} : {}}
                                   disabled={disabled}
+                                  placeholder={focused || value.toString().length > 0 ? placeholder : ""}
                         />
                         :
                         <input type={type ? type : "text"}
@@ -87,6 +89,7 @@ class MaterialInput extends PureComponent
                                onBlur={this.handleBlur}
                                style={borderColor ? {borderColor} : {}}
                                disabled={disabled}
+                               placeholder={focused || value.toString().length > 0 ? placeholder : ""}
                         />
                 }
 
