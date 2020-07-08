@@ -79,7 +79,7 @@ class LoginModal extends PureComponent
 
     render()
     {
-        const {hideLoginModal, setOverflowAuto} = this.props
+        const {hideLoginModal, setOverflowAuto, location} = this.props
         const {loginLoading, rememberMe, forgetPassword} = this.state
         return (
             <React.Fragment>
@@ -117,7 +117,7 @@ class LoginModal extends PureComponent
                     <Material className={`header-login-submit ${loginLoading ? "loading" : ""}`} onClick={this.login}>
                         {loginLoading ? <ClipLoader color="white" size={15}/> : forgetPassword ? "بازیابی رمز" : "ورود"}
                     </Material>
-                    <Link onClick={setOverflowAuto} to="/sign-up" className="login-modal-sign-up">ثبت نام در KRED</Link>
+                    <Link onClick={setOverflowAuto} to={`/sign-up?return=${location}`} className="login-modal-sign-up">ثبت نام در KRED</Link>
                 </div>
             </React.Fragment>
         )

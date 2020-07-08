@@ -342,7 +342,7 @@ class Header extends PureComponent
                         {user && <Material className="header-sidebar-log-out" onClick={this.logout}>خروج از حساب</Material>}
                     </div>
 
-                    {showLoginModal && <LoginModal setUser={setUser} setOverflowAuto={this.setOverflowAuto} hideLoginModal={this.hideLoginModal}/>}
+                    {showLoginModal && <LoginModal setUser={setUser} location={location} setOverflowAuto={this.setOverflowAuto} hideLoginModal={this.hideLoginModal}/>}
 
                 </div>
             )

@@ -26,7 +26,7 @@ class SignUpPage extends PureComponent
         this.emailValid = false
         this.passwordValid = false
         this.state = {
-            redirectHome: false,
+            redirect: false,
             loading: false,
             previousSlider: this.slides.length - 1,
             sliderIndex: 0,
@@ -47,7 +47,7 @@ class SignUpPage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
-        if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user")) this.setState({...this.state, redirectHome: true})
+        if (localStorage.hasOwnProperty("user") || sessionStorage.hasOwnProperty("user")) this.setState({...this.state, redirect: "/"})
 
         this.sliderInterval = setInterval(() =>
         {
@@ -229,7 +229,6 @@ class SignUpPage extends PureComponent
     submit()
     {
         const {loading, level} = this.state
-        const {setUser} = this.props
         if (!loading && this.phoneValid && this.passwordValid && this.usernameValid && this.emailValid)
         {
             this.setState({...this.state, loading: true}, () =>
@@ -246,8 +245,10 @@ class SignUpPage extends PureComponent
                                 api.post("user", {phone: this.phoneInput.value, username: this.usernameInput.value, name: this.nameInput.value, password: this.passwordInput.value, error: true}, "")
                                     .then((data) =>
                                     {
+                                        const {locationSearch, setUser} = this.props
                                         setUser(data)
-                                        this.setState({...this.state, loading: false, redirectHome: true})
+                                        if (locationSearch.includes("?return=")) this.setState({...this.state, loading: false, redirect: locationSearch.replace("?return=", "")})
+                                        else this.setState({...this.state, loading: false, redirect: "/"})
                                     })
                                     .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
                             }
@@ -262,8 +263,10 @@ class SignUpPage extends PureComponent
                         api.post("user", {phone: this.phoneInput.value, email: this.emailInput.value, username: this.usernameInput.value, name: this.nameInput.value, password: this.passwordInput.value, code: this.codeInput.value}, "")
                             .then((data) =>
                             {
+                                const {locationSearch, setUser} = this.props
                                 setUser(data)
-                                this.setState({...this.state, loading: false, redirectHome: true})
+                                if (locationSearch.includes("?return=")) this.setState({...this.state, loading: false, redirect: locationSearch.replace("?return=", "")})
+                                else this.setState({...this.state, loading: false, redirect: "/"})
                             })
                             .catch(() => this.setState({...this.state, loading: false}, () => NotificationManager.error("سیستم با خطا مواجه شد! اینترنت خود را بررسی کنید!")))
                     }
@@ -282,7 +285,7 @@ class SignUpPage extends PureComponent
 
     render()
     {
-        const {sliderIndex, previousSlider, redirectHome, loading, phone, username, level, email} = this.state
+        const {sliderIndex, previousSlider, redirect, loading, phone, username, level, email} = this.state
         return (
             <div className="login-container">
 
@@ -295,7 +298,7 @@ class SignUpPage extends PureComponent
                     <meta name="twitter:description" content="یه جمع باحال و پرانرژی از دانشجوهای علوم پزشکی... ما اینجا باهم درس می‌خونیم و به هم کمک می‌کنیم تا توی کار و زندگیمون بهتر بشیم، توی KRED، ما از جدیدترین منابع آموزشی استفاده می‌کنیم و با روش‌های جدید درس می‌خونیم، با پزشک‌ها، اساتید و دانشجوهای موفق صحبت می‌کنیم و از تجربیاتشون استفاده می‌کنیم"/>
                 </Helmet>
 
-                {redirectHome && <Redirect to="/"/>}
+                {redirect && <Redirect to={redirect}/>}
 
                 <div className="login-square"/>
 
