@@ -15,6 +15,7 @@ class SendNotification extends PureComponent
         this.state = {
             requireInteraction: true,
             renotify: true,
+            sendToAll: true,
         }
     }
 
@@ -40,16 +41,50 @@ class SendNotification extends PureComponent
 
     toggleRenotify = () => this.setState({...this.state, renotify: !this.state.renotify})
 
+    toggleSendToAll(sendToAll)
+    {
+        this.setState({...this.state, sendToAll})
+    }
+
+    searchUsers = e =>
+    {
+        const value = e.target.value
+        clearTimeout(this.search)
+        this.search = setTimeout(() =>
+        {
+            this.setState({...this.state, suggestedUsers: []}, () =>
+            {
+                if (value.length > 2)
+                {
+                    api.get("user", `?search=${value}&limit=10`)
+                        .then(suggestedUsers => this.setState({...this.state, suggestedUsers}))
+                }
+            })
+        }, 250)
+    }
+
+    selectUser(user)
+    {
+        this.setState({...this.state, users: {...this.state.users, [user._id]: user}, suggestedUsers: []})
+    }
+
+    removeUser(user)
+    {
+        const users = {...this.state.users}
+        delete users[user._id]
+        this.setState({...this.state, users})
+    }
+
     submit = () =>
     {
-        const {requireInteraction, renotify} = this.state
+        const {requireInteraction, renotify, sendToAll, users} = this.state
         const title = this.title?.trim()
         const body = this.body?.trim()
         const tag = this.tag?.trim()
         const url = this.url?.trim()
         const image = this.image
 
-        if (title && body && tag)
+        if (title && body && tag && (sendToAll || (users && Object.values(users).length > 0)))
         {
             let form = new FormData()
             form.append("title", title)
@@ -58,6 +93,7 @@ class SendNotification extends PureComponent
             url && form.append("url", url)
             requireInteraction !== true && form.append("requireInteraction", requireInteraction)
             renotify !== true && form.append("renotify", renotify)
+            sendToAll !== true && form.append("users_id", JSON.stringify(Object.values(users).reduce((sum, item) => [...sum, item._id], [])))
             compressImage(image)
                 .then(image =>
                 {
@@ -68,7 +104,11 @@ class SendNotification extends PureComponent
                             NotificationManager.success("ها")
                             this.setState({...this.state, loading: false})
                         })
-                        .catch(err => NotificationManager.error(err))
+                        .catch(err =>
+                        {
+                            console.log(err)
+                            NotificationManager.error("خطایی رخ داد!")
+                        })
                 })
         }
         else
@@ -76,12 +116,13 @@ class SendNotification extends PureComponent
             if (!title) NotificationManager.warning("عنوان را وارد بفرمایید.")
             if (!body) NotificationManager.warning("متن را وارد بفرمایید.")
             if (!tag) NotificationManager.warning("تگ را وارد بفرمایید. اگ نمیدونی چی بزنی دستتو پرت کن رو کیبورد!")
+            if (!sendToAll) NotificationManager.warning("حداقل یک یوزر انتخاب کن!")
         }
     }
 
     render()
     {
-        const {loading, selectedImagePreview, requireInteraction, renotify} = this.state || {}
+        const {loading, selectedImagePreview, requireInteraction, renotify, suggestedUsers, users, sendToAll} = this.state
         return (
             <section className="panel-page-section">
                 <div className="panel-page-section-title">ارسال نوتیفیکیشن</div>
@@ -115,7 +156,49 @@ class SendNotification extends PureComponent
                             </div>
                     }
                 </label>
-                <Material className={`panel-add-pav-submit ${loading ? "loading" : ""}`} onClick={this.submit}>ثبت</Material>
+
+                <div className="panel-add-notif-radio">
+                    <Material className="login-modal-forget class" onClick={loading ? null : () => this.toggleSendToAll(true)}>
+                        <div className={`login-modal-forget-radio ${sendToAll ? "" : "hide"}`}/>
+                        ارسال به همه
+                    </Material>
+                    <Material className="login-modal-forget class" onClick={loading ? null : () => this.toggleSendToAll(false)}>
+                        <div className={`login-modal-forget-radio ${!sendToAll ? "" : "hide"}`}/>
+                        انتخاب کاربران
+                    </Material>
+                </div>
+
+                {
+                    !sendToAll &&
+                    <div className="panel-add-off-main-menu-cont">
+                        <MaterialInput disabled={loading} className="panel-add-pav-title no-margin-top" backgroundColor="white" label="نام، شماره، ایمیل یا نام‌کاربری" getValue={this.searchUsers}/>
+                        {
+                            suggestedUsers && suggestedUsers.length > 0 &&
+                            <div className="panel-add-off-main-menu">
+                                {
+                                    suggestedUsers.filter(item => !(users && users[item._id])).map(item =>
+                                        <Material className="panel-add-off-main-menu-item" key={item._id} onClick={() => this.selectUser(item)}>
+                                            {item.name ? item.name + " | " + item.phone : item.username ? item.username + " | " + item.phone : item.phone}
+                                        </Material>,
+                                    )
+                                }
+                            </div>
+                        }
+                        <div className="panel-add-notif-users">
+                            {
+                                users && Object.values(users).length > 0 ?
+                                    Object.values(users).map(item =>
+                                        <div className="panel-add-notif-users-item" onClick={() => this.removeUser(item)}>
+                                            {item.name ? item.name + " | " + item.phone : item.username ? item.username + " | " + item.phone : item.phone}
+                                        </div>,
+                                    )
+                                    :
+                                    <div className="error-text">کاربری انتخاب نشده است</div>
+                            }
+                        </div>
+                    </div>
+                }
+                <Material className={`panel-add-pav-submit margin-bottom ${loading ? "loading" : ""}`} onClick={this.submit}>ثبت</Material>
             </section>
         )
     }

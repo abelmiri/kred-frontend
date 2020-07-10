@@ -186,6 +186,7 @@
   z-index: 1;
   background-color: white;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
 }
 
 .panel-add-off-main-menu-item {
@@ -392,6 +393,10 @@
   padding: 10px;
   cursor: pointer;
 
+  &.margin-bottom {
+    margin-bottom: 200px;
+  }
+
   &.loading {
     cursor: not-allowed;
     opacity: 0.7;
@@ -560,4 +565,62 @@
 
 .required-star {
   color: var(--error-color);
+}
+
+.panel-add-notif-radio {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.panel-add-notif-users {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  margin-bottom: 15px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.panel-add-notif-users-item {
+  position: relative;
+  font-size: $regular-font-size;
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 5px;
+
+  &:hover {
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &:after {
+    transition: all linear 0.2s;
+    position: absolute;
+    content: "حذف";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--error-color);
+    font-weight: bold;
+    opacity: 0;
+
+    @media screen and (max-width: 480px) {
+      position: static;
+      opacity: 1;
+      border-radius: 15px;
+      margin: 3px 0;
+    }
+  }
 }

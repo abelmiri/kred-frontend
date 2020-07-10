@@ -456,3 +456,51 @@
     transition: all linear 0.1s;
   }
 }
+
+.login-modal-forget-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 2px;
+  margin-left: 10px;
+  position: relative;
+
+  &.hide {
+    &:after {
+      opacity: 0;
+      transform: rotate(45deg) scale(0);
+    }
+
+    &:before {
+      opacity: 0;
+      transform: rotate(-45deg) scale(0);
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 3px;
+    background-color: white;
+    transform: rotate(45deg);
+    left: 2.5px;
+    top: 9px;
+    transition: all linear 0.1s;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 3px;
+    background-color: white;
+    transform: rotate(-45deg);
+    left: 4px;
+    top: 7px;
+    transition: all linear 0.1s;
+  }
+}
