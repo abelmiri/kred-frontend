@@ -28,6 +28,8 @@ class AllUsers extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("view/all/sign-up", `?limit=20&page=1&source=all`)
             .then(results => this.setState({
                 ...this.state,

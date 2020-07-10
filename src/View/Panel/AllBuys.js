@@ -17,6 +17,8 @@ class AllBuys extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("view/all/pack-users")
             .then(packUsers => this.setState({...this.state, packUsers, isLoading: false}))
             .catch((err) =>

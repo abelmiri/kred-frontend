@@ -15,6 +15,8 @@ class AllVideoViews extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("view/all/video")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>

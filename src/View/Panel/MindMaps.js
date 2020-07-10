@@ -23,6 +23,7 @@ class MindMaps extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
+
         api.get("video-document", `?limit=50&page=1`)
             .then((data) => this.setState({...this.state, documentsLoading: false, documents: data.reduce((sum, doc) => ({...sum, [doc._id]: {...doc}}), {})}))
             .catch(() => this.setState({...this.state, error: true, documentsLoading: false}))

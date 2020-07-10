@@ -24,6 +24,8 @@ class OffCodes extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("off-code")
             .then(results => this.setState({...this.state, offCodes: results.reduce((sum, code) => ({...sum, [code._id]: {...code}}), {})}))
             .catch((err) =>

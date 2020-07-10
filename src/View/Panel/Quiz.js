@@ -23,6 +23,8 @@ class Quiz extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("quiz")
             .then(data =>
             {

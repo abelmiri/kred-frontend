@@ -7,6 +7,11 @@ import {Link} from "react-router-dom"
 
 class Dashboard extends PureComponent
 {
+    componentDidMount()
+    {
+        window.scroll({top: 0})
+    }
+
     render()
     {
         return (

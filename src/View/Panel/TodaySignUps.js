@@ -15,6 +15,8 @@ class TodaySignUps extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("view/today/sign-up")
             .then(results => this.setState({...this.state, results}))
             .catch((err) =>

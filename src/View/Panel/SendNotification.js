@@ -19,6 +19,11 @@ class SendNotification extends PureComponent
         }
     }
 
+    componentDidMount()
+    {
+        window.scroll({top: 0})
+    }
+
     setValue = e => this[e.target.name] = e.target.value
 
     selectImage = (e) =>

@@ -16,6 +16,8 @@ class Diagrams extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         NotificationManager.warning("ادمین جان، محاسبه این نمودار برای سرور زمان بره! صبور باش!")
         api.get("view/view-diagram")
             .then(data => this.setState({...this.state, data}))

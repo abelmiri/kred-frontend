@@ -38,6 +38,7 @@ class Pavilion extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
+
         api.get("conversation", `?limit=50&page=1`)
             .then((data) => this.setState({...this.state, postsLoading: false, posts: data.reduce((sum, post) => ({...sum, [post._id]: {...post}}), {})}))
             .catch(() => this.setState({...this.state, error: true, postsLoading: false}))

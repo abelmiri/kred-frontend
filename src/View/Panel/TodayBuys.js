@@ -17,6 +17,8 @@ class TodayBuys extends PureComponent
 
     componentDidMount()
     {
+        window.scroll({top: 0})
+
         api.get("view/today/pack-users")
             .then(packUsers => this.setState({...this.state, packUsers, isLoading: false}))
             .catch((err) =>
