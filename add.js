@@ -14,6 +14,7 @@ self.addEventListener("push", event =>
         image: data.image,
         tag: data.tag,
         vibrate: [100, 50, 100],
+        badge: data.badge,
         requireInteraction: data.requireInteraction,
         renotify: data.renotify,
         data: {url: data.url},
