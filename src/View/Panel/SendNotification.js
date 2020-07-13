@@ -91,30 +91,36 @@ class SendNotification extends PureComponent
 
         if (title && body && tag && (sendToAll || (users && Object.values(users).length > 0)))
         {
-            let form = new FormData()
-            form.append("title", title)
-            form.append("body", body)
-            form.append("tag", tag)
-            url && form.append("url", url)
-            requireInteraction !== true && form.append("requireInteraction", requireInteraction)
-            renotify !== true && form.append("renotify", renotify)
-            sendToAll !== true && form.append("users_id", JSON.stringify(Object.values(users).reduce((sum, item) => [...sum, item._id], [])))
-            compressImage(image)
-                .then(image =>
+            let result = sendToAll ? window.confirm("ارسال به همه؟؟") : true
+            if (result)
+            {
+                this.setState({...this.state, loading: true}, () =>
                 {
-                    image && form.append("image", image)
-                    api.post("send-notification", form)
-                        .then(() =>
+                    let form = new FormData()
+                    form.append("title", title)
+                    form.append("body", body)
+                    form.append("tag", tag)
+                    url && form.append("url", url)
+                    requireInteraction !== true && form.append("requireInteraction", requireInteraction)
+                    renotify !== true && form.append("renotify", renotify)
+                    sendToAll !== true && form.append("users_id", JSON.stringify(Object.values(users).reduce((sum, item) => [...sum, item._id], [])))
+                    compressImage(image)
+                        .then(image =>
                         {
-                            NotificationManager.success("ها")
-                            this.setState({...this.state, loading: false})
-                        })
-                        .catch(err =>
-                        {
-                            console.log(err)
-                            NotificationManager.error("خطایی رخ داد!")
+                            image && form.append("image", image)
+                            api.post("send-notification", form)
+                                .then(() => this.setState({...this.state, loading: false}, () => NotificationManager.success("ها")))
+                                .catch(err =>
+                                {
+                                    this.setState({...this.state, loading: false}, () =>
+                                    {
+                                        console.log(err)
+                                        NotificationManager.error("خطایی رخ داد!")
+                                    })
+                                })
                         })
                 })
+            }
         }
         else
         {
@@ -203,7 +209,7 @@ class SendNotification extends PureComponent
                         </div>
                     </div>
                 }
-                <Material className={`panel-add-pav-submit margin-bottom ${loading ? "loading" : ""}`} onClick={this.submit}>ثبت</Material>
+                <Material className={`panel-add-pav-submit margin-bottom ${loading ? "loading" : ""}`} onClick={loading ? null : this.submit}>ثبت</Material>
             </section>
         )
     }
