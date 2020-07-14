@@ -41,14 +41,17 @@ class ClassPage extends PureComponent
     componentDidMount()
     {
         window.scroll({top: 0})
+
         api.get("lesson")
-            .then((data) => this.setState({...this.state, loading: false, lessons: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {})}))
+            .then(data => this.setState({...this.state, loading: false, lessons: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {})}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
+
         api.get("block")
-            .then((data) => this.setState({...this.state, loading: false, blocks: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {})}))
+            .then(data => this.setState({...this.state, loading: false, blocks: data.reduce((sum, item) => ({...sum, [item._id]: {...item}}), {})}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
+
         api.get("education-resource/count")
-            .then((itemsCount) => this.setState({...this.state, loading: false, itemsCount: itemsCount.count}))
+            .then(itemsCount => this.setState({...this.state, loading: false, itemsCount: itemsCount.count}))
             .catch(() => this.setState({...this.state, error: true, loading: false}))
 
         // statistics
