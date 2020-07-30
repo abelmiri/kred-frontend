@@ -2,7 +2,6 @@ import React, {PureComponent} from "react"
 import {Bar, CartesianGrid, ComposedChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts"
 import api from "../../Functions/api"
 import {ClipLoader} from "react-spinners"
-import {NotificationManager} from "react-notifications"
 
 class Diagrams extends PureComponent
 {
@@ -18,7 +17,6 @@ class Diagrams extends PureComponent
     {
         window.scroll({top: 0})
 
-        NotificationManager.warning("ادمین جان، محاسبه این نمودار برای سرور زمان بره! صبور باش!")
         api.get("view/view-diagram")
             .then(data => this.setState({...this.state, data}))
     }

@@ -18,15 +18,24 @@ class GoQuiz extends PureComponent
         }
     }
 
+    componentWillUnmount()
+    {
+        this.timer && clearTimeout(this.timer)
+    }
+
     start = () =>
     {
         this.setState({...this.state, started: true}, () =>
         {
+            const start = new Date()
             const {quiz} = this.props
-            this.timer = setTimeout(() =>
+            this.timer = setInterval(() =>
             {
-                this.setState({...this.state, ended: true, endedTime: true})
-            }, quiz.minutes * 60 * 1000)
+                const remainSeconds = Math.floor((quiz.minutes * 60) + ((start - new Date()) / 1000))
+                const remain = `${Math.floor(remainSeconds / 60) > 9 ? Math.floor(remainSeconds / 60) : "0" + Math.floor(remainSeconds / 60)}:${remainSeconds % 60 > 9 ? remainSeconds % 60 : "0" + remainSeconds % 60}`
+                if (remainSeconds <= 0) this.setState({...this.state, ended: true, endedTime: true})
+                else this.setState({...this.state, remain})
+            }, 900)
         })
     }
 
@@ -57,7 +66,7 @@ class GoQuiz extends PureComponent
     render()
     {
         const {quiz} = this.props
-        const {questionIndex, started, answer, ended, trues, falses, endedTime} = this.state
+        const {questionIndex, started, answer, ended, trues, falses, endedTime, remain} = this.state
         return (
             <div>
                 {
@@ -78,11 +87,13 @@ class GoQuiz extends PureComponent
                                 <div className="quiz-title">آزمون {quiz.title}</div>
                                 <div className="quiz-title-field">تعداد سوالات: {quiz.questions.length}</div>
                                 <div className="quiz-title-field">تایم: {quiz.minutes} دقیقه</div>
-                                <Material className="quiz-go" onClick={this.start}>شرکت در آزمون</Material>
+                                <div className="quiz-go-cont">
+                                    <Material className="quiz-go" onClick={this.start}>شرکت در آزمون</Material>
+                                </div>
                             </div>
                             :
                             <div>
-                                <div className="quiz-text">{quiz.questions[questionIndex].title}</div>
+                                <div className="quiz-text">{questionIndex + 1}. {quiz.questions[questionIndex].title}</div>
                                 {quiz.questions[questionIndex].picture && <ImageShow className="quiz-img" src={REST_URL + quiz.questions[questionIndex].picture}/>}
                                 <Material backgroundColor="var(--transparent-second)" className="seyed-radio-cont" onClick={() => this.setAnswer("1")}>
                                     <div className={`seyed-radio ${answer === "1" ? "selected" : ""} `}/>
@@ -100,12 +111,16 @@ class GoQuiz extends PureComponent
                                     <div className={`seyed-radio ${answer === "4" ? "selected" : ""} `}/>
                                     <div className="seyed-radio-label">{quiz.questions[questionIndex].forth_answer}</div>
                                 </Material>
-                                {
-                                    questionIndex < quiz.questions.length - 1 ?
-                                        <Material className="quiz-go" onClick={this.next}>سوال بعدی</Material>
-                                        :
-                                        <Material className="quiz-go" onClick={this.next}>پایان</Material>
-                                }
+                                <div className="quiz-go-cont">
+                                    {
+                                        questionIndex < quiz.questions.length - 1 ?
+                                            <Material className="quiz-go" onClick={this.next}>سوال بعدی</Material>
+                                            :
+                                            <Material className="quiz-go" onClick={this.next}>پایان</Material>
+
+                                    }
+                                    {remain && <div className="quiz-timer">{remain}</div>}
+                                </div>
                             </div>
                 }
             </div>

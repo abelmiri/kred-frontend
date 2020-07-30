@@ -161,12 +161,7 @@ class PavilionItemPage extends PureComponent
                 .then(() => console.log("Successful share"))
                 .catch(error => console.log("Error sharing:", error))
         }
-        else this.copy()
-    }
-
-    copy()
-    {
-        copyToClipboard(window.location.href, () => NotificationManager.success("لینک با موفقیت کپی شد"))
+        else copyToClipboard(window.location.href, () => NotificationManager.success("لینک با موفقیت کپی شد"))
     }
 
     sendComment = () =>

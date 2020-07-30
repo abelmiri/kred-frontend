@@ -344,23 +344,18 @@ class ShowPackPage extends PureComponent
     shareLink = () =>
     {
         const {selected, videoPack} = this.state
+        const url = `https://www.kred.ir/videos/${videoPack._id}/${selected._id}`
         if (navigator.share)
         {
             navigator.share({
                 title: document.title,
                 text: "این لینک رو در KRED ببین! \n",
-                url: `https://www.kred.ir/videos/${videoPack._id}/${selected._id}`,
+                url,
             })
                 .then(() => console.log("Successful share"))
                 .catch(error => console.log("Error sharing:", error))
         }
-        else this.copy()
-    }
-
-    copy()
-    {
-        const {selected, videoPack} = this.state
-        copyToClipboard(`https://www.kred.ir/videos/${videoPack._id}/${selected._id}`, () => NotificationManager.success("لینک با موفقیت کپی شد"))
+        else copyToClipboard(url, () => NotificationManager.success("لینک با موفقیت کپی شد"))
     }
 
     render()
