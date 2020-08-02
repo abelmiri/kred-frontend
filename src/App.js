@@ -49,13 +49,7 @@ class App extends PureComponent
             {
                 api.post("user/verify-token")
                     .then(data => this.setUser(data))
-                    .catch((e) =>
-                    {
-                        if (e?.response?.status === 403)
-                        {
-                            this.logout()
-                        }
-                    })
+                    .catch((e) => e?.response?.status === 403 && this.logout())
             })
         }
 
