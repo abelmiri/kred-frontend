@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react"
 import Material from "./Material"
 import ImageShow from "./ImageShow"
-import {REST_URL} from "../../Functions/api"
+import api, {REST_URL} from "../../Functions/api"
 
 class GoQuiz extends PureComponent
 {
@@ -16,6 +16,13 @@ class GoQuiz extends PureComponent
             trues: 0,
             falses: 0,
         }
+    }
+
+    componentDidMount()
+    {
+        // statistics
+        const {quiz} = this.props
+        process.env.NODE_ENV === "production" && api.post("view", {type: "page", content: `کوئیز | ${quiz.title}`, content_id: quiz._id}).catch(err => console.log(err))
     }
 
     componentWillUnmount()
