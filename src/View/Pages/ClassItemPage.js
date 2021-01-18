@@ -64,7 +64,7 @@ class ClassItemPage extends PureComponent
             <div className="class-single-item-container">
                 <div className="class-single-item-main-svg-container">
                     <div className="class-single-item-main-svg-circle">
-                        <Link to={`${parent?._id}/resources`}><img loading="lazy" alt={parent?.title} src={parent?.svg && REST_URL + parent?.svg} className="class-single-item-main-svg"/></Link>
+                        <Link to={`${parent?._id}/resources`}><img loading="lazy" alt={parent?.title ?? ""} src={parent?.svg && REST_URL + parent?.svg} className="class-single-item-main-svg"/></Link>
                     </div>
                 </div>
                 <div className="class-single-item-title">

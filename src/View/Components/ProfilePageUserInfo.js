@@ -30,9 +30,10 @@ class ProfilePageUserInfo extends Component
 
     componentDidMount()
     {
-        window.scroll({top: 0})
+        const {user, showPrompt} = this.props
 
-        const {user} = this.props
+        !showPrompt && window.scroll({top: 0})
+
         this.setState({
                 ...this.state,
                 name: user.name && user.name,
