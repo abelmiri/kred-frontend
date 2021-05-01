@@ -18,6 +18,7 @@ const Class = lazy(() => import("./Class"))
 const Quiz = lazy(() => import("./Quiz"))
 const MindMaps = lazy(() => import("./MindMaps"))
 const Diagrams = lazy(() => import("./Diagrams"))
+const UserDiagram = lazy(() => import("./UserDiagram"))
 const SendNotification = lazy(() => import("./SendNotification"))
 
 class Panel extends PureComponent
@@ -53,6 +54,7 @@ class Panel extends PureComponent
                             <Route path="/panel/quiz" render={() => <Quiz/>}/>
                             <Route path="/panel/mind-maps" render={() => <MindMaps/>}/>
                             <Route path="/panel/diagrams" render={() => <Diagrams/>}/>
+                            <Route path="/panel/user-diagram" render={() => <UserDiagram/>}/>
                             <Route path="/panel/send-notification" render={() => <SendNotification/>}/>
                             <Route path="*" render={() => <div className="panel-welcome">خوش اومدی ادمین :)</div>}/>
                         </Switch>
