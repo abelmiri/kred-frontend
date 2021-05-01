@@ -26,7 +26,7 @@ class UserDiagram extends PureComponent
         const {data} = this.state
         return (
             <section className="panel-page-section">
-                <div className="panel-page-section-title">نمودار یوزر در 30 روز اخیر</div>
+                <div className="panel-page-section-title">نمودار ثبت نام کاربران</div>
                 <div className="direction-ltr panel-diagram">
                     {
                         data ?
